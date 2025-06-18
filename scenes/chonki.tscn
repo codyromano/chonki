@@ -541,6 +541,7 @@ shape = SubResource("RectangleShape2D_jwat3")
 [node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
 position = Vector2(-9, 69)
 scale = Vector2(486.93, -118.765)
+offset = Vector2(0, -250)
 zoom = Vector2(0.25, 0.25)
 
 [node name="AudioRun" type="AudioStreamPlayer2D" parent="."]

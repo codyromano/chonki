@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://bpqdlmvtkr1i5" path="res://assets/environment/lake.png" id="1_vplxb"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_piwsr"]
-distance = -239.0
+distance = -500.0
 
 [node name="Level1" type="Node2D"]
 
@@ -21,7 +21,11 @@ polygon = PackedVector2Array(-966.253, -382.053, 73308.7, -382.053, 73294.4, 627
 position = Vector2(435, -1025)
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
+visible = false
+scale = Vector2(10, 10)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
-position = Vector2(317, -239)
+z_index = 100
+position = Vector2(317, -460)
 shape = SubResource("WorldBoundaryShape2D_piwsr")
+debug_color = Color(0.307035, 0.494072, 1, 0.42)
