@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://br8ftak73gmww"]
+
+[ext_resource type="PackedScene" uid="uid://cyu6wosf2qc3v" path="res://scenes/chonki.tscn" id="1_sihbw"]
+[ext_resource type="Texture2D" uid="uid://bpqdlmvtkr1i5" path="res://assets/environment/lake.png" id="1_vplxb"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_piwsr"]
+distance = -239.0
+
+[node name="Level1" type="Node2D"]
+
+[node name="Sprite2D" type="Polygon2D" parent="."]
+texture_repeat = 2
+use_parent_material = true
+position = Vector2(402, 616)
+scale = Vector2(1.46235, 1.60449)
+texture = ExtResource("1_vplxb")
+texture_offset = Vector2(0, 400)
+polygon = PackedVector2Array(-966.253, -382.053, 73308.7, -382.053, 73294.4, 627.614, -964.201, 621.381)
+
+[node name="Chonki" parent="." instance=ExtResource("1_sihbw")]
+position = Vector2(435, -1025)
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(317, -239)
+shape = SubResource("WorldBoundaryShape2D_piwsr")

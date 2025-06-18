@@ -1,4 +1,4 @@
-[gd_scene load_steps=127 format=3 uid="uid://cyu6wosf2qc3v"]
+[gd_scene load_steps=128 format=3 uid="uid://cyu6wosf2qc3v"]
 
 [ext_resource type="Texture2D" uid="uid://batkaluf3jygl" path="res://assets/corgi/01_idle/skeleton-0b_idle_00.png" id="1_0os5j"]
 [ext_resource type="Script" path="res://scenes/chonki.gd" id="1_j6uc5"]
@@ -122,8 +122,9 @@
 [ext_resource type="Texture2D" uid="uid://btd5sk1aar6rx" path="res://assets/corgi/09_sleep/skeleton-0i_sleep_30.png" id="120_6rvpk"]
 [ext_resource type="AudioStream" uid="uid://bjtjafg1tdccb" path="res://assets/sound/run.mp3" id="121_e3bvt"]
 [ext_resource type="AudioStream" uid="uid://c5rsx4s5iv7nr" path="res://assets/sound/rest.mp3" id="122_uim7a"]
-[ext_resource type="AudioStream" uid="uid://bbvrgwlgdptpe" path="res://assets/sound/ram.mp3" id="123_tjed3"]
+[ext_resource type="AudioStream" uid="uid://c7n7lc1gh48o4" path="res://assets/sound/punch.mp3" id="123_1p812"]
 [ext_resource type="AudioStream" uid="uid://culiqfeaauxt7" path="res://assets/sound/push.mp3" id="124_bhcov"]
+[ext_resource type="AudioStream" uid="uid://bxokgwf35y540" path="res://assets/sound/jump.mp3" id="125_r2wll"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_fg46y"]
 animations = [{
@@ -537,10 +538,10 @@ animation = &"ram"
 position = Vector2(-32.5, 54.5)
 shape = SubResource("RectangleShape2D_jwat3")
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(-14, 71)
+[node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
+position = Vector2(-9, 69)
 scale = Vector2(486.93, -118.765)
-zoom = Vector2(0.4, 0.4)
+zoom = Vector2(0.25, 0.25)
 
 [node name="AudioRun" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("121_e3bvt")
@@ -550,9 +551,12 @@ autoplay = true
 stream = ExtResource("122_uim7a")
 
 [node name="AudioRam" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("123_tjed3")
+stream = ExtResource("123_1p812")
 
 [node name="AudioPush" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("124_bhcov")
+
+[node name="AudioJump" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("125_r2wll")
 
 [connection signal="animation_finished" from="CharacterBody2D/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
