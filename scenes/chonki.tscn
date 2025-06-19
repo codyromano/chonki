@@ -529,10 +529,27 @@ script = ExtResource("1_j6uc5")
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
 
+[node name="AudioRun" type="AudioStreamPlayer2D" parent="CharacterBody2D"]
+stream = ExtResource("121_e3bvt")
+
+[node name="RestRun" type="AudioStreamPlayer2D" parent="CharacterBody2D"]
+stream = ExtResource("122_uim7a")
+
+[node name="AudioRam" type="AudioStreamPlayer2D" parent="CharacterBody2D"]
+stream = ExtResource("123_1p812")
+volume_db = -10.0
+
+[node name="AudioPush" type="AudioStreamPlayer2D" parent="CharacterBody2D"]
+stream = ExtResource("124_bhcov")
+volume_db = -10.0
+
+[node name="AudioJump" type="AudioStreamPlayer2D" parent="CharacterBody2D"]
+stream = ExtResource("125_r2wll")
+
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D"]
 position = Vector2(2, 0)
 sprite_frames = SubResource("SpriteFrames_fg46y")
-animation = &"ram"
+animation = &"jump"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
 position = Vector2(-32.5, 54.5)
@@ -543,21 +560,5 @@ position = Vector2(-9, 69)
 scale = Vector2(486.93, -118.765)
 offset = Vector2(0, -250)
 zoom = Vector2(0.25, 0.25)
-
-[node name="AudioRun" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("121_e3bvt")
-autoplay = true
-
-[node name="RestRun" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("122_uim7a")
-
-[node name="AudioRam" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("123_1p812")
-
-[node name="AudioPush" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("124_bhcov")
-
-[node name="AudioJump" type="AudioStreamPlayer2D" parent="."]
-stream = ExtResource("125_r2wll")
 
 [connection signal="animation_finished" from="CharacterBody2D/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
