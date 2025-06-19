@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://br8ftak73gmww"]
+[gd_scene load_steps=24 format=3 uid="uid://br8ftak73gmww"]
 
 [ext_resource type="PackedScene" uid="uid://cyu6wosf2qc3v" path="res://scenes/chonki.tscn" id="1_sihbw"]
 [ext_resource type="Texture2D" uid="uid://bpqdlmvtkr1i5" path="res://assets/environment/lake.png" id="1_vplxb"]
@@ -12,6 +12,10 @@
 [ext_resource type="Texture2D" uid="uid://ch2myy0vhad08" path="res://assets/collectibles/star/frame-6.png" id="9_5hp2d"]
 [ext_resource type="AudioStream" uid="uid://bxjq2ebdh4xh4" path="res://assets/sound/level-up-2.mp3" id="11_d2dpc"]
 [ext_resource type="AudioStream" uid="uid://3u0hk83prun5" path="res://assets/sound/chill-bark.mp3" id="12_dpyk1"]
+[ext_resource type="Texture2D" uid="uid://4bko6gewu3m1" path="res://assets/enemies/goose/goose1.png" id="13_7b16e"]
+[ext_resource type="Script" path="res://scenes/Goose.gd" id="13_rdfy5"]
+[ext_resource type="Texture2D" uid="uid://d4ibiy0oh2hpb" path="res://assets/enemies/goose/goose2.png" id="14_648ic"]
+[ext_resource type="Script" path="res://scenes/GooseNavigation.gd" id="16_vuaih"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_piwsr"]
 distance = -500.0
@@ -76,6 +80,29 @@ animations = [{
 [sub_resource type="CircleShape2D" id="CircleShape2D_qb6ri"]
 radius = 149.459
 
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_1ju1f"]
+vertices = PackedVector2Array(13564, -3271, 13997, 428, 4083, 422, 4487, -3278)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(4072, 432, 4478, -3289, 13573, -3281, 14009, 439)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8w215"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("13_7b16e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_648ic")
+}],
+"loop": true,
+"name": &"default",
+"speed": 2.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n4ddn"]
+size = Vector2(649, 547)
+
 [node name="Level1" type="Node2D"]
 position = Vector2(-5159, -12)
 
@@ -133,6 +160,27 @@ shape = SubResource("CircleShape2D_qb6ri")
 position = Vector2(6919, -461)
 stream = ExtResource("12_dpyk1")
 volume_db = 4.657
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+navigation_polygon = SubResource("NavigationPolygon_1ju1f")
+
+[node name="Goose" type="CharacterBody2D" parent="NavigationRegion2D"]
+position = Vector2(8628, -488)
+script = ExtResource("13_rdfy5")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="NavigationRegion2D/Goose"]
+position = Vector2(122.5, 174.5)
+scale = Vector2(0.749023, 0.749023)
+sprite_frames = SubResource("SpriteFrames_8w215")
+frame_progress = 0.407588
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NavigationRegion2D/Goose"]
+position = Vector2(134.5, 202.5)
+shape = SubResource("RectangleShape2D_n4ddn")
+
+[node name="GooseNavigation" type="NavigationAgent2D" parent="NavigationRegion2D/Goose" node_paths=PackedStringArray("target")]
+script = ExtResource("16_vuaih")
+target = NodePath("../../../Chonki")
 
 [connection signal="area_entered" from="Collectible/StaticBody2D2" to="Collectible" method="_on_static_body_2d_2_area_entered"]
 [connection signal="body_entered" from="Collectible/StaticBody2D2" to="Collectible" method="_on_static_body_2d_2_body_entered"]
