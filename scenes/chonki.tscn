@@ -1,7 +1,8 @@
-[gd_scene load_steps=128 format=3 uid="uid://cyu6wosf2qc3v"]
+[gd_scene load_steps=129 format=3 uid="uid://cyu6wosf2qc3v"]
 
 [ext_resource type="Texture2D" uid="uid://batkaluf3jygl" path="res://assets/corgi/01_idle/skeleton-0b_idle_00.png" id="1_0os5j"]
 [ext_resource type="Script" path="res://scenes/chonki.gd" id="1_j6uc5"]
+[ext_resource type="Script" path="res://scenes/ChonkiBody.gd" id="2_si7u3"]
 [ext_resource type="Texture2D" uid="uid://dyi1618ew4mac" path="res://assets/corgi/01_idle/skeleton-0b_idle_01.png" id="2_v0sv5"]
 [ext_resource type="Texture2D" uid="uid://cn4gyafnt00v5" path="res://assets/corgi/01_idle/skeleton-0b_idle_02.png" id="3_mwp3x"]
 [ext_resource type="Texture2D" uid="uid://12daaqh7ebhs" path="res://assets/corgi/01_idle/skeleton-0b_idle_03.png" id="4_xa5kk"]
@@ -528,6 +529,7 @@ size = Vector2(835, 823)
 script = ExtResource("1_j6uc5")
 
 [node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+script = ExtResource("2_si7u3")
 
 [node name="AudioRun" type="AudioStreamPlayer2D" parent="CharacterBody2D"]
 stream = ExtResource("121_e3bvt")

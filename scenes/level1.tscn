@@ -1,13 +1,83 @@
-[gd_scene load_steps=5 format=3 uid="uid://br8ftak73gmww"]
+[gd_scene load_steps=17 format=3 uid="uid://br8ftak73gmww"]
 
 [ext_resource type="PackedScene" uid="uid://cyu6wosf2qc3v" path="res://scenes/chonki.tscn" id="1_sihbw"]
 [ext_resource type="Texture2D" uid="uid://bpqdlmvtkr1i5" path="res://assets/environment/lake.png" id="1_vplxb"]
 [ext_resource type="Texture2D" uid="uid://bytsxlqncfgi8" path="res://assets/environment/sky.png" id="2_gc4xo"]
+[ext_resource type="Texture2D" uid="uid://c86w4kwchb685" path="res://assets/collectibles/star/frame-1.png" id="4_300dp"]
+[ext_resource type="Script" path="res://scenes/Collectible.gd" id="4_oqxai"]
+[ext_resource type="Texture2D" uid="uid://cp3tdojnk7fas" path="res://assets/collectibles/star/frame-2.png" id="5_ikiib"]
+[ext_resource type="Texture2D" uid="uid://bql7d13w36wxg" path="res://assets/collectibles/star/frame-3.png" id="6_1iaxh"]
+[ext_resource type="Texture2D" uid="uid://bbkomg4pp4bj7" path="res://assets/collectibles/star/frame-4.png" id="7_7118a"]
+[ext_resource type="Texture2D" uid="uid://bneev3ncdya7k" path="res://assets/collectibles/star/frame-5.png" id="8_i0qak"]
+[ext_resource type="Texture2D" uid="uid://ch2myy0vhad08" path="res://assets/collectibles/star/frame-6.png" id="9_5hp2d"]
+[ext_resource type="AudioStream" uid="uid://bxjq2ebdh4xh4" path="res://assets/sound/level-up-2.mp3" id="11_d2dpc"]
+[ext_resource type="AudioStream" uid="uid://3u0hk83prun5" path="res://assets/sound/chill-bark.mp3" id="12_dpyk1"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_piwsr"]
 distance = -500.0
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_6xpr6"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_300dp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_ikiib")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_1iaxh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_7118a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_i0qak")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_5hp2d")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_dn1gr"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("4_300dp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_ikiib")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_1iaxh")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_7118a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_i0qak")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_5hp2d")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_qb6ri"]
+radius = 149.459
+
 [node name="Level1" type="Node2D"]
+position = Vector2(-5159, -12)
 
 [node name="Ground" type="Polygon2D" parent="."]
 z_index = 3
@@ -40,3 +110,29 @@ z_index = 100
 position = Vector2(317, -500)
 shape = SubResource("WorldBoundaryShape2D_piwsr")
 debug_color = Color(0.307035, 0.494072, 1, 0.42)
+
+[node name="Collectible" type="Node2D" parent="."]
+script = ExtResource("4_oqxai")
+frames = SubResource("SpriteFrames_6xpr6")
+collectible_name = "star"
+audio = ExtResource("11_d2dpc")
+
+[node name="StaticBody2D2" type="Area2D" parent="Collectible"]
+
+[node name="AnimatedSprite" type="AnimatedSprite2D" parent="Collectible/StaticBody2D2"]
+position = Vector2(6920, -476)
+sprite_frames = SubResource("SpriteFrames_dn1gr")
+frame_progress = 0.227193
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Collectible/StaticBody2D2"]
+position = Vector2(6915, -461)
+shape = SubResource("CircleShape2D_qb6ri")
+
+[node name="ChillBark" type="AudioStreamPlayer2D" parent="Collectible"]
+position = Vector2(6919, -461)
+stream = ExtResource("12_dpyk1")
+volume_db = 4.657
+
+[connection signal="area_entered" from="Collectible/StaticBody2D2" to="Collectible" method="_on_static_body_2d_2_area_entered"]
+[connection signal="body_entered" from="Collectible/StaticBody2D2" to="Collectible" method="_on_static_body_2d_2_body_entered"]
+[connection signal="child_entered_tree" from="Collectible/StaticBody2D2/CollisionShape2D" to="Chonki" method="_on_collision_shape_2d_child_entered_tree"]

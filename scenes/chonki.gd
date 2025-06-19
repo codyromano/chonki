@@ -12,7 +12,6 @@ enum ChonkiState { IDLE, RUN, ATTACK }
 
 var state : ChonkiState = ChonkiState.IDLE
 
-# Make the dog sleep initially
 var last_action_time : int = Time.get_unix_time_from_system() - 60
 
 var velocity: Vector2 = Vector2.ZERO
@@ -27,19 +26,24 @@ func _physics_process(delta: float) -> void:
 	handle_movement(delta)
 	update_sprite()
 	play_sound_effects()
+	body.move_and_slide()
 
 func handle_movement(delta: float) -> void:
+	var direction = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
+
+	if Input.is_action_just_pressed("push") or Input.is_action_just_pressed("ram"):
+		velocity.y = -1000  # optional: slight hop
+	else:
+		velocity.x = direction * SPEED
+
+	# Apply gravity
 	velocity.y += GRAVITY * delta
 
+	# Jump
 	if Input.is_action_just_pressed("ui_up") and body.is_on_floor():
-		# jump_sound.play()
 		velocity.y = JUMP_FORCE
 
-	var direction = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
-	velocity.x = direction * SPEED
-
 	body.velocity = velocity
-	body.move_and_slide()
 
 func play_once(player: AudioStreamPlayer2D) -> void:
 	if not player.playing:
@@ -48,7 +52,6 @@ func play_once(player: AudioStreamPlayer2D) -> void:
 func play_sound_effects() -> void:
 	var anim = sprite.animation
 
-	
 	if Input.is_action_just_pressed("ui_up"):
 		play_once(jump_sound)
 
@@ -60,37 +63,25 @@ func play_sound_effects() -> void:
 		"push":
 			rest_sound.stop()
 			play_once(push_sound)
-			# ram_sound.stop()
-			# run_sound.stop()
-			# rest_sound.stop()
 
 		"run":
 			rest_sound.stop()
-			# run_sound.play()
-			pass
-			# ram_sound.stop()
-			# push_sound.stop()
-			# rest_sound.stop()
 
 		"sleep":
 			play_once(rest_sound)
-			
+
 		"jump":
 			rest_sound.stop()
-			if $CharacterBody2D.is_on_floor_only():
+			if body.is_on_floor_only():
 				run_sound.stop()
 				play_once(jump_sound)
 
 		"idle":
 			rest_sound.stop()
 			run_sound.stop()
-			# ram_sound.stop()
-			# push_sound.stop()
-			# rest_sound.stop()
-			# run_sound.stop()
 
 func play_on_ground(player: AudioStreamPlayer2D) -> void:
-	if $CharacterBody2D.is_on_floor():
+	if body.is_on_floor():
 		player.play()
 
 func update_sprite() -> void:
@@ -108,7 +99,7 @@ func update_sprite() -> void:
 		is_taking_action = true
 	elif velocity.x != 0:
 		sprite.play("run")
-		if !run_sound.playing:
+		if not run_sound.playing:
 			run_sound.play()
 		is_taking_action = true
 
@@ -117,10 +108,8 @@ func update_sprite() -> void:
 		run_sound.stop()
 
 	if Input.is_action_just_pressed("ui_left"):
-		#play_on_ground(run_sound)
 		sprite.flip_h = true
 	elif Input.is_action_just_pressed("ui_right"):
-		# play_on_ground(run_sound)
 		sprite.flip_h = false
 
 	var secs_since_action = Time.get_unix_time_from_system() - last_action_time
