@@ -1,0 +1,62 @@
+[gd_scene load_steps=9 format=3 uid="uid://bl8ew5avwxowt"]
+
+[ext_resource type="Script" path="res://scenes/Goose.gd" id="1_sqeid"]
+[ext_resource type="Texture2D" uid="uid://b281ntpbdihii" path="res://assets/enemies/goose/goose3.png" id="2_wdkm0"]
+[ext_resource type="Texture2D" uid="uid://4bko6gewu3m1" path="res://assets/enemies/goose/goose1.png" id="3_ew7ho"]
+[ext_resource type="Texture2D" uid="uid://d4ibiy0oh2hpb" path="res://assets/enemies/goose/goose2.png" id="4_4es7p"]
+[ext_resource type="Script" path="res://scenes/GooseNavigation.gd" id="5_uchq3"]
+[ext_resource type="AudioStream" uid="uid://dtbn6tc13x30h" path="res://assets/sound/bird-flap.mp3" id="6_6emlc"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8w215"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_wdkm0")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_ew7ho")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_4es7p")
+}],
+"loop": true,
+"name": &"default",
+"speed": 2.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n4ddn"]
+size = Vector2(430, 388)
+
+[node name="Goose" type="CharacterBody2D"]
+position = Vector2(8628, -488)
+collision_layer = 2
+script = ExtResource("1_sqeid")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(31.0001, 266)
+scale = Vector2(0.570312, 0.570312)
+sprite_frames = SubResource("SpriteFrames_8w215")
+animation = &"attack"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(25, 282)
+shape = SubResource("RectangleShape2D_n4ddn")
+
+[node name="GooseNavigation" type="NavigationAgent2D" parent="." node_paths=PackedStringArray("target")]
+script = ExtResource("5_uchq3")
+target = NodePath("")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[node name="FlapAudio" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("6_6emlc")
+volume_db = 10.0
+
+[connection signal="timeout" from="Timer" to="." method="_on_hop_timer_timeout"]
