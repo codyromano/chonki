@@ -112,6 +112,7 @@ shape = SubResource("WorldBoundaryShape2D_piwsr")
 debug_color = Color(0.307035, 0.494072, 1, 0.42)
 
 [node name="Collectible" type="Node2D" parent="."]
+position = Vector2(1223, -1314)
 script = ExtResource("4_oqxai")
 frames = SubResource("SpriteFrames_6xpr6")
 collectible_name = "star"
