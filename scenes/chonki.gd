@@ -24,6 +24,8 @@ func _ready() -> void:
 	
 func on_player_hit() -> void:
 	sprite.play("ouch")
+	$ChonkiCharacter/AudioOuch.play()
+	
 	# Store the original collision mask (layers 1 and 2)
 	var original_mask = body.collision_mask
 	

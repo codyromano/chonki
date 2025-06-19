@@ -1,4 +1,4 @@
-[gd_scene load_steps=139 format=3 uid="uid://cyu6wosf2qc3v"]
+[gd_scene load_steps=140 format=3 uid="uid://cyu6wosf2qc3v"]
 
 [ext_resource type="Texture2D" uid="uid://batkaluf3jygl" path="res://assets/corgi/01_idle/skeleton-0b_idle_00.png" id="1_0os5j"]
 [ext_resource type="Script" path="res://scenes/chonki.gd" id="1_j6uc5"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dyi1618ew4mac" path="res://assets/corgi/01_idle/skeleton-0b_idle_01.png" id="2_v0sv5"]
 [ext_resource type="Texture2D" uid="uid://cn4gyafnt00v5" path="res://assets/corgi/01_idle/skeleton-0b_idle_02.png" id="3_mwp3x"]
 [ext_resource type="Texture2D" uid="uid://12daaqh7ebhs" path="res://assets/corgi/01_idle/skeleton-0b_idle_03.png" id="4_xa5kk"]
+[ext_resource type="AudioStream" uid="uid://c3pbjptmy75xk" path="res://assets/sound/ouch.mp3" id="4_ynu7l"]
 [ext_resource type="Texture2D" uid="uid://dp6equ7nwhj32" path="res://assets/corgi/01_idle/skeleton-0b_idle_04.png" id="5_dcqf1"]
 [ext_resource type="Texture2D" uid="uid://bha544hwyogcd" path="res://assets/corgi/01_idle/skeleton-0b_idle_05.png" id="6_lrihx"]
 [ext_resource type="Texture2D" uid="uid://by63kr7v16vx1" path="res://assets/corgi/01_idle/skeleton-0b_idle_06.png" id="7_0i4sn"]
@@ -576,6 +577,10 @@ script = ExtResource("2_si7u3")
 
 [node name="AudioRun" type="AudioStreamPlayer2D" parent="ChonkiCharacter"]
 stream = ExtResource("121_e3bvt")
+
+[node name="AudioOuch" type="AudioStreamPlayer2D" parent="ChonkiCharacter"]
+stream = ExtResource("4_ynu7l")
+volume_db = 5.0
 
 [node name="RestRun" type="AudioStreamPlayer2D" parent="ChonkiCharacter"]
 stream = ExtResource("122_uim7a")
