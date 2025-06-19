@@ -7,6 +7,7 @@ extends Node2D
 @onready var ram_sound    : AudioStreamPlayer2D  = $CharacterBody2D/AudioRam
 @onready var push_sound   : AudioStreamPlayer2D  = $CharacterBody2D/AudioPush
 @onready var jump_sound   : AudioStreamPlayer2D  = $CharacterBody2D/AudioJump
+@onready var chill_bark   : AudioStreamPlayer2D  = $CharacterBody2D/ChillBark
 
 enum ChonkiState { IDLE, RUN, ATTACK }
 
@@ -32,7 +33,8 @@ func handle_movement(delta: float) -> void:
 	var direction = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
 
 	if Input.is_action_just_pressed("push") or Input.is_action_just_pressed("ram"):
-		velocity.y = -1000  # optional: slight hop
+		if body.is_on_floor():
+			velocity.y = -1000  # optional: slight hop
 	else:
 		velocity.x = direction * SPEED
 
@@ -58,11 +60,19 @@ func play_sound_effects() -> void:
 	match anim:
 		"ram":
 			rest_sound.stop()
+			# ram_sound.stop()
+			rest_sound.stop()
+			await get_tree().create_timer(0.5).timeout
 			play_once(ram_sound)
+			play_once(chill_bark)
 
 		"push":
+			ram_sound.stop()
+			# push_sound.stop()
 			rest_sound.stop()
+			await get_tree().create_timer(0.5).timeout
 			play_once(push_sound)
+			play_once(chill_bark)
 
 		"run":
 			rest_sound.stop()
