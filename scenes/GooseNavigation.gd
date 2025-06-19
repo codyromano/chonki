@@ -23,7 +23,7 @@ func setup() -> void:
 
 func _physics_process(delta: float) -> void:
 	# NavigationAgent2D gets its position from its parent (enemy)
-	set_target_position(target.find_child('CharacterBody2D').global_position)
+	set_target_position(target.find_child('ChonkiCharacter').global_position)
 
 	if not is_navigation_finished():
 		var next_path_position = get_next_path_position()

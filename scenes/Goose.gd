@@ -18,7 +18,6 @@ extends CharacterBody2D
 # Impulse applied to main character
 # if Input.is_action_just_pressed("ui_up") and body.is_on_floor():
 #	velocity.y = JUMP_FORCE
-
 # Goose physics constants - corrected values
 const GOOSE_MAX_JUMP_VELOCITY: float = -1500.0  # Target jump velocity
 # const GOOSE_MAX_JUMP_VELOCITY: float = -3000.0  # Target jump velocity
@@ -30,9 +29,11 @@ const TAKEOFF_DURATION: float = 2.0  # Safety check for takeoff phase
 var is_jumping: bool = false
 var jump_phase: String = "none"  # "takeoff", "coasting", "descending", "none"
 var takeoff_timer: float = 0.0  # Track takeoff duration
+var collisions_disabled: bool = false
 
 @onready var sprite := $AnimatedSprite2D
 @onready var hop_timer := $Timer
+@onready var collision_shape := $CollisionShape2D
 
 func _ready():
 	sprite.play()
@@ -51,6 +52,27 @@ func get_sprite() -> String:
 		return "default"
 	return "attack"
 
+func temp_disable_collisions() -> void:
+	# Store the original collision mask (layers 1 and 2)
+	var original_mask = collision_mask
+	
+	# Set collision mask to only layer 2 (bit 0)
+	collision_mask = 2
+	print("goose mask: ", collision_mask)
+	
+	# Wait 3 seconds, then restore original collision mask
+	await get_tree().create_timer(3.0).timeout
+	collision_mask = original_mask
+	print("goose mask: ", collision_mask)
+	
+	print("Collisions disabled for 3 seconds")
+
+func _on_collision_timer_timeout(timer: Timer) -> void:
+	collisions_disabled = false
+	collision_shape.set_deferred("disabled", false)
+	timer.queue_free()  # Clean up the temporary timer
+	print("Collisions re-enabled")
+	
 func _physics_process(delta: float) -> void:
 	# Apply physics first, then check floor status after movement
 	if jump_phase == "takeoff":
@@ -77,8 +99,21 @@ func _physics_process(delta: float) -> void:
 	# Do not modify the sprite logic
 	sprite.play(get_sprite())
 	
-	# Move first, then check if we landed
-	move_and_slide()
+	# Only check for collisions if they're not disabled
+	if not collisions_disabled:
+		var collision = move_and_collide(velocity * delta)
+		if collision:
+			var collider: Node2D = collision.get_collider()
+			if collider.name == "ChonkiCharacter":
+				GlobalSignals.player_hit.emit()
+				temp_disable_collisions()
+				print("collided with player")
+			else:
+				pass
+				# print("collided with non-player:  " + collider.name)
+	else:
+		# Move without collision detection when disabled
+		position += velocity * delta
 	
 	play_audio()
 	
@@ -98,4 +133,3 @@ func _on_hop_timer_timeout():
 		takeoff_timer = 0.0
 		# Give modest initial upward velocity to get off the ground
 		velocity.y = -600.0
-

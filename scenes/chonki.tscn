@@ -1,4 +1,4 @@
-[gd_scene load_steps=130 format=3 uid="uid://cyu6wosf2qc3v"]
+[gd_scene load_steps=139 format=3 uid="uid://cyu6wosf2qc3v"]
 
 [ext_resource type="Texture2D" uid="uid://batkaluf3jygl" path="res://assets/corgi/01_idle/skeleton-0b_idle_00.png" id="1_0os5j"]
 [ext_resource type="Script" path="res://scenes/chonki.gd" id="1_j6uc5"]
@@ -53,29 +53,38 @@
 [ext_resource type="Texture2D" uid="uid://da7ebi0g2db8e" path="res://assets/corgi/07_headpushattack/skeleton-0g_head_push_attack_05.png" id="39_ed1m0"]
 [ext_resource type="Texture2D" uid="uid://cimineqh7xokw" path="res://assets/corgi/06_headhammerattack/skeleton-0g_head_hammer_attack_05.png" id="39_kjgit"]
 [ext_resource type="Texture2D" uid="uid://bvcr43rx76g2t" path="res://assets/corgi/04_running/skeleton-0e_running_06.png" id="39_nrcn5"]
+[ext_resource type="Texture2D" uid="uid://bqi2lkicvkxyb" path="res://assets/corgi/05_gethit/skeleton-0f_gethit_0.png" id="40_2rdmr"]
 [ext_resource type="Texture2D" uid="uid://cbrokascu45jh" path="res://assets/corgi/07_headpushattack/skeleton-0g_head_push_attack_06.png" id="40_dkpsu"]
 [ext_resource type="Texture2D" uid="uid://sq0iqppoyjo2" path="res://assets/corgi/06_headhammerattack/skeleton-0g_head_hammer_attack_06.png" id="40_ecpor"]
 [ext_resource type="Texture2D" uid="uid://bo6n5uotyrwe0" path="res://assets/corgi/04_running/skeleton-0e_running_07.png" id="40_rncwe"]
+[ext_resource type="Texture2D" uid="uid://bqr1f2ut6i2o5" path="res://assets/corgi/05_gethit/skeleton-0f_gethit_1.png" id="41_obdlt"]
 [ext_resource type="Texture2D" uid="uid://ncxkhdxc3icw" path="res://assets/corgi/07_headpushattack/skeleton-0g_head_push_attack_07.png" id="41_pf0mx"]
 [ext_resource type="Texture2D" uid="uid://glt1kmi48fme" path="res://assets/corgi/04_running/skeleton-0e_running_08.png" id="41_wojof"]
 [ext_resource type="Texture2D" uid="uid://j0mtqhf7fqhl" path="res://assets/corgi/06_headhammerattack/skeleton-0g_head_hammer_attack_07.png" id="41_yn7ac"]
 [ext_resource type="Texture2D" uid="uid://dche08aio6tdn" path="res://assets/corgi/07_headpushattack/skeleton-0g_head_push_attack_08.png" id="42_3nuqs"]
 [ext_resource type="Texture2D" uid="uid://df32utjl8ul0o" path="res://assets/corgi/06_headhammerattack/skeleton-0g_head_hammer_attack_08.png" id="42_bvjs3"]
 [ext_resource type="Texture2D" uid="uid://c63paf2j3m6jk" path="res://assets/corgi/04_running/skeleton-0e_running_09.png" id="42_oj0ny"]
+[ext_resource type="Texture2D" uid="uid://ccpt7pcdcuech" path="res://assets/corgi/05_gethit/skeleton-0f_gethit_2.png" id="42_teagf"]
 [ext_resource type="Texture2D" uid="uid://ck233wxhbpo20" path="res://assets/corgi/06_headhammerattack/skeleton-0g_head_hammer_attack_09.png" id="43_7bntm"]
 [ext_resource type="Texture2D" uid="uid://ccqfrbok3l2kx" path="res://assets/corgi/04_running/skeleton-0e_running_10.png" id="43_30exm"]
 [ext_resource type="Texture2D" uid="uid://b1vvtjllv1kkt" path="res://assets/corgi/07_headpushattack/skeleton-0g_head_push_attack_09.png" id="43_j00vs"]
+[ext_resource type="Texture2D" uid="uid://5p7xc7e8ldws" path="res://assets/corgi/05_gethit/skeleton-0f_gethit_3.png" id="43_wfsmw"]
 [ext_resource type="Texture2D" uid="uid://bsbqf1vklyqw7" path="res://assets/corgi/07_headpushattack/skeleton-0g_head_push_attack_10.png" id="44_2fjll"]
 [ext_resource type="Texture2D" uid="uid://cuk316pumw0nq" path="res://assets/corgi/04_running/skeleton-0e_running_11.png" id="44_4ug7h"]
 [ext_resource type="Texture2D" uid="uid://d1qedh0strxnj" path="res://assets/corgi/06_headhammerattack/skeleton-0g_head_hammer_attack_10.png" id="44_6ahv0"]
+[ext_resource type="Texture2D" uid="uid://dtqawbrqralol" path="res://assets/corgi/05_gethit/skeleton-0f_gethit_4.png" id="44_stvvl"]
+[ext_resource type="Texture2D" uid="uid://c1jrct2ddedf7" path="res://assets/corgi/05_gethit/skeleton-0f_gethit_5.png" id="45_a3gsr"]
 [ext_resource type="Texture2D" uid="uid://co2o54a52tv71" path="res://assets/corgi/04_running/skeleton-0e_running_12.png" id="45_hcq58"]
 [ext_resource type="Texture2D" uid="uid://deaheb0v1mtja" path="res://assets/corgi/07_headpushattack/skeleton-0g_head_push_attack_11.png" id="45_rl57l"]
 [ext_resource type="Texture2D" uid="uid://dtfi4uwxgt8mt" path="res://assets/corgi/06_headhammerattack/skeleton-0g_head_hammer_attack_11.png" id="45_vsr0q"]
 [ext_resource type="Texture2D" uid="uid://bghm0k6m8xafo" path="res://assets/corgi/06_headhammerattack/skeleton-0g_head_hammer_attack_12.png" id="46_fd0f2"]
 [ext_resource type="Texture2D" uid="uid://b0sgwe2xvh11q" path="res://assets/corgi/07_headpushattack/skeleton-0g_head_push_attack_12.png" id="46_os0sp"]
+[ext_resource type="Texture2D" uid="uid://w0yby5dvhsig" path="res://assets/corgi/05_gethit/skeleton-0f_gethit_6.png" id="46_ssf56"]
+[ext_resource type="Texture2D" uid="uid://dd5h04pvxqbm0" path="res://assets/corgi/05_gethit/skeleton-0f_gethit_7.png" id="47_c1eru"]
 [ext_resource type="Texture2D" uid="uid://cae8pod4i28od" path="res://assets/corgi/07_headpushattack/skeleton-0g_head_push_attack_13.png" id="47_jfpcr"]
 [ext_resource type="Texture2D" uid="uid://c1g1vu50jec7m" path="res://assets/corgi/06_headhammerattack/skeleton-0g_head_hammer_attack_13.png" id="47_nddbw"]
 [ext_resource type="Texture2D" uid="uid://cgytst3jw6nqm" path="res://assets/corgi/07_headpushattack/skeleton-0g_head_push_attack_14.png" id="48_1mdpc"]
+[ext_resource type="Texture2D" uid="uid://don2d8ch7efai" path="res://assets/corgi/05_gethit/skeleton-0f_gethit_8.png" id="48_dmi5k"]
 [ext_resource type="Texture2D" uid="uid://x8qhnishe5c6" path="res://assets/corgi/06_headhammerattack/skeleton-0g_head_hammer_attack_14.png" id="48_jasf6"]
 [ext_resource type="Texture2D" uid="uid://d2snim1k5oans" path="res://assets/corgi/07_headpushattack/skeleton-0g_head_push_attack_15.png" id="49_0a5f0"]
 [ext_resource type="Texture2D" uid="uid://bcfqjuprwvbsu" path="res://assets/corgi/06_headhammerattack/skeleton-0g_head_hammer_attack_15.png" id="49_hp1qe"]
@@ -234,6 +243,38 @@ animations = [{
 }],
 "loop": true,
 "name": &"jump",
+"speed": 25.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("40_2rdmr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("41_obdlt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("42_teagf")
+}, {
+"duration": 1.0,
+"texture": ExtResource("43_wfsmw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("44_stvvl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("45_a3gsr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("46_ssf56")
+}, {
+"duration": 1.0,
+"texture": ExtResource("47_c1eru")
+}, {
+"duration": 1.0,
+"texture": ExtResource("48_dmi5k")
+}],
+"loop": true,
+"name": &"ouch",
 "speed": 25.0
 }, {
 "frames": [{
@@ -529,42 +570,45 @@ size = Vector2(835, 823)
 [node name="Chonki" type="Node2D"]
 script = ExtResource("1_j6uc5")
 
-[node name="CharacterBody2D" type="CharacterBody2D" parent="."]
+[node name="ChonkiCharacter" type="CharacterBody2D" parent="."]
+collision_mask = 3
 script = ExtResource("2_si7u3")
 
-[node name="AudioRun" type="AudioStreamPlayer2D" parent="CharacterBody2D"]
+[node name="AudioRun" type="AudioStreamPlayer2D" parent="ChonkiCharacter"]
 stream = ExtResource("121_e3bvt")
 
-[node name="RestRun" type="AudioStreamPlayer2D" parent="CharacterBody2D"]
+[node name="RestRun" type="AudioStreamPlayer2D" parent="ChonkiCharacter"]
 stream = ExtResource("122_uim7a")
 
-[node name="AudioRam" type="AudioStreamPlayer2D" parent="CharacterBody2D"]
+[node name="AudioRam" type="AudioStreamPlayer2D" parent="ChonkiCharacter"]
 stream = ExtResource("123_1p812")
 volume_db = -10.0
 
-[node name="AudioPush" type="AudioStreamPlayer2D" parent="CharacterBody2D"]
+[node name="AudioPush" type="AudioStreamPlayer2D" parent="ChonkiCharacter"]
 stream = ExtResource("124_bhcov")
 volume_db = -10.0
 
-[node name="AudioJump" type="AudioStreamPlayer2D" parent="CharacterBody2D"]
+[node name="AudioJump" type="AudioStreamPlayer2D" parent="ChonkiCharacter"]
 stream = ExtResource("125_r2wll")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="CharacterBody2D"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="ChonkiCharacter"]
 position = Vector2(2, 0)
 sprite_frames = SubResource("SpriteFrames_fg46y")
-animation = &"jump"
+animation = &"ouch"
+frame = 8
+frame_progress = 1.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="CharacterBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ChonkiCharacter"]
 position = Vector2(-32.5, 54.5)
 shape = SubResource("RectangleShape2D_jwat3")
 
-[node name="Camera2D" type="Camera2D" parent="CharacterBody2D"]
+[node name="Camera2D" type="Camera2D" parent="ChonkiCharacter"]
 position = Vector2(-9, 69)
 scale = Vector2(486.93, -118.765)
 offset = Vector2(0, -250)
 zoom = Vector2(0.25, 0.25)
 
-[node name="ChillBark" type="AudioStreamPlayer2D" parent="CharacterBody2D"]
+[node name="ChillBark" type="AudioStreamPlayer2D" parent="ChonkiCharacter"]
 stream = ExtResource("127_vip41")
 
-[connection signal="animation_finished" from="CharacterBody2D/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="animation_finished" from="ChonkiCharacter/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

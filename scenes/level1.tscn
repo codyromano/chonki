@@ -141,6 +141,8 @@ position = Vector2(5788, -494)
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 visible = false
 scale = Vector2(10, 10)
+collision_layer = 3
+collision_mask = 3
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
 z_index = 100
@@ -176,6 +178,7 @@ navigation_polygon = SubResource("NavigationPolygon_1ju1f")
 
 [node name="Goose" type="CharacterBody2D" parent="NavigationRegion2D"]
 position = Vector2(8628, -488)
+collision_layer = 2
 script = ExtResource("13_rdfy5")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="NavigationRegion2D/Goose"]
