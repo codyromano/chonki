@@ -30,10 +30,12 @@ func _physics_process(delta: float) -> void:
 		var direction = (next_path_position - enemy.global_position).normalized()
 		
 		direction.y = 0
-		enemy.velocity = direction * speed
+		# enemy.velocity = direction * speed
+		enemy.velocity.x = direction.x * speed
 		
 		sprite.flip_h = direction.x < 0
 			
 		enemy.move_and_slide()
 	else:
-		enemy.velocity = Vector2.ZERO
+		pass
+		enemy.velocity.x = 0

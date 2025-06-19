@@ -60,8 +60,6 @@ func play_sound_effects() -> void:
 	match anim:
 		"ram":
 			rest_sound.stop()
-			# ram_sound.stop()
-			rest_sound.stop()
 			await get_tree().create_timer(0.5).timeout
 			play_once(ram_sound)
 			play_once(chill_bark)

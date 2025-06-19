@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://br8ftak73gmww"]
+[gd_scene load_steps=26 format=3 uid="uid://br8ftak73gmww"]
 
 [ext_resource type="PackedScene" uid="uid://cyu6wosf2qc3v" path="res://scenes/chonki.tscn" id="1_sihbw"]
 [ext_resource type="Texture2D" uid="uid://bpqdlmvtkr1i5" path="res://assets/environment/lake.png" id="1_vplxb"]
@@ -15,7 +15,9 @@
 [ext_resource type="Texture2D" uid="uid://4bko6gewu3m1" path="res://assets/enemies/goose/goose1.png" id="13_7b16e"]
 [ext_resource type="Script" path="res://scenes/Goose.gd" id="13_rdfy5"]
 [ext_resource type="Texture2D" uid="uid://d4ibiy0oh2hpb" path="res://assets/enemies/goose/goose2.png" id="14_648ic"]
+[ext_resource type="Texture2D" uid="uid://b281ntpbdihii" path="res://assets/enemies/goose/goose3.png" id="14_apft5"]
 [ext_resource type="Script" path="res://scenes/GooseNavigation.gd" id="16_vuaih"]
+[ext_resource type="AudioStream" uid="uid://dtbn6tc13x30h" path="res://assets/sound/bird-flap.mp3" id="18_60djy"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_piwsr"]
 distance = -500.0
@@ -88,6 +90,14 @@ source_geometry_group_name = &"navigation_polygon_source_group"
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_8w215"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("14_apft5")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("13_7b16e")
@@ -172,7 +182,7 @@ script = ExtResource("13_rdfy5")
 position = Vector2(122.5, 174.5)
 scale = Vector2(0.749023, 0.749023)
 sprite_frames = SubResource("SpriteFrames_8w215")
-frame_progress = 0.407588
+animation = &"attack"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="NavigationRegion2D/Goose"]
 position = Vector2(134.5, 202.5)
@@ -182,6 +192,15 @@ shape = SubResource("RectangleShape2D_n4ddn")
 script = ExtResource("16_vuaih")
 target = NodePath("../../../Chonki")
 
+[node name="Timer" type="Timer" parent="NavigationRegion2D/Goose"]
+wait_time = 3.0
+autostart = true
+
+[node name="FlapAudio" type="AudioStreamPlayer2D" parent="NavigationRegion2D/Goose"]
+stream = ExtResource("18_60djy")
+volume_db = 10.0
+
 [connection signal="area_entered" from="Collectible/StaticBody2D2" to="Collectible" method="_on_static_body_2d_2_area_entered"]
 [connection signal="body_entered" from="Collectible/StaticBody2D2" to="Collectible" method="_on_static_body_2d_2_body_entered"]
 [connection signal="child_entered_tree" from="Collectible/StaticBody2D2/CollisionShape2D" to="Chonki" method="_on_collision_shape_2d_child_entered_tree"]
+[connection signal="timeout" from="NavigationRegion2D/Goose/Timer" to="NavigationRegion2D/Goose" method="_on_hop_timer_timeout"]
