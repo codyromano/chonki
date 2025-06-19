@@ -11,7 +11,9 @@ extends Node2D
 enum ChonkiState { IDLE, RUN, ATTACK }
 
 var state : ChonkiState = ChonkiState.IDLE
-var last_action_time : float = Time.get_unix_time_from_system()
+
+# Make the dog sleep initially
+var last_action_time : int = Time.get_unix_time_from_system() - 60
 
 var velocity: Vector2 = Vector2.ZERO
 const SPEED: float = 2000.0
@@ -19,7 +21,7 @@ const JUMP_FORCE: float = -2500.0
 const GRAVITY: float = 3000.0
 
 func _ready() -> void:
-	pass
+	sprite.play("sleep")
 
 func _physics_process(delta: float) -> void:
 	handle_movement(delta)
@@ -52,15 +54,18 @@ func play_sound_effects() -> void:
 
 	match anim:
 		"ram":
+			rest_sound.stop()
 			play_once(ram_sound)
 
 		"push":
+			rest_sound.stop()
 			play_once(push_sound)
 			# ram_sound.stop()
 			# run_sound.stop()
 			# rest_sound.stop()
 
 		"run":
+			rest_sound.stop()
 			# run_sound.play()
 			pass
 			# ram_sound.stop()
@@ -71,11 +76,13 @@ func play_sound_effects() -> void:
 			play_once(rest_sound)
 			
 		"jump":
+			rest_sound.stop()
 			if $CharacterBody2D.is_on_floor_only():
 				run_sound.stop()
 				play_once(jump_sound)
 
 		"idle":
+			rest_sound.stop()
 			run_sound.stop()
 			# ram_sound.stop()
 			# push_sound.stop()
@@ -108,7 +115,6 @@ func update_sprite() -> void:
 	if not body.is_on_floor():
 		sprite.play("jump")
 		run_sound.stop()
-		is_taking_action = true
 
 	if Input.is_action_just_pressed("ui_left"):
 		#play_on_ground(run_sound)
