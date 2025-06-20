@@ -109,34 +109,53 @@ func play_on_ground(player: AudioStreamPlayer2D) -> void:
 	if body.is_on_floor():
 		player.play()
 
+func get_attack_sprite():
+	if sprite.animation in ["ram", "push"] && sprite.is_playing():
+		return sprite.animation
+	
+	if Input.is_action_just_pressed("push"):
+		return "push"
+	elif Input.is_action_just_pressed("ram"):
+		return "ram"
+
+	return null
+	
+
 func update_sprite() -> void:
+	var attack_sprite = get_attack_sprite()
+	if attack_sprite != null:
+		sprite.play(attack_sprite)
+		return
+	
 	var current_time: int = Time.get_unix_time_from_system()
 	if hit_time != null && current_time - hit_time >= HIT_RECOVERY_TIME && sprite.animation == "ouch":
 		sprite.play("idle")
+		print("idle.1")
 		
 	var is_taking_action: bool = false
 	var current_animation = sprite.animation
-	if current_animation in ["ram", "push", "ouch"] and sprite.is_playing():
+
+	
+	if current_animation == "ouch" and sprite.is_playing():
 		return
-	if Input.is_action_just_pressed("push"):
-		sprite.play("push")
-		is_taking_action = true
-	elif Input.is_action_just_pressed("ram"):
-		sprite.play("ram")
-		is_taking_action = true
 	elif velocity.x != 0:
 		sprite.play("run")
 		if not run_sound.playing:
 			run_sound.play()
 		is_taking_action = true
-	if not body.is_on_floor():
+		
+	if not body.is_on_floor() &&  attack_sprite == null:
 		sprite.play("jump")
 		run_sound.stop()
+		
 	if Input.is_action_just_pressed("ui_left"):
 		sprite.flip_h = true
+		is_taking_action = true
 	elif Input.is_action_just_pressed("ui_right"):
+		is_taking_action = true
 		sprite.flip_h = false
 	var secs_since_action = Time.get_unix_time_from_system() - last_action_time
+	
 	if is_taking_action:
 		last_action_time = Time.get_unix_time_from_system()
 	elif secs_since_action >= 15:
