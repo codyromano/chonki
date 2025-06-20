@@ -31,6 +31,9 @@ var jump_phase: String = "none"  # "takeoff", "coasting", "descending", "none"
 var takeoff_timer: float = 0.0  # Track takeoff duration
 var collisions_disabled: bool = false
 
+const GOOSE_INJURY_TIME: float = 2.5
+var goose_last_injured_time: int
+
 @onready var sprite := $AnimatedSprite2D
 @onready var hop_timer := $Timer
 @onready var collision_shape := $CollisionShape2D
@@ -46,9 +49,18 @@ func play_audio() -> void:
 	if !is_on_floor() && !$FlapAudio.playing:
 		$FlapAudio.play()
 	
-# Do not change this. Sprite is okay
+func is_injured() -> bool:
+	var current_time = Time.get_unix_time_from_system()
+	return (
+		goose_last_injured_time != null &&
+		current_time - goose_last_injured_time <= GOOSE_INJURY_TIME
+	)
+		
 func get_sprite() -> String:
 	sprite.flip_h = false if velocity.x > 0.5 else true
+	
+	if is_injured():
+		return "hurt"
 	
 	if is_on_floor():
 		return "default"
@@ -76,6 +88,11 @@ func _on_collision_timer_timeout(timer: Timer) -> void:
 	print("Collisions re-enabled")
 	
 func _physics_process(delta: float) -> void:
+	# Don't try to move while injured
+	if is_injured():
+		sprite.play(get_sprite())
+		return
+		
 	# Apply physics first, then check floor status after movement
 	if jump_phase == "takeoff":
 		# Gradual acceleration over exactly 2 seconds
@@ -112,8 +129,17 @@ func _physics_process(delta: float) -> void:
 			if abs(normal.x) > abs(normal.y):
 				print("Side collision detected!")
 		
-			if collider.name == "ChonkiCharacter":
-				GlobalSignals.player_hit.emit()
+			if "is_attacking" in collider:
+				print("checking")
+				if collider.is_attacking():
+					print("is attacking")
+					$GooseDefeated.play()
+					goose_last_injured_time = Time.get_unix_time_from_system()
+					# Handle goose hurt
+					pass
+				else: 
+					print("is not attacking")
+					GlobalSignals.player_hit.emit()
 				# temp_disable_collisions()
 				print("collided with player")
 			else:

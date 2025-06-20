@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://br8ftak73gmww"]
+[gd_scene load_steps=29 format=3 uid="uid://br8ftak73gmww"]
 
 [ext_resource type="PackedScene" uid="uid://cyu6wosf2qc3v" path="res://scenes/chonki.tscn" id="1_sihbw"]
 [ext_resource type="Texture2D" uid="uid://bpqdlmvtkr1i5" path="res://assets/environment/lake.png" id="1_vplxb"]
@@ -17,7 +17,9 @@
 [ext_resource type="Texture2D" uid="uid://d4ibiy0oh2hpb" path="res://assets/enemies/goose/goose2.png" id="14_648ic"]
 [ext_resource type="Texture2D" uid="uid://b281ntpbdihii" path="res://assets/enemies/goose/goose3.png" id="14_apft5"]
 [ext_resource type="Script" path="res://scenes/GooseNavigation.gd" id="16_vuaih"]
+[ext_resource type="Texture2D" uid="uid://vvx8340f7nlj" path="res://assets/enemies/goose/goose-defeated.png" id="17_0mpyo"]
 [ext_resource type="AudioStream" uid="uid://dtbn6tc13x30h" path="res://assets/sound/bird-flap.mp3" id="18_60djy"]
+[ext_resource type="AudioStream" uid="uid://me3nrqvd2xhg" path="res://assets/sound/goose-defeated.mp3" id="20_f7bbt"]
 [ext_resource type="PackedScene" uid="uid://b41x2t8numn7a" path="res://scenes/HUD.tscn" id="20_g3dfk"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_piwsr"]
@@ -109,6 +111,14 @@ animations = [{
 "loop": true,
 "name": &"default",
 "speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("17_0mpyo")
+}],
+"loop": true,
+"name": &"hurt",
+"speed": 5.0
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nwbuc"]
@@ -190,7 +200,6 @@ script = ExtResource("13_rdfy5")
 position = Vector2(31.0001, 266)
 scale = Vector2(0.570312, 0.570312)
 sprite_frames = SubResource("SpriteFrames_8w215")
-animation = &"attack"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/NavigationRegion2D/Goose"]
 position = Vector2(24, 259)
@@ -207,6 +216,10 @@ autostart = true
 
 [node name="FlapAudio" type="AudioStreamPlayer2D" parent="World2D/NavigationRegion2D/Goose"]
 stream = ExtResource("18_60djy")
+volume_db = 10.0
+
+[node name="GooseDefeated" type="AudioStreamPlayer2D" parent="World2D/NavigationRegion2D/Goose"]
+stream = ExtResource("20_f7bbt")
 volume_db = 10.0
 
 [node name="HUD" parent="." instance=ExtResource("20_g3dfk")]

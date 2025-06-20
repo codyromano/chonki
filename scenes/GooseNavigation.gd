@@ -2,6 +2,7 @@ extends NavigationAgent2D
 
 @export var target: Node2D
 @export var speed: float = 200.0
+@onready var parent: CharacterBody2D = get_parent()
 @onready var sprite: AnimatedSprite2D = get_parent().find_child('AnimatedSprite2D')
 
 var enemy: CharacterBody2D
@@ -25,7 +26,7 @@ func _physics_process(delta: float) -> void:
 	# NavigationAgent2D gets its position from its parent (enemy)
 	set_target_position(target.find_child('ChonkiCharacter').global_position)
 
-	if not is_navigation_finished() && is_target_reachable():
+	if not is_navigation_finished() && is_target_reachable() && !parent.is_injured():
 		var next_path_position = get_next_path_position()
 		var direction = (next_path_position - enemy.global_position).normalized()
 		
@@ -35,3 +36,5 @@ func _physics_process(delta: float) -> void:
 	else:
 		enemy.velocity.x = 0
 		enemy.velocity.y = 2000
+
+	enemy.move_and_slide()
