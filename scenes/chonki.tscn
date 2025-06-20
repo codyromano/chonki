@@ -572,7 +572,7 @@ size = Vector2(835, 823)
 script = ExtResource("1_j6uc5")
 
 [node name="ChonkiCharacter" type="CharacterBody2D" parent="."]
-collision_mask = 3
+collision_mask = 11
 script = ExtResource("2_si7u3")
 
 [node name="AudioRun" type="AudioStreamPlayer2D" parent="ChonkiCharacter"]

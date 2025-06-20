@@ -28,6 +28,8 @@ func _ready() -> void:
 	GlobalSignals.connect("player_hit", on_player_hit)
 	
 func on_player_hit() -> void:
+	GlobalSignals.heart_lost.emit()
+	
 	sprite.play("ouch")
 	$ChonkiCharacter/AudioOuch.play()
 	hit_time = Time.get_unix_time_from_system()

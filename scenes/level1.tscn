@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://br8ftak73gmww"]
+[gd_scene load_steps=27 format=3 uid="uid://br8ftak73gmww"]
 
 [ext_resource type="PackedScene" uid="uid://cyu6wosf2qc3v" path="res://scenes/chonki.tscn" id="1_sihbw"]
 [ext_resource type="Texture2D" uid="uid://bpqdlmvtkr1i5" path="res://assets/environment/lake.png" id="1_vplxb"]
@@ -18,6 +18,7 @@
 [ext_resource type="Texture2D" uid="uid://b281ntpbdihii" path="res://assets/enemies/goose/goose3.png" id="14_apft5"]
 [ext_resource type="Script" path="res://scenes/GooseNavigation.gd" id="16_vuaih"]
 [ext_resource type="AudioStream" uid="uid://dtbn6tc13x30h" path="res://assets/sound/bird-flap.mp3" id="18_60djy"]
+[ext_resource type="PackedScene" uid="uid://b41x2t8numn7a" path="res://scenes/HUD.tscn" id="20_g3dfk"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_piwsr"]
 distance = -500.0
@@ -83,9 +84,9 @@ animations = [{
 radius = 149.459
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_1ju1f"]
-vertices = PackedVector2Array(13564, -3271, 13997, 428, 4083, 422, 4487, -3278)
+vertices = PackedVector2Array(14049, 10, 4106, 17, 4110, -3243, 14132, -3280)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(4072, 432, 4478, -3289, 13573, -3281, 14009, 439)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(4096, 28, 4101, -3253, 14143, -3291, 14059, 20)])
 source_geometry_group_name = &"navigation_polygon_source_group"
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_8w215"]
@@ -117,7 +118,9 @@ height = 437.11
 [node name="Level1" type="Node2D"]
 position = Vector2(-5159, -12)
 
-[node name="Ground" type="Polygon2D" parent="."]
+[node name="World2D" type="Node2D" parent="."]
+
+[node name="GroundSprite" type="Polygon2D" parent="World2D"]
 z_index = 3
 texture_repeat = 2
 use_parent_material = true
@@ -127,85 +130,88 @@ texture = ExtResource("1_vplxb")
 texture_offset = Vector2(0, 400)
 polygon = PackedVector2Array(-966.253, -382.053, 73308.7, -382.053, 73294.4, 627.614, -964.201, 621.381)
 
-[node name="Polygon2D" type="Polygon2D" parent="."]
+[node name="Polygon2D" type="Polygon2D" parent="World2D"]
 texture_repeat = 2
-position = Vector2(-23.496, 0)
+position = Vector2(-23.4961, 0)
 scale = Vector2(0.995609, 0.999786)
 texture = ExtResource("2_gc4xo")
 texture_offset = Vector2(0, 3750)
 texture_scale = Vector2(0.25, 0.25)
 polygon = PackedVector2Array(-1009, 5, 108067, 12.0026, 108211, -2983.64, 108250, -4003.86, -1017.97, -4045.87)
 
-[node name="Chonki" parent="." instance=ExtResource("1_sihbw")]
+[node name="Chonki" parent="World2D" instance=ExtResource("1_sihbw")]
 position = Vector2(5788, -494)
 
-[node name="StaticBody2D" type="StaticBody2D" parent="."]
+[node name="Ground" type="StaticBody2D" parent="World2D"]
 visible = false
 scale = Vector2(10, 10)
-collision_layer = 3
+collision_layer = 8
 collision_mask = 3
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/Ground"]
 z_index = 100
 position = Vector2(317, -500)
 shape = SubResource("WorldBoundaryShape2D_piwsr")
 debug_color = Color(0.307035, 0.494072, 1, 0.42)
 
-[node name="Collectible" type="Node2D" parent="."]
+[node name="Collectible" type="Node2D" parent="World2D"]
 position = Vector2(1223, -1314)
 script = ExtResource("4_oqxai")
 frames = SubResource("SpriteFrames_6xpr6")
 collectible_name = "star"
 audio = ExtResource("11_d2dpc")
 
-[node name="StaticBody2D2" type="Area2D" parent="Collectible"]
+[node name="StaticBody2D2" type="Area2D" parent="World2D/Collectible"]
 
-[node name="AnimatedSprite" type="AnimatedSprite2D" parent="Collectible/StaticBody2D2"]
+[node name="AnimatedSprite" type="AnimatedSprite2D" parent="World2D/Collectible/StaticBody2D2"]
 position = Vector2(6920, -476)
 sprite_frames = SubResource("SpriteFrames_dn1gr")
 frame_progress = 0.227193
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Collectible/StaticBody2D2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/Collectible/StaticBody2D2"]
 position = Vector2(6915, -461)
 shape = SubResource("CircleShape2D_qb6ri")
 
-[node name="ChillBark" type="AudioStreamPlayer2D" parent="Collectible"]
+[node name="ChillBark" type="AudioStreamPlayer2D" parent="World2D/Collectible"]
 position = Vector2(6919, -461)
 stream = ExtResource("12_dpyk1")
 volume_db = 4.657
 
-[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="World2D"]
 navigation_polygon = SubResource("NavigationPolygon_1ju1f")
 
-[node name="Goose" type="CharacterBody2D" parent="NavigationRegion2D"]
+[node name="Goose" type="CharacterBody2D" parent="World2D/NavigationRegion2D"]
 position = Vector2(8628, -488)
 collision_layer = 2
+collision_mask = 9
 script = ExtResource("13_rdfy5")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="NavigationRegion2D/Goose"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World2D/NavigationRegion2D/Goose"]
 position = Vector2(31.0001, 266)
 scale = Vector2(0.570312, 0.570312)
 sprite_frames = SubResource("SpriteFrames_8w215")
 animation = &"attack"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="NavigationRegion2D/Goose"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/NavigationRegion2D/Goose"]
 position = Vector2(24, 259)
 rotation = 0.948541
 shape = SubResource("CapsuleShape2D_nwbuc")
 
-[node name="GooseNavigation" type="NavigationAgent2D" parent="NavigationRegion2D/Goose" node_paths=PackedStringArray("target")]
+[node name="GooseNavigation" type="NavigationAgent2D" parent="World2D/NavigationRegion2D/Goose" node_paths=PackedStringArray("target")]
 script = ExtResource("16_vuaih")
 target = NodePath("../../../Chonki")
 
-[node name="Timer" type="Timer" parent="NavigationRegion2D/Goose"]
+[node name="Timer" type="Timer" parent="World2D/NavigationRegion2D/Goose"]
 wait_time = 3.0
 autostart = true
 
-[node name="FlapAudio" type="AudioStreamPlayer2D" parent="NavigationRegion2D/Goose"]
+[node name="FlapAudio" type="AudioStreamPlayer2D" parent="World2D/NavigationRegion2D/Goose"]
 stream = ExtResource("18_60djy")
 volume_db = 10.0
 
-[connection signal="area_entered" from="Collectible/StaticBody2D2" to="Collectible" method="_on_static_body_2d_2_area_entered"]
-[connection signal="body_entered" from="Collectible/StaticBody2D2" to="Collectible" method="_on_static_body_2d_2_body_entered"]
-[connection signal="child_entered_tree" from="Collectible/StaticBody2D2/CollisionShape2D" to="Chonki" method="_on_collision_shape_2d_child_entered_tree"]
-[connection signal="timeout" from="NavigationRegion2D/Goose/Timer" to="NavigationRegion2D/Goose" method="_on_hop_timer_timeout"]
+[node name="HUD" parent="." instance=ExtResource("20_g3dfk")]
+
+[connection signal="area_entered" from="World2D/Collectible/StaticBody2D2" to="World2D/Collectible" method="_on_static_body_2d_2_area_entered"]
+[connection signal="body_entered" from="World2D/Collectible/StaticBody2D2" to="World2D/Collectible" method="_on_static_body_2d_2_body_entered"]
+[connection signal="child_entered_tree" from="World2D/Collectible/StaticBody2D2/CollisionShape2D" to="World2D/Chonki" method="_on_collision_shape_2d_child_entered_tree"]
+[connection signal="timeout" from="World2D/NavigationRegion2D/Goose/Timer" to="World2D/NavigationRegion2D/Goose" method="_on_hop_timer_timeout"]
