@@ -29,16 +29,8 @@ func _ready() -> void:
 	
 func on_player_hit() -> void:
 	GlobalSignals.heart_lost.emit()
-	
-	sprite.play("ouch")
 	$ChonkiCharacter/AudioOuch.play()
 	hit_time = Time.get_unix_time_from_system()
-	
-	# Store the original collision mask (layers 1 and 2)
-	# original_collision_mask = body.collision_mask
-	
-	# Set collision mask to only layer 1 (bit 0)
-	# body.collision_mask = 1
 
 func _physics_process(delta: float) -> void:
 	handle_movement(delta)
@@ -51,7 +43,7 @@ func handle_movement(delta: float) -> void:
 	
 	var current_time = Time.get_unix_time_from_system()
 	if hit_time != null && current_time - hit_time <= HIT_RECOVERY_TIME:
-		velocity.x = 1000 if sprite.flip_h else -1000
+		velocity.x = 2000 if sprite.flip_h else -2000
 		velocity.y = 1000
 		body.velocity = velocity
 		return
@@ -119,48 +111,68 @@ func get_attack_sprite():
 		return "ram"
 
 	return null
-	
 
-func update_sprite() -> void:
-	var attack_sprite = get_attack_sprite()
-	if attack_sprite != null:
-		sprite.play(attack_sprite)
-		return
-	
+func get_player_injured_sprite():
 	var current_time: int = Time.get_unix_time_from_system()
-	if hit_time != null && current_time - hit_time >= HIT_RECOVERY_TIME && sprite.animation == "ouch":
-		sprite.play("idle")
-		print("idle.1")
-		
-	var is_taking_action: bool = false
-	var current_animation = sprite.animation
+	return "ouch" if hit_time != null && current_time - hit_time <= HIT_RECOVERY_TIME else null
 
-	
-	if current_animation == "ouch" and sprite.is_playing():
-		return
-	elif velocity.x != 0:
-		sprite.play("run")
+func get_run_sprite():
+	if velocity.x != 0:
 		if not run_sound.playing:
 			run_sound.play()
-		is_taking_action = true
-		
-	if not body.is_on_floor() &&  attack_sprite == null:
-		sprite.play("jump")
+		return "run"
+	return null
+
+func get_jump_sprite():
+	if not body.is_on_floor():
 		run_sound.stop()
-		
+		return "jump"
+	return null
+
+func get_sleep_sprite():
+	var secs_since_action = Time.get_unix_time_from_system() - last_action_time
+	if secs_since_action >= 15:
+		return "sleep"
+	return null
+
+func get_rest_sprite():
+	var secs_since_action = Time.get_unix_time_from_system() - last_action_time
+	if secs_since_action >= 5:
+		return "rest"
+	return null
+
+func get_idle_sprite():
+	return "idle"
+
+func handle_sprite_flip():
 	if Input.is_action_just_pressed("ui_left"):
 		sprite.flip_h = true
-		is_taking_action = true
 	elif Input.is_action_just_pressed("ui_right"):
-		is_taking_action = true
 		sprite.flip_h = false
-	var secs_since_action = Time.get_unix_time_from_system() - last_action_time
 	
-	if is_taking_action:
+func update_sprite() -> void:
+	# Different types of sprites for the player character,
+	# sorted by priority. Each returns a string or null
+	var possible_next_sprites = [
+		get_player_injured_sprite(),
+		get_attack_sprite(),
+		get_jump_sprite(),
+		get_run_sprite(),
+		get_sleep_sprite(),
+		get_rest_sprite(),
+		get_idle_sprite()
+	]
+	
+	var is_taking_action: bool = false
+	
+	# Track the last action item forthe purpose of playing a
+	# a rest, the sleep, animation after a period of inactivity
+	if velocity.x != 0 or Input.is_action_just_pressed("ui_left") or Input.is_action_just_pressed("ui_right"):
 		last_action_time = Time.get_unix_time_from_system()
-	elif secs_since_action >= 15:
-		sprite.play("sleep")
-	elif secs_since_action >= 5:
-		sprite.play("rest")
-	else:
-		sprite.play("idle")
+	
+	# Find the first valid sprite and play it
+	for next_sprite in possible_next_sprites:
+		if next_sprite != null:
+			sprite.play(next_sprite)
+			handle_sprite_flip()
+			return
