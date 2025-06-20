@@ -111,8 +111,8 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nwbuc"]
-radius = 99.0
-height = 264.0
+radius = 218.555
+height = 437.11
 
 [node name="Level1" type="Node2D"]
 position = Vector2(-5159, -12)
@@ -189,7 +189,7 @@ sprite_frames = SubResource("SpriteFrames_8w215")
 animation = &"attack"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="NavigationRegion2D/Goose"]
-position = Vector2(-29, 329)
+position = Vector2(24, 259)
 rotation = 0.948541
 shape = SubResource("CapsuleShape2D_nwbuc")
 

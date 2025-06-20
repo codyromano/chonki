@@ -25,17 +25,13 @@ func _physics_process(delta: float) -> void:
 	# NavigationAgent2D gets its position from its parent (enemy)
 	set_target_position(target.find_child('ChonkiCharacter').global_position)
 
-	if not is_navigation_finished():
+	if not is_navigation_finished() && is_target_reachable():
 		var next_path_position = get_next_path_position()
 		var direction = (next_path_position - enemy.global_position).normalized()
 		
 		direction.y = 0
-		# enemy.velocity = direction * speed
 		enemy.velocity.x = direction.x * speed
-		
-		sprite.flip_h = direction.x < 0
-			
 		enemy.move_and_slide()
 	else:
-		pass
 		enemy.velocity.x = 0
+		enemy.velocity.y = 2000

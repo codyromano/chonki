@@ -13,10 +13,15 @@ enum ChonkiState { IDLE, RUN, ATTACK }
 var state : ChonkiState = ChonkiState.IDLE
 var last_action_time : int = Time.get_unix_time_from_system() - 60
 var velocity: Vector2 = Vector2.ZERO
+var chonki_hit = false
+var original_collision_mask: int
+
+var hit_time: int
 
 const SPEED: float = 2000.0
 const JUMP_FORCE: float = -2500.0
 const GRAVITY: float = 3000.0
+const HIT_RECOVERY_TIME: float = 1
 
 func _ready() -> void:
 	sprite.play("sleep")
@@ -25,18 +30,14 @@ func _ready() -> void:
 func on_player_hit() -> void:
 	sprite.play("ouch")
 	$ChonkiCharacter/AudioOuch.play()
+	hit_time = Time.get_unix_time_from_system()
 	
 	# Store the original collision mask (layers 1 and 2)
-	var original_mask = body.collision_mask
+	# original_collision_mask = body.collision_mask
 	
 	# Set collision mask to only layer 1 (bit 0)
-	body.collision_mask = 1
-	
-	# Wait 3 seconds, then restore original collision mask
-	await get_tree().create_timer(1).timeout
-	body.collision_mask = original_mask
-	sprite.play("run")
-	
+	# body.collision_mask = 1
+
 func _physics_process(delta: float) -> void:
 	handle_movement(delta)
 	update_sprite()
@@ -44,7 +45,18 @@ func _physics_process(delta: float) -> void:
 	body.move_and_slide()
 
 func handle_movement(delta: float) -> void:
-	var direction = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
+	var direction: float = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
+	
+	var current_time = Time.get_unix_time_from_system()
+	if hit_time != null && current_time - hit_time <= HIT_RECOVERY_TIME:
+		velocity.x = 1000 if sprite.flip_h else -1000
+		velocity.y = 1000
+		body.velocity = velocity
+		return
+	elif hit_time != null && current_time - hit_time >= HIT_RECOVERY_TIME && original_collision_mask > 0:
+		pass
+		# body.collision_mask = original_collision_mask
+		
 	if Input.is_action_just_pressed("push") or Input.is_action_just_pressed("ram"):
 		if body.is_on_floor():
 			velocity.y = -1000  # optional: slight hop
@@ -96,6 +108,10 @@ func play_on_ground(player: AudioStreamPlayer2D) -> void:
 		player.play()
 
 func update_sprite() -> void:
+	var current_time: int = Time.get_unix_time_from_system()
+	if hit_time != null && current_time - hit_time >= HIT_RECOVERY_TIME && sprite.animation == "ouch":
+		sprite.play("idle")
+		
 	var is_taking_action: bool = false
 	var current_animation = sprite.animation
 	if current_animation in ["ram", "push", "ouch"] and sprite.is_playing():

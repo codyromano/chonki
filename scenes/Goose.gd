@@ -48,6 +48,8 @@ func play_audio() -> void:
 	
 # Do not change this. Sprite is okay
 func get_sprite() -> String:
+	sprite.flip_h = false if velocity.x > 0.5 else true
+	
 	if is_on_floor():
 		return "default"
 	return "attack"
@@ -104,9 +106,15 @@ func _physics_process(delta: float) -> void:
 		var collision = move_and_collide(velocity * delta)
 		if collision:
 			var collider: Node2D = collision.get_collider()
+			var normal = collision.get_normal()
+			
+			# Check if collision is from the side (not top/bottom)
+			if abs(normal.x) > abs(normal.y):
+				print("Side collision detected!")
+		
 			if collider.name == "ChonkiCharacter":
 				GlobalSignals.player_hit.emit()
-				temp_disable_collisions()
+				# temp_disable_collisions()
 				print("collided with player")
 			else:
 				pass
