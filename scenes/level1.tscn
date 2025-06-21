@@ -61,7 +61,7 @@ radius = 218.555
 height = 437.11
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3owu1"]
-size = Vector2(2529, 3978)
+size = Vector2(3413.88, 3978)
 
 [node name="Level1" type="Node2D"]
 position = Vector2(-5159, -12)
@@ -152,14 +152,15 @@ origin = NodePath("../WithHealthMeter/Goose")
 item_scene = ExtResource("4_ew37v")
 
 [node name="BoatBarrier" type="StaticBody2D" parent="World2D"]
+position = Vector2(415, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="World2D/BoatBarrier"]
-position = Vector2(2977, -733)
-scale = Vector2(1.92871, 1.92871)
+position = Vector2(2463.12, -978.25)
+scale = Vector2(2.60693, 2.60693)
 texture = ExtResource("15_42slk")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/BoatBarrier"]
-position = Vector2(3009.5, -1954)
+position = Vector2(2496.06, -1870.25)
 shape = SubResource("RectangleShape2D_3owu1")
 
 [node name="HUD" parent="." instance=ExtResource("20_g3dfk")]
