@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://br8ftak73gmww"]
+[gd_scene load_steps=23 format=3 uid="uid://br8ftak73gmww"]
 
 [ext_resource type="PackedScene" uid="uid://cyu6wosf2qc3v" path="res://scenes/chonki.tscn" id="1_sihbw"]
 [ext_resource type="Texture2D" uid="uid://bpqdlmvtkr1i5" path="res://assets/environment/lake.png" id="1_vplxb"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://b281ntpbdihii" path="res://assets/enemies/goose/goose3.png" id="14_apft5"]
 [ext_resource type="Texture2D" uid="uid://4l0wnaj430u" path="res://assets/environment/boats.png" id="15_42slk"]
 [ext_resource type="Script" path="res://scenes/GooseNavigation.gd" id="16_vuaih"]
+[ext_resource type="PackedScene" uid="uid://bffjk8vm2vkp5" path="res://scenes/characters/dave.tscn" id="16_ytk5w"]
 [ext_resource type="Texture2D" uid="uid://vvx8340f7nlj" path="res://assets/enemies/goose/goose-defeated.png" id="17_0mpyo"]
 [ext_resource type="AudioStream" uid="uid://dtbn6tc13x30h" path="res://assets/sound/bird-flap.mp3" id="18_60djy"]
 [ext_resource type="Script" path="res://scenes/composable/SpawnTarget.gd" id="20_2vioj"]
@@ -200,6 +201,9 @@ position = Vector2(2496.06, -1870.25)
 shape = SubResource("RectangleShape2D_3owu1")
 
 [node name="HUD" parent="." instance=ExtResource("20_g3dfk")]
+
+[node name="Dave" parent="." instance=ExtResource("16_ytk5w")]
+position = Vector2(18293, -1442)
 
 [connection signal="timeout" from="World2D/NavigationRegion2D/WithHealthMeter/Goose/Timer" to="World2D/NavigationRegion2D/WithHealthMeter/Goose" method="_on_hop_timer_timeout"]
 [connection signal="timeout" from="World2D/NavigationRegion2D/WithHealthMeter2/Goose/Timer" to="World2D/NavigationRegion2D/WithHealthMeter2/Goose" method="_on_hop_timer_timeout"]

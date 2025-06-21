@@ -23,9 +23,15 @@ const JUMP_FORCE: float = -2500.0
 const GRAVITY: float = 3000.0
 const HIT_RECOVERY_TIME: float = 1
 
+var is_game_win = false 
+
 func _ready() -> void:
 	sprite.play("sleep")
 	GlobalSignals.connect("player_hit", on_player_hit)
+	GlobalSignals.connect("win_game", on_win_game)
+	
+func on_win_game() -> void:
+	is_game_win = true
 	
 func on_player_hit() -> void:
 	GlobalSignals.heart_lost.emit()
@@ -39,6 +45,11 @@ func _physics_process(delta: float) -> void:
 	body.move_and_slide()
 
 func handle_movement(delta: float) -> void:
+	# Don't move Chonki after he reunites with his owner
+	if is_game_win:
+		body.velocity = Vector2(0, 0)
+		return
+	
 	var direction: float = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
 	
 	var current_time = Time.get_unix_time_from_system()
@@ -143,9 +154,14 @@ func get_rest_sprite():
 
 func get_idle_sprite():
 	return "idle"
+	
+func get_win_game_sprite():
+	return "rest" if is_game_win else null
 
 func handle_sprite_flip():
-	if Input.is_action_just_pressed("ui_left"):
+	if is_game_win:
+		sprite.flip_h = false
+	elif Input.is_action_just_pressed("ui_left"):
 		sprite.flip_h = true
 	elif Input.is_action_just_pressed("ui_right"):
 		sprite.flip_h = false
@@ -154,6 +170,7 @@ func update_sprite() -> void:
 	# Different types of sprites for the player character,
 	# sorted by priority. Each returns a string or null
 	var possible_next_sprites = [
+		get_win_game_sprite(),
 		get_player_injured_sprite(),
 		get_attack_sprite(),
 		get_jump_sprite(),

@@ -49,7 +49,7 @@ func _ready():
 	sprite.play()
 	# Set up the timer for 4-second intervals
 	hop_timer.wait_time = 4.0
-	hop_timer.timeout.connect(_on_hop_timer_timeout)
+	# hop_timer.timeout.connect(_on_hop_timer_timeout)
 	hop_timer.start()
 
 func play_audio() -> void:

@@ -11,211 +11,35 @@ animations = [{
 "duration": 1.0,
 "texture": ExtResource("1_rsmiq")
 }],
-"loop": true,
-"name": &"default",
+"loop": false,
+"name": &"concerned",
 "speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("2_0kvtk")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_0kvtk")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_0kvtk")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_0kvtk")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_0kvtk")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_0kvtk")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_0kvtk")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_0kvtk")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_0kvtk")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_0kvtk")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_0kvtk")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_0kvtk")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_0kvtk")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_0kvtk")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_0kvtk")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_0kvtk")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_0kvtk")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_0kvtk")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_0kvtk")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_0kvtk")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_0kvtk")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_0kvtk")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_0kvtk")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_0kvtk")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_0kvtk")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_0kvtk")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_0kvtk")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_0kvtk")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_0kvtk")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_0kvtk")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_0kvtk")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_0kvtk")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_0kvtk")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_0kvtk")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_0kvtk")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_0kvtk")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_0kvtk")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_0kvtk")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_0kvtk")
-}, {
-"duration": 1.0,
-"texture": ExtResource("2_0kvtk")
-}, {
-"duration": 1.0,
-"texture": ExtResource("3_4fnqg")
-}, {
-"duration": 1.0,
-"texture": ExtResource("3_4fnqg")
-}, {
-"duration": 1.0,
-"texture": ExtResource("3_4fnqg")
-}, {
-"duration": 1.0,
-"texture": ExtResource("3_4fnqg")
-}, {
-"duration": 1.0,
-"texture": ExtResource("3_4fnqg")
-}, {
-"duration": 1.0,
-"texture": ExtResource("3_4fnqg")
-}, {
-"duration": 1.0,
-"texture": ExtResource("3_4fnqg")
-}, {
-"duration": 1.0,
-"texture": ExtResource("3_4fnqg")
-}, {
-"duration": 1.0,
-"texture": ExtResource("3_4fnqg")
-}, {
-"duration": 1.0,
-"texture": ExtResource("3_4fnqg")
-}, {
-"duration": 1.0,
-"texture": ExtResource("3_4fnqg")
-}, {
-"duration": 1.0,
-"texture": ExtResource("3_4fnqg")
-}, {
-"duration": 1.0,
-"texture": ExtResource("3_4fnqg")
-}, {
-"duration": 1.0,
-"texture": ExtResource("3_4fnqg")
-}, {
-"duration": 1.0,
-"texture": ExtResource("3_4fnqg")
-}, {
-"duration": 1.0,
-"texture": ExtResource("3_4fnqg")
-}, {
-"duration": 1.0,
-"texture": ExtResource("3_4fnqg")
 }, {
 "duration": 1.0,
 "texture": ExtResource("3_4fnqg")
 }],
 "loop": false,
-"name": &"happier",
-"speed": 15.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("3_4fnqg")
-}],
-"loop": true,
-"name": &"reunited",
-"speed": 5.0
+"name": &"happy",
+"speed": 1.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jsfiw"]
-size = Vector2(987, 1520)
+size = Vector2(719, 1338)
 
 [node name="Dave" type="Area2D"]
 script = ExtResource("1_u84ec")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(512, 769)
+position = Vector2(512, 910)
 sprite_frames = SubResource("SpriteFrames_3i4ir")
-animation = &"happier"
+animation = &"concerned"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(511.5, 767)
+position = Vector2(549.5, 858)
 shape = SubResource("RectangleShape2D_jsfiw")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
