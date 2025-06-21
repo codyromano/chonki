@@ -18,6 +18,12 @@ extends CharacterBody2D
 # Impulse applied to main character
 # if Input.is_action_just_pressed("ui_up") and body.is_on_floor():
 #	velocity.y = JUMP_FORCE
+enum GooseState {
+	DEFEATED
+}
+
+var states: Dictionary = {}
+
 # Goose physics constants - corrected values
 const GOOSE_MAX_JUMP_VELOCITY: float = -1500.0  # Target jump velocity
 # const GOOSE_MAX_JUMP_VELOCITY: float = -3000.0  # Target jump velocity
@@ -89,6 +95,9 @@ func goose_disappear() -> void:
 	await tween.finished
 	
 	await Utils.spawn_star(self)
+	
+	var parent = get_parent()
+	print("disappear parent: ", parent)
 	get_parent().queue_free()
 	
 func _physics_process(delta: float) -> void:
@@ -142,9 +151,10 @@ func _physics_process(delta: float) -> void:
 						meter.total_hearts = max(meter.total_hearts - 1, 0)
 						
 						if meter.total_hearts == 0:
+							states[GooseState.DEFEATED] = true
 							goose_disappear()
 					, 2)
-				else: 
+				elif !states.has(GooseState.DEFEATED): 
 					Utils.throttle('player_hit', func():
 						GlobalSignals.player_hit.emit()
 					, 3)

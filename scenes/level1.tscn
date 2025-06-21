@@ -1,4 +1,4 @@
-[gd_scene load_steps=20 format=3 uid="uid://br8ftak73gmww"]
+[gd_scene load_steps=22 format=3 uid="uid://br8ftak73gmww"]
 
 [ext_resource type="PackedScene" uid="uid://cyu6wosf2qc3v" path="res://scenes/chonki.tscn" id="1_sihbw"]
 [ext_resource type="Texture2D" uid="uid://bpqdlmvtkr1i5" path="res://assets/environment/lake.png" id="1_vplxb"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://scenes/Goose.gd" id="13_rdfy5"]
 [ext_resource type="Texture2D" uid="uid://d4ibiy0oh2hpb" path="res://assets/enemies/goose/goose2.png" id="14_648ic"]
 [ext_resource type="Texture2D" uid="uid://b281ntpbdihii" path="res://assets/enemies/goose/goose3.png" id="14_apft5"]
+[ext_resource type="Texture2D" uid="uid://4l0wnaj430u" path="res://assets/environment/boats.png" id="15_42slk"]
 [ext_resource type="Script" path="res://scenes/GooseNavigation.gd" id="16_vuaih"]
 [ext_resource type="Texture2D" uid="uid://vvx8340f7nlj" path="res://assets/enemies/goose/goose-defeated.png" id="17_0mpyo"]
 [ext_resource type="AudioStream" uid="uid://dtbn6tc13x30h" path="res://assets/sound/bird-flap.mp3" id="18_60djy"]
@@ -59,6 +60,9 @@ animations = [{
 radius = 218.555
 height = 437.11
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3owu1"]
+size = Vector2(2529, 3978)
+
 [node name="Level1" type="Node2D"]
 position = Vector2(-5159, -12)
 
@@ -67,8 +71,7 @@ unique_name_in_owner = true
 
 [node name="Collectible" parent="World2D" instance=ExtResource("4_ew37v")]
 z_index = 1
-position = Vector2(3062, -1246)
-scale = Vector2(1, 1)
+position = Vector2(886, -900)
 
 [node name="GroundSprite" type="Polygon2D" parent="World2D"]
 z_index = 3
@@ -105,6 +108,7 @@ shape = SubResource("WorldBoundaryShape2D_piwsr")
 debug_color = Color(0.307035, 0.494072, 1, 0.42)
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="World2D"]
+position = Vector2(3985, 0)
 navigation_polygon = SubResource("NavigationPolygon_1ju1f")
 
 [node name="WithHealthMeter" type="Node2D" parent="World2D/NavigationRegion2D"]
@@ -146,6 +150,17 @@ volume_db = 10.0
 script = ExtResource("20_2vioj")
 origin = NodePath("../WithHealthMeter/Goose")
 item_scene = ExtResource("4_ew37v")
+
+[node name="BoatBarrier" type="StaticBody2D" parent="World2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="World2D/BoatBarrier"]
+position = Vector2(2977, -733)
+scale = Vector2(1.92871, 1.92871)
+texture = ExtResource("15_42slk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/BoatBarrier"]
+position = Vector2(3009.5, -1954)
+shape = SubResource("RectangleShape2D_3owu1")
 
 [node name="HUD" parent="." instance=ExtResource("20_g3dfk")]
 
