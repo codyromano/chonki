@@ -89,7 +89,7 @@ func goose_disappear() -> void:
 	await tween.finished
 	
 	await Utils.spawn_star(self)
-	call_deferred("queue_free")
+	get_parent().queue_free()
 	
 func _physics_process(delta: float) -> void:
 	# Don't try to move while injured
