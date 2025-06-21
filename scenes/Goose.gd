@@ -147,7 +147,7 @@ func _physics_process(delta: float) -> void:
 					Utils.throttle('goose_hit', func():
 						$GooseDefeated.play()
 						goose_last_injured_time = Time.get_unix_time_from_system()
-						var meter = find_parent('WithHealthMeter')
+						var meter = get_parent()
 						meter.total_hearts = max(meter.total_hearts - 1, 0)
 						
 						if meter.total_hearts == 0:

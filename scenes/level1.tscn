@@ -146,6 +146,42 @@ volume_db = 10.0
 stream = ExtResource("20_f7bbt")
 volume_db = 10.0
 
+[node name="WithHealthMeter2" type="Node2D" parent="World2D/NavigationRegion2D"]
+position = Vector2(4200, 0)
+script = ExtResource("13_jolgc")
+
+[node name="Goose" type="CharacterBody2D" parent="World2D/NavigationRegion2D/WithHealthMeter2"]
+position = Vector2(8628, -488)
+collision_layer = 2
+collision_mask = 9
+script = ExtResource("13_rdfy5")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World2D/NavigationRegion2D/WithHealthMeter2/Goose"]
+position = Vector2(31.0001, 266)
+scale = Vector2(0.570312, 0.570312)
+sprite_frames = SubResource("SpriteFrames_8w215")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/NavigationRegion2D/WithHealthMeter2/Goose"]
+position = Vector2(24, 259)
+rotation = 0.948541
+shape = SubResource("CapsuleShape2D_nwbuc")
+
+[node name="GooseNavigation" type="NavigationAgent2D" parent="World2D/NavigationRegion2D/WithHealthMeter2/Goose" node_paths=PackedStringArray("target")]
+script = ExtResource("16_vuaih")
+target = NodePath("../../../../Chonki")
+
+[node name="Timer" type="Timer" parent="World2D/NavigationRegion2D/WithHealthMeter2/Goose"]
+wait_time = 3.0
+autostart = true
+
+[node name="FlapAudio" type="AudioStreamPlayer2D" parent="World2D/NavigationRegion2D/WithHealthMeter2/Goose"]
+stream = ExtResource("18_60djy")
+volume_db = 10.0
+
+[node name="GooseDefeated" type="AudioStreamPlayer2D" parent="World2D/NavigationRegion2D/WithHealthMeter2/Goose"]
+stream = ExtResource("20_f7bbt")
+volume_db = 10.0
+
 [node name="SpawnTarget" type="Node2D" parent="World2D/NavigationRegion2D" node_paths=PackedStringArray("origin")]
 script = ExtResource("20_2vioj")
 origin = NodePath("../WithHealthMeter/Goose")
@@ -166,3 +202,4 @@ shape = SubResource("RectangleShape2D_3owu1")
 [node name="HUD" parent="." instance=ExtResource("20_g3dfk")]
 
 [connection signal="timeout" from="World2D/NavigationRegion2D/WithHealthMeter/Goose/Timer" to="World2D/NavigationRegion2D/WithHealthMeter/Goose" method="_on_hop_timer_timeout"]
+[connection signal="timeout" from="World2D/NavigationRegion2D/WithHealthMeter2/Goose/Timer" to="World2D/NavigationRegion2D/WithHealthMeter2/Goose" method="_on_hop_timer_timeout"]

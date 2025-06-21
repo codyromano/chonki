@@ -6,6 +6,7 @@ extends NavigationAgent2D
 @onready var sprite: AnimatedSprite2D = get_parent().find_child('AnimatedSprite2D')
 
 var enemy: CharacterBody2D
+var is_navigation_ready = false
 
 func _ready():
 	# This script must be a child of the enemy
@@ -18,11 +19,15 @@ func _ready():
 	call_deferred("setup")
 
 func setup() -> void:
+	is_navigation_ready = true
 	target_desired_distance = 1
 	path_desired_distance = 6
 	max_speed = speed
 
 func _physics_process(delta: float) -> void:
+	if !is_navigation_ready:
+		return
+		
 	# NavigationAgent2D gets its position from its parent (enemy)
 	set_target_position(target.find_child('ChonkiCharacter').global_position)
 
