@@ -71,7 +71,7 @@ animations = [{
 radius = 149.459
 
 [node name="Collectible" type="Node2D"]
-position = Vector2(1223, -1314)
+position = Vector2(-6757, 635)
 script = ExtResource("1_su7td")
 frames = SubResource("SpriteFrames_6xpr6")
 collectible_name = "star"

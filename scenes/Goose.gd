@@ -38,6 +38,7 @@ var goose_last_injured_time: int
 @onready var hop_timer := $Timer
 @onready var collision_shape := $CollisionShape2D
 
+
 func _ready():
 	sprite.play()
 	# Set up the timer for 4-second intervals
@@ -86,6 +87,8 @@ func goose_disappear() -> void:
 	var tween = create_tween()
 	tween.tween_property($AnimatedSprite2D, 'modulate:a', 0, 1.5)
 	await tween.finished
+	
+	await Utils.spawn_star(self)
 	call_deferred("queue_free")
 	
 func _physics_process(delta: float) -> void:

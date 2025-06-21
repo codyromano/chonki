@@ -1,15 +1,9 @@
-[gd_scene load_steps=26 format=3 uid="uid://br8ftak73gmww"]
+[gd_scene load_steps=20 format=3 uid="uid://br8ftak73gmww"]
 
 [ext_resource type="PackedScene" uid="uid://cyu6wosf2qc3v" path="res://scenes/chonki.tscn" id="1_sihbw"]
 [ext_resource type="Texture2D" uid="uid://bpqdlmvtkr1i5" path="res://assets/environment/lake.png" id="1_vplxb"]
 [ext_resource type="Texture2D" uid="uid://bytsxlqncfgi8" path="res://assets/environment/sky.png" id="2_gc4xo"]
 [ext_resource type="PackedScene" uid="uid://bm55n82sfyn37" path="res://scenes/collectible.tscn" id="4_ew37v"]
-[ext_resource type="Texture2D" uid="uid://c86w4kwchb685" path="res://assets/collectibles/star/frame-1.png" id="5_rct2p"]
-[ext_resource type="Texture2D" uid="uid://cp3tdojnk7fas" path="res://assets/collectibles/star/frame-2.png" id="6_kkvxb"]
-[ext_resource type="Texture2D" uid="uid://bql7d13w36wxg" path="res://assets/collectibles/star/frame-3.png" id="7_smhvx"]
-[ext_resource type="Texture2D" uid="uid://bbkomg4pp4bj7" path="res://assets/collectibles/star/frame-4.png" id="8_au35c"]
-[ext_resource type="Texture2D" uid="uid://bneev3ncdya7k" path="res://assets/collectibles/star/frame-5.png" id="9_dfent"]
-[ext_resource type="Texture2D" uid="uid://ch2myy0vhad08" path="res://assets/collectibles/star/frame-6.png" id="10_3jwg4"]
 [ext_resource type="Texture2D" uid="uid://4bko6gewu3m1" path="res://assets/enemies/goose/goose1.png" id="13_7b16e"]
 [ext_resource type="Script" path="res://scenes/WithHealthMeter.gd" id="13_jolgc"]
 [ext_resource type="Script" path="res://scenes/Goose.gd" id="13_rdfy5"]
@@ -18,37 +12,12 @@
 [ext_resource type="Script" path="res://scenes/GooseNavigation.gd" id="16_vuaih"]
 [ext_resource type="Texture2D" uid="uid://vvx8340f7nlj" path="res://assets/enemies/goose/goose-defeated.png" id="17_0mpyo"]
 [ext_resource type="AudioStream" uid="uid://dtbn6tc13x30h" path="res://assets/sound/bird-flap.mp3" id="18_60djy"]
+[ext_resource type="Script" path="res://scenes/composable/SpawnTarget.gd" id="20_2vioj"]
 [ext_resource type="AudioStream" uid="uid://me3nrqvd2xhg" path="res://assets/sound/goose-defeated.mp3" id="20_f7bbt"]
 [ext_resource type="PackedScene" uid="uid://b41x2t8numn7a" path="res://scenes/HUD.tscn" id="20_g3dfk"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_piwsr"]
 distance = -500.0
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_7pp3d"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("5_rct2p")
-}, {
-"duration": 1.0,
-"texture": ExtResource("6_kkvxb")
-}, {
-"duration": 1.0,
-"texture": ExtResource("7_smhvx")
-}, {
-"duration": 1.0,
-"texture": ExtResource("8_au35c")
-}, {
-"duration": 1.0,
-"texture": ExtResource("9_dfent")
-}, {
-"duration": 1.0,
-"texture": ExtResource("10_3jwg4")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_1ju1f"]
 vertices = PackedVector2Array(14049, 10, 4106, 17, 4110, -3243, 14132, -3280)
@@ -94,6 +63,12 @@ height = 437.11
 position = Vector2(-5159, -12)
 
 [node name="World2D" type="Node2D" parent="."]
+unique_name_in_owner = true
+
+[node name="Collectible" parent="World2D" instance=ExtResource("4_ew37v")]
+z_index = 1
+position = Vector2(3062, -1246)
+scale = Vector2(1, 1)
 
 [node name="GroundSprite" type="Polygon2D" parent="World2D"]
 z_index = 3
@@ -128,9 +103,6 @@ z_index = 100
 position = Vector2(317, -500)
 shape = SubResource("WorldBoundaryShape2D_piwsr")
 debug_color = Color(0.307035, 0.494072, 1, 0.42)
-
-[node name="Collectible" parent="World2D" instance=ExtResource("4_ew37v")]
-frames = SubResource("SpriteFrames_7pp3d")
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="World2D"]
 navigation_polygon = SubResource("NavigationPolygon_1ju1f")
@@ -169,6 +141,11 @@ volume_db = 10.0
 [node name="GooseDefeated" type="AudioStreamPlayer2D" parent="World2D/NavigationRegion2D/WithHealthMeter/Goose"]
 stream = ExtResource("20_f7bbt")
 volume_db = 10.0
+
+[node name="SpawnTarget" type="Node2D" parent="World2D/NavigationRegion2D" node_paths=PackedStringArray("origin")]
+script = ExtResource("20_2vioj")
+origin = NodePath("../WithHealthMeter/Goose")
+item_scene = ExtResource("4_ew37v")
 
 [node name="HUD" parent="." instance=ExtResource("20_g3dfk")]
 
