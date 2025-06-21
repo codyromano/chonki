@@ -72,20 +72,15 @@ func temp_disable_collisions() -> void:
 	
 	# Set collision mask to only layer 2 (bit 0)
 	collision_mask = 2
-	print("goose mask: ", collision_mask)
 	
 	# Wait 3 seconds, then restore original collision mask
 	await get_tree().create_timer(3.0).timeout
 	collision_mask = original_mask
-	print("goose mask: ", collision_mask)
-	
-	print("Collisions disabled for 3 seconds")
 
 func _on_collision_timer_timeout(timer: Timer) -> void:
 	collisions_disabled = false
 	collision_shape.set_deferred("disabled", false)
 	timer.queue_free()  # Clean up the temporary timer
-	print("Collisions re-enabled")
 	
 func goose_disappear() -> void:
 	var tween = create_tween()
@@ -136,7 +131,6 @@ func _physics_process(delta: float) -> void:
 				print("Side collision detected!")
 		
 			if "is_attacking" in collider:
-				print("checking")
 				if collider.is_attacking():
 					Utils.throttle('goose_hit', func():
 						$GooseDefeated.play()

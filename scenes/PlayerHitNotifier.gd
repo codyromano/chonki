@@ -10,7 +10,4 @@ func _ready():
 	
 func on_child_entered_tree(collided_with: Node2D) -> void:
 	if collided_with.name == "Chonki":
-		print("player_hit emitted")
 		GlobalSignals.player_hit.emit()
-	else:
-		print("collided with a non-player object")
