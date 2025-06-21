@@ -87,6 +87,12 @@ func _on_collision_timer_timeout(timer: Timer) -> void:
 	timer.queue_free()  # Clean up the temporary timer
 	print("Collisions re-enabled")
 	
+func goose_disappear() -> void:
+	var tween = create_tween()
+	tween.tween_property($AnimatedSprite2D, 'modulate:a', 0, 1.5)
+	await tween.finished
+	call_deferred("queue_free")
+	
 func _physics_process(delta: float) -> void:
 	# Don't try to move while injured
 	if is_injured():
@@ -132,16 +138,19 @@ func _physics_process(delta: float) -> void:
 			if "is_attacking" in collider:
 				print("checking")
 				if collider.is_attacking():
-					print("is attacking")
-					$GooseDefeated.play()
-					goose_last_injured_time = Time.get_unix_time_from_system()
-					# Handle goose hurt
-					pass
+					Utils.throttle('goose_hit', func():
+						$GooseDefeated.play()
+						goose_last_injured_time = Time.get_unix_time_from_system()
+						var meter = find_parent('WithHealthMeter')
+						meter.total_hearts = max(meter.total_hearts - 1, 0)
+						
+						if meter.total_hearts == 0:
+							goose_disappear()
+					, 2)
 				else: 
-					print("is not attacking")
-					GlobalSignals.player_hit.emit()
-				# temp_disable_collisions()
-				print("collided with player")
+					Utils.throttle('player_hit', func():
+						GlobalSignals.player_hit.emit()
+					, 3)
 			else:
 				pass
 				# print("collided with non-player:  " + collider.name)
