@@ -1,4 +1,4 @@
-[gd_scene load_steps=140 format=3 uid="uid://cyu6wosf2qc3v"]
+[gd_scene load_steps=141 format=3 uid="uid://cyu6wosf2qc3v"]
 
 [ext_resource type="Texture2D" uid="uid://batkaluf3jygl" path="res://assets/corgi/01_idle/skeleton-0b_idle_00.png" id="1_0os5j"]
 [ext_resource type="Script" path="res://scenes/chonki.gd" id="1_j6uc5"]
@@ -137,6 +137,7 @@
 [ext_resource type="AudioStream" uid="uid://culiqfeaauxt7" path="res://assets/sound/push.mp3" id="124_bhcov"]
 [ext_resource type="AudioStream" uid="uid://bxokgwf35y540" path="res://assets/sound/jump.mp3" id="125_r2wll"]
 [ext_resource type="AudioStream" uid="uid://3u0hk83prun5" path="res://assets/sound/chill-bark.mp3" id="127_vip41"]
+[ext_resource type="AudioStream" uid="uid://7um8tvamt40s" path="res://assets/sound/autumn.mp3" id="138_chkli"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_fg46y"]
 animations = [{
@@ -616,5 +617,10 @@ zoom = Vector2(0.25, 0.25)
 
 [node name="ChillBark" type="AudioStreamPlayer2D" parent="ChonkiCharacter"]
 stream = ExtResource("127_vip41")
+
+[node name="BackgroundAudio" type="AudioStreamPlayer2D" parent="ChonkiCharacter"]
+stream = ExtResource("138_chkli")
+volume_db = -10.0
+autoplay = true
 
 [connection signal="animation_finished" from="ChonkiCharacter/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
