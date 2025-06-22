@@ -1,0 +1,6 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://dte5an7k6hog1"]
+
+[ext_resource type="FontFile" uid="uid://dlfbvpauldaco" path="res://fonts/Sniglet-Regular.ttf" id="1_2agq7"]
+
+[resource]
+Label/fonts/font = ExtResource("1_2agq7")

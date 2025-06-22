@@ -6,3 +6,4 @@ signal player_hit
 signal star_collected
 signal heart_lost
 signal win_game
+signal time_up

@@ -1,9 +1,12 @@
-[gd_scene load_steps=5 format=3 uid="uid://b41x2t8numn7a"]
+[gd_scene load_steps=8 format=3 uid="uid://b41x2t8numn7a"]
 
 [ext_resource type="Script" path="res://scenes/HUDControl.gd" id="1_3g370"]
 [ext_resource type="Texture2D" uid="uid://qx1ubqqi74hv" path="res://assets/collectibles/menu-icons/heart.png" id="2"]
 [ext_resource type="Texture2D" uid="uid://c86w4kwchb685" path="res://assets/collectibles/star/frame-1.png" id="2_h711k"]
 [ext_resource type="Script" path="res://scenes/StarLabel.gd" id="3_s5bop"]
+[ext_resource type="Theme" uid="uid://dte5an7k6hog1" path="res://themes/base.tres" id="4_a3yto"]
+[ext_resource type="Texture2D" uid="uid://bqld0cf1kt3t4" path="res://assets/collectibles/menu-icons/clock.png" id="5_sva7s"]
+[ext_resource type="Script" path="res://scenes/menus/TimerText.gd" id="6_05hcm"]
 
 [node name="HUD" type="CanvasLayer"]
 
@@ -19,8 +22,10 @@ script = ExtResource("1_3g370")
 [node name="Heart1" type="TextureRect" parent="HUDControl"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
-offset_right = 400.0
-offset_bottom = 400.0
+offset_left = 22.0
+offset_top = 22.0
+offset_right = 422.0
+offset_bottom = 422.0
 scale = Vector2(0.25, 0.25)
 size_flags_horizontal = 0
 size_flags_vertical = 4
@@ -30,9 +35,10 @@ stretch_mode = 2
 [node name="Heart2" type="TextureRect" parent="HUDControl"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
-offset_left = 96.0
-offset_right = 496.0
-offset_bottom = 400.0
+offset_left = 118.0
+offset_top = 22.0
+offset_right = 518.0
+offset_bottom = 422.0
 scale = Vector2(0.25, 0.25)
 size_flags_horizontal = 0
 size_flags_vertical = 4
@@ -42,36 +48,22 @@ stretch_mode = 2
 [node name="Heart3" type="TextureRect" parent="HUDControl"]
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
-offset_left = 195.0
-offset_right = 595.0
-offset_bottom = 400.0
+offset_left = 217.0
+offset_top = 22.0
+offset_right = 617.0
+offset_bottom = 422.0
 scale = Vector2(0.25, 0.25)
 size_flags_horizontal = 0
 size_flags_vertical = 4
 texture = ExtResource("2")
 stretch_mode = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HUDControl"]
-layout_mode = 0
-offset_right = 1612.0
-offset_bottom = 400.0
-
-[node name="HealthContainer" type="HBoxContainer" parent="HUDControl/HBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 4
-
-[node name="StarContainer" type="HBoxContainer" parent="HUDControl/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 4
-alignment = 2
-
 [node name="StarIcon" type="TextureRect" parent="HUDControl"]
 layout_mode = 2
-offset_left = 1484.0
-offset_top = 8.0
-offset_right = 1800.0
-offset_bottom = 313.0
+offset_left = 1458.0
+offset_top = 30.0
+offset_right = 1774.0
+offset_bottom = 335.0
 scale = Vector2(0.25, 0.25)
 texture = ExtResource("2_h711k")
 stretch_mode = 2
@@ -79,11 +71,38 @@ stretch_mode = 2
 [node name="StarLabel" type="Label" parent="HUDControl"]
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
-offset_left = 1575.0
-offset_top = -7.0
-offset_right = 1673.0
-offset_bottom = 96.0
+offset_left = 1548.0
+offset_top = 24.0
+offset_right = 1646.0
+offset_bottom = 127.0
+theme = ExtResource("4_a3yto")
 theme_override_font_sizes/font_size = 75
 text = "0
 "
 script = ExtResource("3_s5bop")
+
+[node name="TimerText" type="Label" parent="HUDControl"]
+layout_mode = 0
+offset_left = 830.0
+offset_top = 18.0
+offset_right = 917.0
+offset_bottom = 121.0
+theme = ExtResource("4_a3yto")
+theme_override_font_sizes/font_size = 75
+text = "90"
+script = ExtResource("6_05hcm")
+duration = 5
+
+[node name="Timer" type="Timer" parent="HUDControl/TimerText"]
+autostart = true
+
+[node name="ClockIcon" type="TextureRect" parent="HUDControl"]
+layout_mode = 0
+offset_left = 712.0
+offset_top = 8.0
+offset_right = 1736.0
+offset_bottom = 1032.0
+scale = Vector2(0.12, 0.12)
+texture = ExtResource("5_sva7s")
+
+[connection signal="timeout" from="HUDControl/TimerText/Timer" to="HUDControl/TimerText" method="_on_timer_timeout"]
