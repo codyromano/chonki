@@ -20,9 +20,9 @@
 distance = -500.0
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_1ju1f"]
-vertices = PackedVector2Array(14049, 10, 4106, 17, 4110, -3243, 14132, -3280)
+vertices = PackedVector2Array(25422, 0, 4106, 17, 4110, -3243, 25400, -3331)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(4096, 28, 4101, -3253, 14143, -3291, 14059, 20)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(4096, 28, 4101, -3253, 25410, -3342, 25433, 9)])
 source_geometry_group_name = &"navigation_polygon_source_group"
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_8w215"]
@@ -111,7 +111,7 @@ position = Vector2(3985, 0)
 navigation_polygon = SubResource("NavigationPolygon_1ju1f")
 
 [node name="Goose" type="CharacterBody2D" parent="World2D/NavigationRegion2D"]
-position = Vector2(8628, -488)
+position = Vector2(5307, -488)
 collision_layer = 2
 collision_mask = 9
 script = ExtResource("13_rdfy5")
@@ -142,6 +142,70 @@ volume_db = 10.0
 stream = ExtResource("20_f7bbt")
 volume_db = 10.0
 
+[node name="Goose2" type="CharacterBody2D" parent="World2D/NavigationRegion2D"]
+position = Vector2(12522, -488)
+collision_layer = 2
+collision_mask = 9
+script = ExtResource("13_rdfy5")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World2D/NavigationRegion2D/Goose2"]
+position = Vector2(31.0001, 266)
+scale = Vector2(0.570312, 0.570312)
+sprite_frames = SubResource("SpriteFrames_8w215")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/NavigationRegion2D/Goose2"]
+position = Vector2(24, 259)
+rotation = 0.948541
+shape = SubResource("CapsuleShape2D_nwbuc")
+
+[node name="GooseNavigation" type="NavigationAgent2D" parent="World2D/NavigationRegion2D/Goose2" node_paths=PackedStringArray("target")]
+script = ExtResource("16_vuaih")
+target = NodePath("../../../Chonki")
+
+[node name="Timer" type="Timer" parent="World2D/NavigationRegion2D/Goose2"]
+wait_time = 3.0
+autostart = true
+
+[node name="FlapAudio" type="AudioStreamPlayer2D" parent="World2D/NavigationRegion2D/Goose2"]
+stream = ExtResource("18_60djy")
+volume_db = 10.0
+
+[node name="GooseDefeated" type="AudioStreamPlayer2D" parent="World2D/NavigationRegion2D/Goose2"]
+stream = ExtResource("20_f7bbt")
+volume_db = 10.0
+
+[node name="Goose3" type="CharacterBody2D" parent="World2D/NavigationRegion2D"]
+position = Vector2(18548, -488)
+collision_layer = 2
+collision_mask = 9
+script = ExtResource("13_rdfy5")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World2D/NavigationRegion2D/Goose3"]
+position = Vector2(31.0001, 266)
+scale = Vector2(0.570312, 0.570312)
+sprite_frames = SubResource("SpriteFrames_8w215")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/NavigationRegion2D/Goose3"]
+position = Vector2(24, 259)
+rotation = 0.948541
+shape = SubResource("CapsuleShape2D_nwbuc")
+
+[node name="GooseNavigation" type="NavigationAgent2D" parent="World2D/NavigationRegion2D/Goose3" node_paths=PackedStringArray("target")]
+script = ExtResource("16_vuaih")
+target = NodePath("../../../Chonki")
+
+[node name="Timer" type="Timer" parent="World2D/NavigationRegion2D/Goose3"]
+wait_time = 3.0
+autostart = true
+
+[node name="FlapAudio" type="AudioStreamPlayer2D" parent="World2D/NavigationRegion2D/Goose3"]
+stream = ExtResource("18_60djy")
+volume_db = 10.0
+
+[node name="GooseDefeated" type="AudioStreamPlayer2D" parent="World2D/NavigationRegion2D/Goose3"]
+stream = ExtResource("20_f7bbt")
+volume_db = 10.0
+
 [node name="BoatBarrier" type="StaticBody2D" parent="World2D"]
 position = Vector2(415, 0)
 
@@ -155,8 +219,10 @@ position = Vector2(2496.06, -1870.25)
 shape = SubResource("RectangleShape2D_3owu1")
 
 [node name="Dave" parent="World2D" instance=ExtResource("16_ytk5w")]
-position = Vector2(18293, -1442)
+position = Vector2(33805, -1442)
 
 [node name="HUD" parent="." instance=ExtResource("20_g3dfk")]
 
 [connection signal="timeout" from="World2D/NavigationRegion2D/Goose/Timer" to="World2D/NavigationRegion2D/Goose" method="_on_hop_timer_timeout"]
+[connection signal="timeout" from="World2D/NavigationRegion2D/Goose2/Timer" to="World2D/NavigationRegion2D/Goose2" method="_on_hop_timer_timeout"]
+[connection signal="timeout" from="World2D/NavigationRegion2D/Goose3/Timer" to="World2D/NavigationRegion2D/Goose3" method="_on_hop_timer_timeout"]

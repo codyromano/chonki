@@ -140,7 +140,7 @@
 [ext_resource type="AudioStream" uid="uid://3u0hk83prun5" path="res://assets/sound/chill-bark.mp3" id="127_vip41"]
 [ext_resource type="Script" path="res://scenes/Camera2D.gd" id="137_s2qkj"]
 [ext_resource type="AudioStream" uid="uid://7um8tvamt40s" path="res://assets/sound/autumn.mp3" id="138_chkli"]
-[ext_resource type="AudioStream" uid="uid://bgd3mop7jm2vw" path="res://assets/sound/won.mp3" id="141_7lvo0"]
+[ext_resource type="AudioStream" uid="uid://bckidyukxqyoi" path="res://assets/sound/won.wav" id="141_rqm40"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_fg46y"]
 animations = [{
@@ -631,7 +631,7 @@ volume_db = -10.0
 autoplay = true
 
 [node name="AudioWon" type="AudioStreamPlayer2D" parent="ChonkiCharacter"]
-stream = ExtResource("141_7lvo0")
-volume_db = 10.0
+stream = ExtResource("141_rqm40")
+volume_db = 5.0
 
 [connection signal="animation_finished" from="ChonkiCharacter/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
