@@ -46,3 +46,16 @@ func spawn_star(origin: Node2D, duration: float = 2) -> void:
 	tween.set_parallel(true)
 	await tween.finished
 
+func disable_collision_between_objects(
+	object_a: CollisionObject2D,
+	object_b: CollisionObject2D
+) -> void:
+	# For each layer that object B is on, disable it in object A's mask
+	for layer in range(1, 33):  # Godot has 32 collision layers (1-32)
+		if object_b.get_collision_layer_value(layer):
+			object_a.set_collision_mask_value(layer, false)
+	
+	# For each layer that object A is on, disable it in object B's mask
+	for layer in range(1, 33):
+		if object_a.get_collision_layer_value(layer):
+			object_b.set_collision_mask_value(layer, false)

@@ -51,22 +51,18 @@ func _ready():
 	hop_timer.wait_time = 4.0
 	# hop_timer.timeout.connect(_on_hop_timer_timeout)
 	hop_timer.start()
+	
+func is_injured() -> bool:
+	return states.has(GooseState.DEFEATED)
 
 func play_audio() -> void:
 	if !is_on_floor() && !$FlapAudio.playing:
 		$FlapAudio.play()
-	
-func is_injured() -> bool:
-	var current_time = Time.get_unix_time_from_system()
-	return (
-		goose_last_injured_time != null &&
-		current_time - goose_last_injured_time <= GOOSE_INJURY_TIME
-	)
 		
 func get_sprite() -> String:
 	sprite.flip_h = false if velocity.x > 0.5 else true
 	
-	if is_injured():
+	if states.has(GooseState.DEFEATED):
 		return "hurt"
 	
 	if is_on_floor():
@@ -90,19 +86,24 @@ func _on_collision_timer_timeout(timer: Timer) -> void:
 	timer.queue_free()  # Clean up the temporary timer
 	
 func goose_disappear() -> void:
+	var chonki_body = find_parent('World2D').find_child('Chonki').find_child('ChonkiCharacter')
+	Utils.disable_collision_between_objects(
+		self,
+		chonki_body
+	)
+
+	const inanimate_layer = 16
+	collision_layer &= ~inanimate_layer
+	# disable_collision_between_objects(self)
+	
 	var tween = create_tween()
-	tween.tween_property($AnimatedSprite2D, 'modulate:a', 0, 1.5)
+	tween.tween_property($AnimatedSprite2D, 'modulate:a', 0, 3)
 	await tween.finished
-	
-	await Utils.spawn_star(self)
-	
-	var parent = get_parent()
-	print("disappear parent: ", parent)
-	get_parent().queue_free()
+	queue_free()
 	
 func _physics_process(delta: float) -> void:
 	# Don't try to move while injured
-	if is_injured():
+	if states.has(GooseState.DEFEATED):
 		sprite.play(get_sprite())
 		return
 		
@@ -147,12 +148,8 @@ func _physics_process(delta: float) -> void:
 					Utils.throttle('goose_hit', func():
 						$GooseDefeated.play()
 						goose_last_injured_time = Time.get_unix_time_from_system()
-						var meter = get_parent()
-						meter.total_hearts = max(meter.total_hearts - 1, 0)
-						
-						if meter.total_hearts == 0:
-							states[GooseState.DEFEATED] = true
-							goose_disappear()
+						states[GooseState.DEFEATED] = true
+						goose_disappear()
 					, 2)
 				elif !states.has(GooseState.DEFEATED): 
 					Utils.throttle('player_hit', func():
