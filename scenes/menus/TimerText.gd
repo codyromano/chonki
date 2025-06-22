@@ -10,7 +10,8 @@ func _process(_delta):
 	text = str(duration)
 
 func stop_timer() -> void:
-	$Timer.queue_free()
+	if $Timer:
+		$Timer.queue_free()
 
 func _on_timer_timeout():
 	if duration == 0:
