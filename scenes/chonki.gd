@@ -18,9 +18,9 @@ var original_collision_mask: int
 
 var hit_time: int
 
-const SPEED: float = 2000.0
-const JUMP_FORCE: float = -2500.0
-const GRAVITY: float = 3000.0
+const SPEED: float = 3500.0
+const JUMP_FORCE: float = -8000.0   # 3x faster: -4000 × 3 = -12000
+const GRAVITY: float = 20000.0       # 9x stronger: 8000 × 9 = 72000
 const HIT_RECOVERY_TIME: float = 1
 
 var is_game_win = false 

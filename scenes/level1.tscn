@@ -84,14 +84,14 @@ texture = ExtResource("1_vplxb")
 texture_offset = Vector2(0, 400)
 polygon = PackedVector2Array(-966.253, -382.053, 73308.7, -382.053, 73294.4, 627.614, -964.201, 621.381)
 
-[node name="Polygon2D" type="Polygon2D" parent="World2D"]
+[node name="CloudsBG" type="Polygon2D" parent="World2D"]
 texture_repeat = 2
-position = Vector2(-23.4961, 0)
-scale = Vector2(0.995609, 0.999786)
+position = Vector2(91.6674, -1.36397)
+scale = Vector2(1.10874, 1.11339)
 texture = ExtResource("2_gc4xo")
 texture_offset = Vector2(0, 3750)
 texture_scale = Vector2(0.25, 0.25)
-polygon = PackedVector2Array(-1009, 5, 108067, 12.0026, 108211, -2983.64, 108250, -4003.86, -1017.97, -4045.87)
+polygon = PackedVector2Array(-1009, 5, 108067, 12.0026, 108211, -2983.64, 108250, -4003.86, 53431.7, -4024.94, -1017.97, -4045.87)
 
 [node name="Chonki" parent="World2D" instance=ExtResource("1_sihbw")]
 position = Vector2(5788, -494)
