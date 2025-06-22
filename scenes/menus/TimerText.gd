@@ -2,10 +2,12 @@ extends Label
 
 @export var duration: int = 90
 
+func _ready() -> void:
+	GlobalSignals.win_game.connect(stop_timer)
+		
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	text = str(duration)
-	GlobalSignals.win_game.connect(stop_timer)
 
 func stop_timer() -> void:
 	$Timer.queue_free()
