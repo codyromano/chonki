@@ -15,7 +15,3 @@ func _on_heart_collected() -> void:
 	)
 	for i in range(0, heart_nodes.size()):
 		heart_nodes[i].visible = i < total_hearts
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
-	pass

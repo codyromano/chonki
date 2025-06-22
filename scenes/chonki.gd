@@ -125,7 +125,7 @@ func get_attack_sprite():
 
 func get_player_injured_sprite():
 	var current_time: int = Time.get_unix_time_from_system()
-	return "ouch" if hit_time != null && current_time - hit_time <= HIT_RECOVERY_TIME else null
+	return "ouch" if (hit_time != null && current_time - hit_time <= HIT_RECOVERY_TIME) else null
 
 func get_run_sprite():
 	if velocity.x != 0:
@@ -179,8 +179,6 @@ func update_sprite() -> void:
 		get_rest_sprite(),
 		get_idle_sprite()
 	]
-	
-	var is_taking_action: bool = false
 	
 	# Track the last action item forthe purpose of playing a
 	# a rest, the sleep, animation after a period of inactivity

@@ -9,5 +9,5 @@ func _ready():
 func _on_star_collected() -> void:
 	total_collected+= 1
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	text = str(total_collected)

@@ -15,7 +15,7 @@ func get_sprite() -> String:
 	return "happy" if state == State.HAPPY else "concerned"
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	var next_sprite = get_sprite()
 	
 	if sprite.animation != next_sprite:
