@@ -94,12 +94,6 @@ func goose_disappear() -> void:
 
 	const inanimate_layer = 16
 	collision_layer &= ~inanimate_layer
-	# disable_collision_between_objects(self)
-	
-	var tween = create_tween()
-	tween.tween_property($AnimatedSprite2D, 'modulate:a', 0, 3)
-	await tween.finished
-	queue_free()
 	
 func _physics_process(delta: float) -> void:
 	# Don't try to move while injured

@@ -154,9 +154,9 @@ texture = ExtResource("15_42slk")
 position = Vector2(2496.06, -1870.25)
 shape = SubResource("RectangleShape2D_3owu1")
 
-[node name="HUD" parent="." instance=ExtResource("20_g3dfk")]
-
-[node name="Dave" parent="." instance=ExtResource("16_ytk5w")]
+[node name="Dave" parent="World2D" instance=ExtResource("16_ytk5w")]
 position = Vector2(18293, -1442)
+
+[node name="HUD" parent="." instance=ExtResource("20_g3dfk")]
 
 [connection signal="timeout" from="World2D/NavigationRegion2D/Goose/Timer" to="World2D/NavigationRegion2D/Goose" method="_on_hop_timer_timeout"]
