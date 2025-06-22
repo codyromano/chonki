@@ -1,12 +1,15 @@
 extends Node2D
+
 @onready var body         : CharacterBody2D    = $ChonkiCharacter
-@onready var sprite       : AnimatedSprite2D     = $ChonkiCharacter/AnimatedSprite2D
+@onready var sprite       : AnimatedSprite2D   = $ChonkiCharacter/AnimatedSprite2D
 @onready var run_sound    : AudioStreamPlayer2D  = $ChonkiCharacter/AudioRun
 @onready var rest_sound   : AudioStreamPlayer2D  = $ChonkiCharacter/RestRun
 @onready var ram_sound    : AudioStreamPlayer2D  = $ChonkiCharacter/AudioRam
 @onready var push_sound   : AudioStreamPlayer2D  = $ChonkiCharacter/AudioPush
 @onready var jump_sound   : AudioStreamPlayer2D  = $ChonkiCharacter/AudioJump
 @onready var chill_bark   : AudioStreamPlayer2D  = $ChonkiCharacter/ChillBark
+
+@export var heart_texture: Texture2D
 
 enum ChonkiState { IDLE, RUN, ATTACK }
 
@@ -19,20 +22,47 @@ var original_collision_mask: int
 var hit_time: int
 
 const SPEED: float = 3500.0
-const JUMP_FORCE: float = -8000.0   # 3x faster: -4000 × 3 = -12000
-const GRAVITY: float = 20000.0       # 9x stronger: 8000 × 9 = 72000
+const JUMP_FORCE: float = -8000.0
+const GRAVITY: float = 20000.0
 const HIT_RECOVERY_TIME: float = 1
-
 var is_game_win = false 
 
 func _ready() -> void:
 	sprite.play("sleep")
 	GlobalSignals.connect("player_hit", on_player_hit)
 	GlobalSignals.connect("win_game", on_win_game)
-	
+
 func on_win_game() -> void:
 	is_game_win = true
+	spawn_floating_hearts()
+
+func spawn_floating_hearts() -> void:
+	var frame_texture = sprite.sprite_frames.get_frame_texture(
+		sprite.animation,
+		sprite.frame
+	)
+	var size: Vector2 = frame_texture.get_size() * sprite.scale
 	
+	for i in range(25):
+		var heart = Sprite2D.new()
+		heart.texture = heart_texture
+		heart.scale = Vector2(0.5, 0.5)
+		
+		heart.global_position = sprite.global_position + Vector2(-(size.x / 2), size.y / 2)
+		heart.modulate.a = 0.0
+		add_child(heart)
+
+		var direction = Vector2(randf() * 2.0 - 1.0, randf() * -1.5).normalized()
+		# var distance = randf() * 200 + 100
+		var distance = randf() * 2000 + 100
+		var end_pos = heart.global_position + direction * distance
+
+		var tween = create_tween()
+		tween.tween_property(heart, "modulate:a", 1.0, 1.0).set_trans(Tween.TRANS_SINE)
+		tween.tween_property(heart, "global_position", end_pos, 6.0).set_trans(Tween.TRANS_SINE)
+		tween.tween_property(heart, "modulate:a", 0.0, 1.0).set_trans(Tween.TRANS_SINE)
+		tween.tween_callback(Callable(heart, "queue_free"))
+
 func on_player_hit() -> void:
 	GlobalSignals.heart_lost.emit()
 	$ChonkiCharacter/AudioOuch.play()
@@ -45,13 +75,11 @@ func _physics_process(delta: float) -> void:
 	body.move_and_slide()
 
 func handle_movement(delta: float) -> void:
-	# Don't move Chonki after he reunites with his owner
 	if is_game_win:
 		body.velocity = Vector2(0, 0)
 		return
-	
+
 	var direction: float = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
-	
 	var current_time = Time.get_unix_time_from_system()
 	if hit_time != null && current_time - hit_time <= HIT_RECOVERY_TIME:
 		velocity.x = 2000 if sprite.flip_h else -2000
@@ -60,16 +88,13 @@ func handle_movement(delta: float) -> void:
 		return
 	elif hit_time != null && current_time - hit_time >= HIT_RECOVERY_TIME && original_collision_mask > 0:
 		pass
-		# body.collision_mask = original_collision_mask
-		
+
 	if Input.is_action_just_pressed("push") or Input.is_action_just_pressed("ram"):
 		if body.is_on_floor():
-			velocity.y = -1000  # optional: slight hop
+			velocity.y = -1000
 	else:
 		velocity.x = direction * SPEED
-	# Apply gravity
 	velocity.y += GRAVITY * delta
-	# Jump
 	if Input.is_action_just_pressed("ui_up") and body.is_on_floor():
 		velocity.y = JUMP_FORCE
 	body.velocity = velocity
@@ -90,7 +115,6 @@ func play_sound_effects() -> void:
 			play_once(chill_bark)
 		"push":
 			ram_sound.stop()
-			# push_sound.stop()
 			rest_sound.stop()
 			await get_tree().create_timer(0.5).timeout
 			play_once(push_sound)
@@ -115,7 +139,7 @@ func play_on_ground(player: AudioStreamPlayer2D) -> void:
 func get_attack_sprite():
 	if sprite.animation in ["ram", "push"] && sprite.is_playing():
 		return sprite.animation
-	
+
 	if Input.is_action_just_pressed("push"):
 		return "push"
 	elif Input.is_action_just_pressed("ram"):
@@ -129,7 +153,9 @@ func get_player_injured_sprite():
 
 func get_run_sprite():
 	if velocity.x != 0:
-		if not run_sound.playing:
+		if not run_sound.playing && !is_game_win:
+			run_sound.play()
+		else:
 			run_sound.play()
 		return "run"
 	return null
@@ -154,7 +180,7 @@ func get_rest_sprite():
 
 func get_idle_sprite():
 	return "idle"
-	
+
 func get_win_game_sprite():
 	return "rest" if is_game_win else null
 
@@ -165,10 +191,8 @@ func handle_sprite_flip():
 		sprite.flip_h = true
 	elif Input.is_action_just_pressed("ui_right"):
 		sprite.flip_h = false
-	
+
 func update_sprite() -> void:
-	# Different types of sprites for the player character,
-	# sorted by priority. Each returns a string or null
 	var possible_next_sprites = [
 		get_win_game_sprite(),
 		get_player_injured_sprite(),
@@ -179,13 +203,10 @@ func update_sprite() -> void:
 		get_rest_sprite(),
 		get_idle_sprite()
 	]
-	
-	# Track the last action item forthe purpose of playing a
-	# a rest, the sleep, animation after a period of inactivity
+
 	if velocity.x != 0 or Input.is_action_just_pressed("ui_left") or Input.is_action_just_pressed("ui_right"):
 		last_action_time = Time.get_unix_time_from_system()
-	
-	# Find the first valid sprite and play it
+
 	for next_sprite in possible_next_sprites:
 		if next_sprite != null:
 			sprite.play(next_sprite)

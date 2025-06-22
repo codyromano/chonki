@@ -1,7 +1,8 @@
-[gd_scene load_steps=142 format=3 uid="uid://cyu6wosf2qc3v"]
+[gd_scene load_steps=144 format=3 uid="uid://cyu6wosf2qc3v"]
 
 [ext_resource type="Texture2D" uid="uid://batkaluf3jygl" path="res://assets/corgi/01_idle/skeleton-0b_idle_00.png" id="1_0os5j"]
 [ext_resource type="Script" path="res://scenes/chonki.gd" id="1_j6uc5"]
+[ext_resource type="Texture2D" uid="uid://qx1ubqqi74hv" path="res://assets/collectibles/menu-icons/heart.png" id="2_qbvej"]
 [ext_resource type="Script" path="res://scenes/ChonkiBody.gd" id="2_si7u3"]
 [ext_resource type="Texture2D" uid="uid://dyi1618ew4mac" path="res://assets/corgi/01_idle/skeleton-0b_idle_01.png" id="2_v0sv5"]
 [ext_resource type="Texture2D" uid="uid://cn4gyafnt00v5" path="res://assets/corgi/01_idle/skeleton-0b_idle_02.png" id="3_mwp3x"]
@@ -139,6 +140,7 @@
 [ext_resource type="AudioStream" uid="uid://3u0hk83prun5" path="res://assets/sound/chill-bark.mp3" id="127_vip41"]
 [ext_resource type="Script" path="res://scenes/Camera2D.gd" id="137_s2qkj"]
 [ext_resource type="AudioStream" uid="uid://7um8tvamt40s" path="res://assets/sound/autumn.mp3" id="138_chkli"]
+[ext_resource type="AudioStream" uid="uid://bgd3mop7jm2vw" path="res://assets/sound/won.mp3" id="141_7lvo0"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_fg46y"]
 animations = [{
@@ -572,6 +574,7 @@ size = Vector2(835, 823)
 
 [node name="Chonki" type="Node2D"]
 script = ExtResource("1_j6uc5")
+heart_texture = ExtResource("2_qbvej")
 
 [node name="ChonkiCharacter" type="CharacterBody2D" parent="."]
 z_index = 1
@@ -626,5 +629,9 @@ stream = ExtResource("127_vip41")
 stream = ExtResource("138_chkli")
 volume_db = -10.0
 autoplay = true
+
+[node name="AudioWon" type="AudioStreamPlayer2D" parent="ChonkiCharacter"]
+stream = ExtResource("141_7lvo0")
+volume_db = 10.0
 
 [connection signal="animation_finished" from="ChonkiCharacter/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
