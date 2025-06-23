@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://br8ftak73gmww"]
+[gd_scene load_steps=26 format=3 uid="uid://br8ftak73gmww"]
 
 [ext_resource type="PackedScene" uid="uid://cyu6wosf2qc3v" path="res://scenes/chonki.tscn" id="1_sihbw"]
 [ext_resource type="Texture2D" uid="uid://bpqdlmvtkr1i5" path="res://assets/environment/lake.png" id="1_vplxb"]
@@ -10,6 +10,8 @@
 [ext_resource type="Texture2D" uid="uid://b281ntpbdihii" path="res://assets/enemies/goose/goose3.png" id="14_apft5"]
 [ext_resource type="Texture2D" uid="uid://4l0wnaj430u" path="res://assets/environment/boats.png" id="15_42slk"]
 [ext_resource type="Texture2D" uid="uid://deplee65wfhnh" path="res://assets/environment/cherry_tree.png" id="15_gqhdx"]
+[ext_resource type="Script" path="res://scenes/Volleyball.gd" id="16_8v3j4"]
+[ext_resource type="Texture2D" uid="uid://do40vx10g03uc" path="res://assets/environment/volleyball.png" id="16_36ag7"]
 [ext_resource type="Script" path="res://scenes/GooseNavigation.gd" id="16_vuaih"]
 [ext_resource type="PackedScene" uid="uid://bffjk8vm2vkp5" path="res://scenes/characters/dave.tscn" id="16_ytk5w"]
 [ext_resource type="Texture2D" uid="uid://vvx8340f7nlj" path="res://assets/enemies/goose/goose-defeated.png" id="17_0mpyo"]
@@ -21,9 +23,9 @@
 distance = -500.0
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_1ju1f"]
-vertices = PackedVector2Array(25422, 0, 4106, 17, 4110, -3243, 25400, -3331)
+vertices = PackedVector2Array(25422, 0, 9047, 4, 8976, -3235, 25400, -3331)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(4096, 28, 4101, -3253, 25410, -3342, 25433, 9)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(9038, 15, 8966, -3245, 25410, -3342, 25433, 9)])
 source_geometry_group_name = &"navigation_polygon_source_group"
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_8w215"]
@@ -61,7 +63,12 @@ radius = 218.555
 height = 437.11
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3owu1"]
-size = Vector2(3413.88, 3978)
+size = Vector2(3413.88, 20748.8)
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_bfyv5"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_crv76"]
+radius = 196.977
 
 [node name="Level1" type="Node2D"]
 position = Vector2(-5159, -12)
@@ -71,7 +78,7 @@ unique_name_in_owner = true
 
 [node name="Collectible" parent="World2D" instance=ExtResource("4_ew37v")]
 z_index = 1
-position = Vector2(886, -900)
+position = Vector2(5251, -2416)
 
 [node name="GroundSprite" type="Polygon2D" parent="World2D"]
 z_index = 3
@@ -98,8 +105,8 @@ position = Vector2(5788, -494)
 [node name="Ground" type="StaticBody2D" parent="World2D"]
 visible = false
 scale = Vector2(10, 10)
-collision_layer = 24
-collision_mask = 19
+collision_layer = 15
+collision_mask = 255
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/Ground"]
 z_index = 100
@@ -112,7 +119,7 @@ position = Vector2(3985, 0)
 navigation_polygon = SubResource("NavigationPolygon_1ju1f")
 
 [node name="Goose" type="CharacterBody2D" parent="World2D/NavigationRegion2D"]
-position = Vector2(5307, -488)
+position = Vector2(10153, -488)
 collision_layer = 2
 collision_mask = 9
 script = ExtResource("13_rdfy5")
@@ -216,19 +223,42 @@ scale = Vector2(2.60693, 2.60693)
 texture = ExtResource("15_42slk")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/BoatBarrier"]
-position = Vector2(2496.06, -1870.25)
+position = Vector2(2496.06, -10255.6)
 shape = SubResource("RectangleShape2D_3owu1")
 
 [node name="Dave" parent="World2D" instance=ExtResource("16_ytk5w")]
 position = Vector2(33805, -1442)
 
 [node name="CherryTreeBody" type="StaticBody2D" parent="World2D"]
-position = Vector2(-566, -20)
+position = Vector2(1117, 13)
+collision_layer = 8
+collision_mask = 21
 
 [node name="Sprite2D" type="Sprite2D" parent="World2D/CherryTreeBody"]
 position = Vector2(11067.5, -1078.75)
 scale = Vector2(1.51269, 1.51269)
 texture = ExtResource("15_gqhdx")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="World2D/CherryTreeBody"]
+polygon = PackedVector2Array(10873, 20, 10923, -147, 10941, -318, 10959, -502, 10941, -608, 10882, -691, 10759, -773, 10630, -824, 10518, -846, 10502, -958, 10430, -1006, 10431, -1131, 10423, -1281, 10383, -1463, 10391, -1580, 10587, -1893, 10871, -2149, 11101, -2190, 11267, -2106, 11470, -1940, 11577, -1618, 11719, -1493, 11780, -1010, 11463, -722, 11182, -728, 11093, -561, 11103, -316, 11135, -72, 11163, 23)
+
+[node name="Volleyball" type="StaticBody2D" parent="World2D"]
+position = Vector2(-2864, 1874)
+collision_layer = 5
+collision_mask = 9
+physics_material_override = SubResource("PhysicsMaterial_bfyv5")
+script = ExtResource("16_8v3j4")
+movement_distance = 250.0
+step = 1000.0
+
+[node name="Sprite2D" type="Sprite2D" parent="World2D/Volleyball"]
+position = Vector2(13109, -2364)
+scale = Vector2(0.495117, 0.495117)
+texture = ExtResource("16_36ag7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/Volleyball"]
+position = Vector2(13103, -2367)
+shape = SubResource("CircleShape2D_crv76")
 
 [node name="HUD" parent="." instance=ExtResource("20_g3dfk")]
 
