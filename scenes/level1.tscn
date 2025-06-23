@@ -23,9 +23,9 @@
 distance = -500.0
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_1ju1f"]
-vertices = PackedVector2Array(25422, 0, 9047, 4, 8976, -3235, 25400, -3331)
+vertices = PackedVector2Array(20315, 9, 13139, 9, 13188, -2378, 20465, -2441)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(9038, 15, 8966, -3245, 25410, -3342, 25433, 9)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(13129, 19, 13179, -2388, 20476, -2452, 20324, 19)])
 source_geometry_group_name = &"navigation_polygon_source_group"
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_8w215"]
@@ -67,8 +67,8 @@ size = Vector2(3413.88, 20748.8)
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_bfyv5"]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_crv76"]
-radius = 196.977
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m1amm"]
+size = Vector2(440, 306)
 
 [node name="Level1" type="Node2D"]
 position = Vector2(-5159, -12)
@@ -115,11 +115,11 @@ shape = SubResource("WorldBoundaryShape2D_piwsr")
 debug_color = Color(0.307035, 0.494072, 1, 0.42)
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="World2D"]
-position = Vector2(3985, 0)
+position = Vector2(4948, 0)
 navigation_polygon = SubResource("NavigationPolygon_1ju1f")
 
 [node name="Goose" type="CharacterBody2D" parent="World2D/NavigationRegion2D"]
-position = Vector2(10153, -488)
+position = Vector2(14662, -488)
 collision_layer = 2
 collision_mask = 9
 script = ExtResource("13_rdfy5")
@@ -151,7 +151,7 @@ stream = ExtResource("20_f7bbt")
 volume_db = 10.0
 
 [node name="Goose2" type="CharacterBody2D" parent="World2D/NavigationRegion2D"]
-position = Vector2(12522, -488)
+position = Vector2(17031, -488)
 collision_layer = 2
 collision_mask = 9
 script = ExtResource("13_rdfy5")
@@ -183,7 +183,7 @@ stream = ExtResource("20_f7bbt")
 volume_db = 10.0
 
 [node name="Goose3" type="CharacterBody2D" parent="World2D/NavigationRegion2D"]
-position = Vector2(18548, -488)
+position = Vector2(19713, -488)
 collision_layer = 2
 collision_mask = 9
 script = ExtResource("13_rdfy5")
@@ -243,22 +243,22 @@ texture = ExtResource("15_gqhdx")
 polygon = PackedVector2Array(10873, 20, 10923, -147, 10941, -318, 10959, -502, 10941, -608, 10882, -691, 10759, -773, 10630, -824, 10518, -846, 10502, -958, 10430, -1006, 10431, -1131, 10423, -1281, 10383, -1463, 10391, -1580, 10587, -1893, 10871, -2149, 11101, -2190, 11267, -2106, 11470, -1940, 11577, -1618, 11719, -1493, 11780, -1010, 11463, -722, 11182, -728, 11093, -561, 11103, -316, 11135, -72, 11163, 23)
 
 [node name="Volleyball" type="StaticBody2D" parent="World2D"]
-position = Vector2(-2864, 1874)
+position = Vector2(-2864, 2161)
 collision_layer = 5
 collision_mask = 9
 physics_material_override = SubResource("PhysicsMaterial_bfyv5")
 script = ExtResource("16_8v3j4")
-movement_distance = 250.0
-step = 1000.0
+movement_distance_y = 600.0
+movement_speed_seconds = 3.0
 
 [node name="Sprite2D" type="Sprite2D" parent="World2D/Volleyball"]
-position = Vector2(13109, -2364)
-scale = Vector2(0.495117, 0.495117)
+position = Vector2(13021.2, -2451.75)
+scale = Vector2(0.666504, 0.666504)
 texture = ExtResource("16_36ag7")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/Volleyball"]
-position = Vector2(13103, -2367)
-shape = SubResource("CircleShape2D_crv76")
+position = Vector2(13025, -2569)
+shape = SubResource("RectangleShape2D_m1amm")
 
 [node name="HUD" parent="." instance=ExtResource("20_g3dfk")]
 
