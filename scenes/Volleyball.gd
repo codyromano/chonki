@@ -10,6 +10,8 @@ extends StaticBody2D
 # full x and y distances
 @export var movement_speed_seconds: float = 1.0
 
+@export var rotation_setting: float = 50
+
 var initial_position: Vector2
 var time_elapsed: float = 0.0
 
@@ -18,6 +20,8 @@ func _ready() -> void:
 
 func _process(delta) -> void:
 	time_elapsed += delta
+	
+	$Sprite2D.rotation_degrees+= rotation_setting * delta
 	
 	# Calculate progress through the cycle (0 to 1)
 	var cycle_progress = fmod(time_elapsed / movement_speed_seconds, 1.0)

@@ -138,6 +138,9 @@ func _physics_process(delta: float) -> void:
 				print("Side collision detected!")
 		
 			if "is_attacking" in collider:
+				jump_phase = "takeoff"
+				is_jumping = true
+						
 				if collider.is_attacking():
 					Utils.throttle('goose_hit', func():
 						$GooseDefeated.play()

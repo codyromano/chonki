@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://br8ftak73gmww"]
+[gd_scene load_steps=23 format=3 uid="uid://br8ftak73gmww"]
 
 [ext_resource type="PackedScene" uid="uid://cyu6wosf2qc3v" path="res://scenes/chonki.tscn" id="1_sihbw"]
 [ext_resource type="Texture2D" uid="uid://bpqdlmvtkr1i5" path="res://assets/environment/lake.png" id="1_vplxb"]
@@ -10,8 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://b281ntpbdihii" path="res://assets/enemies/goose/goose3.png" id="14_apft5"]
 [ext_resource type="Texture2D" uid="uid://4l0wnaj430u" path="res://assets/environment/boats.png" id="15_42slk"]
 [ext_resource type="Texture2D" uid="uid://deplee65wfhnh" path="res://assets/environment/cherry_tree.png" id="15_gqhdx"]
-[ext_resource type="Script" path="res://scenes/Volleyball.gd" id="16_8v3j4"]
-[ext_resource type="Texture2D" uid="uid://do40vx10g03uc" path="res://assets/environment/volleyball.png" id="16_36ag7"]
+[ext_resource type="PackedScene" uid="uid://bhxw5nu7tpc6u" path="res://scenes/composable/volleyball.tscn" id="16_q08mg"]
 [ext_resource type="Script" path="res://scenes/GooseNavigation.gd" id="16_vuaih"]
 [ext_resource type="PackedScene" uid="uid://bffjk8vm2vkp5" path="res://scenes/characters/dave.tscn" id="16_ytk5w"]
 [ext_resource type="Texture2D" uid="uid://vvx8340f7nlj" path="res://assets/enemies/goose/goose-defeated.png" id="17_0mpyo"]
@@ -23,9 +22,9 @@
 distance = -500.0
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_1ju1f"]
-vertices = PackedVector2Array(20315, 9, 13139, 9, 13188, -2378, 20465, -2441)
+vertices = PackedVector2Array(18088, 3, 13139, 8, 13188, -2378, 18259, -2419)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(13129, 19, 13179, -2388, 20476, -2452, 20324, 19)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(13129, 19, 13179, -2388, 18270, -2430, 18098, 13)])
 source_geometry_group_name = &"navigation_polygon_source_group"
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_8w215"]
@@ -65,11 +64,6 @@ height = 437.11
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3owu1"]
 size = Vector2(3413.88, 20748.8)
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_bfyv5"]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_m1amm"]
-size = Vector2(440, 306)
-
 [node name="Level1" type="Node2D"]
 position = Vector2(-5159, -12)
 
@@ -79,6 +73,14 @@ unique_name_in_owner = true
 [node name="Collectible" parent="World2D" instance=ExtResource("4_ew37v")]
 z_index = 1
 position = Vector2(5251, -2416)
+
+[node name="Collectible2" parent="World2D" instance=ExtResource("4_ew37v")]
+z_index = 1
+position = Vector2(17646, -3038)
+
+[node name="Collectible3" parent="World2D" instance=ExtResource("4_ew37v")]
+z_index = 1
+position = Vector2(23675, -3178)
 
 [node name="GroundSprite" type="Polygon2D" parent="World2D"]
 z_index = 3
@@ -90,17 +92,8 @@ texture = ExtResource("1_vplxb")
 texture_offset = Vector2(0, 400)
 polygon = PackedVector2Array(-966.253, -382.053, 73308.7, -382.053, 73294.4, 627.614, -964.201, 621.381)
 
-[node name="CloudsBG" type="Polygon2D" parent="World2D"]
-texture_repeat = 2
-position = Vector2(91.6674, -1.36397)
-scale = Vector2(1.10874, 1.11339)
-texture = ExtResource("2_gc4xo")
-texture_offset = Vector2(0, 3750)
-texture_scale = Vector2(0.25, 0.25)
-polygon = PackedVector2Array(-1009, 5, 108067, 12.0026, 108211, -2983.64, 108250, -4003.86, 53431.7, -4024.94, -1017.97, -4045.87)
-
 [node name="Chonki" parent="World2D" instance=ExtResource("1_sihbw")]
-position = Vector2(5788, -494)
+position = Vector2(5989, -499)
 
 [node name="Ground" type="StaticBody2D" parent="World2D"]
 visible = false
@@ -115,11 +108,11 @@ shape = SubResource("WorldBoundaryShape2D_piwsr")
 debug_color = Color(0.307035, 0.494072, 1, 0.42)
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="World2D"]
-position = Vector2(4948, 0)
+position = Vector2(-86, 0)
 navigation_polygon = SubResource("NavigationPolygon_1ju1f")
 
 [node name="Goose" type="CharacterBody2D" parent="World2D/NavigationRegion2D"]
-position = Vector2(14662, -488)
+position = Vector2(17700, -488)
 collision_layer = 2
 collision_mask = 9
 script = ExtResource("13_rdfy5")
@@ -150,71 +143,8 @@ volume_db = 10.0
 stream = ExtResource("20_f7bbt")
 volume_db = 10.0
 
-[node name="Goose2" type="CharacterBody2D" parent="World2D/NavigationRegion2D"]
-position = Vector2(17031, -488)
-collision_layer = 2
-collision_mask = 9
-script = ExtResource("13_rdfy5")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World2D/NavigationRegion2D/Goose2"]
-position = Vector2(31.0001, 266)
-scale = Vector2(0.570312, 0.570312)
-sprite_frames = SubResource("SpriteFrames_8w215")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/NavigationRegion2D/Goose2"]
-position = Vector2(24, 259)
-rotation = 0.948541
-shape = SubResource("CapsuleShape2D_nwbuc")
-
-[node name="GooseNavigation" type="NavigationAgent2D" parent="World2D/NavigationRegion2D/Goose2" node_paths=PackedStringArray("target")]
-script = ExtResource("16_vuaih")
-target = NodePath("../../../Chonki")
-
-[node name="Timer" type="Timer" parent="World2D/NavigationRegion2D/Goose2"]
-wait_time = 3.0
-autostart = true
-
-[node name="FlapAudio" type="AudioStreamPlayer2D" parent="World2D/NavigationRegion2D/Goose2"]
-stream = ExtResource("18_60djy")
-volume_db = 10.0
-
-[node name="GooseDefeated" type="AudioStreamPlayer2D" parent="World2D/NavigationRegion2D/Goose2"]
-stream = ExtResource("20_f7bbt")
-volume_db = 10.0
-
-[node name="Goose3" type="CharacterBody2D" parent="World2D/NavigationRegion2D"]
-position = Vector2(19713, -488)
-collision_layer = 2
-collision_mask = 9
-script = ExtResource("13_rdfy5")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World2D/NavigationRegion2D/Goose3"]
-position = Vector2(31.0001, 266)
-scale = Vector2(0.570312, 0.570312)
-sprite_frames = SubResource("SpriteFrames_8w215")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/NavigationRegion2D/Goose3"]
-position = Vector2(24, 259)
-rotation = 0.948541
-shape = SubResource("CapsuleShape2D_nwbuc")
-
-[node name="GooseNavigation" type="NavigationAgent2D" parent="World2D/NavigationRegion2D/Goose3" node_paths=PackedStringArray("target")]
-script = ExtResource("16_vuaih")
-target = NodePath("../../../Chonki")
-
-[node name="Timer" type="Timer" parent="World2D/NavigationRegion2D/Goose3"]
-wait_time = 3.0
-autostart = true
-
-[node name="FlapAudio" type="AudioStreamPlayer2D" parent="World2D/NavigationRegion2D/Goose3"]
-stream = ExtResource("18_60djy")
-volume_db = 10.0
-
-[node name="GooseDefeated" type="AudioStreamPlayer2D" parent="World2D/NavigationRegion2D/Goose3"]
-stream = ExtResource("20_f7bbt")
-volume_db = 10.0
-
 [node name="BoatBarrier" type="StaticBody2D" parent="World2D"]
+z_index = 1
 position = Vector2(415, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="World2D/BoatBarrier"]
@@ -242,26 +172,52 @@ texture = ExtResource("15_gqhdx")
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="World2D/CherryTreeBody"]
 polygon = PackedVector2Array(10873, 20, 10923, -147, 10941, -318, 10959, -502, 10941, -608, 10882, -691, 10759, -773, 10630, -824, 10518, -846, 10502, -958, 10430, -1006, 10431, -1131, 10423, -1281, 10383, -1463, 10391, -1580, 10587, -1893, 10871, -2149, 11101, -2190, 11267, -2106, 11470, -1940, 11577, -1618, 11719, -1493, 11780, -1010, 11463, -722, 11182, -728, 11093, -561, 11103, -316, 11135, -72, 11163, 23)
 
-[node name="Volleyball" type="StaticBody2D" parent="World2D"]
-position = Vector2(-2864, 2161)
-collision_layer = 5
-collision_mask = 9
-physics_material_override = SubResource("PhysicsMaterial_bfyv5")
-script = ExtResource("16_8v3j4")
-movement_distance_y = 600.0
-movement_speed_seconds = 3.0
+[node name="Volleyballs" type="Node2D" parent="World2D"]
 
-[node name="Sprite2D" type="Sprite2D" parent="World2D/Volleyball"]
-position = Vector2(13021.2, -2451.75)
-scale = Vector2(0.666504, 0.666504)
-texture = ExtResource("16_36ag7")
+[node name="Volleyball4" parent="World2D/Volleyballs" instance=ExtResource("16_q08mg")]
+position = Vector2(9751, 397)
+movement_distance_x = 2000.0
+movement_distance_y = 0.0
+movement_speed_seconds = 4.0
+rotation_setting = 60.0
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/Volleyball"]
-position = Vector2(13025, -2569)
-shape = SubResource("RectangleShape2D_m1amm")
+[node name="Volleyball3" parent="World2D/Volleyballs" instance=ExtResource("16_q08mg")]
+position = Vector2(8587, 2167)
+movement_distance_x = 0.0
+movement_speed_seconds = 2.0
+
+[node name="Volleyball2" parent="World2D/Volleyballs" instance=ExtResource("16_q08mg")]
+position = Vector2(13594, -692)
+movement_distance_x = 0.0
+movement_distance_y = 3000.0
+movement_speed_seconds = 4.0
+rotation_setting = 20.0
+
+[node name="Volleyball" parent="World2D/Volleyballs" instance=ExtResource("16_q08mg")]
+movement_distance_y = 1000.0
+movement_speed_seconds = 2.0
+
+[node name="Sky" type="Node2D" parent="World2D"]
+z_index = -1
+
+[node name="CloudsBG" type="Polygon2D" parent="World2D/Sky"]
+texture_repeat = 2
+position = Vector2(91.6675, -1.36397)
+scale = Vector2(1.10874, 1.11339)
+texture = ExtResource("2_gc4xo")
+texture_offset = Vector2(0, 3750)
+texture_scale = Vector2(0.25, 0.25)
+polygon = PackedVector2Array(-1009, 5, 108067, 12.0026, 108211, -2983.64, 108250, -4003.86, 53431.7, -4024.94, -1017.97, -4045.87)
+
+[node name="CloudsBG3" type="Polygon2D" parent="World2D/Sky"]
+texture_repeat = 2
+position = Vector2(203, -4499)
+scale = Vector2(1.2293, 1.23964)
+texture = ExtResource("2_gc4xo")
+texture_offset = Vector2(0, 3750)
+texture_scale = Vector2(0.25, 0.25)
+polygon = PackedVector2Array(-1009, 5, 108067, 12.0026, 108211, -2983.64, 108250, -4003.86, 53431.7, -4024.94, -1017.97, -4045.87)
 
 [node name="HUD" parent="." instance=ExtResource("20_g3dfk")]
 
 [connection signal="timeout" from="World2D/NavigationRegion2D/Goose/Timer" to="World2D/NavigationRegion2D/Goose" method="_on_hop_timer_timeout"]
-[connection signal="timeout" from="World2D/NavigationRegion2D/Goose2/Timer" to="World2D/NavigationRegion2D/Goose2" method="_on_hop_timer_timeout"]
-[connection signal="timeout" from="World2D/NavigationRegion2D/Goose3/Timer" to="World2D/NavigationRegion2D/Goose3" method="_on_hop_timer_timeout"]

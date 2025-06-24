@@ -1,0 +1,27 @@
+[gd_scene load_steps=5 format=3 uid="uid://bhxw5nu7tpc6u"]
+
+[ext_resource type="Script" path="res://scenes/Volleyball.gd" id="1_vrc85"]
+[ext_resource type="Texture2D" uid="uid://do40vx10g03uc" path="res://assets/environment/volleyball.png" id="2_23g3a"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_bfyv5"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_m1amm"]
+size = Vector2(440, 306)
+
+[node name="Volleyball" type="StaticBody2D"]
+position = Vector2(-2864, 2161)
+collision_layer = 5
+collision_mask = 9
+physics_material_override = SubResource("PhysicsMaterial_bfyv5")
+script = ExtResource("1_vrc85")
+movement_distance_y = 600.0
+movement_speed_seconds = 3.0
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(13021.2, -2451.75)
+scale = Vector2(0.666504, 0.666504)
+texture = ExtResource("2_23g3a")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(13025, -2569)
+shape = SubResource("RectangleShape2D_m1amm")
