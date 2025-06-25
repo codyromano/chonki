@@ -7,6 +7,8 @@ extends Node2D
 @onready var sprite: AnimatedSprite2D = find_child("AnimatedSprite")
 @onready var audio_player: AudioStreamPlayer = AudioStreamPlayer.new()
 
+var is_collected: bool = false
+
 func _ready():
 	add_child(audio_player)
 
@@ -21,6 +23,9 @@ func _process(_delta):
 	pass
 
 func _on_static_body_2d_2_body_entered(body):
+	if is_collected:
+		return
+		
 	if "on_item_collected" in body:
 		body.on_item_collected(collectible_name)
 
@@ -28,6 +33,8 @@ func _on_static_body_2d_2_body_entered(body):
 		if audio:
 			audio_player.stream = audio
 			audio_player.play()
+			
+		is_collected = true
 
 		# Animate in parallel over 2 seconds
 		var duration = 2.0
