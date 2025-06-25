@@ -81,6 +81,7 @@ func handle_movement(delta: float) -> void:
 
 	var direction: float = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
 	var current_time = Time.get_unix_time_from_system()
+	
 	if hit_time != null && current_time - hit_time <= HIT_RECOVERY_TIME:
 		velocity.x = 2000 if sprite.flip_h else -2000
 		velocity.y = 1000
@@ -89,14 +90,25 @@ func handle_movement(delta: float) -> void:
 	elif hit_time != null && current_time - hit_time >= HIT_RECOVERY_TIME && original_collision_mask > 0:
 		pass
 
+	# Handle horizontal movement and special actions
 	if Input.is_action_just_pressed("push") or Input.is_action_just_pressed("ram"):
 		if body.is_on_floor():
 			velocity.y = -1000
 	else:
 		velocity.x = direction * SPEED
+	
+	# Apply gravity
 	velocity.y += GRAVITY * delta
+	
+	# Cap the fall speed to prevent teleportation-like falling
+	const MAX_FALL_SPEED = 9000.0
+	if velocity.y > MAX_FALL_SPEED:
+		velocity.y = MAX_FALL_SPEED
+	
+	# Handle jumping
 	if Input.is_action_just_pressed("ui_up") and body.is_on_floor():
 		velocity.y = JUMP_FORCE
+	
 	body.velocity = velocity
 
 func play_once(player: AudioStreamPlayer2D) -> void:
