@@ -15,3 +15,6 @@ func _on_heart_collected() -> void:
 	)
 	for i in range(0, heart_nodes.size()):
 		heart_nodes[i].visible = i < total_hearts
+
+	if total_hearts == 0:
+		GlobalSignals.player_out_of_hearts.emit()

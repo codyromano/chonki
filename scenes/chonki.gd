@@ -28,11 +28,16 @@ const HIT_RECOVERY_TIME: float = 1
 var is_game_win = false 
 
 var fade_rect: ColorRect
+@onready var hud = get_tree().get_first_node_in_group("HUDControl")
+var is_game_over = false
+
+const PAUSE_MODE_PROCESS = 2
 
 func _ready() -> void:
 	sprite.play("sleep")
 	GlobalSignals.connect("player_hit", on_player_hit)
 	GlobalSignals.connect("win_game", on_win_game)
+	GlobalSignals.connect("player_out_of_hearts", _on_player_out_of_hearts)
 	# Create a fullscreen ColorRect for fade effect
 	fade_rect = ColorRect.new()
 	fade_rect.color = Color(0, 0, 0, 0)
@@ -236,3 +241,19 @@ func update_sprite() -> void:
 			sprite.play(next_sprite)
 			handle_sprite_flip()
 			return
+
+func _on_player_out_of_hearts():
+	if not is_game_over:
+		is_game_over = true
+		player_die()
+
+func player_die():
+	# Play sleep animation
+	sprite.play("sleep")
+	# Prevent player movement and input
+	set_process(false)
+	set_physics_process(false)
+	body.set_process(false)
+	body.set_physics_process(false)
+	await get_tree().create_timer(3.0, false).timeout
+	FadeTransition.fade_out_and_change_scene(get_tree().current_scene.scene_file_path, 0.0, 1.0)
