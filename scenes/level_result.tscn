@@ -1,9 +1,10 @@
-[gd_scene load_steps=6 format=3 uid="uid://d2uc0l3arbtlm"]
+[gd_scene load_steps=7 format=3 uid="uid://d2uc0l3arbtlm"]
 
 [ext_resource type="Theme" uid="uid://dte5an7k6hog1" path="res://themes/base.tres" id="1_tfmrf"]
 [ext_resource type="Texture2D" uid="uid://c86w4kwchb685" path="res://assets/collectibles/star/frame-1.png" id="2_pmcvd"]
 [ext_resource type="Texture2D" uid="uid://b03qgw6hx1idl" path="res://assets/environment/sleep.png" id="3_0jhst"]
 [ext_resource type="Texture2D" uid="uid://bqld0cf1kt3t4" path="res://assets/collectibles/menu-icons/clock.png" id="3_6rcod"]
+[ext_resource type="Script" path="res://scenes/level_result.gd" id="4_script"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dy4qm"]
 bg_color = Color(0.866667, 0.862745, 0.862745, 1)
@@ -17,6 +18,7 @@ expand_margin_right = 15.0
 expand_margin_bottom = 15.0
 
 [node name="LevelResult" type="Node2D"]
+script = ExtResource("4_script")
 
 [node name="Control" type="Control" parent="."]
 z_index = 1

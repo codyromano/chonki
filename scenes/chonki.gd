@@ -14,12 +14,12 @@ extends Node2D
 enum ChonkiState { IDLE, RUN, ATTACK }
 
 var state : ChonkiState = ChonkiState.IDLE
-var last_action_time : int = Time.get_unix_time_from_system() - 60
+var last_action_time : float = Time.get_unix_time_from_system() - 60.0
 var velocity: Vector2 = Vector2.ZERO
 var chonki_hit = false
 var original_collision_mask: int
 
-var hit_time: int
+var hit_time: float
 
 const SPEED: float = 3500.0
 const JUMP_FORCE: float = -8000.0
@@ -27,14 +27,26 @@ const GRAVITY: float = 20000.0
 const HIT_RECOVERY_TIME: float = 1
 var is_game_win = false 
 
+var fade_rect: ColorRect
+
 func _ready() -> void:
 	sprite.play("sleep")
 	GlobalSignals.connect("player_hit", on_player_hit)
 	GlobalSignals.connect("win_game", on_win_game)
+	# Create a fullscreen ColorRect for fade effect
+	fade_rect = ColorRect.new()
+	fade_rect.color = Color(0, 0, 0, 0)
+	fade_rect.size = get_viewport_rect().size
+	fade_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	fade_rect.z_index = 1000
+	add_child(fade_rect)
+	fade_rect.visible = false
 
 func on_win_game() -> void:
 	is_game_win = true
 	spawn_floating_hearts()
+	# Start fade out and scene transition after 5 seconds using the autoload
+	FadeTransition.fade_out_and_change_scene("res://scenes/level_result.tscn", 5.0, 3.0)
 
 func spawn_floating_hearts() -> void:
 	var frame_texture = sprite.sprite_frames.get_frame_texture(
@@ -160,8 +172,8 @@ func get_attack_sprite():
 	return null
 
 func get_player_injured_sprite():
-	var current_time: int = Time.get_unix_time_from_system()
-	return "ouch" if (hit_time != null && current_time - hit_time <= HIT_RECOVERY_TIME) else null
+	var current_time: float = Time.get_unix_time_from_system()
+	return "ouch" if (hit_time != null and current_time - hit_time <= HIT_RECOVERY_TIME) else ""
 
 func get_run_sprite():
 	if velocity.x != 0:
@@ -194,7 +206,7 @@ func get_idle_sprite():
 	return "idle"
 
 func get_win_game_sprite():
-	return "rest" if is_game_win else null
+	return "rest" if is_game_win else ""
 
 func handle_sprite_flip():
 	if is_game_win:
@@ -220,7 +232,7 @@ func update_sprite() -> void:
 		last_action_time = Time.get_unix_time_from_system()
 
 	for next_sprite in possible_next_sprites:
-		if next_sprite != null:
+		if next_sprite != null and next_sprite != "":
 			sprite.play(next_sprite)
 			handle_sprite_flip()
 			return
