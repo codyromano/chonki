@@ -125,6 +125,7 @@ theme_override_constants/separation = 75
 alignment = 1
 
 [node name="Replay" type="Button" parent="Control/ButtonContainer/HBoxContainer"]
+z_index = 100
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 theme = ExtResource("1_tfmrf")

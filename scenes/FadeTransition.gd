@@ -2,6 +2,7 @@ extends CanvasLayer
 
 var fade_rect: ColorRect
 var is_fading: bool = false
+var _previous_scene_path: String = ""
 
 func _ready():
 	# Create a fullscreen ColorRect for fade effect
@@ -34,6 +35,8 @@ func fade_out_and_change_scene(scene_path: String, delay: float = 5.0, fade_dura
 	if is_fading:
 		return
 	is_fading = true
+	# Store the current scene path before changing
+	_previous_scene_path = get_tree().current_scene.scene_file_path if get_tree().current_scene else ""
 	await get_tree().create_timer(delay).timeout
 	await fade_out(fade_duration)
 	get_tree().change_scene_to_file(scene_path)
