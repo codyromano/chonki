@@ -1,3 +1,4 @@
+@tool
 extends Node2D
 
 var previous_scene_path: String = ""
@@ -11,4 +12,4 @@ func _ready():
 		replay_btn.pressed.connect(_on_replay_pressed)
 
 func _on_replay_pressed():
-	FadeTransition.fade_out_and_change_scene(previous_scene_path, 0.0, 3.0)
+	FadeTransition.fade_out_and_change_scene(previous_scene_path, 0.0, 1.0)

@@ -5,17 +5,7 @@
 [ext_resource type="Texture2D" uid="uid://b03qgw6hx1idl" path="res://assets/environment/sleep.png" id="3_0jhst"]
 [ext_resource type="Texture2D" uid="uid://bqld0cf1kt3t4" path="res://assets/collectibles/menu-icons/clock.png" id="3_6rcod"]
 [ext_resource type="Script" path="res://scenes/level_result.gd" id="4_script"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dy4qm"]
-bg_color = Color(0.866667, 0.862745, 0.862745, 1)
-corner_radius_top_left = 25
-corner_radius_top_right = 25
-corner_radius_bottom_right = 25
-corner_radius_bottom_left = 25
-expand_margin_left = 15.0
-expand_margin_top = 15.0
-expand_margin_right = 15.0
-expand_margin_bottom = 15.0
+[ext_resource type="StyleBox" uid="uid://ocrfa4frk56n" path="res://themes/button_secondary.tres" id="6_ol5yv"]
 
 [node name="LevelResult" type="Node2D"]
 script = ExtResource("4_script")
@@ -26,6 +16,8 @@ layout_mode = 3
 anchors_preset = 0
 offset_right = 652.0
 offset_bottom = 737.0
+mouse_filter = 2
+mouse_default_cursor_shape = 2
 
 [node name="Sprite2D" type="Sprite2D" parent="Control"]
 z_index = 1
@@ -110,31 +102,46 @@ offset_bottom = 1049.0
 color = Color(0.0509804, 0.117647, 0.207843, 1)
 
 [node name="ButtonContainer" type="VBoxContainer" parent="Control"]
-z_index = 1
+z_index = 2
 layout_mode = 0
-offset_left = 109.0
-offset_top = 822.0
-offset_right = 1483.0
-offset_bottom = 899.0
+offset_left = 284.0
+offset_top = 842.0
+offset_right = 1366.0
+offset_bottom = 917.0
+mouse_filter = 2
+mouse_default_cursor_shape = 2
 alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Control/ButtonContainer"]
 layout_mode = 2
+mouse_filter = 2
+mouse_default_cursor_shape = 2
 theme = ExtResource("1_tfmrf")
 theme_override_constants/separation = 75
 alignment = 1
 
 [node name="Replay" type="Button" parent="Control/ButtonContainer/HBoxContainer"]
-z_index = 100
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
+size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
 theme = ExtResource("1_tfmrf")
-theme_override_styles/normal = SubResource("StyleBoxFlat_dy4qm")
+theme_type_variation = &"secondary"
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
+theme_override_styles/normal = ExtResource("6_ol5yv")
+theme_override_styles/hover = ExtResource("6_ol5yv")
+theme_override_styles/pressed = ExtResource("6_ol5yv")
+theme_override_styles/focus = ExtResource("6_ol5yv")
 text = "Replay"
 
 [node name="Continue" type="Button" parent="Control/ButtonContainer/HBoxContainer"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
+size_flags_horizontal = 3
+mouse_default_cursor_shape = 2
+theme_override_colors/font_pressed_color = Color(0, 0, 0, 1)
+theme_override_colors/font_hover_color = Color(0, 0, 0, 1)
 text = "Next Level"
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="Control"]
@@ -147,8 +154,8 @@ anchor_right = -0.295
 anchor_bottom = 0.596
 offset_left = 261.34
 offset_top = -0.252014
-offset_right = 897.34
-offset_bottom = 625.748
+offset_right = 761.34
+offset_bottom = 240.748
 
 [node name="HBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer2"]
 custom_minimum_size = Vector2(200, 0)

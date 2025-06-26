@@ -1,23 +1,16 @@
 [gd_resource type="Theme" load_steps=3 format=3 uid="uid://dte5an7k6hog1"]
 
 [ext_resource type="FontFile" uid="uid://dlfbvpauldaco" path="res://fonts/Sniglet-Regular.ttf" id="1_2agq7"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_63285"]
-bg_color = Color(0.968627, 0.796078, 0.00392157, 1)
-corner_radius_top_left = 25
-corner_radius_top_right = 25
-corner_radius_bottom_right = 25
-corner_radius_bottom_left = 25
-expand_margin_left = 15.0
-expand_margin_top = 15.0
-expand_margin_right = 15.0
-expand_margin_bottom = 15.0
+[ext_resource type="StyleBox" uid="uid://d34fpnq2ua283" path="res://themes/button.tres" id="2_1sjds"]
 
 [resource]
 default_font_size = 50
 Button/colors/font_color = Color(0.23212, 0.23212, 0.23212, 1)
 Button/fonts/font = ExtResource("1_2agq7")
-Button/styles/normal = SubResource("StyleBoxFlat_63285")
+Button/styles/focus = ExtResource("2_1sjds")
+Button/styles/hover = ExtResource("2_1sjds")
+Button/styles/normal = ExtResource("2_1sjds")
+Button/styles/pressed = ExtResource("2_1sjds")
 Label/font_sizes/font_size = 50
 Label/fonts/font = ExtResource("1_2agq7")
 Label/styles/normal = null
