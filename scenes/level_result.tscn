@@ -1,0 +1,161 @@
+[gd_scene load_steps=6 format=3 uid="uid://d2uc0l3arbtlm"]
+
+[ext_resource type="Theme" uid="uid://dte5an7k6hog1" path="res://themes/base.tres" id="1_tfmrf"]
+[ext_resource type="Texture2D" uid="uid://c86w4kwchb685" path="res://assets/collectibles/star/frame-1.png" id="2_pmcvd"]
+[ext_resource type="Texture2D" uid="uid://b03qgw6hx1idl" path="res://assets/environment/sleep.png" id="3_0jhst"]
+[ext_resource type="Texture2D" uid="uid://bqld0cf1kt3t4" path="res://assets/collectibles/menu-icons/clock.png" id="3_6rcod"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_dy4qm"]
+bg_color = Color(0.866667, 0.862745, 0.862745, 1)
+corner_radius_top_left = 25
+corner_radius_top_right = 25
+corner_radius_bottom_right = 25
+corner_radius_bottom_left = 25
+expand_margin_left = 15.0
+expand_margin_top = 15.0
+expand_margin_right = 15.0
+expand_margin_bottom = 15.0
+
+[node name="LevelResult" type="Node2D"]
+
+[node name="Control" type="Control" parent="."]
+z_index = 1
+layout_mode = 3
+anchors_preset = 0
+offset_right = 652.0
+offset_bottom = 737.0
+
+[node name="Sprite2D" type="Sprite2D" parent="Control"]
+z_index = 1
+position = Vector2(462, 81)
+scale = Vector2(0.737305, 0.737305)
+texture = ExtResource("3_0jhst")
+centered = false
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+z_index = 1
+layout_mode = 0
+offset_left = 56.0
+offset_top = 59.0
+offset_right = 1045.0
+offset_bottom = 260.0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+
+[node name="Label" type="Label" parent="Control/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_tfmrf")
+theme_override_colors/font_color = Color(0.968627, 0.796078, 0, 1)
+theme_override_colors/font_outline_color = Color(0.178081, 0.0824445, 0.115704, 1)
+theme_override_constants/outline_size = 15
+theme_override_font_sizes/font_size = 150
+text = "Okay"
+
+[node name="StarContainer" type="VBoxContainer" parent="Control"]
+z_index = 1
+layout_mode = 0
+offset_left = 285.0
+offset_top = 249.0
+offset_right = 462.0
+offset_bottom = 356.0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Control/StarContainer"]
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Control/StarContainer/HBoxContainer2"]
+position = Vector2(-39, 27)
+scale = Vector2(0.178484, 0.178484)
+texture = ExtResource("2_pmcvd")
+
+[node name="Label2" type="Label" parent="Control/StarContainer/HBoxContainer2"]
+layout_mode = 2
+theme = ExtResource("1_tfmrf")
+theme_override_font_sizes/font_size = 50
+text = "1/10
+"
+
+[node name="TimeContainer" type="VBoxContainer" parent="Control"]
+z_index = 1
+layout_mode = 0
+offset_left = 133.0
+offset_top = 248.0
+offset_right = 310.0
+offset_bottom = 355.0
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Control/TimeContainer"]
+layout_mode = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Control/TimeContainer/HBoxContainer2"]
+position = Vector2(-37, 28)
+scale = Vector2(0.0738994, 0.0738994)
+texture = ExtResource("3_6rcod")
+
+[node name="Label2" type="Label" parent="Control/TimeContainer/HBoxContainer2"]
+layout_mode = 2
+theme = ExtResource("1_tfmrf")
+theme_override_font_sizes/font_size = 50
+text = "60"
+
+[node name="ColorRect" type="ColorRect" parent="Control"]
+layout_mode = 0
+offset_left = -33.0
+offset_top = 8.0
+offset_right = 1645.0
+offset_bottom = 1049.0
+color = Color(0.0509804, 0.117647, 0.207843, 1)
+
+[node name="ButtonContainer" type="VBoxContainer" parent="Control"]
+z_index = 1
+layout_mode = 0
+offset_left = 109.0
+offset_top = 822.0
+offset_right = 1483.0
+offset_bottom = 899.0
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/ButtonContainer"]
+layout_mode = 2
+theme = ExtResource("1_tfmrf")
+theme_override_constants/separation = 75
+alignment = 1
+
+[node name="Replay" type="Button" parent="Control/ButtonContainer/HBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+theme = ExtResource("1_tfmrf")
+theme_override_styles/normal = SubResource("StyleBoxFlat_dy4qm")
+text = "Replay"
+
+[node name="Continue" type="Button" parent="Control/ButtonContainer/HBoxContainer"]
+custom_minimum_size = Vector2(300, 0)
+layout_mode = 2
+text = "Next Level"
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Control"]
+z_index = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -0.295
+anchor_top = 0.596
+anchor_right = -0.295
+anchor_bottom = 0.596
+offset_left = 261.34
+offset_top = -0.252014
+offset_right = 897.34
+offset_bottom = 625.748
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer2"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_vertical = 2
+
+[node name="Label" type="Label" parent="Control/VBoxContainer2/HBoxContainer"]
+custom_minimum_size = Vector2(500, 0)
+layout_mode = 2
+theme = ExtResource("1_tfmrf")
+theme_override_font_sizes/font_size = 40
+text = "Collect all 10 stars in under 50 seconds to achieve \"perfection.\" "
+autowrap_mode = 2
