@@ -7,7 +7,8 @@ func _ready():
 	GlobalSignals.star_collected.connect(_on_star_collected)
 
 func _on_star_collected() -> void:
-	total_collected+= 1
+	total_collected += 1
+	GameState.stars_collected = total_collected
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	text = str(total_collected)

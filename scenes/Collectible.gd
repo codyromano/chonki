@@ -19,6 +19,10 @@ func _ready():
 	else:
 		push_warning("No SpriteFrames assigned to 'frames'.")
 
+	# Add to group for star counting
+	if collectible_name == "star":
+		add_to_group("CollectibleStar")
+
 func _process(_delta):
 	pass
 

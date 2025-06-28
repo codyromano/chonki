@@ -38,6 +38,16 @@ func _ready() -> void:
 	GlobalSignals.connect("player_hit", on_player_hit)
 	GlobalSignals.connect("win_game", on_win_game)
 	GlobalSignals.connect("player_out_of_hearts", _on_player_out_of_hearts)
+	# Always reset GameState at the start of the level
+	GameState.reset()
+	# Cache and set total_stars for this level by scene path, using CollectibleStar group
+	var level_path = get_tree().current_scene.scene_file_path
+	var total_stars = GameState.get_total_stars_for_level(level_path)
+	if total_stars == 0:
+		total_stars = get_tree().get_nodes_in_group("CollectibleStar").size()
+		GameState.set_total_stars_for_level(level_path, total_stars)
+	else:
+		GameState.total_stars = total_stars
 	# Create a fullscreen ColorRect for fade effect
 	fade_rect = ColorRect.new()
 	fade_rect.color = Color(0, 0, 0, 0)
