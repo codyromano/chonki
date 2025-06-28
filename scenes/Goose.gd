@@ -134,8 +134,8 @@ func _physics_process(delta: float) -> void:
 			var normal = collision.get_normal()
 			
 			# Check if collision is from the side (not top/bottom)
-			if abs(normal.x) > abs(normal.y):
-				print("Side collision detected!")
+			# if abs(normal.x) > abs(normal.y):
+				#print("Side collision detected!")
 		
 			if "is_attacking" in collider:
 				jump_phase = "takeoff"

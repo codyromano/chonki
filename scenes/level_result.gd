@@ -21,13 +21,20 @@ func show_score():
 	if total_stars <= 0:
 		total_stars = collected
 
+	# Get per-level time thresholds
+	var level_path = FadeTransition._previous_scene_path
+	var thresholds = GameState.get_time_thresholds_for_level(level_path)
+	var perfect_time = thresholds["perfect"]
+	var great_time = thresholds["great"]
+	var okay_time = thresholds["okay"]
+
 	# Determine rank
 	var rank = "Okay"
-	if collected == total_stars and time <= 60:
+	if collected == total_stars and time <= perfect_time:
 		rank = "Perfect"
-	elif collected >= int(total_stars * 0.5) and time <= 80:
+	elif collected >= int(total_stars * 0.5) and time <= great_time:
 		rank = "Great"
-	elif time <= 90:
+	elif time <= okay_time:
 		rank = "Okay"
 
 	# Update UI
@@ -41,15 +48,15 @@ func show_score():
 	if time_label2:
 		time_label2.text = str(time)
 
-	# Update the long description for next rank
+	# Update the long description for next rank (only show the next achievable rank)
 	var desc_label = get_node_or_null("Control/VBoxContainer2/HBoxContainer/Label")
 	if desc_label:
-		if rank == "Perfect":
-			desc_label.text = "You achieved perfection!"
+		if rank == "Okay":
+			desc_label.text = "Collect at least %d stars and finish in under %d seconds for a \"Great\" rank." % [int(total_stars * 0.5), great_time]
 		elif rank == "Great":
-			desc_label.text = "Collect all %d stars in under 60 seconds to achieve \"perfection.\"" % total_stars
-		elif rank == "Okay":
-			desc_label.text = "Collect at least %d stars and finish in under 80 seconds for a \"Great\" rank.\nCollect all %d stars in under 60 seconds for \"perfection.\"" % [int(total_stars * 0.5), total_stars]
+			desc_label.text = "Collect all %d stars in under %d seconds to achieve \"perfection.\"" % [total_stars, perfect_time]
+		elif rank == "Perfect":
+			desc_label.text = "You achieved perfection!"
 
 func _on_replay_pressed():
 	FadeTransition.fade_out_and_change_scene(previous_scene_path, 0.0, 1.0)
