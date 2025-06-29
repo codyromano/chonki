@@ -223,7 +223,7 @@ scale = Vector2(1.2293, 1.23964)
 texture = ExtResource("2_gc4xo")
 texture_offset = Vector2(0, 3750)
 texture_scale = Vector2(0.25, 0.25)
-polygon = PackedVector2Array(-1009, 5, 108067, 12.0026, 108211, -2983.64, 108250, -4003.86, 53431.7, -4024.94, -1017.97, -4045.87)
+polygon = PackedVector2Array(-1009, 5, 108067, 12.0026, 108211, -2983.64, 108251, -5474.98, 53511.8, -5527.41, -1031.48, -5495.14)
 
 [node name="HUD" parent="." instance=ExtResource("20_g3dfk")]
 
