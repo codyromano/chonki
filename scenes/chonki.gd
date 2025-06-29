@@ -100,15 +100,40 @@ func _physics_process(delta: float) -> void:
 	update_sprite()
 	play_sound_effects()
 	body.move_and_slide()
+	
+func get_platform_velocity() -> Vector2:
+	var platform_velocity = Vector2()
+	
+	if body.is_on_floor():
+		var collision = body.get_last_slide_collision()
+		if collision:
+			var collider = collision.get_collider()
+			# Check if standing on Volleyball
+			if collider and collider.get_script() and collider.get_script().resource_path == "res://scenes/Volleyball.gd":
+				if "get_platform_velocity" in collider:
+					var v = collider.get_platform_velocity()
+					# print("Chonki is standing on a Volleyball! Volleyball x velocity: %f" % v.x)
+					platform_velocity = v
+				else:
+					platform_velocity = Vector2.ZERO
+			else:
+				platform_velocity = Vector2.ZERO
+		else:
+			platform_velocity = Vector2.ZERO
+	
+	return platform_velocity
 
 func handle_movement(delta: float) -> void:
+	var platform_velocity = get_platform_velocity()
+	print('pv: ', platform_velocity)
+
 	if is_game_win:
 		body.velocity = Vector2(0, 0)
 		return
 
 	var direction: float = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
 	var current_time = Time.get_unix_time_from_system()
-	
+
 	if hit_time != null && current_time - hit_time <= HIT_RECOVERY_TIME:
 		velocity.x = 2000 if sprite.flip_h else -2000
 		velocity.y = 1000
@@ -122,20 +147,21 @@ func handle_movement(delta: float) -> void:
 		if body.is_on_floor():
 			velocity.y = -1000
 	else:
-		velocity.x = direction * SPEED
-	
+		# Offset Chonki's velocity by the platform's velocity to keep Chonki on moving platforms
+		velocity.x = direction * SPEED + platform_velocity.x
+
 	# Apply gravity
 	velocity.y += GRAVITY * delta
-	
+
 	# Cap the fall speed to prevent teleportation-like falling
 	const MAX_FALL_SPEED = 9000.0
 	if velocity.y > MAX_FALL_SPEED:
 		velocity.y = MAX_FALL_SPEED
-	
+
 	# Handle jumping
 	if Input.is_action_just_pressed("ui_up") and body.is_on_floor():
 		velocity.y = JUMP_FORCE
-	
+
 	body.velocity = velocity
 
 func play_once(player: AudioStreamPlayer2D) -> void:

@@ -71,22 +71,6 @@ position = Vector2(-5159, -12)
 [node name="World2D" type="Node2D" parent="."]
 unique_name_in_owner = true
 
-[node name="Collectible" parent="World2D" instance=ExtResource("4_ew37v")]
-z_index = 1
-position = Vector2(5251, -2416)
-
-[node name="Collectible2" parent="World2D" instance=ExtResource("4_ew37v")]
-z_index = 1
-position = Vector2(17553, -3726)
-
-[node name="Collectible4" parent="World2D" instance=ExtResource("4_ew37v")]
-z_index = 1
-position = Vector2(15810, -2496)
-
-[node name="Collectible3" parent="World2D" instance=ExtResource("4_ew37v")]
-z_index = 1
-position = Vector2(19496, -2793)
-
 [node name="GroundSprite" type="Polygon2D" parent="World2D"]
 z_index = 3
 texture_repeat = 2
@@ -96,6 +80,24 @@ scale = Vector2(1.46235, 1.60449)
 texture = ExtResource("1_vplxb")
 texture_offset = Vector2(0, 400)
 polygon = PackedVector2Array(-966.253, -382.053, 73308.7, -382.053, 73294.4, 627.614, -964.201, 621.381)
+
+[node name="Collectibles" type="Node2D" parent="World2D"]
+
+[node name="Collectible" parent="World2D/Collectibles" instance=ExtResource("4_ew37v")]
+z_index = 1
+position = Vector2(5251, -2416)
+
+[node name="Collectible2" parent="World2D/Collectibles" instance=ExtResource("4_ew37v")]
+z_index = 1
+position = Vector2(17553, -3726)
+
+[node name="Collectible4" parent="World2D/Collectibles" instance=ExtResource("4_ew37v")]
+z_index = 1
+position = Vector2(15810, -2496)
+
+[node name="Collectible3" parent="World2D/Collectibles" instance=ExtResource("4_ew37v")]
+z_index = 1
+position = Vector2(19496, -2793)
 
 [node name="Chonki" parent="World2D" instance=ExtResource("1_sihbw")]
 position = Vector2(5989, -499)
