@@ -32,11 +32,12 @@ func _ready() -> void:
 	var new_leg_position = extend_polygon_bottom($LeftLegRepeatable, leg_height)
 	extend_polygon_bottom($RightLegRepeatable, leg_height)
 	
-	var new_leg_end_position = new_leg_position[2].y
-	$LegEndLeft.position.y = new_leg_end_position
-	$LegEndRight.position.y = new_leg_end_position
+	# Convert from Polygon2D's local space to parent's local space
+	var polygon_transform = $LeftLegRepeatable.transform
+	var bottom_point_in_parent_space = polygon_transform * new_leg_position[2]
 	
-	print('new_leg_position: ', new_leg_position[2].y)
+	$LegEndLeft.position.y = bottom_point_in_parent_space.y
+	$LegEndRight.position.y = bottom_point_in_parent_space.y
 	
 	
 

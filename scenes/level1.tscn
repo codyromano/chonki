@@ -101,6 +101,7 @@ z_index = 1
 position = Vector2(19496, -2793)
 
 [node name="Chonki" parent="World2D" instance=ExtResource("1_sihbw")]
+z_index = 1
 position = Vector2(5989, -499)
 heart_texture = ExtResource("4_mj2kh")
 
@@ -197,19 +198,24 @@ movement_distance_x = 0.0
 movement_speed_seconds = 2.0
 
 [node name="Volleyball2" parent="World2D/Volleyballs" instance=ExtResource("16_q08mg")]
-position = Vector2(11514, 119)
+position = Vector2(11514, -464)
 movement_distance_x = 0.0
 movement_distance_y = 3000.0
 movement_speed_seconds = 4.0
 rotation_setting = 20.0
 
 [node name="Volleyball" parent="World2D/Volleyballs" instance=ExtResource("16_q08mg")]
+position = Vector2(-3247, 2178)
 movement_distance_y = 1000.0
 movement_speed_seconds = 2.0
 
 [node name="VolleyballNet" parent="World2D/Volleyballs" instance=ExtResource("17_nrtx7")]
-position = Vector2(8305, -1656)
+position = Vector2(26202, -1656)
 leg_height = 55.0
+
+[node name="VolleyballNet2" parent="World2D/Volleyballs" instance=ExtResource("17_nrtx7")]
+position = Vector2(21175, -531)
+leg_height = 20.0
 
 [node name="Sky" type="Node2D" parent="World2D"]
 z_index = -1
