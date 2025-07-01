@@ -125,7 +125,6 @@ func get_platform_velocity() -> Vector2:
 
 func handle_movement(delta: float) -> void:
 	var platform_velocity = get_platform_velocity()
-	print('pv: ', platform_velocity)
 
 	if is_game_win:
 		body.velocity = Vector2(0, 0)

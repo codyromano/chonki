@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://br8ftak73gmww"]
+[gd_scene load_steps=25 format=3 uid="uid://br8ftak73gmww"]
 
 [ext_resource type="PackedScene" uid="uid://cyu6wosf2qc3v" path="res://scenes/chonki.tscn" id="1_sihbw"]
 [ext_resource type="Texture2D" uid="uid://bpqdlmvtkr1i5" path="res://assets/environment/lake.png" id="1_vplxb"]
@@ -15,6 +15,7 @@
 [ext_resource type="Script" path="res://scenes/GooseNavigation.gd" id="16_vuaih"]
 [ext_resource type="PackedScene" uid="uid://bffjk8vm2vkp5" path="res://scenes/characters/dave.tscn" id="16_ytk5w"]
 [ext_resource type="Texture2D" uid="uid://vvx8340f7nlj" path="res://assets/enemies/goose/goose-defeated.png" id="17_0mpyo"]
+[ext_resource type="PackedScene" uid="uid://vsdrrorb2si0" path="res://scenes/composable/volleyball_net.tscn" id="17_nrtx7"]
 [ext_resource type="AudioStream" uid="uid://dtbn6tc13x30h" path="res://assets/sound/bird-flap.mp3" id="18_60djy"]
 [ext_resource type="AudioStream" uid="uid://me3nrqvd2xhg" path="res://assets/sound/goose-defeated.mp3" id="20_f7bbt"]
 [ext_resource type="PackedScene" uid="uid://b41x2t8numn7a" path="res://scenes/HUD.tscn" id="20_g3dfk"]
@@ -184,14 +185,14 @@ polygon = PackedVector2Array(10873, 20, 10923, -147, 10941, -318, 10959, -502, 1
 z_index = 1
 
 [node name="Volleyball4" parent="World2D/Volleyballs" instance=ExtResource("16_q08mg")]
-position = Vector2(9751, 397)
+position = Vector2(8305, 515)
 movement_distance_x = 2000.0
 movement_distance_y = 0.0
 movement_speed_seconds = 7.0
 rotation_setting = 60.0
 
 [node name="Volleyball3" parent="World2D/Volleyballs" instance=ExtResource("16_q08mg")]
-position = Vector2(8587, 2167)
+position = Vector2(6029, 2163)
 movement_distance_x = 0.0
 movement_speed_seconds = 2.0
 
@@ -205,6 +206,10 @@ rotation_setting = 20.0
 [node name="Volleyball" parent="World2D/Volleyballs" instance=ExtResource("16_q08mg")]
 movement_distance_y = 1000.0
 movement_speed_seconds = 2.0
+
+[node name="VolleyballNet" parent="World2D/Volleyballs" instance=ExtResource("17_nrtx7")]
+position = Vector2(8305, -1656)
+leg_height = 55.0
 
 [node name="Sky" type="Node2D" parent="World2D"]
 z_index = -1

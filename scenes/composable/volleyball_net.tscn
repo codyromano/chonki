@@ -1,0 +1,53 @@
+[gd_scene load_steps=7 format=3 uid="uid://vsdrrorb2si0"]
+
+[ext_resource type="Texture2D" uid="uid://cr33t8k8qfl6k" path="res://assets/environment/volleyball_net.png" id="1_h6hxh"]
+[ext_resource type="Texture2D" uid="uid://cuajvbho7i7av" path="res://assets/environment/volleyball_net_leg_repeatable.png" id="2_qn72g"]
+[ext_resource type="Script" path="res://scenes/composable/volleyball_net.gd" id="2_vcodj"]
+[ext_resource type="Texture2D" uid="uid://oe3ishoia2lb" path="res://assets/environment/volleyball_net_leg_cap.png" id="4_j8kuq"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_f2wwt"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_6rgjk"]
+size = Vector2(779.463, 54.5252)
+
+[node name="VolleyballNet" type="Sprite2D"]
+position = Vector2(1115, 903)
+scale = Vector2(2.4209, 2.4209)
+texture = ExtResource("1_h6hxh")
+script = ExtResource("2_vcodj")
+leg_height = 100.0
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+position = Vector2(0, 97.0713)
+collision_layer = 8
+physics_material_override = SubResource("PhysicsMaterial_f2wwt")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(-7.02207, -271.387)
+shape = SubResource("RectangleShape2D_6rgjk")
+
+[node name="LeftLegRepeatable" type="Polygon2D" parent="."]
+texture_repeat = 2
+position = Vector2(-2.47846, 685.695)
+scale = Vector2(1, 3.99999)
+texture = ExtResource("2_qn72g")
+texture_offset = Vector2(21, 0)
+polygon = PackedVector2Array(-389.111, -75, -439.919, -75, -439.506, -66.5042, -388.698, -66.5042)
+
+[node name="RightLegRepeatable" type="Polygon2D" parent="."]
+texture_repeat = 2
+position = Vector2(825.726, 685.695)
+scale = Vector2(1, 3.99999)
+texture = ExtResource("2_qn72g")
+texture_offset = Vector2(21, 0)
+polygon = PackedVector2Array(-389.111, -75, -439.919, -75, -439.506, -66.5042, -388.698, -66.5042)
+
+[node name="LegEndLeft" type="Sprite2D" parent="."]
+position = Vector2(-415.341, 438.955)
+scale = Vector2(1.01718, 1.01546)
+texture = ExtResource("4_j8kuq")
+
+[node name="LegEndRight" type="Sprite2D" parent="."]
+position = Vector2(413.069, 438.68)
+scale = Vector2(1.01718, 1.01546)
+texture = ExtResource("4_j8kuq")
