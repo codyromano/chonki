@@ -16,3 +16,8 @@ export_presets.cfg
 .mono/
 data_*/
 mono_crash.*.json
+
+# Ignore build directory
+build/
+# Ignore build zip archives
+build.zip
