@@ -31,7 +31,9 @@ var fade_rect: ColorRect
 @onready var hud = get_tree().get_first_node_in_group("HUDControl")
 var is_game_over = false
 
-const PAUSE_MODE_PROCESS = 2
+
+# Signal to indicate Chonki has landed and hearts have spawned
+signal chonki_landed_and_hearts_spawned
 
 func _ready() -> void:
 	sprite.play("sleep")
@@ -59,9 +61,16 @@ func _ready() -> void:
 
 func on_win_game() -> void:
 	is_game_win = true
+	# Wait for Chonki to land on the floor before spawning hearts
+	await wait_for_chonki_to_land()
 	spawn_floating_hearts()
+	emit_signal("chonki_landed_and_hearts_spawned")
 	# Start fade out and scene transition after 5 seconds using the autoload
 	FadeTransition.fade_out_and_change_scene("res://scenes/level_result.tscn", 5.0, 3.0)
+
+func wait_for_chonki_to_land() -> void:
+	while not body.is_on_floor():
+		await get_tree().process_frame
 
 func spawn_floating_hearts() -> void:
 	var frame_texture = sprite.sprite_frames.get_frame_texture(
@@ -114,7 +123,7 @@ func get_platform_velocity() -> Vector2:
 					var v = collider.get_platform_velocity()
 					# print("Chonki is standing on a Volleyball! Volleyball x velocity: %f" % v.x)
 					platform_velocity = v
-				else:
+				#else:
 					platform_velocity = Vector2.ZERO
 			else:
 				platform_velocity = Vector2.ZERO
@@ -126,11 +135,10 @@ func get_platform_velocity() -> Vector2:
 func handle_movement(delta: float) -> void:
 	var platform_velocity = get_platform_velocity()
 
-	if is_game_win:
-		body.velocity = Vector2(0, 0)
-		return
+	var direction: float = 0.0
+	if not is_game_win:
+		direction = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
 
-	var direction: float = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
 	var current_time = Time.get_unix_time_from_system()
 
 	if hit_time != null && current_time - hit_time <= HIT_RECOVERY_TIME:
@@ -142,7 +150,7 @@ func handle_movement(delta: float) -> void:
 		pass
 
 	# Handle horizontal movement and special actions
-	if Input.is_action_just_pressed("push") or Input.is_action_just_pressed("ram"):
+	if not is_game_win and (Input.is_action_just_pressed("push") or Input.is_action_just_pressed("ram")):
 		if body.is_on_floor():
 			velocity.y = -1000
 	else:
@@ -158,8 +166,13 @@ func handle_movement(delta: float) -> void:
 		velocity.y = MAX_FALL_SPEED
 
 	# Handle jumping
-	if Input.is_action_just_pressed("ui_up") and body.is_on_floor():
+	if not is_game_win and Input.is_action_just_pressed("ui_up") and body.is_on_floor():
 		velocity.y = JUMP_FORCE
+
+	# Only freeze Chonki after win once on the floor
+	if is_game_win and body.is_on_floor():
+		body.velocity = Vector2(0, 0)
+		return
 
 	body.velocity = velocity
 
