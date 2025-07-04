@@ -282,9 +282,19 @@ func update_sprite() -> void:
 			handle_sprite_flip()
 			return
 
+
+# When Chonki loses all health, make him fall to the ground before dying
 func _on_player_out_of_hearts():
 	if not is_game_over:
 		is_game_over = true
+		# Disable player input and let gravity act
+		set_process(false)
+		set_physics_process(true)
+		body.set_process(false)
+		body.set_physics_process(true)
+		# Optionally play a hit/fall animation here
+		# Wait until Chonki is on the floor
+		await wait_for_chonki_to_land()
 		player_die()
 
 func player_die():
