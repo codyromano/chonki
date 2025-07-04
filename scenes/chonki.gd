@@ -4,8 +4,6 @@ extends Node2D
 @onready var sprite       : AnimatedSprite2D   = $ChonkiCharacter/AnimatedSprite2D
 @onready var run_sound    : AudioStreamPlayer2D  = $ChonkiCharacter/AudioRun
 @onready var rest_sound   : AudioStreamPlayer2D  = $ChonkiCharacter/RestRun
-@onready var ram_sound    : AudioStreamPlayer2D  = $ChonkiCharacter/AudioRam
-@onready var push_sound   : AudioStreamPlayer2D  = $ChonkiCharacter/AudioPush
 @onready var jump_sound   : AudioStreamPlayer2D  = $ChonkiCharacter/AudioJump
 @onready var chill_bark   : AudioStreamPlayer2D  = $ChonkiCharacter/ChillBark
 
@@ -139,13 +137,8 @@ func handle_movement(delta: float) -> void:
 	elif hit_time != null && current_time - hit_time >= HIT_RECOVERY_TIME && original_collision_mask > 0:
 		pass
 
-	# Handle horizontal movement and special actions
-	if not is_game_win and (Input.is_action_just_pressed("push") or Input.is_action_just_pressed("ram")):
-		if body.is_on_floor():
-			velocity.y = -1000
-	else:
-		# Offset Chonki's velocity by the platform's velocity to keep Chonki on moving platforms
-		velocity.x = direction * SPEED + platform_velocity.x
+	# Handle horizontal movement
+	velocity.x = direction * SPEED + platform_velocity.x
 
 	# Apply gravity
 	velocity.y += GRAVITY * delta
@@ -176,17 +169,6 @@ func play_sound_effects() -> void:
 	if Input.is_action_just_pressed("ui_up"):
 		play_once(jump_sound)
 	match anim:
-		"ram":
-			rest_sound.stop()
-			await get_tree().create_timer(0.5).timeout
-			play_once(ram_sound)
-			play_once(chill_bark)
-		"push":
-			ram_sound.stop()
-			rest_sound.stop()
-			await get_tree().create_timer(0.5).timeout
-			play_once(push_sound)
-			play_once(chill_bark)
 		"run":
 			rest_sound.stop()
 		"sleep":
@@ -203,17 +185,6 @@ func play_sound_effects() -> void:
 func play_on_ground(player: AudioStreamPlayer2D) -> void:
 	if body.is_on_floor():
 		player.play()
-
-func get_attack_sprite():
-	if sprite.animation in ["ram", "push"] && sprite.is_playing():
-		return sprite.animation
-
-	if Input.is_action_just_pressed("push"):
-		return "push"
-	elif Input.is_action_just_pressed("ram"):
-		return "ram"
-
-	return null
 
 func get_player_injured_sprite():
 	var current_time: float = Time.get_unix_time_from_system()
@@ -265,7 +236,6 @@ func update_sprite() -> void:
 	var possible_next_sprites = [
 		get_win_game_sprite(),
 		get_player_injured_sprite(),
-		get_attack_sprite(),
 		get_jump_sprite(),
 		get_run_sprite(),
 		get_sleep_sprite(),
