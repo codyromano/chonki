@@ -25,7 +25,7 @@ const SPEED: float = 3500.0
 const JUMP_FORCE: float = -8000.0
 const GRAVITY: float = 20000.0
 const HIT_RECOVERY_TIME: float = 1
-var is_game_win = false 
+var is_game_win = false
 
 var fade_rect: ColorRect
 @onready var hud = get_tree().get_first_node_in_group("HUDControl")
@@ -36,7 +36,7 @@ var is_game_over = false
 signal chonki_landed_and_hearts_spawned
 
 func _ready() -> void:
-	sprite.play("sleep")
+	#sprite.play("sleep")
 	GlobalSignals.connect("player_hit", on_player_hit)
 	GlobalSignals.connect("win_game", on_win_game)
 	GlobalSignals.connect("player_out_of_hearts", _on_player_out_of_hearts)
@@ -58,6 +58,7 @@ func _ready() -> void:
 	fade_rect.z_index = 1000
 	add_child(fade_rect)
 	fade_rect.visible = false
+
 
 func on_win_game() -> void:
 	is_game_win = true
@@ -179,6 +180,7 @@ func handle_movement(delta: float) -> void:
 func play_once(player: AudioStreamPlayer2D) -> void:
 	if not player.playing:
 		player.play()
+   # Deprecated: use SoundManager.play(key) instead for new code
 
 func play_sound_effects() -> void:
 	var anim = sprite.animation
