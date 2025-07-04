@@ -112,26 +112,15 @@ func _physics_process(delta: float) -> void:
 	body.move_and_slide()
 	
 func get_platform_velocity() -> Vector2:
-	var platform_velocity = Vector2()
-	
+	# Returns the velocity of the platform Chonki is standing on, or Vector2.ZERO if not on a moving platform
 	if body.is_on_floor():
 		var collision = body.get_last_slide_collision()
 		if collision:
 			var collider = collision.get_collider()
-			# Check if standing on Volleyball
-			if collider and collider.get_script() and collider.get_script().resource_path == "res://scenes/Volleyball.gd":
-				if "get_platform_velocity" in collider:
-					var v = collider.get_platform_velocity()
-					# print("Chonki is standing on a Volleyball! Volleyball x velocity: %f" % v.x)
-					platform_velocity = v
-				#else:
-					platform_velocity = Vector2.ZERO
-			else:
-				platform_velocity = Vector2.ZERO
-		else:
-			platform_velocity = Vector2.ZERO
-	
-	return platform_velocity
+			if collider and collider.has_method("get_platform_velocity"):
+				# Support any platform with get_platform_velocity method
+				return collider.get_platform_velocity()
+	return Vector2.ZERO
 
 func handle_movement(delta: float) -> void:
 	var platform_velocity = get_platform_velocity()
@@ -231,8 +220,9 @@ func get_player_injured_sprite():
 	return "ouch" if (hit_time != null and current_time - hit_time <= HIT_RECOVERY_TIME) else ""
 
 func get_run_sprite():
-	if velocity.x != 0:
-		if not run_sound.playing && !is_game_win:
+	# Use body.velocity.x to include platform movement
+	if body.velocity.x != 0:
+		if not run_sound.playing and !is_game_win:
 			run_sound.play()
 		else:
 			run_sound.play()
