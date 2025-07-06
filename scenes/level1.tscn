@@ -1,4 +1,4 @@
-[gd_scene load_steps=25 format=3 uid="uid://br8ftak73gmww"]
+[gd_scene load_steps=26 format=3 uid="uid://br8ftak73gmww"]
 
 [ext_resource type="PackedScene" uid="uid://cyu6wosf2qc3v" path="res://scenes/chonki.tscn" id="1_sihbw"]
 [ext_resource type="Texture2D" uid="uid://bpqdlmvtkr1i5" path="res://assets/environment/lake.png" id="1_vplxb"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://b281ntpbdihii" path="res://assets/enemies/goose/goose3.png" id="14_apft5"]
 [ext_resource type="Texture2D" uid="uid://4l0wnaj430u" path="res://assets/environment/boats.png" id="15_42slk"]
 [ext_resource type="Texture2D" uid="uid://deplee65wfhnh" path="res://assets/environment/cherry_tree.png" id="15_gqhdx"]
+[ext_resource type="Script" path="res://scenes/CherryTreeBody.gd" id="15_iid5p"]
 [ext_resource type="PackedScene" uid="uid://bhxw5nu7tpc6u" path="res://scenes/composable/volleyball.tscn" id="16_q08mg"]
 [ext_resource type="Script" path="res://scenes/GooseNavigation.gd" id="16_vuaih"]
 [ext_resource type="PackedScene" uid="uid://bffjk8vm2vkp5" path="res://scenes/characters/dave.tscn" id="16_ytk5w"]
@@ -102,7 +103,7 @@ position = Vector2(19496, -2793)
 
 [node name="Chonki" parent="World2D" instance=ExtResource("1_sihbw")]
 z_index = 1
-position = Vector2(5989, -499)
+position = Vector2(5245, -499)
 heart_texture = ExtResource("4_mj2kh")
 
 [node name="Ground" type="StaticBody2D" parent="World2D"]
@@ -173,6 +174,7 @@ position = Vector2(33805, -1442)
 position = Vector2(1117, 13)
 collision_layer = 8
 collision_mask = 21
+script = ExtResource("15_iid5p")
 
 [node name="Sprite2D" type="Sprite2D" parent="World2D/CherryTreeBody"]
 position = Vector2(11067.5, -1078.75)
@@ -241,3 +243,4 @@ polygon = PackedVector2Array(-1009, 5, 108067, 12.0026, 108211, -2983.64, 108251
 [node name="HUD" parent="." instance=ExtResource("20_g3dfk")]
 
 [connection signal="timeout" from="World2D/NavigationRegion2D/Goose/Timer" to="World2D/NavigationRegion2D/Goose" method="_on_hop_timer_timeout"]
+[connection signal="input_event" from="World2D/CherryTreeBody" to="World2D/CherryTreeBody" method="_on_input_event"]

@@ -1,16 +1,39 @@
 extends Camera2D
 
 @export var target: Node2D
-@export var duration: float = 2.0
+@export var duration: float = 5.0
 
 var tween: Tween
 var initial_zoom: Vector2
 var initial_position: Vector2
 
+
 func _ready():
 	# Store initial camera state
 	initial_zoom = zoom
 	initial_position = global_position
+	print("[Camera2D] Ready. Initial zoom:", initial_zoom)
+
+	# Listen for camera zoom animation signal
+	if GlobalSignals.has_signal("animate_camera_zoom_level"):
+		print("[Camera2D] Connecting to animate_camera_zoom_level signal.")
+		GlobalSignals.animate_camera_zoom_level.connect(_on_animate_camera_zoom_level)
+	else:
+		print("[Camera2D] animate_camera_zoom_level signal not found on GlobalSignals!")
+
+# Animate camera zoom to a given level over 4 seconds
+
+func _on_animate_camera_zoom_level(zoom_level: float):
+	print("[Camera2D] Received animate_camera_zoom_level signal with value:", zoom_level)
+	# Ensure this camera is current before animating zoom
+	make_current()
+	if tween:
+		print("[Camera2D] Killing existing tween.")
+		tween.kill()
+	tween = create_tween()
+	tween.set_parallel(true)
+	print("[Camera2D] Animating zoom to:", Vector2(zoom_level, zoom_level), "over 4 seconds.")
+	tween.tween_property(self, "zoom", Vector2(zoom_level, zoom_level), 4.0).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 
 	# TODO: This is a hack! Camera2D is a child of ChonkiCharacter, but the signal we need is on the Chonki node (the grandparent).
 	# So we walk up the parent chain to find a node with the chonki_landed_and_hearts_spawned signal and connect to it.

@@ -115,6 +115,11 @@ func get_platform_velocity() -> Vector2:
 		var collision = body.get_last_slide_collision()
 		if collision:
 			var collider = collision.get_collider()
+			
+			if collider and collider.name == "CherryTreeBody":
+				# Zoom out when the game starts
+				GlobalSignals.animate_camera_zoom_level.emit(0.17)
+			
 			if collider and collider.has_method("get_platform_velocity"):
 				# Support any platform with get_platform_velocity method
 				return collider.get_platform_velocity()
