@@ -1,13 +1,15 @@
-[gd_scene load_steps=13 format=3 uid="uid://bm55n82sfyn37"]
+[gd_scene load_steps=15 format=3 uid="uid://bm55n82sfyn37"]
 
 [ext_resource type="Script" path="res://scenes/Collectible.gd" id="1_su7td"]
-[ext_resource type="Texture2D" uid="uid://c86w4kwchb685" path="res://assets/collectibles/star/frame-1.png" id="2_cefas"]
-[ext_resource type="Texture2D" uid="uid://cp3tdojnk7fas" path="res://assets/collectibles/star/frame-2.png" id="3_felbf"]
-[ext_resource type="Texture2D" uid="uid://bql7d13w36wxg" path="res://assets/collectibles/star/frame-3.png" id="4_2g0lv"]
-[ext_resource type="Texture2D" uid="uid://bbkomg4pp4bj7" path="res://assets/collectibles/star/frame-4.png" id="5_vmq6k"]
-[ext_resource type="Texture2D" uid="uid://bneev3ncdya7k" path="res://assets/collectibles/star/frame-5.png" id="6_jv0bd"]
-[ext_resource type="Texture2D" uid="uid://ch2myy0vhad08" path="res://assets/collectibles/star/frame-6.png" id="7_urosp"]
+[ext_resource type="Texture2D" path="res://assets/collectibles/star/frame-1.png" id="2_cefas"]
+[ext_resource type="Texture2D" path="res://assets/collectibles/star/frame-2.png" id="3_felbf"]
+[ext_resource type="Texture2D" path="res://assets/collectibles/star/frame-3.png" id="4_2g0lv"]
+[ext_resource type="Texture2D" path="res://assets/collectibles/star/frame-4.png" id="5_vmq6k"]
+[ext_resource type="Texture2D" path="res://assets/collectibles/star/frame-5.png" id="6_jv0bd"]
+[ext_resource type="Texture2D" path="res://assets/collectibles/star/frame-6.png" id="7_urosp"]
 [ext_resource type="AudioStream" uid="uid://bxjq2ebdh4xh4" path="res://assets/sound/level-up-2.mp3" id="8_tg5uy"]
+[ext_resource type="Texture2D" uid="uid://b5656rpujvxxt" path="res://assets/collectibles/book.png" id="9_frf8e"]
+[ext_resource type="Texture2D" uid="uid://cu7vs55b4bjil" path="res://assets/collectibles/book-open.png" id="9_jwhar"]
 [ext_resource type="AudioStream" uid="uid://3u0hk83prun5" path="res://assets/sound/chill-bark.mp3" id="9_towvv"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_6xpr6"]
@@ -36,39 +38,27 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_dn1gr"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_l0b0a"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_cefas")
-}, {
-"duration": 1.0,
-"texture": ExtResource("3_felbf")
-}, {
-"duration": 1.0,
-"texture": ExtResource("4_2g0lv")
-}, {
-"duration": 1.0,
-"texture": ExtResource("5_vmq6k")
-}, {
-"duration": 1.0,
-"texture": ExtResource("6_jv0bd")
-}, {
-"duration": 1.0,
-"texture": ExtResource("7_urosp")
+"texture": ExtResource("9_frf8e")
 }],
 "loop": true,
 "name": &"default",
-"speed": 10.0
+"speed": 5.0
 }, {
-"frames": [],
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("9_jwhar")
+}],
 "loop": true,
-"name": &"new_animation",
+"name": &"opened",
 "speed": 5.0
 }]
 
-[sub_resource type="CircleShape2D" id="CircleShape2D_qb6ri"]
-radius = 149.459
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ge1oa"]
+size = Vector2(256.357, 278.789)
 
 [node name="Collectible" type="Node2D"]
 position = Vector2(-6757, 635)
@@ -80,16 +70,17 @@ audio = ExtResource("8_tg5uy")
 [node name="StaticBody2D2" type="Area2D" parent="."]
 
 [node name="AnimatedSprite" type="AnimatedSprite2D" parent="StaticBody2D2"]
-position = Vector2(6920, -476)
-sprite_frames = SubResource("SpriteFrames_dn1gr")
-frame_progress = 0.227193
+position = Vector2(6973.69, -406.381)
+scale = Vector2(0.499487, 0.499487)
+sprite_frames = SubResource("SpriteFrames_l0b0a")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
-position = Vector2(6915, -461)
-shape = SubResource("CircleShape2D_qb6ri")
+position = Vector2(6973, -413)
+rotation = -0.267852
+shape = SubResource("RectangleShape2D_ge1oa")
 
 [node name="ChillBark" type="AudioStreamPlayer2D" parent="."]
-position = Vector2(6919, -461)
+position = Vector2(6792, -534)
 stream = ExtResource("9_towvv")
 volume_db = 4.657
 

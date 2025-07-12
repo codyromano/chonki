@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bql7d13w36wxg"
-path="res://.godot/imported/frame-3.png-4beac224d3bad6e1c23b2246c5c6e9d5.ctex"
+uid="uid://cu7vs55b4bjil"
+path="res://.godot/imported/book-open.png-ab0020e40846f757ab3c4c18be968217.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/collectibles/star/frame-3.png"
-dest_files=["res://.godot/imported/frame-3.png-4beac224d3bad6e1c23b2246c5c6e9d5.ctex"]
+source_file="res://assets/collectibles/book-open.png"
+dest_files=["res://.godot/imported/book-open.png-ab0020e40846f757ab3c4c18be968217.ctex"]
 
 [params]
 
