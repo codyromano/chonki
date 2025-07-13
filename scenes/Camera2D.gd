@@ -35,18 +35,24 @@ func _on_animate_camera_zoom_level(zoom_level: float):
 	print("[Camera2D] Animating zoom to:", Vector2(zoom_level, zoom_level), "over 4 seconds.")
 	tween.tween_property(self, "zoom", Vector2(zoom_level, zoom_level), 4.0).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 
-	# TODO: This is a hack! Camera2D is a child of ChonkiCharacter, but the signal we need is on the Chonki node (the grandparent).
-	# So we walk up the parent chain to find a node with the chonki_landed_and_hearts_spawned signal and connect to it.
-	# If you refactor the scene tree, update this logic accordingly.
+	# Only connect to chonki_landed_and_hearts_spawned if not already connected
 	var node = get_parent()
-	var found = false
+	var _already_connected := false
 	while node:
 		if node.has_signal("chonki_landed_and_hearts_spawned"):
-			node.connect("chonki_landed_and_hearts_spawned", Callable(self, "_on_chonki_landed_and_hearts_spawned"))
-			found = true
+			var signal_list = node.get_signal_connection_list("chonki_landed_and_hearts_spawned")
+			for conn in signal_list:
+				# Defensive: Godot 4.x returns a dictionary with keys 'callable', 'flags', etc. Use if-else for compatibility.
+				var callable = null
+				if conn.has("callable"):
+					callable = conn["callable"]
+				if callable and callable.get_object() == self and callable.get_method() == "_on_chonki_landed_and_hearts_spawned":
+					_already_connected = true
+					break
+			if not _already_connected:
+				node.connect("chonki_landed_and_hearts_spawned", Callable(self, "_on_chonki_landed_and_hearts_spawned"))
 			break
 		node = node.get_parent()
-	# If not found, this camera will not zoom on win.
 
 
 # Called when Chonki has landed and hearts have spawned
