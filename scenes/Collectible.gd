@@ -47,7 +47,7 @@ func _start_floating():
 	float_tween.tween_property(sprite, "position:y", base_y, half_duration).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
 
 func _process(_delta):
-	pass
+	pass  # _delta intentionally unused
 
 func _on_static_body_2d_2_body_entered(body):
 	if is_collected:

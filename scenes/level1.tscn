@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://br8ftak73gmww"]
+[gd_scene load_steps=32 format=3 uid="uid://br8ftak73gmww"]
 
 [ext_resource type="PackedScene" uid="uid://cyu6wosf2qc3v" path="res://scenes/chonki.tscn" id="1_sihbw"]
 [ext_resource type="Texture2D" uid="uid://bpqdlmvtkr1i5" path="res://assets/environment/lake.png" id="1_vplxb"]
@@ -20,9 +20,16 @@
 [ext_resource type="AudioStream" uid="uid://dtbn6tc13x30h" path="res://assets/sound/bird-flap.mp3" id="18_60djy"]
 [ext_resource type="AudioStream" uid="uid://me3nrqvd2xhg" path="res://assets/sound/goose-defeated.mp3" id="20_f7bbt"]
 [ext_resource type="PackedScene" uid="uid://b41x2t8numn7a" path="res://scenes/HUD.tscn" id="20_g3dfk"]
+[ext_resource type="Texture2D" uid="uid://xbii1exm3nts" path="res://assets/friends/crow/crow1.png" id="20_vrg8m"]
+[ext_resource type="Texture2D" uid="uid://cv0mg4tjkdng2" path="res://assets/friends/crow/crow2.png" id="21_5g8m5"]
+[ext_resource type="Texture2D" uid="uid://cs5w6y02rt0rq" path="res://assets/friends/crow/crow3.png" id="22_yc0nv"]
+[ext_resource type="Script" path="res://scenes/FriendlyCrowPatrolLoop.gd" id="23_a4ecq"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_piwsr"]
 distance = -500.0
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3owu1"]
+size = Vector2(3413.88, 20748.8)
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_1ju1f"]
 vertices = PackedVector2Array(18088, 3, 13139, 8, 13188, -2378, 18259, -2419)
@@ -64,8 +71,49 @@ animations = [{
 radius = 218.555
 height = 437.11
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3owu1"]
-size = Vector2(3413.88, 20748.8)
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_adkmy"]
+size = Vector2(591.033, 107)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_euimj"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("20_vrg8m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_5g8m5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_vrg8m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_5g8m5")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_vrg8m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_yc0nv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_yc0nv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_yc0nv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_yc0nv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_yc0nv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_yc0nv")
+}],
+"loop": true,
+"name": &"default",
+"speed": 3.0
+}]
 
 [node name="Level1" type="Node2D"]
 position = Vector2(-5159, -12)
@@ -103,17 +151,9 @@ position = Vector2(5251, -2416)
 z_index = 1
 position = Vector2(17553, -3726)
 
-[node name="Collectible4" parent="World2D/Collectibles" instance=ExtResource("4_ew37v")]
-z_index = 1
-position = Vector2(15810, -2496)
-
-[node name="Collectible3" parent="World2D/Collectibles" instance=ExtResource("4_ew37v")]
-z_index = 1
-position = Vector2(19496, -2793)
-
 [node name="Chonki" parent="World2D" instance=ExtResource("1_sihbw")]
 z_index = 1
-position = Vector2(5245, -499)
+position = Vector2(5227, -465)
 heart_texture = ExtResource("4_mj2kh")
 
 [node name="Ground" type="StaticBody2D" parent="World2D"]
@@ -127,42 +167,6 @@ z_index = 100
 position = Vector2(317, -500)
 shape = SubResource("WorldBoundaryShape2D_piwsr")
 debug_color = Color(0.307035, 0.494072, 1, 0.42)
-
-[node name="NavigationRegion2D" type="NavigationRegion2D" parent="World2D"]
-position = Vector2(-86, 0)
-navigation_polygon = SubResource("NavigationPolygon_1ju1f")
-
-[node name="Goose" type="CharacterBody2D" parent="World2D/NavigationRegion2D"]
-position = Vector2(17700, -488)
-collision_layer = 2
-collision_mask = 9
-script = ExtResource("13_rdfy5")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World2D/NavigationRegion2D/Goose"]
-position = Vector2(31.0001, 266)
-scale = Vector2(0.570312, 0.570312)
-sprite_frames = SubResource("SpriteFrames_8w215")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/NavigationRegion2D/Goose"]
-position = Vector2(24, 259)
-rotation = 0.948541
-shape = SubResource("CapsuleShape2D_nwbuc")
-
-[node name="GooseNavigation" type="NavigationAgent2D" parent="World2D/NavigationRegion2D/Goose" node_paths=PackedStringArray("target")]
-script = ExtResource("16_vuaih")
-target = NodePath("../../../Chonki")
-
-[node name="Timer" type="Timer" parent="World2D/NavigationRegion2D/Goose"]
-wait_time = 3.0
-autostart = true
-
-[node name="FlapAudio" type="AudioStreamPlayer2D" parent="World2D/NavigationRegion2D/Goose"]
-stream = ExtResource("18_60djy")
-volume_db = 10.0
-
-[node name="GooseDefeated" type="AudioStreamPlayer2D" parent="World2D/NavigationRegion2D/Goose"]
-stream = ExtResource("20_f7bbt")
-volume_db = 10.0
 
 [node name="BoatBarrier" type="StaticBody2D" parent="World2D"]
 z_index = 1
@@ -197,8 +201,8 @@ polygon = PackedVector2Array(10873, 20, 10923, -147, 10941, -318, 10959, -502, 1
 [node name="Volleyballs" type="Node2D" parent="World2D"]
 z_index = 1
 
-[node name="Volleyball4" parent="World2D/Volleyballs" instance=ExtResource("16_q08mg")]
-position = Vector2(8305, 515)
+[node name="Bird" parent="World2D/Volleyballs" instance=ExtResource("16_q08mg")]
+position = Vector2(8921, -514)
 movement_distance_x = 2000.0
 movement_distance_y = 0.0
 movement_speed_seconds = 7.0
@@ -209,24 +213,18 @@ position = Vector2(6029, 2163)
 movement_distance_x = 0.0
 movement_speed_seconds = 2.0
 
-[node name="Volleyball2" parent="World2D/Volleyballs" instance=ExtResource("16_q08mg")]
-position = Vector2(11514, -464)
-movement_distance_x = 0.0
-movement_distance_y = 3000.0
-movement_speed_seconds = 4.0
-rotation_setting = 20.0
-
 [node name="Volleyball" parent="World2D/Volleyballs" instance=ExtResource("16_q08mg")]
-position = Vector2(-3247, 2178)
+position = Vector2(-3032, 2184)
 movement_distance_y = 1000.0
 movement_speed_seconds = 2.0
 
 [node name="VolleyballNet" parent="World2D/Volleyballs" instance=ExtResource("17_nrtx7")]
-position = Vector2(26202, -1656)
+visible = false
+position = Vector2(29118, -1656)
 leg_height = 55.0
 
 [node name="VolleyballNet2" parent="World2D/Volleyballs" instance=ExtResource("17_nrtx7")]
-position = Vector2(21175, -531)
+position = Vector2(21175, -1574)
 leg_height = 20.0
 
 [node name="Sky" type="Node2D" parent="World2D"]
@@ -250,7 +248,73 @@ texture_offset = Vector2(0, 3750)
 texture_scale = Vector2(0.25, 0.25)
 polygon = PackedVector2Array(-1009, 5, 108067, 12.0026, 108211, -2983.64, 108251, -5474.98, 53511.8, -5527.41, -1031.48, -5495.14)
 
+[node name="NPCs" type="Node" parent="World2D"]
+
+[node name="GooseRegion2D" type="NavigationRegion2D" parent="World2D/NPCs"]
+position = Vector2(-5245, -12)
+navigation_polygon = SubResource("NavigationPolygon_1ju1f")
+
+[node name="Goose" type="CharacterBody2D" parent="World2D/NPCs/GooseRegion2D"]
+position = Vector2(17700, -488)
+collision_layer = 2
+collision_mask = 9
+script = ExtResource("13_rdfy5")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World2D/NPCs/GooseRegion2D/Goose"]
+position = Vector2(31.0001, 266)
+scale = Vector2(0.570312, 0.570312)
+sprite_frames = SubResource("SpriteFrames_8w215")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/NPCs/GooseRegion2D/Goose"]
+position = Vector2(24, 259)
+rotation = 0.948541
+shape = SubResource("CapsuleShape2D_nwbuc")
+
+[node name="GooseNavigation" type="NavigationAgent2D" parent="World2D/NPCs/GooseRegion2D/Goose" node_paths=PackedStringArray("target")]
+script = ExtResource("16_vuaih")
+target = NodePath("../../../../Chonki")
+
+[node name="Timer" type="Timer" parent="World2D/NPCs/GooseRegion2D/Goose"]
+wait_time = 3.0
+autostart = true
+
+[node name="FlapAudio" type="AudioStreamPlayer2D" parent="World2D/NPCs/GooseRegion2D/Goose"]
+stream = ExtResource("18_60djy")
+volume_db = 10.0
+
+[node name="GooseDefeated" type="AudioStreamPlayer2D" parent="World2D/NPCs/GooseRegion2D/Goose"]
+stream = ExtResource("20_f7bbt")
+volume_db = 10.0
+
+[node name="CrowBody" type="CharacterBody2D" parent="World2D/NPCs"]
+position = Vector2(17936, -2974)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/NPCs/CrowBody"]
+position = Vector2(-52.416, -163.885)
+rotation = -0.0641717
+scale = Vector2(0.951186, 0.679637)
+shape = SubResource("RectangleShape2D_adkmy")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World2D/NPCs/CrowBody"]
+position = Vector2(-4.75, -40.7502)
+rotation = 0.744144
+scale = Vector2(1.747, 1.747)
+sprite_frames = SubResource("SpriteFrames_euimj")
+autoplay = "default"
+frame_progress = 0.83919
+
+[node name="EndMarker" type="Marker2D" parent="World2D/NPCs/CrowBody"]
+position = Vector2(7313, -210)
+
+[node name="StartMarker" type="Marker2D" parent="World2D/NPCs/CrowBody"]
+position = Vector2(34, -109)
+
+[node name="NPCLinearPatrolLoop" type="Node2D" parent="World2D/NPCs" node_paths=PackedStringArray("body")]
+script = ExtResource("23_a4ecq")
+body = NodePath("../CrowBody")
+move_duration = 10.0
+
 [node name="HUD" parent="." instance=ExtResource("20_g3dfk")]
 
-[connection signal="timeout" from="World2D/NavigationRegion2D/Goose/Timer" to="World2D/NavigationRegion2D/Goose" method="_on_hop_timer_timeout"]
 [connection signal="input_event" from="World2D/CherryTreeBody" to="World2D/CherryTreeBody" method="_on_input_event"]
+[connection signal="timeout" from="World2D/NPCs/GooseRegion2D/Goose/Timer" to="World2D/NPCs/GooseRegion2D/Goose" method="_on_hop_timer_timeout"]
