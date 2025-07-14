@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://bl7i4fhshnwgg"]
+
+[ext_resource type="Script" path="res://scenes/FriendlyCrowPatrolLoop.gd" id="1_2emrb"]
+
+[node name="NPCLinearPatrolLoop" type="Node2D" node_paths=PackedStringArray("body")]
+script = ExtResource("1_2emrb")
+body = NodePath("")
+move_duration = 10.0

@@ -1,7 +1,7 @@
 [gd_scene load_steps=9 format=3 uid="uid://bm55n82sfyn37"]
 
 [ext_resource type="Script" path="res://scenes/Collectible.gd" id="1_su7td"]
-[ext_resource type="AudioStream" uid="uid://bxjq2ebdh4xh4" path="res://assets/sound/level-up-2.mp3" id="8_tg5uy"]
+[ext_resource type="AudioStream" uid="uid://5eq4y1psdc7d" path="res://assets/sound/book1.mp3" id="2_auneg"]
 [ext_resource type="Texture2D" uid="uid://b5656rpujvxxt" path="res://assets/collectibles/book.png" id="9_frf8e"]
 [ext_resource type="Texture2D" uid="uid://cu7vs55b4bjil" path="res://assets/collectibles/book-open.png" id="9_jwhar"]
 [ext_resource type="AudioStream" uid="uid://3u0hk83prun5" path="res://assets/sound/chill-bark.mp3" id="9_towvv"]
@@ -59,7 +59,7 @@ position = Vector2(-6757, 635)
 script = ExtResource("1_su7td")
 frames = SubResource("SpriteFrames_6xpr6")
 collectible_name = "star"
-audio = ExtResource("8_tg5uy")
+audio = ExtResource("2_auneg")
 
 [node name="StaticBody2D2" type="Area2D" parent="."]
 

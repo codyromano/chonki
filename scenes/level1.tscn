@@ -201,13 +201,6 @@ polygon = PackedVector2Array(10873, 20, 10923, -147, 10941, -318, 10959, -502, 1
 [node name="Volleyballs" type="Node2D" parent="World2D"]
 z_index = 1
 
-[node name="Bird" parent="World2D/Volleyballs" instance=ExtResource("16_q08mg")]
-position = Vector2(8921, -514)
-movement_distance_x = 2000.0
-movement_distance_y = 0.0
-movement_speed_seconds = 7.0
-rotation_setting = 60.0
-
 [node name="Volleyball3" parent="World2D/Volleyballs" instance=ExtResource("16_q08mg")]
 position = Vector2(6029, 2163)
 movement_distance_x = 0.0
