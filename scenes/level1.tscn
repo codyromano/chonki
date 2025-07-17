@@ -1,4 +1,4 @@
-[gd_scene load_steps=37 format=3 uid="uid://br8ftak73gmww"]
+[gd_scene load_steps=38 format=3 uid="uid://br8ftak73gmww"]
 
 [ext_resource type="PackedScene" uid="uid://cyu6wosf2qc3v" path="res://scenes/chonki.tscn" id="1_sihbw"]
 [ext_resource type="Texture2D" uid="uid://bpqdlmvtkr1i5" path="res://assets/environment/lake.png" id="1_vplxb"]
@@ -28,6 +28,7 @@
 [ext_resource type="Script" path="res://scenes/characters/bicyclist.gd" id="24_ndwrk"]
 [ext_resource type="PackedScene" uid="uid://bl7i4fhshnwgg" path="res://scenes/composable/npc_linear_patrol_loop.tscn" id="26_67tjq"]
 [ext_resource type="Script" path="res://scenes/composable/bicyclist_patrol_loop.gd" id="26_b2buy"]
+[ext_resource type="Texture2D" uid="uid://c1jvgsj8ygn4l" path="res://assets/enemies/bike/bike2.png" id="26_x6hvv"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_piwsr"]
 distance = -500.0
@@ -124,10 +125,16 @@ animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("24_4omld")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_x6hvv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_4omld")
 }],
 "loop": true,
 "name": &"default",
-"speed": 5.0
+"speed": 1.0
 }]
 
 [node name="Level1" type="Node2D"]
@@ -168,7 +175,7 @@ position = Vector2(17553, -3726)
 
 [node name="Chonki" parent="World2D" instance=ExtResource("1_sihbw")]
 z_index = 1
-position = Vector2(21174, -4223)
+position = Vector2(5135, -474)
 heart_texture = ExtResource("4_mj2kh")
 
 [node name="Ground" type="StaticBody2D" parent="World2D"]
@@ -319,8 +326,8 @@ position = Vector2(34, -109)
 
 [node name="NPCLinearPatrolLoop" type="Node2D" parent="World2D/NPCs" node_paths=PackedStringArray("body")]
 script = ExtResource("23_a4ecq")
-body = NodePath("../CrowBody")
 move_duration = 10.0
+body = NodePath("../CrowBody")
 
 [node name="Bicyclist" type="Area2D" parent="World2D/NPCs"]
 z_index = 2
@@ -331,6 +338,8 @@ script = ExtResource("24_ndwrk")
 position = Vector2(-55.1953, -71.1002)
 scale = Vector2(3.464, 3.464)
 sprite_frames = SubResource("SpriteFrames_6cvlo")
+autoplay = "default"
+frame_progress = 0.137361
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="World2D/NPCs/Bicyclist"]
 position = Vector2(-740.199, 459.9)

@@ -625,7 +625,7 @@ stream = ExtResource("127_vip41")
 
 [node name="BackgroundAudio" type="AudioStreamPlayer2D" parent="ChonkiCharacter"]
 stream = ExtResource("138_chkli")
-volume_db = -80.0
+volume_db = -10.0
 autoplay = true
 
 [node name="AudioWon" type="AudioStreamPlayer2D" parent="ChonkiCharacter"]
