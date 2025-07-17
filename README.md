@@ -8,15 +8,17 @@ Chonki is a 2D side-scroller game about a lost dog searching for his owner. It i
 
 ## Goals
 
-1. Primary: Navigate the corgi through a series of obstacles to find his owner, avoiding hazards such as geese.
+1. Primary: Navigate the corgi through a series of obstacles to find his owner, avoiding hazards such as geese and bicyclists.
 
-2. Secondary: Gather "stars," an in-game collectible, and complete the level quickly.
+2. Secondary: Gather "books," an in-game collectible, and complete the level quickly. Each book reveals part of the storyline.
 
 ## Scoring
 
-The player receives an overall ranking for each level: okay, great, or perfect. The ratings are based on how many stars the player collected and how much time they spent in the level.
+The player receives an overall ranking for each level: okay, great, or perfect. The ratings are based on how many books the player collected and how much time they spent in the level.
 
-The total # of stars varies by level. Find it by counting the number of "Collectible" nodes in a level where the "Collectible Name" is "star." The number of collected stars is tracked in res://scenes/StarLabel.gd.
+The total # of books varies by level. Find it by counting the number of "Collectible" nodes in a level where the "Collectible Name" is "star." The number of collected books is tracked in res://scenes/StarLabel.gd.
+
+Note: "star" is a legacy name for book.
 
 ### Okay
 
