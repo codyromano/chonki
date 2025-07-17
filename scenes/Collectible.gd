@@ -25,11 +25,6 @@ func _ready():
 		base_y = sprite.position.y
 		_start_floating()
 
-	if frames:
-		pass
-	else:
-		push_warning("No SpriteFrames assigned to 'frames'.")
-
 	# Add to group for star counting
 	if collectible_name == "star":
 		add_to_group("CollectibleStar")

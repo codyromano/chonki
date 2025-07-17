@@ -1,8 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://b41x2t8numn7a"]
+[gd_scene load_steps=7 format=3 uid="uid://b41x2t8numn7a"]
 
 [ext_resource type="Script" path="res://scenes/HUDControl.gd" id="1_3g370"]
 [ext_resource type="Texture2D" uid="uid://qx1ubqqi74hv" path="res://assets/collectibles/menu-icons/heart.png" id="2"]
-[ext_resource type="Texture2D" uid="uid://c86w4kwchb685" path="res://assets/collectibles/star/frame-1.png" id="2_h711k"]
 [ext_resource type="Script" path="res://scenes/StarLabel.gd" id="3_s5bop"]
 [ext_resource type="Theme" uid="uid://dte5an7k6hog1" path="res://themes/base.tres" id="4_a3yto"]
 [ext_resource type="Texture2D" uid="uid://bqld0cf1kt3t4" path="res://assets/collectibles/menu-icons/clock.png" id="5_sva7s"]
@@ -65,7 +64,6 @@ offset_top = 30.0
 offset_right = 1774.0
 offset_bottom = 335.0
 scale = Vector2(0.25, 0.25)
-texture = ExtResource("2_h711k")
 stretch_mode = 2
 
 [node name="StarLabel" type="Label" parent="HUDControl"]

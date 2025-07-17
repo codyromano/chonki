@@ -1,36 +1,10 @@
-[gd_scene load_steps=9 format=3 uid="uid://bm55n82sfyn37"]
+[gd_scene load_steps=8 format=3 uid="uid://bm55n82sfyn37"]
 
 [ext_resource type="Script" path="res://scenes/Collectible.gd" id="1_su7td"]
 [ext_resource type="AudioStream" uid="uid://5eq4y1psdc7d" path="res://assets/sound/book1.mp3" id="2_auneg"]
 [ext_resource type="Texture2D" uid="uid://b5656rpujvxxt" path="res://assets/collectibles/book.png" id="9_frf8e"]
 [ext_resource type="Texture2D" uid="uid://cu7vs55b4bjil" path="res://assets/collectibles/book-open.png" id="9_jwhar"]
 [ext_resource type="AudioStream" uid="uid://3u0hk83prun5" path="res://assets/sound/chill-bark.mp3" id="9_towvv"]
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_6xpr6"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": null
-}, {
-"duration": 1.0,
-"texture": null
-}, {
-"duration": 1.0,
-"texture": null
-}, {
-"duration": 1.0,
-"texture": null
-}, {
-"duration": 1.0,
-"texture": null
-}, {
-"duration": 1.0,
-"texture": null
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_l0b0a"]
 animations = [{
@@ -57,7 +31,6 @@ size = Vector2(256.357, 278.789)
 [node name="Collectible" type="Node2D"]
 position = Vector2(-6757, 635)
 script = ExtResource("1_su7td")
-frames = SubResource("SpriteFrames_6xpr6")
 collectible_name = "star"
 audio = ExtResource("2_auneg")
 

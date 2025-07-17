@@ -8,5 +8,5 @@ func _on_body_entered(body):
 		GlobalSignals.animate_camera_zoom_level.emit(0.15)
 
 
-func _on_input_event(viewport, event, shape_idx):
+func _on_input_event(_viewport, _event, _shape_idx):
 	print("foobar")
