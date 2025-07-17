@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://br8ftak73gmww"]
+[gd_scene load_steps=37 format=3 uid="uid://br8ftak73gmww"]
 
 [ext_resource type="PackedScene" uid="uid://cyu6wosf2qc3v" path="res://scenes/chonki.tscn" id="1_sihbw"]
 [ext_resource type="Texture2D" uid="uid://bpqdlmvtkr1i5" path="res://assets/environment/lake.png" id="1_vplxb"]
@@ -25,6 +25,7 @@
 [ext_resource type="Texture2D" uid="uid://cs5w6y02rt0rq" path="res://assets/friends/crow/crow3.png" id="22_yc0nv"]
 [ext_resource type="Script" path="res://scenes/FriendlyCrowPatrolLoop.gd" id="23_a4ecq"]
 [ext_resource type="Texture2D" uid="uid://b5544v1limwav" path="res://assets/enemies/bike/bike1.png" id="24_4omld"]
+[ext_resource type="Script" path="res://scenes/characters/bicyclist.gd" id="24_ndwrk"]
 [ext_resource type="PackedScene" uid="uid://bl7i4fhshnwgg" path="res://scenes/composable/npc_linear_patrol_loop.tscn" id="26_67tjq"]
 [ext_resource type="Script" path="res://scenes/composable/bicyclist_patrol_loop.gd" id="26_b2buy"]
 
@@ -321,9 +322,10 @@ script = ExtResource("23_a4ecq")
 body = NodePath("../CrowBody")
 move_duration = 10.0
 
-[node name="Bicyclist" type="CharacterBody2D" parent="World2D/NPCs"]
+[node name="Bicyclist" type="Area2D" parent="World2D/NPCs"]
 z_index = 2
-position = Vector2(19153, -649)
+position = Vector2(19153, -627)
+script = ExtResource("24_ndwrk")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World2D/NPCs/Bicyclist"]
 position = Vector2(-55.1953, -71.1002)
@@ -335,10 +337,10 @@ position = Vector2(-740.199, 459.9)
 polygon = PackedVector2Array(629, -1295, 1346, 38, -20, 3)
 
 [node name="EndMarker" type="Marker2D" parent="World2D/NPCs/Bicyclist"]
-position = Vector2(6875, -64)
+position = Vector2(6875, -14)
 
 [node name="StartMarker" type="Marker2D" parent="World2D/NPCs/Bicyclist"]
-position = Vector2(-1280, -87)
+position = Vector2(-1280, -37)
 
 [node name="BicyclistPatrolLoop" parent="World2D/NPCs" node_paths=PackedStringArray("body") instance=ExtResource("26_67tjq")]
 position = Vector2(19298, -513)
@@ -350,3 +352,4 @@ move_duration = 5.0
 
 [connection signal="input_event" from="World2D/CherryTreeBody" to="World2D/CherryTreeBody" method="_on_input_event"]
 [connection signal="timeout" from="World2D/NPCs/GooseRegion2D/Goose/Timer" to="World2D/NPCs/GooseRegion2D/Goose" method="_on_hop_timer_timeout"]
+[connection signal="body_entered" from="World2D/NPCs/Bicyclist" to="World2D/NPCs/Bicyclist" method="_on_body_entered"]

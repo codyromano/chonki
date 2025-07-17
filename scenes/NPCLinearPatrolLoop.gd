@@ -1,7 +1,7 @@
 extends Node2D
 
 # Character to be moved
-@export var body: CharacterBody2D
+@export var body: Node2D
 
 # Timing
 @export var move_duration: float = 5.0
