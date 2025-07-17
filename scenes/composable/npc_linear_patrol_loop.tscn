@@ -2,7 +2,6 @@
 
 [ext_resource type="Script" path="res://scenes/FriendlyCrowPatrolLoop.gd" id="1_2emrb"]
 
-[node name="NPCLinearPatrolLoop" type="Node2D" node_paths=PackedStringArray("body")]
+[node name="NPCLinearPatrolLoop" type="Node2D"]
 script = ExtResource("1_2emrb")
-body = NodePath("")
 move_duration = 10.0

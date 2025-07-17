@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://br8ftak73gmww"]
+[gd_scene load_steps=36 format=3 uid="uid://br8ftak73gmww"]
 
 [ext_resource type="PackedScene" uid="uid://cyu6wosf2qc3v" path="res://scenes/chonki.tscn" id="1_sihbw"]
 [ext_resource type="Texture2D" uid="uid://bpqdlmvtkr1i5" path="res://assets/environment/lake.png" id="1_vplxb"]
@@ -24,6 +24,9 @@
 [ext_resource type="Texture2D" uid="uid://cv0mg4tjkdng2" path="res://assets/friends/crow/crow2.png" id="21_5g8m5"]
 [ext_resource type="Texture2D" uid="uid://cs5w6y02rt0rq" path="res://assets/friends/crow/crow3.png" id="22_yc0nv"]
 [ext_resource type="Script" path="res://scenes/FriendlyCrowPatrolLoop.gd" id="23_a4ecq"]
+[ext_resource type="Texture2D" uid="uid://b5544v1limwav" path="res://assets/enemies/bike/bike1.png" id="24_4omld"]
+[ext_resource type="PackedScene" uid="uid://bl7i4fhshnwgg" path="res://scenes/composable/npc_linear_patrol_loop.tscn" id="26_67tjq"]
+[ext_resource type="Script" path="res://scenes/composable/bicyclist_patrol_loop.gd" id="26_b2buy"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_piwsr"]
 distance = -500.0
@@ -115,6 +118,17 @@ animations = [{
 "speed": 3.0
 }]
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_6cvlo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("24_4omld")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [node name="Level1" type="Node2D"]
 position = Vector2(-5159, -12)
 
@@ -153,7 +167,7 @@ position = Vector2(17553, -3726)
 
 [node name="Chonki" parent="World2D" instance=ExtResource("1_sihbw")]
 z_index = 1
-position = Vector2(5227, -465)
+position = Vector2(21174, -4223)
 heart_texture = ExtResource("4_mj2kh")
 
 [node name="Ground" type="StaticBody2D" parent="World2D"]
@@ -306,6 +320,31 @@ position = Vector2(34, -109)
 script = ExtResource("23_a4ecq")
 body = NodePath("../CrowBody")
 move_duration = 10.0
+
+[node name="Bicyclist" type="CharacterBody2D" parent="World2D/NPCs"]
+z_index = 2
+position = Vector2(19153, -649)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World2D/NPCs/Bicyclist"]
+position = Vector2(-55.1953, -71.1002)
+scale = Vector2(3.464, 3.464)
+sprite_frames = SubResource("SpriteFrames_6cvlo")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="World2D/NPCs/Bicyclist"]
+position = Vector2(-740.199, 459.9)
+polygon = PackedVector2Array(629, -1295, 1346, 38, -20, 3)
+
+[node name="EndMarker" type="Marker2D" parent="World2D/NPCs/Bicyclist"]
+position = Vector2(6875, -64)
+
+[node name="StartMarker" type="Marker2D" parent="World2D/NPCs/Bicyclist"]
+position = Vector2(-1280, -87)
+
+[node name="BicyclistPatrolLoop" parent="World2D/NPCs" node_paths=PackedStringArray("body") instance=ExtResource("26_67tjq")]
+position = Vector2(19298, -513)
+script = ExtResource("26_b2buy")
+body = NodePath("../Bicyclist")
+move_duration = 5.0
 
 [node name="HUD" parent="." instance=ExtResource("20_g3dfk")]
 
