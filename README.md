@@ -43,18 +43,13 @@ The player has three lives for each scene, which are displayed as heart icons wi
 
 After losing three lives, the Chonki character (Chonki.gd) plays a "sleep" animation for its child AnimatedSprite2D. Meanwhile, the rest of the screen freezes. After 4 seconds, the screen fades to black, then the level restarts with its state reset.
 
+
 ## Coding Conventions
 
-- Use meaningful variable and function names to make code self-explanatory. Avoid comments that describe *what* or *how* code works; use comments sparingly to explain *why* something is done.
-- Always assume that `GlobalSignals` exists and is properly set up. Do not check for the existence of signals before emitting them. For example:
+- Don't add comments
 
-  **Wrong:**
-  ```gdscript
-  if GlobalSignals.has_signal("crow_dropped_branch"):
-      GlobalSignals.crow_dropped_branch.emit()
-  ```
+- All signals live in `GlobalSignals.gd`
 
-  **Right:**
-  ```gdscript
-  GlobalSignals.crow_dropped_branch.emit()
-  ```
+- Use null checks only when required. Always assume that any node or resource exists if it is present in the scene tree or code, unless you know that it is created conditionally.
+
+- **Use the modern signal connection syntax.** When connecting signals, prefer the modern callable syntax: GlobalSignals.connect("some_signal", _on_some_signal)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=40 format=3 uid="uid://br8ftak73gmww"]
+[gd_scene load_steps=42 format=3 uid="uid://br8ftak73gmww"]
 
 [ext_resource type="PackedScene" uid="uid://cyu6wosf2qc3v" path="res://scenes/chonki.tscn" id="1_sihbw"]
 [ext_resource type="Texture2D" uid="uid://bpqdlmvtkr1i5" path="res://assets/environment/lake.png" id="1_vplxb"]
@@ -15,6 +15,7 @@
 [ext_resource type="Script" path="res://scenes/CherryTreeBody.gd" id="15_iid5p"]
 [ext_resource type="PackedScene" uid="uid://bhxw5nu7tpc6u" path="res://scenes/composable/volleyball.tscn" id="16_q08mg"]
 [ext_resource type="Script" path="res://scenes/GooseNavigation.gd" id="16_vuaih"]
+[ext_resource type="Script" path="res://scenes/BranchDropArea2D.gd" id="16_w8egv"]
 [ext_resource type="PackedScene" uid="uid://bffjk8vm2vkp5" path="res://scenes/characters/dave.tscn" id="16_ytk5w"]
 [ext_resource type="Texture2D" uid="uid://vvx8340f7nlj" path="res://assets/enemies/goose/goose-defeated.png" id="17_0mpyo"]
 [ext_resource type="PackedScene" uid="uid://vsdrrorb2si0" path="res://scenes/composable/volleyball_net.tscn" id="17_nrtx7"]
@@ -115,6 +116,17 @@ animations = [{
 "name": &"default",
 "speed": 3.0
 }]
+
+[sub_resource type="GDScript" id="GDScript_kti7o"]
+script/source = "extends Sprite2D
+
+
+func _ready():
+	GlobalSignals.crow_dropped_branch.connect(_on_crow_dropped_branch)
+
+func _on_crow_dropped_branch() -> void:
+	print(\"crow dropped branch\")
+"
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_6cvlo"]
 animations = [{
@@ -252,6 +264,16 @@ rotation = -0.0641717
 scale = Vector2(0.951186, 0.679637)
 shape = SubResource("RectangleShape2D_adkmy")
 
+[node name="BranchDropArea2D" type="Area2D" parent="World2D/NPCs/CrowBody"]
+position = Vector2(-30, -71)
+script = ExtResource("16_w8egv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/NPCs/CrowBody/BranchDropArea2D"]
+position = Vector2(-52.416, -163.885)
+rotation = -0.0641717
+scale = Vector2(0.951186, 0.679637)
+shape = SubResource("RectangleShape2D_adkmy")
+
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World2D/NPCs/CrowBody"]
 position = Vector2(-4.75, -40.7502)
 rotation = -0.74351
@@ -272,6 +294,7 @@ position = Vector2(-133, 24)
 rotation = -0.258057
 scale = Vector2(0.60938, 0.60938)
 texture = ExtResource("19_iaakn")
+script = SubResource("GDScript_kti7o")
 
 [node name="NPCLinearPatrolLoop" type="Node2D" parent="World2D/NPCs" node_paths=PackedStringArray("body")]
 script = ExtResource("23_a4ecq")
@@ -373,5 +396,7 @@ leg_height = 20.0
 [node name="HUD" parent="." instance=ExtResource("20_g3dfk")]
 
 [connection signal="timeout" from="World2D/NPCs/GooseRegion2D/Goose/Timer" to="World2D/NPCs/GooseRegion2D/Goose" method="_on_hop_timer_timeout"]
+[connection signal="body_entered" from="World2D/NPCs/CrowBody/BranchDropArea2D" to="World2D/NPCs/CrowBody/BranchDropArea2D" method="_on_body_entered"]
+[connection signal="body_exited" from="World2D/NPCs/CrowBody/BranchDropArea2D" to="World2D/NPCs/CrowBody/BranchDropArea2D" method="_on_body_exited"]
 [connection signal="body_entered" from="World2D/NPCs/Bicyclist" to="World2D/NPCs/Bicyclist" method="_on_body_entered"]
 [connection signal="input_event" from="World2D/Platforms & Barriers/CherryTreeBody" to="World2D/Platforms & Barriers/CherryTreeBody" method="_on_input_event"]
