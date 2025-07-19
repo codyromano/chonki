@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://br8ftak73gmww"]
+[gd_scene load_steps=43 format=3 uid="uid://br8ftak73gmww"]
 
 [ext_resource type="PackedScene" uid="uid://cyu6wosf2qc3v" path="res://scenes/chonki.tscn" id="1_sihbw"]
 [ext_resource type="Texture2D" uid="uid://bpqdlmvtkr1i5" path="res://assets/environment/lake.png" id="1_vplxb"]
@@ -20,6 +20,7 @@
 [ext_resource type="Texture2D" uid="uid://vvx8340f7nlj" path="res://assets/enemies/goose/goose-defeated.png" id="17_0mpyo"]
 [ext_resource type="PackedScene" uid="uid://vsdrrorb2si0" path="res://scenes/composable/volleyball_net.tscn" id="17_nrtx7"]
 [ext_resource type="AudioStream" uid="uid://dtbn6tc13x30h" path="res://assets/sound/bird-flap.mp3" id="18_60djy"]
+[ext_resource type="Script" path="res://scenes/branch_script.gd" id="19_abcde"]
 [ext_resource type="Texture2D" uid="uid://cmx1y70k7khta" path="res://assets/collectibles/branch.png" id="19_iaakn"]
 [ext_resource type="AudioStream" uid="uid://me3nrqvd2xhg" path="res://assets/sound/goose-defeated.mp3" id="20_f7bbt"]
 [ext_resource type="PackedScene" uid="uid://b41x2t8numn7a" path="res://scenes/HUD.tscn" id="20_g3dfk"]
@@ -117,16 +118,7 @@ animations = [{
 "speed": 3.0
 }]
 
-[sub_resource type="GDScript" id="GDScript_kti7o"]
-script/source = "extends Sprite2D
-
-
-func _ready():
-	GlobalSignals.crow_dropped_branch.connect(_on_crow_dropped_branch)
-
-func _on_crow_dropped_branch() -> void:
-	print(\"crow dropped branch\")
-"
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_branch"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_6cvlo"]
 animations = [{
@@ -154,7 +146,7 @@ distance = -500.0
 [node name="Level1" type="Node2D"]
 position = Vector2(-5159, -12)
 
-[node name="World2D" type="Node2D" parent="."]
+[node name="World2D" type="Node2D" parent="." groups=["world"]]
 unique_name_in_owner = true
 
 [node name="Collectibles" type="Node2D" parent="World2D"]
@@ -165,11 +157,11 @@ position = Vector2(5251, -2416)
 
 [node name="Collectible2" parent="World2D/Collectibles" instance=ExtResource("4_ew37v")]
 z_index = 1
-position = Vector2(18348, -3808)
+position = Vector2(18642, -5216)
 
 [node name="Chonki" parent="World2D" instance=ExtResource("1_sihbw")]
 z_index = 1
-position = Vector2(5095, -454)
+position = Vector2(21024, -2861)
 heart_texture = ExtResource("4_mj2kh")
 
 [node name="Dave" parent="World2D" instance=ExtResource("16_ytk5w")]
@@ -287,14 +279,19 @@ flip_h = true
 position = Vector2(-7337, -210)
 
 [node name="StartMarker" type="Marker2D" parent="World2D/NPCs/CrowBody"]
-position = Vector2(2582, -109)
+position = Vector2(2582, -1363)
 
-[node name="Branch" type="Sprite2D" parent="World2D/NPCs/CrowBody"]
+[node name="Branch" type="CharacterBody2D" parent="World2D/NPCs/CrowBody"]
 position = Vector2(-133, 24)
 rotation = -0.258057
 scale = Vector2(0.60938, 0.60938)
+script = ExtResource("19_abcde")
+
+[node name="Sprite2D" type="Sprite2D" parent="World2D/NPCs/CrowBody/Branch"]
 texture = ExtResource("19_iaakn")
-script = SubResource("GDScript_kti7o")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/NPCs/CrowBody/Branch"]
+shape = SubResource("RectangleShape2D_branch")
 
 [node name="NPCLinearPatrolLoop" type="Node2D" parent="World2D/NPCs" node_paths=PackedStringArray("body")]
 script = ExtResource("23_a4ecq")
