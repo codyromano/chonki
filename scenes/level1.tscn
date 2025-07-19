@@ -161,7 +161,7 @@ position = Vector2(18642, -5216)
 
 [node name="Chonki" parent="World2D" instance=ExtResource("1_sihbw")]
 z_index = 1
-position = Vector2(21024, -2861)
+position = Vector2(5112, -477)
 heart_texture = ExtResource("4_mj2kh")
 
 [node name="Dave" parent="World2D" instance=ExtResource("16_ytk5w")]
