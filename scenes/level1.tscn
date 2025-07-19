@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://br8ftak73gmww"]
+[gd_scene load_steps=40 format=3 uid="uid://br8ftak73gmww"]
 
 [ext_resource type="PackedScene" uid="uid://cyu6wosf2qc3v" path="res://scenes/chonki.tscn" id="1_sihbw"]
 [ext_resource type="Texture2D" uid="uid://bpqdlmvtkr1i5" path="res://assets/environment/lake.png" id="1_vplxb"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://scenes/Goose.gd" id="13_rdfy5"]
 [ext_resource type="Texture2D" uid="uid://d4ibiy0oh2hpb" path="res://assets/enemies/goose/goose2.png" id="14_648ic"]
 [ext_resource type="Texture2D" uid="uid://b281ntpbdihii" path="res://assets/enemies/goose/goose3.png" id="14_apft5"]
+[ext_resource type="Script" path="res://scenes/CrowBody.gd" id="15_4leuf"]
 [ext_resource type="Texture2D" uid="uid://4l0wnaj430u" path="res://assets/environment/boats.png" id="15_42slk"]
 [ext_resource type="Texture2D" uid="uid://deplee65wfhnh" path="res://assets/environment/cherry_tree.png" id="15_gqhdx"]
 [ext_resource type="Script" path="res://scenes/CherryTreeBody.gd" id="15_iid5p"]
@@ -18,6 +19,7 @@
 [ext_resource type="Texture2D" uid="uid://vvx8340f7nlj" path="res://assets/enemies/goose/goose-defeated.png" id="17_0mpyo"]
 [ext_resource type="PackedScene" uid="uid://vsdrrorb2si0" path="res://scenes/composable/volleyball_net.tscn" id="17_nrtx7"]
 [ext_resource type="AudioStream" uid="uid://dtbn6tc13x30h" path="res://assets/sound/bird-flap.mp3" id="18_60djy"]
+[ext_resource type="Texture2D" uid="uid://cmx1y70k7khta" path="res://assets/collectibles/branch.png" id="19_iaakn"]
 [ext_resource type="AudioStream" uid="uid://me3nrqvd2xhg" path="res://assets/sound/goose-defeated.mp3" id="20_f7bbt"]
 [ext_resource type="PackedScene" uid="uid://b41x2t8numn7a" path="res://scenes/HUD.tscn" id="20_g3dfk"]
 [ext_resource type="Texture2D" uid="uid://xbii1exm3nts" path="res://assets/friends/crow/crow1.png" id="20_vrg8m"]
@@ -29,12 +31,6 @@
 [ext_resource type="PackedScene" uid="uid://bl7i4fhshnwgg" path="res://scenes/composable/npc_linear_patrol_loop.tscn" id="26_67tjq"]
 [ext_resource type="Script" path="res://scenes/composable/bicyclist_patrol_loop.gd" id="26_b2buy"]
 [ext_resource type="Texture2D" uid="uid://c1jvgsj8ygn4l" path="res://assets/enemies/bike/bike2.png" id="26_x6hvv"]
-
-[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_piwsr"]
-distance = -500.0
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3owu1"]
-size = Vector2(3413.88, 20748.8)
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_1ju1f"]
 vertices = PackedVector2Array(18088, 3, 13139, 8, 13188, -2378, 18259, -2419)
@@ -137,31 +133,17 @@ animations = [{
 "speed": 1.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3owu1"]
+size = Vector2(3413.88, 20748.8)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_piwsr"]
+distance = -500.0
+
 [node name="Level1" type="Node2D"]
 position = Vector2(-5159, -12)
 
 [node name="World2D" type="Node2D" parent="."]
 unique_name_in_owner = true
-
-[node name="GroundSprite" type="Polygon2D" parent="World2D"]
-z_index = 3
-texture_repeat = 2
-use_parent_material = true
-position = Vector2(402, 616)
-scale = Vector2(1.46235, 1.60449)
-texture = ExtResource("1_vplxb")
-texture_offset = Vector2(0, 400)
-polygon = PackedVector2Array(-966.253, -382.053, 73308.7, -382.053, 73294.4, 627.614, -964.201, 621.381)
-
-[node name="GroundSprite2" type="Polygon2D" parent="World2D"]
-z_index = 3
-texture_repeat = 2
-use_parent_material = true
-position = Vector2(397, 1402)
-scale = Vector2(1.46235, 1.60449)
-texture = ExtResource("1_vplxb")
-texture_offset = Vector2(0, 400)
-polygon = PackedVector2Array(-1100.97, 128.39, 73316.2, 137.115, 73294.4, 627.614, -1059.25, 630.106)
 
 [node name="Collectibles" type="Node2D" parent="World2D"]
 
@@ -171,81 +153,20 @@ position = Vector2(5251, -2416)
 
 [node name="Collectible2" parent="World2D/Collectibles" instance=ExtResource("4_ew37v")]
 z_index = 1
-position = Vector2(17553, -3726)
+position = Vector2(18348, -3808)
 
 [node name="Chonki" parent="World2D" instance=ExtResource("1_sihbw")]
 z_index = 1
-position = Vector2(5135, -474)
+position = Vector2(5095, -454)
 heart_texture = ExtResource("4_mj2kh")
-
-[node name="Ground" type="StaticBody2D" parent="World2D"]
-visible = false
-scale = Vector2(10, 10)
-collision_layer = 15
-collision_mask = 255
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/Ground"]
-z_index = 100
-position = Vector2(317, -500)
-shape = SubResource("WorldBoundaryShape2D_piwsr")
-debug_color = Color(0.307035, 0.494072, 1, 0.42)
-
-[node name="BoatBarrier" type="StaticBody2D" parent="World2D"]
-z_index = 1
-position = Vector2(415, 0)
-
-[node name="Sprite2D" type="Sprite2D" parent="World2D/BoatBarrier"]
-position = Vector2(2463.12, -978.25)
-scale = Vector2(2.60693, 2.60693)
-texture = ExtResource("15_42slk")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/BoatBarrier"]
-position = Vector2(2496.06, -10255.6)
-shape = SubResource("RectangleShape2D_3owu1")
 
 [node name="Dave" parent="World2D" instance=ExtResource("16_ytk5w")]
 position = Vector2(33805, -1442)
 
-[node name="CherryTreeBody" type="StaticBody2D" parent="World2D"]
-position = Vector2(1117, 13)
-collision_layer = 8
-collision_mask = 21
-script = ExtResource("15_iid5p")
-
-[node name="Sprite2D" type="Sprite2D" parent="World2D/CherryTreeBody"]
-position = Vector2(11067.5, -1078.75)
-scale = Vector2(1.51269, 1.51269)
-texture = ExtResource("15_gqhdx")
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="World2D/CherryTreeBody"]
-polygon = PackedVector2Array(10873, 20, 10923, -147, 10941, -318, 10959, -502, 10941, -608, 10882, -691, 10759, -773, 10630, -824, 10518, -846, 10502, -958, 10430, -1006, 10431, -1131, 10423, -1281, 10383, -1463, 10391, -1580, 10587, -1893, 10871, -2149, 11101, -2190, 11267, -2106, 11470, -1940, 11577, -1618, 11719, -1493, 11780, -1010, 11463, -722, 11182, -728, 11093, -561, 11103, -316, 11135, -72, 11163, 23)
-
-[node name="Volleyballs" type="Node2D" parent="World2D"]
-z_index = 1
-
-[node name="Volleyball3" parent="World2D/Volleyballs" instance=ExtResource("16_q08mg")]
-position = Vector2(6029, 2163)
-movement_distance_x = 0.0
-movement_speed_seconds = 2.0
-
-[node name="Volleyball" parent="World2D/Volleyballs" instance=ExtResource("16_q08mg")]
-position = Vector2(-3032, 2184)
-movement_distance_y = 1000.0
-movement_speed_seconds = 2.0
-
-[node name="VolleyballNet" parent="World2D/Volleyballs" instance=ExtResource("17_nrtx7")]
-visible = false
-position = Vector2(29118, -1656)
-leg_height = 55.0
-
-[node name="VolleyballNet2" parent="World2D/Volleyballs" instance=ExtResource("17_nrtx7")]
-position = Vector2(21175, -1574)
-leg_height = 20.0
-
-[node name="Sky" type="Node2D" parent="World2D"]
+[node name="Environment" type="Node2D" parent="World2D"]
 z_index = -1
 
-[node name="CloudsBG" type="Polygon2D" parent="World2D/Sky"]
+[node name="CloudsBG" type="Polygon2D" parent="World2D/Environment"]
 texture_repeat = 2
 position = Vector2(91.6675, -1.36397)
 scale = Vector2(1.10874, 1.11339)
@@ -254,7 +175,7 @@ texture_offset = Vector2(0, 3750)
 texture_scale = Vector2(0.25, 0.25)
 polygon = PackedVector2Array(-1009, 5, 108067, 12.0026, 108211, -2983.64, 108250, -4003.86, 53431.7, -4024.94, -1017.97, -4045.87)
 
-[node name="CloudsBG3" type="Polygon2D" parent="World2D/Sky"]
+[node name="CloudsBG3" type="Polygon2D" parent="World2D/Environment"]
 texture_repeat = 2
 position = Vector2(203, -4499)
 scale = Vector2(1.2293, 1.23964)
@@ -262,6 +183,26 @@ texture = ExtResource("2_gc4xo")
 texture_offset = Vector2(0, 3750)
 texture_scale = Vector2(0.25, 0.25)
 polygon = PackedVector2Array(-1009, 5, 108067, 12.0026, 108211, -2983.64, 108251, -5474.98, 53511.8, -5527.41, -1031.48, -5495.14)
+
+[node name="GroundSprite" type="Polygon2D" parent="World2D/Environment"]
+z_index = 3
+texture_repeat = 2
+use_parent_material = true
+position = Vector2(402, 616)
+scale = Vector2(1.46235, 1.60449)
+texture = ExtResource("1_vplxb")
+texture_offset = Vector2(0, 400)
+polygon = PackedVector2Array(-966.253, -382.053, 73308.7, -382.053, 73294.4, 627.614, -964.201, 621.381)
+
+[node name="GroundSprite2" type="Polygon2D" parent="World2D/Environment"]
+z_index = 3
+texture_repeat = 2
+use_parent_material = true
+position = Vector2(397, 1402)
+scale = Vector2(1.46235, 1.60449)
+texture = ExtResource("1_vplxb")
+texture_offset = Vector2(0, 400)
+polygon = PackedVector2Array(-1100.97, 128.39, 73316.2, 137.115, 73294.4, 627.614, -1059.25, 630.106)
 
 [node name="NPCs" type="Node" parent="World2D"]
 
@@ -303,6 +244,7 @@ volume_db = 10.0
 
 [node name="CrowBody" type="CharacterBody2D" parent="World2D/NPCs"]
 position = Vector2(17936, -2974)
+script = ExtResource("15_4leuf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/NPCs/CrowBody"]
 position = Vector2(-52.416, -163.885)
@@ -312,53 +254,124 @@ shape = SubResource("RectangleShape2D_adkmy")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World2D/NPCs/CrowBody"]
 position = Vector2(-4.75, -40.7502)
-rotation = 0.744144
+rotation = -0.74351
 scale = Vector2(1.747, 1.747)
 sprite_frames = SubResource("SpriteFrames_euimj")
 autoplay = "default"
 frame_progress = 0.83919
+flip_h = true
 
 [node name="EndMarker" type="Marker2D" parent="World2D/NPCs/CrowBody"]
-position = Vector2(7313, -210)
+position = Vector2(-7337, -210)
 
 [node name="StartMarker" type="Marker2D" parent="World2D/NPCs/CrowBody"]
-position = Vector2(34, -109)
+position = Vector2(2582, -109)
+
+[node name="Branch" type="Sprite2D" parent="World2D/NPCs/CrowBody"]
+position = Vector2(-133, 24)
+rotation = -0.258057
+scale = Vector2(0.60938, 0.60938)
+texture = ExtResource("19_iaakn")
 
 [node name="NPCLinearPatrolLoop" type="Node2D" parent="World2D/NPCs" node_paths=PackedStringArray("body")]
 script = ExtResource("23_a4ecq")
-move_duration = 10.0
 body = NodePath("../CrowBody")
+move_duration = 7.0
 
 [node name="Bicyclist" type="Area2D" parent="World2D/NPCs"]
 z_index = 2
-position = Vector2(19153, -627)
+position = Vector2(18707, -627)
 script = ExtResource("24_ndwrk")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World2D/NPCs/Bicyclist"]
-position = Vector2(-55.1953, -71.1002)
-scale = Vector2(3.464, 3.464)
+position = Vector2(105.401, -212.698)
+scale = Vector2(4.10639, 4.10639)
 sprite_frames = SubResource("SpriteFrames_6cvlo")
 autoplay = "default"
 frame_progress = 0.137361
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="World2D/NPCs/Bicyclist"]
-position = Vector2(-740.199, 459.9)
-polygon = PackedVector2Array(629, -1295, 1346, 38, -20, 3)
+position = Vector2(-705.338, 443.38)
+scale = Vector2(1.08111, 1.08111)
+polygon = PackedVector2Array(628.369, -1585.75, 1346, 38, -20, 3)
 
 [node name="EndMarker" type="Marker2D" parent="World2D/NPCs/Bicyclist"]
 position = Vector2(6875, -14)
 
 [node name="StartMarker" type="Marker2D" parent="World2D/NPCs/Bicyclist"]
-position = Vector2(-1280, -37)
+position = Vector2(-1280, 21)
 
 [node name="BicyclistPatrolLoop" parent="World2D/NPCs" node_paths=PackedStringArray("body") instance=ExtResource("26_67tjq")]
 position = Vector2(19298, -513)
 script = ExtResource("26_b2buy")
 body = NodePath("../Bicyclist")
-move_duration = 5.0
+move_duration = 3.0
+
+[node name="Platforms & Barriers" type="Node2D" parent="World2D"]
+
+[node name="BoatBarrier" type="StaticBody2D" parent="World2D/Platforms & Barriers"]
+z_index = 1
+position = Vector2(415, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="World2D/Platforms & Barriers/BoatBarrier"]
+position = Vector2(2463.12, -978.25)
+scale = Vector2(2.60693, 2.60693)
+texture = ExtResource("15_42slk")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/Platforms & Barriers/BoatBarrier"]
+position = Vector2(2496.06, -10255.6)
+shape = SubResource("RectangleShape2D_3owu1")
+
+[node name="Ground" type="StaticBody2D" parent="World2D/Platforms & Barriers"]
+visible = false
+scale = Vector2(10, 10)
+collision_layer = 15
+collision_mask = 255
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/Platforms & Barriers/Ground"]
+z_index = 100
+position = Vector2(317, -500)
+shape = SubResource("WorldBoundaryShape2D_piwsr")
+debug_color = Color(0.307035, 0.494072, 1, 0.42)
+
+[node name="CherryTreeBody" type="StaticBody2D" parent="World2D/Platforms & Barriers"]
+position = Vector2(1117, 13)
+collision_layer = 8
+collision_mask = 21
+script = ExtResource("15_iid5p")
+
+[node name="Sprite2D" type="Sprite2D" parent="World2D/Platforms & Barriers/CherryTreeBody"]
+position = Vector2(11067.5, -1078.75)
+scale = Vector2(1.51269, 1.51269)
+texture = ExtResource("15_gqhdx")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="World2D/Platforms & Barriers/CherryTreeBody"]
+polygon = PackedVector2Array(10873, 20, 10923, -147, 10941, -318, 10959, -502, 10941, -608, 10882, -691, 10759, -773, 10630, -824, 10518, -846, 10502, -958, 10430, -1006, 10431, -1131, 10423, -1281, 10383, -1463, 10391, -1580, 10587, -1893, 10871, -2149, 11101, -2190, 11267, -2106, 11470, -1940, 11577, -1618, 11719, -1493, 11780, -1010, 11463, -722, 11182, -728, 11093, -561, 11103, -316, 11135, -72, 11163, 23)
+
+[node name="Volleyballs" type="Node2D" parent="World2D/Platforms & Barriers"]
+z_index = 1
+
+[node name="Volleyball3" parent="World2D/Platforms & Barriers/Volleyballs" instance=ExtResource("16_q08mg")]
+position = Vector2(6029, 2163)
+movement_distance_x = 0.0
+movement_speed_seconds = 2.0
+
+[node name="Volleyball" parent="World2D/Platforms & Barriers/Volleyballs" instance=ExtResource("16_q08mg")]
+position = Vector2(-3032, 2184)
+movement_distance_y = 1000.0
+movement_speed_seconds = 2.0
+
+[node name="VolleyballNet" parent="World2D/Platforms & Barriers/Volleyballs" instance=ExtResource("17_nrtx7")]
+visible = false
+position = Vector2(29118, -1656)
+leg_height = 55.0
+
+[node name="VolleyballNet2" parent="World2D/Platforms & Barriers/Volleyballs" instance=ExtResource("17_nrtx7")]
+position = Vector2(21175, -1574)
+leg_height = 20.0
 
 [node name="HUD" parent="." instance=ExtResource("20_g3dfk")]
 
-[connection signal="input_event" from="World2D/CherryTreeBody" to="World2D/CherryTreeBody" method="_on_input_event"]
 [connection signal="timeout" from="World2D/NPCs/GooseRegion2D/Goose/Timer" to="World2D/NPCs/GooseRegion2D/Goose" method="_on_hop_timer_timeout"]
 [connection signal="body_entered" from="World2D/NPCs/Bicyclist" to="World2D/NPCs/Bicyclist" method="_on_body_entered"]
+[connection signal="input_event" from="World2D/Platforms & Barriers/CherryTreeBody" to="World2D/Platforms & Barriers/CherryTreeBody" method="_on_input_event"]
