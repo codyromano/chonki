@@ -42,3 +42,19 @@ Note: "star" is a legacy name for book.
 The player has three lives for each scene, which are displayed as heart icons within the HUD node. The player loses lives by colliding with certain hazards such as geese. The current number of hearts is stored within HUDControl.gd.
 
 After losing three lives, the Chonki character (Chonki.gd) plays a "sleep" animation for its child AnimatedSprite2D. Meanwhile, the rest of the screen freezes. After 4 seconds, the screen fades to black, then the level restarts with its state reset.
+
+## Coding Conventions
+
+- Use meaningful variable and function names to make code self-explanatory. Avoid comments that describe *what* or *how* code works; use comments sparingly to explain *why* something is done.
+- Always assume that `GlobalSignals` exists and is properly set up. Do not check for the existence of signals before emitting them. For example:
+
+  **Wrong:**
+  ```gdscript
+  if GlobalSignals.has_signal("crow_dropped_branch"):
+      GlobalSignals.crow_dropped_branch.emit()
+  ```
+
+  **Right:**
+  ```gdscript
+  GlobalSignals.crow_dropped_branch.emit()
+  ```

@@ -9,3 +9,4 @@ signal win_game
 signal time_up
 signal player_out_of_hearts
 signal animate_camera_zoom_level  # Signal to trigger camera zoom animation (e.g., after colliding with cherry tree)
+signal crow_dropped_branch  # Signal emitted when the player collides with the crow and the crow drops a branch
