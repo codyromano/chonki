@@ -119,6 +119,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_branch"]
+size = Vector2(403.625, 316.22)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_6cvlo"]
 animations = [{
@@ -161,7 +162,7 @@ position = Vector2(18642, -5216)
 
 [node name="Chonki" parent="World2D" instance=ExtResource("1_sihbw")]
 z_index = 1
-position = Vector2(5112, -477)
+position = Vector2(20757, -2677)
 heart_texture = ExtResource("4_mj2kh")
 
 [node name="Dave" parent="World2D" instance=ExtResource("16_ytk5w")]
@@ -279,7 +280,7 @@ flip_h = true
 position = Vector2(-7337, -210)
 
 [node name="StartMarker" type="Marker2D" parent="World2D/NPCs/CrowBody"]
-position = Vector2(2582, -1363)
+position = Vector2(3000, -89)
 
 [node name="Branch" type="CharacterBody2D" parent="World2D/NPCs/CrowBody"]
 position = Vector2(-133, 24)
@@ -291,6 +292,7 @@ script = ExtResource("19_abcde")
 texture = ExtResource("19_iaakn")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/NPCs/CrowBody/Branch"]
+position = Vector2(0.3125, 0.86084)
 shape = SubResource("RectangleShape2D_branch")
 
 [node name="NPCLinearPatrolLoop" type="Node2D" parent="World2D/NPCs" node_paths=PackedStringArray("body")]
