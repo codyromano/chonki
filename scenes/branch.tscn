@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://b1i2j3k4l5m6"]
+
+[ext_resource type="Script" path="res://scenes/branch_script.gd" id="1_abcde"]
+[ext_resource type="Texture2D" uid="uid://cmx1y70k7khta" path="res://assets/collectibles/branch.png" id="2_fghij"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_branch"]
+size = Vector2(403.625, 316.22)
+
+[node name="Branch" type="CharacterBody2D"]
+script = ExtResource("1_abcde")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_fghij")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(0.3125, 0.86084)
+shape = SubResource("RectangleShape2D_branch")

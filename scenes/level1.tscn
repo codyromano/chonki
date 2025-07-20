@@ -1,4 +1,4 @@
-[gd_scene load_steps=46 format=3 uid="uid://br8ftak73gmww"]
+[gd_scene load_steps=44 format=3 uid="uid://br8ftak73gmww"]
 
 [ext_resource type="PackedScene" uid="uid://cyu6wosf2qc3v" path="res://scenes/chonki.tscn" id="1_sihbw"]
 [ext_resource type="Texture2D" uid="uid://bpqdlmvtkr1i5" path="res://assets/environment/lake.png" id="1_vplxb"]
@@ -20,8 +20,6 @@
 [ext_resource type="Texture2D" uid="uid://vvx8340f7nlj" path="res://assets/enemies/goose/goose-defeated.png" id="17_0mpyo"]
 [ext_resource type="PackedScene" uid="uid://vsdrrorb2si0" path="res://scenes/composable/volleyball_net.tscn" id="17_nrtx7"]
 [ext_resource type="AudioStream" uid="uid://dtbn6tc13x30h" path="res://assets/sound/bird-flap.mp3" id="18_60djy"]
-[ext_resource type="Script" path="res://scenes/branch_script.gd" id="19_abcde"]
-[ext_resource type="Texture2D" uid="uid://cmx1y70k7khta" path="res://assets/collectibles/branch.png" id="19_iaakn"]
 [ext_resource type="AudioStream" uid="uid://me3nrqvd2xhg" path="res://assets/sound/goose-defeated.mp3" id="20_f7bbt"]
 [ext_resource type="PackedScene" uid="uid://b41x2t8numn7a" path="res://scenes/HUD.tscn" id="20_g3dfk"]
 [ext_resource type="Texture2D" uid="uid://xbii1exm3nts" path="res://assets/friends/crow/crow1.png" id="20_vrg8m"]
@@ -35,6 +33,7 @@
 [ext_resource type="Script" path="res://scenes/composable/bicyclist_patrol_loop.gd" id="26_b2buy"]
 [ext_resource type="Texture2D" uid="uid://c1jvgsj8ygn4l" path="res://assets/enemies/bike/bike2.png" id="26_x6hvv"]
 [ext_resource type="Texture2D" uid="uid://dvr6b70gg7k47" path="res://assets/enemies/bike/bike_concerned.png" id="27_abcde"]
+[ext_resource type="PackedScene" path="res://scenes/branch.tscn" id="28_cde12"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_1ju1f"]
 vertices = PackedVector2Array(18088, 3, 13139, 8, 13188, -2378, 18259, -2419)
@@ -131,9 +130,6 @@ animations = [{
 "speed": 3.0
 }]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_branch"]
-size = Vector2(403.625, 316.22)
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_6cvlo"]
 animations = [{
 "frames": [{
@@ -192,7 +188,7 @@ position = Vector2(18642, -5216)
 
 [node name="Chonki" parent="World2D" instance=ExtResource("1_sihbw")]
 z_index = 1
-position = Vector2(20757, -2677)
+position = Vector2(5143, -478)
 heart_texture = ExtResource("4_mj2kh")
 
 [node name="Dave" parent="World2D" instance=ExtResource("16_ytk5w")]
@@ -314,21 +310,9 @@ position = Vector2(3273.52, -4561.98)
 [node name="StartMarker" type="Marker2D" parent="World2D/NPCs/CrowBody"]
 position = Vector2(-235, 890)
 
-[node name="Branch" type="CharacterBody2D" parent="World2D/NPCs/CrowBody"]
-position = Vector2(158.521, -286.873)
-rotation = -0.258057
-scale = Vector2(0.60938, 0.60938)
-script = ExtResource("19_abcde")
-
-[node name="Sprite2D" type="Sprite2D" parent="World2D/NPCs/CrowBody/Branch"]
-texture = ExtResource("19_iaakn")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/NPCs/CrowBody/Branch"]
-position = Vector2(0.3125, 0.86084)
-shape = SubResource("RectangleShape2D_branch")
-
 [node name="NPCLinearPatrolLoop" type="Node2D" parent="World2D/NPCs" node_paths=PackedStringArray("body")]
 script = ExtResource("23_a4ecq")
+branch_scene = ExtResource("28_cde12")
 body = NodePath("../CrowBody")
 move_duration = 7.0
 
