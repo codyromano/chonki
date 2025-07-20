@@ -6,7 +6,11 @@ var is_falling = false
 
 func _ready():
 	GlobalSignals.crow_dropped_branch.connect(_on_crow_dropped_branch)
+	GlobalSignals.biker_cleaned_up_branch.connect(_on_biker_cleaned_up_branch)
 
+func _on_biker_cleaned_up_branch() -> void:
+	call_deferred("queue_free")
+	
 func _physics_process(delta):
 	if is_falling:
 		velocity.y += GRAVITY * delta

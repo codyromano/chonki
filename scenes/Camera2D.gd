@@ -11,6 +11,9 @@ var initial_position: Vector2
 func _ready():
 	# Store initial camera state
 	initial_zoom = zoom
+	
+	# Debugging
+	zoom = Vector2(0.1, 0.1)
 	initial_position = global_position
 	print("[Camera2D] Ready. Initial zoom:", initial_zoom)
 

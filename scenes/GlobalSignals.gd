@@ -10,3 +10,4 @@ signal player_out_of_hearts
 signal animate_camera_zoom_level
 signal crow_dropped_branch
 signal biker_hit_branch
+signal biker_cleaned_up_branch
