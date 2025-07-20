@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://br8ftak73gmww"]
+[gd_scene load_steps=41 format=3 uid="uid://br8ftak73gmww"]
 
 [ext_resource type="PackedScene" uid="uid://cyu6wosf2qc3v" path="res://scenes/chonki.tscn" id="1_sihbw"]
 [ext_resource type="Texture2D" uid="uid://bpqdlmvtkr1i5" path="res://assets/environment/lake.png" id="1_vplxb"]
@@ -15,7 +15,6 @@
 [ext_resource type="Script" path="res://scenes/CherryTreeBody.gd" id="15_iid5p"]
 [ext_resource type="PackedScene" uid="uid://bhxw5nu7tpc6u" path="res://scenes/composable/volleyball.tscn" id="16_q08mg"]
 [ext_resource type="Script" path="res://scenes/GooseNavigation.gd" id="16_vuaih"]
-[ext_resource type="Script" path="res://scenes/BranchDropArea2D.gd" id="16_w8egv"]
 [ext_resource type="PackedScene" uid="uid://bffjk8vm2vkp5" path="res://scenes/characters/dave.tscn" id="16_ytk5w"]
 [ext_resource type="Texture2D" uid="uid://vvx8340f7nlj" path="res://assets/enemies/goose/goose-defeated.png" id="17_0mpyo"]
 [ext_resource type="PackedScene" uid="uid://vsdrrorb2si0" path="res://scenes/composable/volleyball_net.tscn" id="17_nrtx7"]
@@ -33,7 +32,6 @@
 [ext_resource type="Script" path="res://scenes/composable/bicyclist_patrol_loop.gd" id="26_b2buy"]
 [ext_resource type="Texture2D" uid="uid://c1jvgsj8ygn4l" path="res://assets/enemies/bike/bike2.png" id="26_x6hvv"]
 [ext_resource type="Texture2D" uid="uid://dvr6b70gg7k47" path="res://assets/enemies/bike/bike_concerned.png" id="27_abcde"]
-[ext_resource type="PackedScene" path="res://scenes/branch.tscn" id="28_cde12"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_1ju1f"]
 vertices = PackedVector2Array(18088, 3, 13139, 8, 13188, -2378, 18259, -2419)
@@ -77,9 +75,6 @@ height = 437.11
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_adkmy"]
 size = Vector2(763.363, 472.117)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_sjq3b"]
-size = Vector2(962.14, 1144.58)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_euimj"]
 animations = [{
@@ -188,7 +183,7 @@ position = Vector2(18642, -5216)
 
 [node name="Chonki" parent="World2D" instance=ExtResource("1_sihbw")]
 z_index = 1
-position = Vector2(5143, -478)
+position = Vector2(21290, -2760)
 heart_texture = ExtResource("4_mj2kh")
 
 [node name="Dave" parent="World2D" instance=ExtResource("16_ytk5w")]
@@ -274,6 +269,7 @@ stream = ExtResource("20_f7bbt")
 volume_db = 10.0
 
 [node name="CrowBody" type="CharacterBody2D" parent="World2D/NPCs"]
+z_index = 1
 position = Vector2(17936, -2974)
 rotation = 0.797312
 script = ExtResource("15_4leuf")
@@ -284,17 +280,6 @@ position = Vector2(-53.2764, -105.471)
 rotation = -0.851153
 scale = Vector2(0.951186, 0.679637)
 shape = SubResource("RectangleShape2D_adkmy")
-
-[node name="BranchDropArea2D" type="Area2D" parent="World2D/NPCs/CrowBody"]
-position = Vector2(-30, -71)
-rotation = -0.80288
-script = ExtResource("16_w8egv")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/NPCs/CrowBody/BranchDropArea2D"]
-position = Vector2(78.2812, -51.7556)
-rotation = -0.0641717
-scale = Vector2(0.951187, 0.679638)
-shape = SubResource("RectangleShape2D_sjq3b")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World2D/NPCs/CrowBody"]
 position = Vector2(26.5219, -88.7104)
@@ -310,9 +295,12 @@ position = Vector2(3273.52, -4561.98)
 [node name="StartMarker" type="Marker2D" parent="World2D/NPCs/CrowBody"]
 position = Vector2(-235, 890)
 
+[node name="BranchMarker" type="Marker2D" parent="World2D/NPCs/CrowBody"]
+position = Vector2(158.126, -260.703)
+
 [node name="NPCLinearPatrolLoop" type="Node2D" parent="World2D/NPCs" node_paths=PackedStringArray("body")]
+visible = false
 script = ExtResource("23_a4ecq")
-branch_scene = ExtResource("28_cde12")
 body = NodePath("../CrowBody")
 move_duration = 7.0
 
@@ -411,7 +399,5 @@ leg_height = 20.0
 [node name="HUD" parent="." instance=ExtResource("20_g3dfk")]
 
 [connection signal="timeout" from="World2D/NPCs/GooseRegion2D/Goose/Timer" to="World2D/NPCs/GooseRegion2D/Goose" method="_on_hop_timer_timeout"]
-[connection signal="body_entered" from="World2D/NPCs/CrowBody/BranchDropArea2D" to="World2D/NPCs/CrowBody/BranchDropArea2D" method="_on_body_entered"]
-[connection signal="body_exited" from="World2D/NPCs/CrowBody/BranchDropArea2D" to="World2D/NPCs/CrowBody/BranchDropArea2D" method="_on_body_exited"]
 [connection signal="body_entered" from="World2D/NPCs/Bicyclist" to="World2D/NPCs/Bicyclist" method="_on_body_entered"]
 [connection signal="input_event" from="World2D/Platforms & Barriers/CherryTreeBody" to="World2D/Platforms & Barriers/CherryTreeBody" method="_on_input_event"]
