@@ -26,7 +26,7 @@ func _ready():
 	end_marker_pos = end_marker.global_position
 	body.global_position = start_marker_pos
 	_patrol_to_next()
-	
+
 func _validate_initial_nodes() -> void:
 	if body == null:
 		push_error('Missing CharacterBody2D')

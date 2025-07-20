@@ -1,4 +1,4 @@
-[gd_scene load_steps=43 format=3 uid="uid://br8ftak73gmww"]
+[gd_scene load_steps=45 format=3 uid="uid://br8ftak73gmww"]
 
 [ext_resource type="PackedScene" uid="uid://cyu6wosf2qc3v" path="res://scenes/chonki.tscn" id="1_sihbw"]
 [ext_resource type="Texture2D" uid="uid://bpqdlmvtkr1i5" path="res://assets/environment/lake.png" id="1_vplxb"]
@@ -30,9 +30,11 @@
 [ext_resource type="Script" path="res://scenes/FriendlyCrowPatrolLoop.gd" id="23_a4ecq"]
 [ext_resource type="Texture2D" uid="uid://b5544v1limwav" path="res://assets/enemies/bike/bike1.png" id="24_4omld"]
 [ext_resource type="Script" path="res://scenes/characters/bicyclist.gd" id="24_ndwrk"]
+[ext_resource type="Texture2D" uid="uid://dlvac4nghhv4r" path="res://assets/enemies/bike/bike_concerned_2.png" id="25_magxr"]
 [ext_resource type="PackedScene" uid="uid://bl7i4fhshnwgg" path="res://scenes/composable/npc_linear_patrol_loop.tscn" id="26_67tjq"]
 [ext_resource type="Script" path="res://scenes/composable/bicyclist_patrol_loop.gd" id="26_b2buy"]
 [ext_resource type="Texture2D" uid="uid://c1jvgsj8ygn4l" path="res://assets/enemies/bike/bike2.png" id="26_x6hvv"]
+[ext_resource type="Texture2D" uid="uid://dvr6b70gg7k47" path="res://assets/enemies/bike/bike_concerned.png" id="27_abcde"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_1ju1f"]
 vertices = PackedVector2Array(18088, 3, 13139, 8, 13188, -2378, 18259, -2419)
@@ -81,6 +83,14 @@ size = Vector2(591.033, 107)
 animations = [{
 "frames": [{
 "duration": 1.0,
+"texture": ExtResource("27_abcde")
+}],
+"loop": false,
+"name": &"concerned",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
 "texture": ExtResource("20_vrg8m")
 }, {
 "duration": 1.0,
@@ -123,6 +133,26 @@ size = Vector2(403.625, 316.22)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_6cvlo"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("27_abcde")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_abcde")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_abcde")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_magxr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_magxr")
+}],
+"loop": false,
+"name": &"concerned",
+"speed": 1.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("24_4omld")
@@ -309,8 +339,8 @@ script = ExtResource("24_ndwrk")
 position = Vector2(105.401, -212.698)
 scale = Vector2(4.10639, 4.10639)
 sprite_frames = SubResource("SpriteFrames_6cvlo")
+animation = &"concerned"
 autoplay = "default"
-frame_progress = 0.137361
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="World2D/NPCs/Bicyclist"]
 position = Vector2(-705.338, 443.38)
