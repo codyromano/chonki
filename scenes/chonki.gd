@@ -9,7 +9,7 @@ extends Node2D
 
 @export var heart_texture: Texture2D
 
-enum ChonkiState { IDLE, RUN, ATTACK }
+enum ChonkiState { IDLE, RUN, ATTACK, HANG_ON }
 
 var state : ChonkiState = ChonkiState.IDLE
 var last_action_time : float = Time.get_unix_time_from_system() - 60.0
@@ -25,10 +25,17 @@ const GRAVITY: float = 20000.0
 const HIT_RECOVERY_TIME: float = 1
 var is_game_win = false
 
+# TODO: Add a signal for kite rotated and update chonki's
+# rotation accordingly 
+
 var fade_rect: ColorRect
 @onready var hud = get_tree().get_first_node_in_group("HUDControl")
 var is_game_over = false
 
+var hang_direction: int = 0  # Direction of kite (+1 right, -1 left)
+
+var target_rotation_degrees: int
+var hang_offset: Vector2 = Vector2.ZERO
 
 # Signal to indicate Chonki has landed and hearts have spawned
 signal chonki_landed_and_hearts_spawned
@@ -39,6 +46,7 @@ func _ready() -> void:
 	GlobalSignals.connect("win_game", on_win_game)
 	GlobalSignals.connect("player_out_of_hearts", _on_player_out_of_hearts)
 	GlobalSignals.connect("chonki_touched_kite", _on_chonki_touched_kite)
+	GlobalSignals.connect("kite_rotated", _on_kite_rotated)
 	
 	# Always reset GameState at the start of the level
 	GameState.reset()
@@ -58,10 +66,41 @@ func _ready() -> void:
 	fade_rect.z_index = 1000
 	add_child(fade_rect)
 	fade_rect.visible = false
+	
+var kite_rotate_tween
+	
+func _rotate_on_kite(initial_degrees: int) -> void:
+	if kite_rotate_tween == null:
+		kite_rotate_tween = create_tween()
+		kite_rotate_tween.set_loops()
+		rotation_degrees = initial_degrees
+		kite_rotate_tween.tween_property(self, "rotation_degrees", initial_degrees - 20, 4).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
+		kite_rotate_tween.tween_property(self, "rotation_degrees", initial_degrees + 20, 4).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
 
-func _on_chonki_touched_kite(rotation_degrees: int) -> void:
-	print("chonki touched kite with rotation " + str(rotation_degrees))
-	pass
+	
+func _on_chonki_touched_kite(kite_position: Vector2, kite_rotation_deg: int) -> void:
+	# Calculate half the sprite height for foot alignment
+	var frame_tex = sprite.sprite_frames.get_frame_texture(sprite.animation, sprite.frame)
+	var half_h = frame_tex.get_size().y * sprite.scale.y * 0.5
+	# Tween Chonki so his feet sit at the kite's collision shape center
+	var target_pos = kite_position + Vector2(0, half_h)
+	var tween = create_tween()
+	tween.tween_property(body, "global_position", target_pos, 0.1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	await tween.finished
+	# Enter hang-on state when touching kite
+	state = ChonkiState.HANG_ON
+	# Determine hang direction based on kite rotation (>=0 => right)
+	hang_direction = 1 if kite_rotation_deg >= 0 else -1
+	# Rotate Chonki to hang pose
+	body.rotation_degrees = -90
+	# Freeze on idle first frame
+	sprite.play("run")
+	sprite.frame = 0
+	# Stop ongoing movement
+	velocity = Vector2.ZERO
+	body.velocity = velocity
+	# Store foot offset for rotation alignment (feet remain against kite)
+	hang_offset = Vector2(0, half_h)
 
 func on_win_game() -> void:
 	is_game_win = true
@@ -131,6 +170,20 @@ func get_platform_velocity() -> Vector2:
 	return Vector2.ZERO
 
 func handle_movement(delta: float) -> void:
+	if state == ChonkiState.HANG_ON:
+		# Jump off kite when pressing left or right
+		if Input.is_action_just_pressed("ui_left") or Input.is_action_just_pressed("ui_right"):
+			velocity.x = hang_direction * SPEED
+			velocity.y = JUMP_FORCE
+			# Reset rotation and resume normal state
+			body.rotation_degrees = 0
+			state = ChonkiState.IDLE
+			# Reset hang offset
+			hang_offset = Vector2.ZERO
+		# Apply velocity (or remain zero)
+		body.velocity = velocity
+		return
+	
 	var platform_velocity = get_platform_velocity()
 
 	var direction: float = 0.0
@@ -243,6 +296,12 @@ func handle_sprite_flip():
 		sprite.flip_h = false
 
 func update_sprite() -> void:
+	if state == ChonkiState.HANG_ON:
+		# Keep idle first frame
+		sprite.play("idle")
+		sprite.frame = 0
+		return
+	
 	var possible_next_sprites = [
 		get_win_game_sprite(),
 		get_player_injured_sprite(),
@@ -287,3 +346,12 @@ func player_die():
 	body.set_physics_process(false)
 	await get_tree().create_timer(3.0, false).timeout
 	FadeTransition.fade_out_and_change_scene(get_tree().current_scene.scene_file_path, 0.0, 1.0)
+
+# Handler to update Chonki position as the kite rotates while hanging
+func _on_kite_rotated(kite_position: Vector2, kite_rotation_deg: int) -> void:
+	if state == ChonkiState.HANG_ON:
+		# Compute rotated offset and update global position
+		var rotated_offset = hang_offset.rotated(deg_to_rad(kite_rotation_deg))
+		body.global_position = kite_position + rotated_offset
+		# Maintain hang orientation relative to kite
+		body.rotation_degrees = kite_rotation_deg - 90

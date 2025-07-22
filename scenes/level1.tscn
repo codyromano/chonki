@@ -397,7 +397,10 @@ leg_height = 55.0
 position = Vector2(21175, -1574)
 leg_height = 20.0
 
-[node name="Kite" parent="World2D/Platforms & Barriers" instance=ExtResource("32_gf4kt")]
+[node name="Kites" type="Node2D" parent="World2D/Platforms & Barriers"]
+
+[node name="Kite" parent="World2D/Platforms & Barriers/Kites" instance=ExtResource("32_gf4kt")]
+z_index = 3
 position = Vector2(22327, -4359)
 
 [node name="HUD" parent="." instance=ExtResource("20_g3dfk")]
@@ -405,4 +408,4 @@ position = Vector2(22327, -4359)
 [connection signal="timeout" from="World2D/NPCs/GooseRegion2D/Goose/Timer" to="World2D/NPCs/GooseRegion2D/Goose" method="_on_hop_timer_timeout"]
 [connection signal="body_entered" from="World2D/NPCs/Bicyclist" to="World2D/NPCs/Bicyclist" method="_on_body_entered"]
 [connection signal="input_event" from="World2D/Platforms & Barriers/CherryTreeBody" to="World2D/Platforms & Barriers/CherryTreeBody" method="_on_input_event"]
-[connection signal="body_entered" from="World2D/Platforms & Barriers/Kite" to="World2D/Platforms & Barriers/Kite" method="_on_body_entered"]
+[connection signal="body_entered" from="World2D/Platforms & Barriers/Kites/Kite" to="World2D/Platforms & Barriers/Kites/Kite" method="_on_body_entered"]

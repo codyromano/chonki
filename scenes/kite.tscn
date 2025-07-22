@@ -19,6 +19,7 @@ size = Vector2(85, 690.799)
 
 [node name="Kite" type="Area2D"]
 position = Vector2(850, 844)
+collision_layer = 4
 script = ExtResource("1_lu5pa")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
@@ -29,3 +30,5 @@ sprite_frames = SubResource("SpriteFrames_d7edo")
 position = Vector2(-297, 285)
 rotation = -0.413593
 shape = SubResource("RectangleShape2D_ioeo6")
+
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
