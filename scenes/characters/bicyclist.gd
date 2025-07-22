@@ -8,5 +8,5 @@ func _on_body_entered(body):
 		GlobalSignals.player_hit.emit()
 		GlobalSignals.player_hit.emit()
 		GlobalSignals.player_hit.emit()
-	if body.name == "Branch":
+	if body.is_in_group("npc_obstacles"):
 		GlobalSignals.biker_hit_branch.emit()

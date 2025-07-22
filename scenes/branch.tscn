@@ -10,7 +10,7 @@ size = Vector2(403.625, 316.22)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8ex0v"]
 size = Vector2(962.14, 1144.58)
 
-[node name="Branch" type="CharacterBody2D"]
+[node name="Branch" type="CharacterBody2D" groups=["npc_obstacles"]]
 z_index = 2
 script = ExtResource("1_abcde")
 
