@@ -38,6 +38,8 @@ func _ready() -> void:
 	GlobalSignals.connect("player_hit", on_player_hit)
 	GlobalSignals.connect("win_game", on_win_game)
 	GlobalSignals.connect("player_out_of_hearts", _on_player_out_of_hearts)
+	GlobalSignals.connect("chonki_touched_kite", _on_chonki_touched_kite)
+	
 	# Always reset GameState at the start of the level
 	GameState.reset()
 	# Cache and set total_stars for this level by scene path, using CollectibleStar group
@@ -57,6 +59,9 @@ func _ready() -> void:
 	add_child(fade_rect)
 	fade_rect.visible = false
 
+func _on_chonki_touched_kite(rotation_degrees: int) -> void:
+	print("chonki touched kite with rotation " + str(rotation_degrees))
+	pass
 
 func on_win_game() -> void:
 	is_game_win = true

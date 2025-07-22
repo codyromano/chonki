@@ -8,7 +8,7 @@
 size = Vector2(403.625, 316.22)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_8ex0v"]
-size = Vector2(962.14, 1144.58)
+size = Vector2(746.383, 2383.68)
 
 [node name="Branch" type="CharacterBody2D" groups=["npc_obstacles"]]
 z_index = 2
@@ -27,8 +27,8 @@ rotation = -0.80288
 script = ExtResource("3_afj8a")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BranchDropArea2D"]
-position = Vector2(78.2812, -51.7556)
-rotation = -0.0641717
+position = Vector2(414.972, -339.726)
+rotation = 0.794121
 scale = Vector2(0.951187, 0.679638)
 shape = SubResource("RectangleShape2D_8ex0v")
 
