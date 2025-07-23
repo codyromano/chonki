@@ -271,7 +271,7 @@ volume_db = 10.0
 
 [node name="CrowBody" type="CharacterBody2D" parent="World2D/NPCs"]
 z_index = 1
-position = Vector2(17936, -2974)
+position = Vector2(16667, -8397)
 rotation = 0.797312
 script = ExtResource("15_4leuf")
 
@@ -403,9 +403,14 @@ leg_height = 20.0
 z_index = 3
 position = Vector2(22327, -4359)
 
+[node name="Kite2" parent="World2D/Platforms & Barriers/Kites" instance=ExtResource("32_gf4kt")]
+z_index = 3
+position = Vector2(24665, -6220)
+
 [node name="HUD" parent="." instance=ExtResource("20_g3dfk")]
 
 [connection signal="timeout" from="World2D/NPCs/GooseRegion2D/Goose/Timer" to="World2D/NPCs/GooseRegion2D/Goose" method="_on_hop_timer_timeout"]
 [connection signal="body_entered" from="World2D/NPCs/Bicyclist" to="World2D/NPCs/Bicyclist" method="_on_body_entered"]
 [connection signal="input_event" from="World2D/Platforms & Barriers/CherryTreeBody" to="World2D/Platforms & Barriers/CherryTreeBody" method="_on_input_event"]
 [connection signal="body_entered" from="World2D/Platforms & Barriers/Kites/Kite" to="World2D/Platforms & Barriers/Kites/Kite" method="_on_body_entered"]
+[connection signal="body_entered" from="World2D/Platforms & Barriers/Kites/Kite2" to="World2D/Platforms & Barriers/Kites/Kite2" method="_on_body_entered"]

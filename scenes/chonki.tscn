@@ -603,9 +603,7 @@ stream = ExtResource("125_r2wll")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="ChonkiCharacter"]
 position = Vector2(2, 0)
 sprite_frames = SubResource("SpriteFrames_fg46y")
-animation = &"ouch"
-frame = 8
-frame_progress = 1.0
+animation = &"run"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChonkiCharacter"]
 position = Vector2(-32.5, 54.5)

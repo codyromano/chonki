@@ -41,6 +41,7 @@ func _start_quick_swing() -> void:
 
 func _on_body_entered(_body):
 	if !is_touching_player:
+		$WindBackgroundSFX.play()
 		is_touching_player = true
 	   # Emit kite center and rotation for Chonki to hang
 		var shape_pos = $Polygon2D.global_position
@@ -48,5 +49,7 @@ func _on_body_entered(_body):
 		_start_quick_swing()
 
 func _on_body_exited(_body):
+	$WindBackgroundSFX.stop()
+	$WindWhooshSFX.play()
 	is_touching_player = false
 	_start_gentle_swing()

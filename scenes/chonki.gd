@@ -84,21 +84,23 @@ func _on_chonki_touched_kite(kite_position: Vector2, kite_rotation_deg: int) -> 
 	var half_h = frame_tex.get_size().y * sprite.scale.y * 0.5
 	# Tween Chonki so his feet sit at the kite's collision shape center
 	var target_pos = kite_position + Vector2(0, half_h)
+	# Create a smoother attach animation over 0.3 seconds
 	var tween = create_tween()
-	tween.tween_property(body, "global_position", target_pos, 0.1).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+	tween.tween_property(body, "global_position", target_pos, 0.3).set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
 	await tween.finished
 	# Enter hang-on state when touching kite
 	state = ChonkiState.HANG_ON
 	# Determine hang direction based on kite rotation (>=0 => right)
 	hang_direction = 1 if kite_rotation_deg >= 0 else -1
 	# Rotate Chonki to hang pose
-	body.rotation_degrees = -90
+	# Immediately align Chonki’s rotation to kite
+	body.rotation_degrees = kite_rotation_deg - 90
 	# Freeze on idle first frame
 	sprite.play("run")
-	sprite.frame = 0
+	sprite.frame = 10
 	# Stop ongoing movement
 	velocity = Vector2.ZERO
-	body.velocity = velocity
+	# body.velocity = velocity
 	# Store foot offset for rotation alignment (feet remain against kite)
 	hang_offset = Vector2(0, half_h)
 
@@ -350,8 +352,12 @@ func player_die():
 # Handler to update Chonki position as the kite rotates while hanging
 func _on_kite_rotated(kite_position: Vector2, kite_rotation_deg: int) -> void:
 	if state == ChonkiState.HANG_ON:
-		# Compute rotated offset and update global position
+		# Compute desired offset and rotation
 		var rotated_offset = hang_offset.rotated(deg_to_rad(kite_rotation_deg))
-		body.global_position = kite_position + rotated_offset
-		# Maintain hang orientation relative to kite
-		body.rotation_degrees = kite_rotation_deg - 90
+		var target_pos = kite_position + rotated_offset
+		var target_rot = kite_rotation_deg - 90
+		# Smoothly interpolate position and rotation to avoid snaps
+		# Smoothly interpolate position
+		body.global_position = body.global_position.lerp(target_pos, 0.2)
+		# Directly match kite orientation (minus 90°)
+		body.rotation_degrees = target_rot

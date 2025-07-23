@@ -13,7 +13,7 @@ func _ready():
 	initial_zoom = zoom
 	
 	# Debugging
-	# zoom = Vector2(0.1, 0.1)
+	zoom = Vector2(0.1, 0.1)
 	initial_position = global_position
 	print("[Camera2D] Ready. Initial zoom:", initial_zoom)
 
