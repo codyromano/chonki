@@ -12,4 +12,4 @@ signal crow_dropped_branch
 signal biker_hit_branch
 signal biker_cleaned_up_branch
 signal chonki_touched_kite(Vector2, int)
-signal kite_rotated(Vector2, int)
+signal kite_rotated(Vector2, int, float)

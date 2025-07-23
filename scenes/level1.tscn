@@ -180,15 +180,19 @@ position = Vector2(5251, -2416)
 
 [node name="Collectible2" parent="World2D/Collectibles" instance=ExtResource("4_ew37v")]
 z_index = 1
-position = Vector2(18642, -5216)
+position = Vector2(18196, -7723)
+
+[node name="Collectible3" parent="World2D/Collectibles" instance=ExtResource("4_ew37v")]
+z_index = 1
+position = Vector2(14511, -6720)
 
 [node name="Chonki" parent="World2D" instance=ExtResource("1_sihbw")]
 z_index = 1
-position = Vector2(21219, -2760)
+position = Vector2(5230, -506)
 heart_texture = ExtResource("4_mj2kh")
 
 [node name="Dave" parent="World2D" instance=ExtResource("16_ytk5w")]
-position = Vector2(33805, -1442)
+position = Vector2(51073, -1442)
 
 [node name="Environment" type="Node2D" parent="World2D"]
 z_index = -1
@@ -205,6 +209,15 @@ polygon = PackedVector2Array(-1009, 5, 108067, 12.0026, 108211, -2983.64, 108250
 [node name="CloudsBG3" type="Polygon2D" parent="World2D/Environment"]
 texture_repeat = 2
 position = Vector2(203, -4499)
+scale = Vector2(1.2293, 1.23964)
+texture = ExtResource("2_gc4xo")
+texture_offset = Vector2(0, 3750)
+texture_scale = Vector2(0.25, 0.25)
+polygon = PackedVector2Array(-1009, 5, 108067, 12.0026, 108211, -2983.64, 108251, -5474.98, 53511.8, -5527.41, -1031.48, -5495.14)
+
+[node name="CloudsBG4" type="Polygon2D" parent="World2D/Environment"]
+texture_repeat = 2
+position = Vector2(203, -11162)
 scale = Vector2(1.2293, 1.23964)
 texture = ExtResource("2_gc4xo")
 texture_offset = Vector2(0, 3750)
@@ -271,7 +284,7 @@ volume_db = 10.0
 
 [node name="CrowBody" type="CharacterBody2D" parent="World2D/NPCs"]
 z_index = 1
-position = Vector2(16667, -8397)
+position = Vector2(23216, -5727)
 rotation = 0.797312
 script = ExtResource("15_4leuf")
 
@@ -323,7 +336,7 @@ scale = Vector2(1.08111, 1.08111)
 polygon = PackedVector2Array(628.369, -1585.75, 1346, 38, -20, 3)
 
 [node name="EndMarker" type="Marker2D" parent="World2D/NPCs/Bicyclist"]
-position = Vector2(6875, -14)
+position = Vector2(23805, -14)
 
 [node name="StartMarker" type="Marker2D" parent="World2D/NPCs/Bicyclist"]
 position = Vector2(-1280, 21)
@@ -332,7 +345,7 @@ position = Vector2(-1280, 21)
 position = Vector2(19298, -513)
 script = ExtResource("26_b2buy")
 body = NodePath("../Bicyclist")
-move_duration = 3.0
+move_duration = 6.0
 
 [node name="Platforms & Barriers" type="Node2D" parent="World2D"]
 

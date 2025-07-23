@@ -36,6 +36,7 @@ var hang_direction: int = 0  # Direction of kite (+1 right, -1 left)
 
 var target_rotation_degrees: int
 var hang_offset: Vector2 = Vector2.ZERO
+var swing_factor: float = 1.0  # Current swing speed factor from kite
 
 # Signal to indicate Chonki has landed and hearts have spawned
 signal chonki_landed_and_hearts_spawned
@@ -175,8 +176,12 @@ func handle_movement(delta: float) -> void:
 	if state == ChonkiState.HANG_ON:
 		# Jump off kite when pressing left or right
 		if Input.is_action_just_pressed("ui_left") or Input.is_action_just_pressed("ui_right"):
+			# Base jump impulse
 			velocity.x = hang_direction * SPEED
 			velocity.y = JUMP_FORCE
+			# Apply additional impulse proportional to swing factor (reduced max)
+			var jump_mult = 1.0 + (swing_factor - 1.0) * (4.0 / 3.0)
+			velocity *= jump_mult
 			# Reset rotation and resume normal state
 			body.rotation_degrees = 0
 			state = ChonkiState.IDLE
@@ -350,14 +355,15 @@ func player_die():
 	FadeTransition.fade_out_and_change_scene(get_tree().current_scene.scene_file_path, 0.0, 1.0)
 
 # Handler to update Chonki position as the kite rotates while hanging
-func _on_kite_rotated(kite_position: Vector2, kite_rotation_deg: int) -> void:
+func _on_kite_rotated(kite_position: Vector2, kite_rotation_deg: int, factor: float) -> void:
 	if state == ChonkiState.HANG_ON:
+		# Update swing factor
+		swing_factor = factor
 		# Compute desired offset and rotation
 		var rotated_offset = hang_offset.rotated(deg_to_rad(kite_rotation_deg))
 		var target_pos = kite_position + rotated_offset
 		var target_rot = kite_rotation_deg - 90
-		# Smoothly interpolate position and rotation to avoid snaps
 		# Smoothly interpolate position
 		body.global_position = body.global_position.lerp(target_pos, 0.2)
-		# Directly match kite orientation (minus 90°)
+		# Directly match kite orientation
 		body.rotation_degrees = target_rot
