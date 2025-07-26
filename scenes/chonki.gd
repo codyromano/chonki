@@ -20,6 +20,10 @@ var original_collision_mask: int
 var hit_time: float
 
 const SPEED: float = 3500.0
+const ACCEL_TIME: float = 0.25  # time to reach full speed
+const ACCELERATION: float = SPEED / ACCEL_TIME  # change in speed per second
+const DECEL_TIME: float = 0.5   # time to fully stop when no input (sliding)
+const DECELERATION: float = SPEED / DECEL_TIME  # slower rate for sliding
 const JUMP_FORCE: float = -8000.0
 const GRAVITY: float = 20000.0
 const HIT_RECOVERY_TIME: float = 1
@@ -207,8 +211,11 @@ func handle_movement(delta: float) -> void:
 	elif hit_time != null && current_time - hit_time >= HIT_RECOVERY_TIME && original_collision_mask > 0:
 		pass
 
-	# Handle horizontal movement
-	velocity.x = direction * SPEED + platform_velocity.x
+	# Handle horizontal movement with acceleration and slight slide
+	var desired_x = direction * SPEED + platform_velocity.x
+	# choose rate: fast accel, slower decel for sliding
+	var rate = ACCELERATION if direction != 0.0 else DECELERATION
+	velocity.x = move_toward(velocity.x, desired_x, rate * delta)
 
 	# Apply gravity
 	velocity.y += GRAVITY * delta
