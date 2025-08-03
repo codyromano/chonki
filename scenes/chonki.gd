@@ -20,7 +20,7 @@ var original_collision_mask: int
 var hit_time: float
 
 const SPEED: float = 3500.0
-const ACCEL_TIME: float = 0.25  # time to reach full speed
+const ACCEL_TIME: float = 0.15  # time to reach full speed
 const ACCELERATION: float = SPEED / ACCEL_TIME  # change in speed per second
 const DECEL_TIME: float = 0.5   # time to fully stop when no input (sliding)
 const DECELERATION: float = SPEED / DECEL_TIME  # slower rate for sliding
@@ -35,6 +35,8 @@ var is_game_win = false
 var fade_rect: ColorRect
 @onready var hud = get_tree().get_first_node_in_group("HUDControl")
 var is_game_over = false
+var is_chonki_sliding = false
+var slide_tween: Tween = null    # Tween for slide rotation animation
 
 var hang_direction: int = 0  # Direction of kite (+1 right, -1 left)
 
@@ -52,6 +54,7 @@ func _ready() -> void:
 	GlobalSignals.connect("player_out_of_hearts", _on_player_out_of_hearts)
 	GlobalSignals.connect("chonki_touched_kite", _on_chonki_touched_kite)
 	GlobalSignals.connect("kite_rotated", _on_kite_rotated)
+	# GlobalSignals.connect("chonki_slide_status", _on_chonki_slide_status)
 	
 	# Always reset GameState at the start of the level
 	GameState.reset()
@@ -73,6 +76,9 @@ func _ready() -> void:
 	fade_rect.visible = false
 	
 var kite_rotate_tween
+
+#func _on_chonki_slide_status(is_sliding: bool) -> void:
+#	is_chonki_sliding = is_sliding
 	
 func _rotate_on_kite(initial_degrees: int) -> void:
 	if kite_rotate_tween == null:
@@ -153,9 +159,17 @@ func on_player_hit() -> void:
 	GlobalSignals.heart_lost.emit()
 	$ChonkiCharacter/AudioOuch.play()
 	hit_time = Time.get_unix_time_from_system()
+	
+	
+func update_movement_flags() -> void:
+	var direction = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
+	
+	# TODO: Need to ensure movement was caused by the player
+	is_chonki_sliding = body.is_on_floor() && direction == 0.0 && velocity.x != 0.0
 
 func _physics_process(delta: float) -> void:
 	handle_movement(delta)
+	update_movement_flags()
 	update_sprite()
 	play_sound_effects()
 	body.move_and_slide()
@@ -295,6 +309,22 @@ func get_rest_sprite():
 		return "rest"
 	return null
 
+func get_slide_sprite():
+	if is_chonki_sliding:
+		sprite.frame = 0
+		var target_rot = -5 if sprite.flip_h else 5
+		# Ease in then ease out over the full deceleration period
+		if slide_tween == null:
+			slide_tween = create_tween()
+			slide_tween.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
+			slide_tween.tween_property(sprite, "rotation_degrees", target_rot, DECEL_TIME * 0.5)
+			slide_tween.tween_property(sprite, "rotation_degrees", 0, DECEL_TIME * 0.5)
+		return "run"
+
+	# After sliding or if not sliding, ensure animation finished
+	sprite.play()
+	return null
+
 func get_idle_sprite():
 	return "idle"
 
@@ -318,6 +348,7 @@ func update_sprite() -> void:
 	
 	var possible_next_sprites = [
 		get_win_game_sprite(),
+		get_slide_sprite(),
 		get_player_injured_sprite(),
 		get_jump_sprite(),
 		get_run_sprite(),
