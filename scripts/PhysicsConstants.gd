@@ -5,6 +5,8 @@ class_name PhysicsConstants
 
 # Movement speeds
 const SPEED: float = 3500.0
+const MAX_SPEED: float = 7000.0
+const TIME_UNTIL_MAX_SPEED: float = 2.0
 const ACCEL_TIME: float = 0.15  # Time to reach full speed
 const ACCELERATION: float = SPEED / ACCEL_TIME
 

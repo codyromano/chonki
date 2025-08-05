@@ -1,6 +1,5 @@
 # Use centralized physics constants: PhysicsConstants.*
 extends Node2D
-const PhysicsConstants = preload("res://scripts/PhysicsConstants.gd")
 
 @onready var body         : CharacterBody2D    = $ChonkiCharacter
 @onready var sprite       : AnimatedSprite2D   = $ChonkiCharacter/AnimatedSprite2D
@@ -18,7 +17,7 @@ var last_action_time : float = Time.get_unix_time_from_system() - 60.0
 var velocity: Vector2 = Vector2.ZERO
 var chonki_hit = false
 var original_collision_mask: int
-var hit_time: int
+var hit_time: float
 var is_game_win: bool = false
 
 # TODO: Add a signal for kite rotated and update chonki's
@@ -35,6 +34,10 @@ var hang_direction: int = 0  # Direction of kite (+1 right, -1 left)
 var target_rotation_degrees: int
 var hang_offset: Vector2 = Vector2.ZERO
 var swing_factor: float = 1.0  # Current swing speed factor from kite
+
+var time_held: float = 0.0
+var current_speed: float = PhysicsConstants.SPEED
+var can_slide_on_release: bool = false
 
 # Signal to indicate Chonki has landed and hearts have spawned
 signal chonki_landed_and_hearts_spawned
@@ -181,6 +184,17 @@ func handle_movement(delta: float) -> void:
 	if not is_game_win:
 		direction = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
 
+	if direction != 0:
+		time_held += delta
+		var speed_fraction = min(time_held / PhysicsConstants.TIME_UNTIL_MAX_SPEED, 1.0)
+		current_speed = lerp(PhysicsConstants.SPEED, PhysicsConstants.MAX_SPEED, speed_fraction)
+		if current_speed == PhysicsConstants.MAX_SPEED:
+			can_slide_on_release = true
+	else:
+		time_held = 0
+		current_speed = PhysicsConstants.SPEED
+		can_slide_on_release = false
+
 	var current_time = Time.get_unix_time_from_system()
 
 	if hit_time != null && current_time - hit_time <= PhysicsConstants.HIT_RECOVERY_TIME:
@@ -192,7 +206,7 @@ func handle_movement(delta: float) -> void:
 		pass
 
 	# Handle horizontal movement with acceleration and slight slide
-	var desired_x = direction * PhysicsConstants.SPEED + platform_velocity.x
+	var desired_x = direction * current_speed + platform_velocity.x
 	# choose rate: fast accel, slower decel for sliding
 	var rate = PhysicsConstants.ACCELERATION if direction != 0.0 else PhysicsConstants.DECELERATION
 	velocity.x = move_toward(velocity.x, desired_x, rate * delta)
@@ -275,7 +289,7 @@ func get_rest_sprite():
 	return null
 
 func get_slide_sprite():
-	if is_chonki_sliding:
+	if is_chonki_sliding and can_slide_on_release:
 		sprite.frame = 0
 		var target_rot = -5 if sprite.flip_h else 5
 		# Ease in then ease out over the full deceleration period
