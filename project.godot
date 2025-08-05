@@ -22,6 +22,7 @@ GlobalSignals="*res://scenes/GlobalSignals.gd"
 Utils="*res://scripts/Utils.gd"
 FadeTransition="*res://scenes/FadeTransition.gd"
 GameState="*res://scripts/GameState.gd"
+FloatingHeartsManager="*res://FloatingHeartsManager.gd"
 
 [display]
 

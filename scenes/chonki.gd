@@ -1,4 +1,6 @@
+# Use centralized physics constants: PhysicsConstants.*
 extends Node2D
+const PhysicsConstants = preload("res://scripts/PhysicsConstants.gd")
 
 @onready var body         : CharacterBody2D    = $ChonkiCharacter
 @onready var sprite       : AnimatedSprite2D   = $ChonkiCharacter/AnimatedSprite2D
@@ -16,18 +18,8 @@ var last_action_time : float = Time.get_unix_time_from_system() - 60.0
 var velocity: Vector2 = Vector2.ZERO
 var chonki_hit = false
 var original_collision_mask: int
-
-var hit_time: float
-
-const SPEED: float = 3500.0
-const ACCEL_TIME: float = 0.15  # time to reach full speed
-const ACCELERATION: float = SPEED / ACCEL_TIME  # change in speed per second
-const DECEL_TIME: float = 0.5   # time to fully stop when no input (sliding)
-const DECELERATION: float = SPEED / DECEL_TIME  # slower rate for sliding
-const JUMP_FORCE: float = -8000.0
-const GRAVITY: float = 20000.0
-const HIT_RECOVERY_TIME: float = 1
-var is_game_win = false
+var hit_time: int
+var is_game_win: bool = false
 
 # TODO: Add a signal for kite rotated and update chonki's
 # rotation accordingly 
@@ -119,7 +111,8 @@ func on_win_game() -> void:
 	is_game_win = true
 	# Wait for Chonki to land on the floor before spawning hearts
 	await wait_for_chonki_to_land()
-	spawn_floating_hearts()
+	GlobalSignals.spawn_hearts_begin.emit()
+	# spawn_floating_hearts()
 	emit_signal("chonki_landed_and_hearts_spawned")
 	# Start fade out and scene transition after 5 seconds using the autoload
 	FadeTransition.fade_out_and_change_scene("res://scenes/level_result.tscn", 5.0, 3.0)
@@ -127,33 +120,6 @@ func on_win_game() -> void:
 func wait_for_chonki_to_land() -> void:
 	while not body.is_on_floor():
 		await get_tree().process_frame
-
-func spawn_floating_hearts() -> void:
-	var frame_texture = sprite.sprite_frames.get_frame_texture(
-		sprite.animation,
-		sprite.frame
-	)
-	var size: Vector2 = frame_texture.get_size() * sprite.scale
-	
-	for i in range(25):
-		var heart = Sprite2D.new()
-		heart.texture = heart_texture
-		heart.scale = Vector2(0.5, 0.5)
-		
-		heart.global_position = sprite.global_position + Vector2(-(size.x / 2), size.y / 2)
-		heart.modulate.a = 0.0
-		add_child(heart)
-
-		var direction = Vector2(randf() * 2.0 - 1.0, randf() * -1.5).normalized()
-		# var distance = randf() * 200 + 100
-		var distance = randf() * 2000 + 100
-		var end_pos = heart.global_position + direction * distance
-
-		var tween = create_tween()
-		tween.tween_property(heart, "modulate:a", 1.0, 1.0).set_trans(Tween.TRANS_SINE)
-		tween.tween_property(heart, "global_position", end_pos, 6.0).set_trans(Tween.TRANS_SINE)
-		tween.tween_property(heart, "modulate:a", 0.0, 1.0).set_trans(Tween.TRANS_SINE)
-		tween.tween_callback(Callable(heart, "queue_free"))
 
 func on_player_hit() -> void:
 	GlobalSignals.heart_lost.emit()
@@ -195,8 +161,8 @@ func handle_movement(delta: float) -> void:
 		# Jump off kite when pressing left or right
 		if Input.is_action_just_pressed("ui_left") or Input.is_action_just_pressed("ui_right"):
 			# Base jump impulse
-			velocity.x = hang_direction * SPEED
-			velocity.y = JUMP_FORCE
+			velocity.x = hang_direction * PhysicsConstants.SPEED
+			velocity.y = PhysicsConstants.JUMP_FORCE
 			# Apply additional impulse proportional to swing factor (reduced max)
 			var jump_mult = 1.0 + (swing_factor - 1.0) * (4.0 / 3.0)
 			velocity *= jump_mult
@@ -217,31 +183,30 @@ func handle_movement(delta: float) -> void:
 
 	var current_time = Time.get_unix_time_from_system()
 
-	if hit_time != null && current_time - hit_time <= HIT_RECOVERY_TIME:
+	if hit_time != null && current_time - hit_time <= PhysicsConstants.HIT_RECOVERY_TIME:
 		velocity.x = 2000 if sprite.flip_h else -2000
 		velocity.y = 1000
 		body.velocity = velocity
 		return
-	elif hit_time != null && current_time - hit_time >= HIT_RECOVERY_TIME && original_collision_mask > 0:
+	elif hit_time != null && current_time - hit_time >= PhysicsConstants.HIT_RECOVERY_TIME && original_collision_mask > 0:
 		pass
 
 	# Handle horizontal movement with acceleration and slight slide
-	var desired_x = direction * SPEED + platform_velocity.x
+	var desired_x = direction * PhysicsConstants.SPEED + platform_velocity.x
 	# choose rate: fast accel, slower decel for sliding
-	var rate = ACCELERATION if direction != 0.0 else DECELERATION
+	var rate = PhysicsConstants.ACCELERATION if direction != 0.0 else PhysicsConstants.DECELERATION
 	velocity.x = move_toward(velocity.x, desired_x, rate * delta)
 
 	# Apply gravity
-	velocity.y += GRAVITY * delta
+	velocity.y += PhysicsConstants.GRAVITY * delta
 
 	# Cap the fall speed to prevent teleportation-like falling
-	const MAX_FALL_SPEED = 9000.0
-	if velocity.y > MAX_FALL_SPEED:
-		velocity.y = MAX_FALL_SPEED
+	if velocity.y > PhysicsConstants.MAX_FALL_SPEED:
+		velocity.y = PhysicsConstants.MAX_FALL_SPEED
 
 	# Handle jumping
 	if not is_game_win and Input.is_action_just_pressed("ui_up") and body.is_on_floor():
-		velocity.y = JUMP_FORCE
+		velocity.y = PhysicsConstants.JUMP_FORCE
 
 	# Only freeze Chonki after win once on the floor
 	if is_game_win and body.is_on_floor():
@@ -279,7 +244,7 @@ func play_on_ground(player: AudioStreamPlayer2D) -> void:
 
 func get_player_injured_sprite():
 	var current_time: float = Time.get_unix_time_from_system()
-	return "ouch" if (hit_time != null and current_time - hit_time <= HIT_RECOVERY_TIME) else ""
+	return "ouch" if (hit_time != null and current_time - hit_time <= PhysicsConstants.HIT_RECOVERY_TIME) else ""
 
 func get_run_sprite():
 	# Use body.velocity.x to include platform movement
@@ -317,8 +282,8 @@ func get_slide_sprite():
 		if slide_tween == null:
 			slide_tween = create_tween()
 			slide_tween.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-			slide_tween.tween_property(sprite, "rotation_degrees", target_rot, DECEL_TIME * 0.5)
-			slide_tween.tween_property(sprite, "rotation_degrees", 0, DECEL_TIME * 0.5)
+			slide_tween.tween_property(sprite, "rotation_degrees", target_rot, PhysicsConstants.DECEL_TIME * 0.5)
+			slide_tween.tween_property(sprite, "rotation_degrees", 0, PhysicsConstants.DECEL_TIME * 0.5)
 		return "run"
 
 	# After sliding or if not sliding, ensure animation finished

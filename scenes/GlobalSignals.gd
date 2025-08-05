@@ -14,3 +14,4 @@ signal biker_cleaned_up_branch
 signal chonki_touched_kite(Vector2, int)
 signal kite_rotated(Vector2, int, float)
 signal chonki_slide_status(bool)
+signal spawn_hearts_begin
