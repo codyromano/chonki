@@ -3,10 +3,6 @@ extends Node2D
 
 @onready var body         : CharacterBody2D    = $ChonkiCharacter
 @onready var sprite       : AnimatedSprite2D   = $ChonkiCharacter/AnimatedSprite2D
-@onready var run_sound    : AudioStreamPlayer2D  = $ChonkiCharacter/AudioRun
-@onready var rest_sound   : AudioStreamPlayer2D  = $ChonkiCharacter/RestRun
-@onready var jump_sound   : AudioStreamPlayer2D  = $ChonkiCharacter/AudioJump
-@onready var chill_bark   : AudioStreamPlayer2D  = $ChonkiCharacter/ChillBark
 
 @export var heart_texture: Texture2D
 
@@ -27,7 +23,6 @@ var fade_rect: ColorRect
 @onready var hud = get_tree().get_first_node_in_group("HUDControl")
 var is_game_over = false
 var is_chonki_sliding = false
-var slide_tween: Tween = null    # Tween for slide rotation animation
 
 var hang_direction: int = 0  # Direction of kite (+1 right, -1 left)
 
@@ -38,6 +33,8 @@ var swing_factor: float = 1.0  # Current swing speed factor from kite
 var time_held: float = 0.0
 var current_speed: float = PhysicsConstants.SPEED
 var can_slide_on_release: bool = false
+
+var is_running_sound_playing: bool = false
 
 # Signal to indicate Chonki has landed and hearts have spawned
 signal chonki_landed_and_hearts_spawned
@@ -139,8 +136,7 @@ func update_movement_flags() -> void:
 func _physics_process(delta: float) -> void:
 	handle_movement(delta)
 	update_movement_flags()
-	update_sprite()
-	play_sound_effects()
+	GlobalSignals.chonki_state_updated.emit(velocity, body.is_on_floor(), is_chonki_sliding, can_slide_on_release, last_action_time, time_held, state)
 	body.move_and_slide()
 	
 func get_platform_velocity() -> Vector2:
@@ -190,10 +186,16 @@ func handle_movement(delta: float) -> void:
 		current_speed = lerp(PhysicsConstants.SPEED, PhysicsConstants.MAX_SPEED, speed_fraction)
 		if current_speed == PhysicsConstants.MAX_SPEED:
 			can_slide_on_release = true
+		if not is_running_sound_playing:
+			GlobalSignals.play_sfx.emit("run")
+			is_running_sound_playing = true
 	else:
 		time_held = 0
 		current_speed = PhysicsConstants.SPEED
 		can_slide_on_release = false
+		if is_running_sound_playing:
+			GlobalSignals.stop_sfx.emit("run")
+			is_running_sound_playing = false
 
 	var current_time = Time.get_unix_time_from_system()
 
@@ -221,6 +223,7 @@ func handle_movement(delta: float) -> void:
 	# Handle jumping
 	if not is_game_win and Input.is_action_just_pressed("ui_up") and body.is_on_floor():
 		velocity.y = PhysicsConstants.JUMP_FORCE
+		GlobalSignals.play_sfx.emit("jump")
 
 	# Only freeze Chonki after win once on the floor
 	if is_game_win and body.is_on_floor():
@@ -228,137 +231,6 @@ func handle_movement(delta: float) -> void:
 		return
 
 	body.velocity = velocity
-
-func play_once(player: AudioStreamPlayer2D) -> void:
-	if not player.playing:
-		player.play()
-   # Deprecated: use SoundManager.play(key) instead for new code
-
-func play_sound_effects() -> void:
-	var anim = sprite.animation
-	if Input.is_action_just_pressed("ui_up"):
-		play_once(jump_sound)
-	match anim:
-		"run":
-			rest_sound.stop()
-		"sleep":
-			play_once(rest_sound)
-		"jump":
-			rest_sound.stop()
-			if body.is_on_floor_only():
-				run_sound.stop()
-				play_once(jump_sound)
-		"idle":
-			rest_sound.stop()
-			run_sound.stop()
-
-func play_on_ground(player: AudioStreamPlayer2D) -> void:
-	if body.is_on_floor():
-		player.play()
-
-func get_player_injured_sprite():
-	var current_time: float = Time.get_unix_time_from_system()
-	return "ouch" if (hit_time != null and current_time - hit_time <= PhysicsConstants.HIT_RECOVERY_TIME) else ""
-
-func get_run_sprite():
-	# Use body.velocity.x to include platform movement
-	if body.velocity.x != 0:
-		if not run_sound.playing and !is_game_win:
-			run_sound.play()
-		else:
-			run_sound.play()
-		return "run"
-	return null
-
-func get_jump_sprite():
-	if not body.is_on_floor():
-		run_sound.stop()
-		return "jump"
-	return null
-
-func get_sleep_sprite():
-	var secs_since_action = Time.get_unix_time_from_system() - last_action_time
-	if secs_since_action >= 15:
-		return "sleep"
-	return null
-
-func get_rest_sprite():
-	var secs_since_action = Time.get_unix_time_from_system() - last_action_time
-	if secs_since_action >= 5:
-		return "rest"
-	return null
-
-func get_slide_sprite():
-	if is_chonki_sliding and can_slide_on_release:
-		sprite.frame = 0
-		var target_rot = -5 if sprite.flip_h else 5
-		# Ease in then ease out over the full deceleration period
-		if slide_tween == null:
-			slide_tween = create_tween()
-			slide_tween.set_trans(Tween.TRANS_SINE).set_ease(Tween.EASE_IN_OUT)
-			slide_tween.tween_property(sprite, "rotation_degrees", target_rot, PhysicsConstants.DECEL_TIME * 0.5)
-			slide_tween.tween_property(sprite, "rotation_degrees", 0, PhysicsConstants.DECEL_TIME * 0.5)
-		return "run"
-
-	# After sliding or if not sliding, ensure animation finished
-	sprite.play()
-	return null
-
-func get_idle_sprite():
-	return "idle"
-
-func get_win_game_sprite():
-	return "rest" if is_game_win else ""
-
-func handle_sprite_flip():
-	if is_game_win:
-		sprite.flip_h = false
-	elif Input.is_action_just_pressed("ui_left"):
-		sprite.flip_h = true
-	elif Input.is_action_just_pressed("ui_right"):
-		sprite.flip_h = false
-
-func update_sprite() -> void:
-	if state == ChonkiState.HANG_ON:
-		# Keep idle first frame
-		sprite.play("idle")
-		sprite.frame = 0
-		return
-	
-	var possible_next_sprites = [
-		get_win_game_sprite(),
-		get_slide_sprite(),
-		get_player_injured_sprite(),
-		get_jump_sprite(),
-		get_run_sprite(),
-		get_sleep_sprite(),
-		get_rest_sprite(),
-		get_idle_sprite()
-	]
-
-	if velocity.x != 0 or Input.is_action_just_pressed("ui_left") or Input.is_action_just_pressed("ui_right"):
-		last_action_time = Time.get_unix_time_from_system()
-
-	for next_sprite in possible_next_sprites:
-		if next_sprite != null and next_sprite != "":
-			sprite.play(next_sprite)
-			handle_sprite_flip()
-			return
-
-
-# When Chonki loses all health, make him fall to the ground before dying
-func _on_player_out_of_hearts():
-	if not is_game_over:
-		is_game_over = true
-		# Disable player input and let gravity act
-		set_process(false)
-		set_physics_process(true)
-		body.set_process(false)
-		body.set_physics_process(true)
-		# Optionally play a hit/fall animation here
-		# Wait until Chonki is on the floor
-		await wait_for_chonki_to_land()
-		player_die()
 
 func player_die():
 	# Play sleep animation
@@ -384,3 +256,18 @@ func _on_kite_rotated(kite_position: Vector2, kite_rotation_deg: int, factor: fl
 		body.global_position = body.global_position.lerp(target_pos, 0.2)
 		# Directly match kite orientation
 		body.rotation_degrees = target_rot
+
+
+# When Chonki loses all health, make him fall to the ground before dying
+func _on_player_out_of_hearts():
+	if not is_game_over:
+		is_game_over = true
+		# Disable player input and let gravity act
+		set_process(false)
+		set_physics_process(true)
+		body.set_process(false)
+		body.set_physics_process(true)
+		# Optionally play a hit/fall animation here
+		# Wait until Chonki is on the floor
+		await wait_for_chonki_to_land()
+		player_die()

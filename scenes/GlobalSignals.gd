@@ -15,3 +15,6 @@ signal chonki_touched_kite(Vector2, int)
 signal kite_rotated(Vector2, int, float)
 signal chonki_slide_status(bool)
 signal spawn_hearts_begin
+signal chonki_state_updated(velocity, is_on_floor, is_chonki_sliding, can_slide_on_release, last_action_time, time_held, state)
+signal play_sfx(sound_name)
+signal stop_sfx(sound_name)

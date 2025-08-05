@@ -1,4 +1,4 @@
-[gd_scene load_steps=143 format=3 uid="uid://cyu6wosf2qc3v"]
+[gd_scene load_steps=145 format=3 uid="uid://cyu6wosf2qc3v"]
 
 [ext_resource type="Texture2D" uid="uid://batkaluf3jygl" path="res://assets/corgi/01_idle/skeleton-0b_idle_00.png" id="1_0os5j"]
 [ext_resource type="Script" path="res://scenes/chonki.gd" id="1_j6uc5"]
@@ -137,9 +137,11 @@
 [ext_resource type="AudioStream" uid="uid://culiqfeaauxt7" path="res://assets/sound/push.mp3" id="124_bhcov"]
 [ext_resource type="AudioStream" uid="uid://bxokgwf35y540" path="res://assets/sound/jump.mp3" id="125_r2wll"]
 [ext_resource type="AudioStream" uid="uid://3u0hk83prun5" path="res://assets/sound/chill-bark.mp3" id="127_vip41"]
+[ext_resource type="Script" path="res://scenes/ChonkiSpriteController.gd" id="137_5hcnw"]
 [ext_resource type="Script" path="res://scenes/Camera2D.gd" id="137_s2qkj"]
 [ext_resource type="AudioStream" uid="uid://7um8tvamt40s" path="res://assets/sound/autumn.mp3" id="138_chkli"]
 [ext_resource type="AudioStream" uid="uid://bckidyukxqyoi" path="res://assets/sound/won.wav" id="141_rqm40"]
+[ext_resource type="Script" path="res://scenes/ChonkiAudioController.gd" id="142_wdirl"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_fg46y"]
 animations = [{
@@ -604,6 +606,7 @@ stream = ExtResource("125_r2wll")
 position = Vector2(2, 0)
 sprite_frames = SubResource("SpriteFrames_fg46y")
 animation = &"run"
+script = ExtResource("137_5hcnw")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChonkiCharacter"]
 position = Vector2(-32.5, 54.5)
@@ -629,5 +632,8 @@ autoplay = true
 [node name="AudioWon" type="AudioStreamPlayer2D" parent="ChonkiCharacter"]
 stream = ExtResource("141_rqm40")
 volume_db = 5.0
+
+[node name="AudioController" type="Node2D" parent="ChonkiCharacter"]
+script = ExtResource("142_wdirl")
 
 [connection signal="animation_finished" from="ChonkiCharacter/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
