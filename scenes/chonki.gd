@@ -157,7 +157,7 @@ func get_platform_velocity() -> Vector2:
 
 func handle_movement(delta: float) -> void:
 	if state == ChonkiState.HANG_ON:
-		# Jump off kite when pressing left or right
+		# ... (hang on logic is correct)
 		if Input.is_action_just_pressed("ui_left") or Input.is_action_just_pressed("ui_right"):
 			# Base jump impulse
 			velocity.x = hang_direction * PhysicsConstants.SPEED
@@ -175,27 +175,44 @@ func handle_movement(delta: float) -> void:
 		return
 	
 	var platform_velocity = get_platform_velocity()
-
 	var direction: float = 0.0
-	if not is_game_win:
+
+	if not is_game_win and not is_chonki_sliding:
 		direction = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
 
-	if direction != 0:
+	if direction != 0 or Input.is_action_just_pressed("ui_up"):
+		last_action_time = Time.get_unix_time_from_system()
+
+	if is_chonki_sliding:
+		velocity.x = move_toward(velocity.x, 0, PhysicsConstants.DECELERATION * delta)
+		if velocity.x == 0 or not body.is_on_floor():
+			is_chonki_sliding = false
+	elif direction != 0:
 		time_held += delta
 		var speed_fraction = min(time_held / PhysicsConstants.TIME_UNTIL_MAX_SPEED, 1.0)
 		current_speed = lerp(PhysicsConstants.SPEED, PhysicsConstants.MAX_SPEED, speed_fraction)
-		if current_speed == PhysicsConstants.MAX_SPEED:
+		velocity.x = direction * current_speed + platform_velocity.x
+		
+		if current_speed >= PhysicsConstants.SLIDE_THRESHOLD:
 			can_slide_on_release = true
+		
 		if not is_running_sound_playing:
 			GlobalSignals.play_sfx.emit("run")
 			is_running_sound_playing = true
-	else:
+	else: # Not sliding and no direction input
 		time_held = 0
 		current_speed = PhysicsConstants.SPEED
+		
+		if can_slide_on_release:
+			is_chonki_sliding = true
+		
 		can_slide_on_release = false
+		
 		if is_running_sound_playing:
 			GlobalSignals.stop_sfx.emit("run")
 			is_running_sound_playing = false
+		
+		velocity.x = move_toward(velocity.x, 0, PhysicsConstants.DECELERATION * delta)
 
 	var current_time = Time.get_unix_time_from_system()
 
@@ -206,12 +223,6 @@ func handle_movement(delta: float) -> void:
 		return
 	elif hit_time != null && current_time - hit_time >= PhysicsConstants.HIT_RECOVERY_TIME && original_collision_mask > 0:
 		pass
-
-	# Handle horizontal movement with acceleration and slight slide
-	var desired_x = direction * current_speed + platform_velocity.x
-	# choose rate: fast accel, slower decel for sliding
-	var rate = PhysicsConstants.ACCELERATION if direction != 0.0 else PhysicsConstants.DECELERATION
-	velocity.x = move_toward(velocity.x, desired_x, rate * delta)
 
 	# Apply gravity
 	velocity.y += PhysicsConstants.GRAVITY * delta

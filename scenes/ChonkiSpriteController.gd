@@ -12,6 +12,8 @@ var last_action_time: float = 0.0
 var time_held: float = 0.0
 var chonki_state: int = 0 # Corresponds to ChonkiState enum
 
+var is_sliding: bool = false
+
 var slide_tween: Tween
 
 func _ready() -> void:
@@ -20,11 +22,19 @@ func _ready() -> void:
 	GlobalSignals.connect("win_game", func(): is_game_win = true)
 	GlobalSignals.connect("player_out_of_hearts", _on_player_out_of_hearts)
 	GlobalSignals.connect("chonki_touched_kite", _on_chonki_touched_kite)
+	GlobalSignals.connect("slide_start", _on_slide_start)
+	GlobalSignals.connect("slide_end", _on_slide_end)
+
+func _on_slide_start() -> void:
+	is_sliding = true
+
+func _on_slide_end() -> void:
+	is_sliding = false
 
 func _on_chonki_state_updated(new_velocity, on_floor, sliding, can_slide, last_action, time_held_input, state) -> void:
 	self.velocity = new_velocity
 	self.is_on_floor = on_floor
-	self.is_chonki_sliding = sliding
+	self.is_sliding = sliding
 	self.can_slide_on_release = can_slide
 	self.last_action_time = last_action
 	self.time_held = time_held_input
@@ -56,6 +66,8 @@ func play_sound_effects() -> void:
 			GlobalSignals.stop_sfx.emit("rest")
 		"idle":
 			GlobalSignals.stop_sfx.emit("rest")
+		"run":
+			GlobalSignals.stop_sfx.emit("rest")
 
 # --- Sprite Logic ---
 
@@ -82,12 +94,12 @@ func get_sleep_sprite() -> String:
 
 func get_rest_sprite() -> String:
 	var secs_since_action = Time.get_unix_time_from_system() - last_action_time
-	if secs_since_action >= 5:
+	if secs_since_action >= AnimationConstants.TIME_UNTIL_REST:
 		return "rest"
 	return ""
 
 func get_slide_sprite() -> String:
-	if is_chonki_sliding and can_slide_on_release:
+	if is_sliding:
 		frame = 0
 		var target_rot = -5 if flip_h else 5
 		if slide_tween == null or not slide_tween.is_running():

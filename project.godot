@@ -23,6 +23,7 @@ Utils="*res://scripts/Utils.gd"
 FadeTransition="*res://scenes/FadeTransition.gd"
 GameState="*res://scripts/GameState.gd"
 FloatingHeartsManager="*res://FloatingHeartsManager.gd"
+AnimationConstantsFile="*res://scripts/AnimationConstants.gd"
 
 [display]
 
