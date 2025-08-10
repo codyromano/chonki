@@ -172,13 +172,29 @@ func handle_movement(delta: float) -> void:
 
 	if not is_game_win and not is_chonki_sliding:
 		direction = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
+	elif not is_game_win:
+		# If sliding, check for direction input to abort the slide
+		direction = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
+		if direction != 0:
+			# Player pressed a direction key while sliding - abort the slide
+			is_chonki_sliding = false
 
 	if direction != 0 or Input.is_action_just_pressed("ui_up"):
 		last_action_time = Time.get_unix_time_from_system()
 
 	if is_chonki_sliding:
 		velocity.x = move_toward(velocity.x, 0, PhysicsConstants.DECELERATION * delta)
-		if velocity.x == 0 or not body.is_on_floor():
+		# Stop sliding if velocity reaches zero, not on floor, or hit a wall
+		var hit_wall = false
+		if body.get_slide_collision_count() > 0:
+			for i in body.get_slide_collision_count():
+				var collision = body.get_slide_collision(i)
+				# Check if collision normal is mostly horizontal (wall collision)
+				if abs(collision.get_normal().x) > 0.5:
+					hit_wall = true
+					break
+		
+		if velocity.x == 0 or not body.is_on_floor() or hit_wall:
 			is_chonki_sliding = false
 	elif direction != 0:
 		time_held += delta
