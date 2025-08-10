@@ -14,6 +14,9 @@ const ACCELERATION: float = SPEED / ACCEL_TIME
 const DECEL_TIME: float = 0.5   # Time to fully stop when no input (sliding)
 const DECELERATION: float = SPEED / DECEL_TIME
 
+const DECEL_TIME_FOR_NON_SLIDING: float = 0.2  # Time to fully stop when not sliding
+const DECELERATION_NON_SLIDING: float = SPEED / DECEL_TIME_FOR_NON_SLIDING
+
 # Jump and gravity
 const JUMP_FORCE: float = -8000.0
 const GRAVITY: float = 20000.0

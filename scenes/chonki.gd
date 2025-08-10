@@ -205,7 +205,9 @@ func handle_movement(delta: float) -> void:
 			GlobalSignals.stop_sfx.emit("run")
 			is_running_sound_playing = false
 		
-		velocity.x = move_toward(velocity.x, 0, PhysicsConstants.DECELERATION * delta)
+		# Only apply regular deceleration if NOT sliding
+		if not is_chonki_sliding:
+			velocity.x = move_toward(velocity.x, 0, PhysicsConstants.DECELERATION_NON_SLIDING * delta)
 
 	var current_time = Time.get_unix_time_from_system()
 
