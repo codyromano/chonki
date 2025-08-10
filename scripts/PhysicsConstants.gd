@@ -7,7 +7,7 @@ class_name PhysicsConstants
 const SPEED: float = 3500.0
 const MAX_SPEED: float = 7000.0
 const SLIDE_THRESHOLD: float = (SPEED + MAX_SPEED) / 2.0
-const TIME_UNTIL_MAX_SPEED: float = 2.0
+const TIME_UNTIL_MAX_SPEED: float = 1.0  # Reduced from 2.0 to 1.0 second
 const ACCEL_TIME: float = 0.15  # Time to reach full speed
 const ACCELERATION: float = SPEED / ACCEL_TIME
 

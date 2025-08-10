@@ -127,15 +127,8 @@ func on_player_hit() -> void:
 	hit_time = Time.get_unix_time_from_system()
 	
 	
-func update_movement_flags() -> void:
-	var direction = Input.get_action_strength("ui_right") - Input.get_action_strength("ui_left")
-	
-	# TODO: Need to ensure movement was caused by the player
-	is_chonki_sliding = body.is_on_floor() && direction == 0.0 && velocity.x != 0.0
-
 func _physics_process(delta: float) -> void:
 	handle_movement(delta)
-	update_movement_flags()
 	GlobalSignals.chonki_state_updated.emit(velocity, body.is_on_floor(), is_chonki_sliding, can_slide_on_release, last_action_time, time_held, state)
 	body.move_and_slide()
 	
@@ -193,7 +186,7 @@ func handle_movement(delta: float) -> void:
 		current_speed = lerp(PhysicsConstants.SPEED, PhysicsConstants.MAX_SPEED, speed_fraction)
 		velocity.x = direction * current_speed + platform_velocity.x
 		
-		if current_speed >= PhysicsConstants.SLIDE_THRESHOLD:
+		if current_speed >= PhysicsConstants.MAX_SPEED:
 			can_slide_on_release = true
 		
 		if not is_running_sound_playing:
