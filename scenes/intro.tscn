@@ -1,0 +1,53 @@
+[gd_scene load_steps=6 format=3 uid="uid://dfxpryk5h742v"]
+
+[ext_resource type="Texture2D" uid="uid://cue46gcr7x6qj" path="res://assets/environment/barn/barn_wall.jpg" id="1_553eq"]
+[ext_resource type="Texture2D" uid="uid://yrm7tdljfide" path="res://assets/environment/barn/barn_floor.jpg" id="2_1wljg"]
+[ext_resource type="PackedScene" uid="uid://cyu6wosf2qc3v" path="res://scenes/chonki.tscn" id="3_meeps"]
+[ext_resource type="Texture2D" uid="uid://qx1ubqqi74hv" path="res://assets/collectibles/menu-icons/heart.png" id="4_ee0bn"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ed647"]
+distance = -500.0
+
+[node name="Intro" type="Node2D"]
+
+[node name="Environment" type="Node2D" parent="."]
+
+[node name="PhysicsBarriers" type="Node2D" parent="Environment"]
+
+[node name="Ground" type="StaticBody2D" parent="Environment/PhysicsBarriers"]
+position = Vector2(155, -2686)
+scale = Vector2(10, 10)
+collision_layer = 15
+collision_mask = 255
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/PhysicsBarriers/Ground"]
+z_index = 100
+position = Vector2(317, -500)
+shape = SubResource("WorldBoundaryShape2D_ed647")
+debug_color = Color(0.307035, 0.494072, 1, 0.42)
+
+[node name="Sprites" type="Node2D" parent="Environment"]
+
+[node name="Wall" type="Polygon2D" parent="Environment/Sprites"]
+texture_repeat = 2
+position = Vector2(1151, -4013)
+scale = Vector2(1.10874, 1.11339)
+texture = ExtResource("1_553eq")
+texture_offset = Vector2(0, 3750)
+texture_scale = Vector2(0.25, 0.25)
+polygon = PackedVector2Array(-1046.23, 93.4084, 12113.8, 70.9543, 12156.1, -4042.61, -1017.97, -4045.87)
+
+[node name="Floor" type="Polygon2D" parent="Environment/Sprites"]
+texture_repeat = 2
+position = Vector2(1151, -2189)
+scale = Vector2(1.10874, 1.11339)
+texture = ExtResource("2_1wljg")
+texture_offset = Vector2(0, 3750)
+texture_scale = Vector2(0.25, 0.25)
+polygon = PackedVector2Array(-1046.23, 93.4084, 12102.9, 163.465, 12086.7, -1542.14, -1048.04, -1562.79)
+
+[node name="Chonki" parent="." instance=ExtResource("3_meeps")]
+z_index = 1
+position = Vector2(5230, -3749)
+scale = Vector2(1.76, 1.76)
+heart_texture = ExtResource("4_ee0bn")
