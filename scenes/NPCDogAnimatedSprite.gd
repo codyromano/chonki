@@ -1,7 +1,7 @@
 # Determines the current sprite for the NPC dog
 extends AnimatedSprite2D
 
-var character_body: CharacterBody2D = get_parent()
+@onready var character_body: CharacterBody2D = get_parent()
 var last_movement_time: int = 0
 
 func _process(_delta) -> void:
