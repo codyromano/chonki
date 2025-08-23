@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://0jybnryjbe51"]
+[gd_scene load_steps=9 format=3 uid="uid://0jybnryjbe51"]
 
 [ext_resource type="Texture2D" uid="uid://cue46gcr7x6qj" path="res://assets/environment/barn/barn_wall.jpg" id="1_553eq"]
 [ext_resource type="Texture2D" uid="uid://yrm7tdljfide" path="res://assets/environment/barn/barn_floor.jpg" id="2_1wljg"]
@@ -6,6 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://qx1ubqqi74hv" path="res://assets/collectibles/menu-icons/heart.png" id="4_ee0bn"]
 [ext_resource type="PackedScene" uid="uid://da1xtclqphxbr" path="res://scenes/characters/npc_dog.tscn" id="5_c0o7x"]
 [ext_resource type="Theme" uid="uid://dte5an7k6hog1" path="res://themes/base.tres" id="6_jomvj"]
+[ext_resource type="Script" path="res://scenes/MoveLeftOrRightText.gd" id="7_y0mp2"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ed647"]
 distance = -500.0
@@ -102,6 +103,7 @@ custom_minimum_size = Vector2(0, 450)
 layout_mode = 2
 size_flags_horizontal = 3
 theme = ExtResource("6_jomvj")
+script = ExtResource("7_y0mp2")
 
 [node name="Label" type="Label" parent="CanvasLayer/Control/VBoxContainer/HBoxContainer/InstructionalTextPanel"]
 layout_mode = 2
