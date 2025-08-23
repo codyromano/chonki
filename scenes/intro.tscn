@@ -1,6 +1,7 @@
-[gd_scene load_steps=9 format=3 uid="uid://0jybnryjbe51"]
+[gd_scene load_steps=10 format=3 uid="uid://0jybnryjbe51"]
 
 [ext_resource type="Texture2D" uid="uid://cue46gcr7x6qj" path="res://assets/environment/barn/barn_wall.jpg" id="1_553eq"]
+[ext_resource type="Script" path="res://scenes/intro.gd" id="1_gdkj6"]
 [ext_resource type="Texture2D" uid="uid://yrm7tdljfide" path="res://assets/environment/barn/barn_floor.jpg" id="2_1wljg"]
 [ext_resource type="PackedScene" uid="uid://cyu6wosf2qc3v" path="res://scenes/chonki.tscn" id="3_meeps"]
 [ext_resource type="Texture2D" uid="uid://qx1ubqqi74hv" path="res://assets/collectibles/menu-icons/heart.png" id="4_ee0bn"]
@@ -12,6 +13,7 @@
 distance = -500.0
 
 [node name="Intro" type="Node2D"]
+script = ExtResource("1_gdkj6")
 
 [node name="Environment" type="Node2D" parent="."]
 position = Vector2(-65, 502)
@@ -52,7 +54,7 @@ polygon = PackedVector2Array(-1011.96, 360.161, 12102, 370.939, 12109.2, -2749.2
 
 [node name="Chonki" parent="." instance=ExtResource("3_meeps")]
 z_index = 1
-position = Vector2(5205, -3121)
+position = Vector2(5205, -2801)
 scale = Vector2(1.76, 1.76)
 heart_texture = ExtResource("4_ee0bn")
 
@@ -62,19 +64,24 @@ position = Vector2(-25, 628)
 [node name="Dogs" type="Node2D" parent="NPCs"]
 
 [node name="NPCDog" parent="NPCs/Dogs" instance=ExtResource("5_c0o7x")]
-position = Vector2(7062, -3811)
+z_index = 1
+position = Vector2(7351, -3864)
+is_flipped = true
 
 [node name="NPCDog4" parent="NPCs/Dogs" instance=ExtResource("5_c0o7x")]
-position = Vector2(6440, -3655)
+z_index = 1
+position = Vector2(6729, -3708)
 is_flipped = true
+
+[node name="NPCDogMom" parent="NPCs/Dogs" instance=ExtResource("5_c0o7x")]
+position = Vector2(4095, -4399)
+scale = Vector2(4, 4)
 
 [node name="NPCDog3" parent="NPCs/Dogs" instance=ExtResource("5_c0o7x")]
-position = Vector2(2594, -3685)
-is_flipped = true
+position = Vector2(2000, -3766)
 
 [node name="NPCDog2" parent="NPCs/Dogs" instance=ExtResource("5_c0o7x")]
-position = Vector2(3005, -3431)
-is_flipped = true
+position = Vector2(2411, -3512)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 follow_viewport_enabled = true
@@ -82,10 +89,11 @@ follow_viewport_enabled = true
 [node name="Control" type="Control" parent="CanvasLayer"]
 layout_mode = 3
 anchors_preset = 0
-offset_left = 1359.0
-offset_top = -4614.0
-offset_right = 3589.0
-offset_bottom = -4574.0
+offset_left = 1656.0
+offset_top = -2048.0
+offset_right = 3886.0
+offset_bottom = -2008.0
+metadata/_edit_use_anchors_ = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control"]
 layout_mode = 0
@@ -93,6 +101,7 @@ offset_left = 2158.0
 offset_top = 226.0
 offset_right = 4819.0
 offset_bottom = 726.0
+metadata/_edit_use_anchors_ = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/VBoxContainer"]
 layout_mode = 2
@@ -115,3 +124,4 @@ theme = ExtResource("6_jomvj")
 theme_type_variation = &"HeaderLarge"
 theme_override_font_sizes/font_size = 200
 text = "Press left or right to move"
+metadata/_edit_use_anchors_ = true

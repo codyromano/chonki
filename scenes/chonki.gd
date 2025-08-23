@@ -19,6 +19,8 @@ var is_game_win: bool = false
 # TODO: Add a signal for kite rotated and update chonki's
 # rotation accordingly 
 
+
+@onready var camera2d: Camera2D = $ChonkiCharacter/Camera2D
 var fade_rect: ColorRect
 @onready var hud = get_tree().get_first_node_in_group("HUDControl")
 var is_game_over = false
@@ -46,8 +48,7 @@ func _ready() -> void:
 	GlobalSignals.connect("player_out_of_hearts", _on_player_out_of_hearts)
 	GlobalSignals.connect("chonki_touched_kite", _on_chonki_touched_kite)
 	GlobalSignals.connect("kite_rotated", _on_kite_rotated)
-	# GlobalSignals.connect("chonki_slide_status", _on_chonki_slide_status)
-	
+	GlobalSignals.connect("game_zoom_level", _on_game_zoom_level)
 	# Always reset GameState at the start of the level
 	GameState.reset()
 	# Cache and set total_stars for this level by scene path, using CollectibleStar group
@@ -58,6 +59,9 @@ func _ready() -> void:
 		GameState.set_total_stars_for_level(level_path, total_stars)
 	else:
 		GameState.total_stars = total_stars
+	# Set initial zoom level from signal or default
+	var initial_zoom = 0.25
+	camera2d.zoom = Vector2(initial_zoom, initial_zoom)
 	# Create a fullscreen ColorRect for fade effect
 	fade_rect = ColorRect.new()
 	fade_rect.color = Color(0, 0, 0, 0)
@@ -66,6 +70,12 @@ func _ready() -> void:
 	fade_rect.z_index = 1000
 	add_child(fade_rect)
 	fade_rect.visible = false
+
+func _on_game_zoom_level(zoom_level: float, zoom_duration: float = 2.0) -> void:
+	if camera2d.has_method("_on_animate_camera_zoom_level"):
+		camera2d._on_animate_camera_zoom_level(zoom_level, zoom_duration)
+	else:
+		camera2d.zoom = Vector2(zoom_level, zoom_level)
 	
 var kite_rotate_tween
 
