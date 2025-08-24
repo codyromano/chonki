@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://0jybnryjbe51"]
+[gd_scene load_steps=16 format=3 uid="uid://0jybnryjbe51"]
 
 [ext_resource type="Texture2D" uid="uid://cue46gcr7x6qj" path="res://assets/environment/barn/barn_wall.jpg" id="1_553eq"]
 [ext_resource type="Script" path="res://scenes/intro.gd" id="1_gdkj6"]
@@ -11,6 +11,26 @@
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ed647"]
 distance = -500.0
+
+[sub_resource type="Gradient" id="Gradient_48k8t"]
+offsets = PackedFloat32Array(0, 0.0172117, 1)
+colors = PackedColorArray(0, 0, 0, 1, 0.256454, 0.256454, 0.256454, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_osnmu"]
+gradient = SubResource("Gradient_48k8t")
+fill_from = Vector2(1, 0)
+fill_to = Vector2(0, 0)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_rar7w"]
+radius = 310.04
+
+[sub_resource type="Gradient" id="Gradient_odmd1"]
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_d4dp4"]
+gradient = SubResource("Gradient_odmd1")
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1xynk"]
+size = Vector2(2688, 3788)
 
 [node name="Intro" type="Node2D"]
 script = ExtResource("1_gdkj6")
@@ -125,3 +145,29 @@ theme_type_variation = &"HeaderLarge"
 theme_override_font_sizes/font_size = 200
 text = "Press left or right to move"
 metadata/_edit_use_anchors_ = true
+
+[node name="Items" type="Node2D" parent="."]
+
+[node name="RigidBody2D" type="RigidBody2D" parent="Items"]
+collision_layer = 2
+
+[node name="Sprite2D" type="Sprite2D" parent="Items/RigidBody2D"]
+position = Vector2(8841, -3244)
+scale = Vector2(9.19997, 9.32)
+texture = SubResource("GradientTexture2D_osnmu")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Items/RigidBody2D"]
+position = Vector2(8837, -3236)
+shape = SubResource("CircleShape2D_rar7w")
+
+[node name="ForkLift" type="StaticBody2D" parent="Items"]
+position = Vector2(11227, -2854)
+
+[node name="ForkLiftSprite" type="Sprite2D" parent="Items/ForkLift"]
+position = Vector2(1743.01, -691)
+scale = Vector2(42.3442, 59.4716)
+texture = SubResource("GradientTexture2D_d4dp4")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Items/ForkLift"]
+position = Vector2(1744.01, -688)
+shape = SubResource("RectangleShape2D_1xynk")
