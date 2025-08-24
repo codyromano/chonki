@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=3 uid="uid://0jybnryjbe51"]
+[gd_scene load_steps=15 format=3 uid="uid://0jybnryjbe51"]
 
 [ext_resource type="Texture2D" uid="uid://cue46gcr7x6qj" path="res://assets/environment/barn/barn_wall.jpg" id="1_553eq"]
 [ext_resource type="Script" path="res://scenes/intro.gd" id="1_gdkj6"]
@@ -8,6 +8,7 @@
 [ext_resource type="PackedScene" uid="uid://da1xtclqphxbr" path="res://scenes/characters/npc_dog.tscn" id="5_c0o7x"]
 [ext_resource type="Theme" uid="uid://dte5an7k6hog1" path="res://themes/base.tres" id="6_jomvj"]
 [ext_resource type="Script" path="res://scenes/MoveLeftOrRightText.gd" id="7_y0mp2"]
+[ext_resource type="Texture2D" uid="uid://c6606orxhye10" path="res://assets/environment/barn/forklift_body.png" id="9_ffq42"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ed647"]
 distance = -500.0
@@ -24,13 +25,8 @@ fill_to = Vector2(0, 0)
 [sub_resource type="CircleShape2D" id="CircleShape2D_rar7w"]
 radius = 310.04
 
-[sub_resource type="Gradient" id="Gradient_odmd1"]
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_d4dp4"]
-gradient = SubResource("Gradient_odmd1")
-
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1xynk"]
-size = Vector2(2688, 3788)
+size = Vector2(5635.79, 6340.83)
 
 [node name="Intro" type="Node2D"]
 script = ExtResource("1_gdkj6")
@@ -160,14 +156,18 @@ texture = SubResource("GradientTexture2D_osnmu")
 position = Vector2(8837, -3236)
 shape = SubResource("CircleShape2D_rar7w")
 
-[node name="ForkLift" type="StaticBody2D" parent="Items"]
+[node name="ForkLift" type="Node2D" parent="Items"]
+scale = Vector2(0.925254, 0.99869)
+
+[node name="ForkLiftBody" type="StaticBody2D" parent="Items/ForkLift"]
 position = Vector2(11227, -2854)
 
-[node name="ForkLiftSprite" type="Sprite2D" parent="Items/ForkLift"]
-position = Vector2(1743.01, -691)
-scale = Vector2(42.3442, 59.4716)
-texture = SubResource("GradientTexture2D_d4dp4")
+[node name="ForkLiftSprite" type="Sprite2D" parent="Items/ForkLift/ForkLiftBody"]
+position = Vector2(3198.7, -1862.14)
+scale = Vector2(18.0412, 16.1566)
+texture = ExtResource("9_ffq42")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Items/ForkLift"]
-position = Vector2(1744.01, -688)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Items/ForkLift/ForkLiftBody"]
+position = Vector2(3167.68, -1873.94)
+scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_1xynk")
