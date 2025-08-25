@@ -1,0 +1,46 @@
+[gd_scene load_steps=3 format=3 uid="uid://ft24k8s13tpc"]
+
+[ext_resource type="Theme" uid="uid://dte5an7k6hog1" path="res://themes/base.tres" id="1_cbhj3"]
+[ext_resource type="Script" path="res://scenes/composable/instructional_text.gd" id="1_xdabv"]
+
+[node name="InstructionalText" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+offset_left = 1656.0
+offset_top = -2048.0
+offset_right = 3886.0
+offset_bottom = -2008.0
+script = ExtResource("1_xdabv")
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 0
+offset_left = 2158.0
+offset_top = 226.0
+offset_right = 4819.0
+offset_bottom = 726.0
+metadata/_edit_use_anchors_ = true
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("1_cbhj3")
+
+[node name="InstructionalTextPanel" type="Panel" parent="VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(0, 450)
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("1_cbhj3")
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/InstructionalTextPanel"]
+layout_mode = 2
+offset_left = 197.0
+offset_top = 96.0
+offset_right = 3808.0
+offset_bottom = 346.0
+theme = ExtResource("1_cbhj3")
+theme_type_variation = &"HeaderLarge"
+theme_override_font_sizes/font_size = 200
+text = "Press left or right to move"
+vertical_alignment = 1
+autowrap_mode = 2
+metadata/_edit_use_anchors_ = true

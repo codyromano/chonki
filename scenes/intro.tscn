@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://0jybnryjbe51"]
+[gd_scene load_steps=18 format=3 uid="uid://0jybnryjbe51"]
 
 [ext_resource type="Texture2D" uid="uid://cue46gcr7x6qj" path="res://assets/environment/barn/barn_wall.jpg" id="1_553eq"]
 [ext_resource type="Script" path="res://scenes/intro.gd" id="1_gdkj6"]
@@ -6,27 +6,25 @@
 [ext_resource type="PackedScene" uid="uid://cyu6wosf2qc3v" path="res://scenes/chonki.tscn" id="3_meeps"]
 [ext_resource type="Texture2D" uid="uid://qx1ubqqi74hv" path="res://assets/collectibles/menu-icons/heart.png" id="4_ee0bn"]
 [ext_resource type="PackedScene" uid="uid://da1xtclqphxbr" path="res://scenes/characters/npc_dog.tscn" id="5_c0o7x"]
-[ext_resource type="Theme" uid="uid://dte5an7k6hog1" path="res://themes/base.tres" id="6_jomvj"]
+[ext_resource type="PackedScene" uid="uid://ft24k8s13tpc" path="res://scenes/composable/instructional_text.tscn" id="7_2gl52"]
 [ext_resource type="Script" path="res://scenes/MoveLeftOrRightText.gd" id="7_y0mp2"]
+[ext_resource type="Script" path="res://scenes/composable/jump_text.gd" id="9_72lhp"]
 [ext_resource type="Texture2D" uid="uid://c6606orxhye10" path="res://assets/environment/barn/forklift_body.png" id="9_ffq42"]
+[ext_resource type="Texture2D" uid="uid://dkbc4i868evsa" path="res://assets/environment/barn/hay_barrel.png" id="9_hvagn"]
+[ext_resource type="Texture2D" uid="uid://bfxtrf11y4w6e" path="res://assets/environment/barn/forklift_fork.png" id="10_lykgv"]
+[ext_resource type="PackedScene" uid="uid://dshggbjhf1bpj" path="res://scenes/composable/instruction_trigger.tscn" id="12_hq858"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ed647"]
 distance = -500.0
-
-[sub_resource type="Gradient" id="Gradient_48k8t"]
-offsets = PackedFloat32Array(0, 0.0172117, 1)
-colors = PackedColorArray(0, 0, 0, 1, 0.256454, 0.256454, 0.256454, 1, 1, 1, 1, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_osnmu"]
-gradient = SubResource("Gradient_48k8t")
-fill_from = Vector2(1, 0)
-fill_to = Vector2(0, 0)
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rar7w"]
 radius = 310.04
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1xynk"]
 size = Vector2(5635.79, 6340.83)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ih5xv"]
+size = Vector2(20, 1.67627)
 
 [node name="Intro" type="Node2D"]
 script = ExtResource("1_gdkj6")
@@ -102,58 +100,36 @@ position = Vector2(2411, -3512)
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 follow_viewport_enabled = true
 
-[node name="Control" type="Control" parent="CanvasLayer"]
-layout_mode = 3
-anchors_preset = 0
-offset_left = 1656.0
-offset_top = -2048.0
-offset_right = 3886.0
-offset_bottom = -2008.0
-metadata/_edit_use_anchors_ = true
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control"]
-layout_mode = 0
-offset_left = 2158.0
-offset_top = 226.0
-offset_right = 4819.0
-offset_bottom = 726.0
-metadata/_edit_use_anchors_ = true
-
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/VBoxContainer"]
-layout_mode = 2
-theme = ExtResource("6_jomvj")
-
-[node name="InstructionalTextPanel" type="Panel" parent="CanvasLayer/Control/VBoxContainer/HBoxContainer"]
-custom_minimum_size = Vector2(0, 450)
-layout_mode = 2
-size_flags_horizontal = 3
-theme = ExtResource("6_jomvj")
+[node name="LeftOrRightText" parent="CanvasLayer" instance=ExtResource("7_2gl52")]
 script = ExtResource("7_y0mp2")
+content = "Press left or right to move"
+id = "MoveLeftOrRight"
 
-[node name="Label" type="Label" parent="CanvasLayer/Control/VBoxContainer/HBoxContainer/InstructionalTextPanel"]
-layout_mode = 2
-offset_left = 197.0
-offset_top = 96.0
-offset_right = 3808.0
-offset_bottom = 346.0
-theme = ExtResource("6_jomvj")
-theme_type_variation = &"HeaderLarge"
-theme_override_font_sizes/font_size = 200
-text = "Press left or right to move"
-metadata/_edit_use_anchors_ = true
+[node name="JumpText" parent="CanvasLayer" instance=ExtResource("7_2gl52")]
+offset_left = 5817.0
+offset_top = -5328.0
+offset_right = 8047.0
+offset_bottom = -5288.0
+script = ExtResource("9_72lhp")
+content = "Press up to jump"
+id = "Jump"
 
 [node name="Items" type="Node2D" parent="."]
 
-[node name="RigidBody2D" type="RigidBody2D" parent="Items"]
+[node name="HayBall" type="RigidBody2D" parent="Items"]
+z_index = 3
+position = Vector2(1308, -3591)
 collision_layer = 2
+constant_force = Vector2(0.25, 0)
 
-[node name="Sprite2D" type="Sprite2D" parent="Items/RigidBody2D"]
+[node name="Sprite2D" type="Sprite2D" parent="Items/HayBall"]
 position = Vector2(8841, -3244)
-scale = Vector2(9.19997, 9.32)
-texture = SubResource("GradientTexture2D_osnmu")
+scale = Vector2(2.71997, 2.75545)
+texture = ExtResource("9_hvagn")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Items/RigidBody2D"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Items/HayBall"]
 position = Vector2(8837, -3236)
+scale = Vector2(1.48002, 1.48002)
 shape = SubResource("CircleShape2D_rar7w")
 
 [node name="ForkLift" type="Node2D" parent="Items"]
@@ -171,3 +147,27 @@ texture = ExtResource("9_ffq42")
 position = Vector2(3167.68, -1873.94)
 scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_1xynk")
+
+[node name="ForkLiftForks" type="CharacterBody2D" parent="Items/ForkLift"]
+
+[node name="Sprite2D" type="Sprite2D" parent="Items/ForkLift/ForkLiftForks"]
+position = Vector2(10452.3, -7383.67)
+scale = Vector2(6.49039, 6.49039)
+texture = ExtResource("10_lykgv")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Items/ForkLift/ForkLiftForks"]
+position = Vector2(10349.6, -6272.22)
+scale = Vector2(119.454, 119.454)
+shape = SubResource("RectangleShape2D_ih5xv")
+
+[node name="InstructionTriggers" type="Node2D" parent="."]
+
+[node name="LeftOrRightTrigger" parent="InstructionTriggers" instance=ExtResource("12_hq858")]
+
+[node name="JumpTrigger" parent="InstructionTriggers" instance=ExtResource("12_hq858")]
+position = Vector2(4672, -252)
+instructions_id = "Jump"
+
+[node name="JumpTrigger2" parent="InstructionTriggers" instance=ExtResource("12_hq858")]
+position = Vector2(-4881, -141)
+instructions_id = "Jump"

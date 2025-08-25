@@ -12,43 +12,32 @@ func _ready():
 	# Store initial camera state
 	initial_zoom = zoom
 	initial_position = global_position
-	print("[Camera2D] Ready. Initial zoom:", initial_zoom)
 
 	# Listen for camera zoom animation signal
 	if GlobalSignals.has_signal("animate_camera_zoom_level"):
-		print("[Camera2D] Connecting to animate_camera_zoom_level signal.")
 		GlobalSignals.animate_camera_zoom_level.connect(_on_animate_camera_zoom_level)
-	else:
-		print("[Camera2D] animate_camera_zoom_level signal not found on GlobalSignals!")
 
 	# Listen for game_zoom_level signal directly
 	if GlobalSignals.has_signal("game_zoom_level"):
-		print("[Camera2D] Connecting to game_zoom_level signal.")
 		GlobalSignals.game_zoom_level.connect(_on_game_zoom_level)
-	else:
-		print("[Camera2D] game_zoom_level signal not found on GlobalSignals!")
+
 func _on_game_zoom_level(zoom_level: float, zoom_duration: float = 2.0):
-	print("[Camera2D] Received game_zoom_level signal with value:", zoom_level, "duration:", zoom_duration)
 	make_current()
 	if tween:
 		tween.kill()
 	tween = create_tween()
 	tween.set_parallel(true)
-	print("[Camera2D] Animating zoom to:", Vector2(zoom_level, zoom_level), "over", zoom_duration, "seconds.")
 	tween.tween_property(self, "zoom", Vector2(zoom_level, zoom_level), zoom_duration).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 
 # Animate camera zoom to a given level over 4 seconds
 
 func _on_animate_camera_zoom_level(zoom_level: float, zoom_duration: float = 2.0):
-	print("[Camera2D] Received animate_camera_zoom_level signal with value:", zoom_level, "duration:", zoom_duration)
 	# Ensure this camera is current before animating zoom
 	make_current()
 	if tween:
-		print("[Camera2D] Killing existing tween.")
 		tween.kill()
 	tween = create_tween()
 	tween.set_parallel(true)
-	print("[Camera2D] Animating zoom to:", Vector2(zoom_level, zoom_level), "over", zoom_duration, "seconds.")
 	tween.tween_property(self, "zoom", Vector2(zoom_level, zoom_level), zoom_duration).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
 
 	# Only connect to chonki_landed_and_hearts_spawned if not already connected

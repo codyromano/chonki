@@ -5,6 +5,4 @@ func _ready() -> void:
 	
 # Override
 func _should_dismiss() -> bool:
-	if Input.is_action_just_pressed("ui_left") || Input.is_action_just_pressed("ui_right"):
-		return true
-	return false
+	return Input.is_action_just_pressed("ui_up")
