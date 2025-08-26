@@ -5,6 +5,7 @@ extends Node2D
 @onready var sprite       : AnimatedSprite2D   = $ChonkiCharacter/AnimatedSprite2D
 
 @export var heart_texture: Texture2D
+@export var jump_multiplier: float = 1.0
 
 enum ChonkiState { IDLE, RUN, ATTACK, HANG_ON }
 
@@ -164,7 +165,7 @@ func handle_movement(delta: float) -> void:
 		if Input.is_action_just_pressed("ui_left") or Input.is_action_just_pressed("ui_right"):
 			# Base jump impulse
 			velocity.x = hang_direction * PhysicsConstants.SPEED
-			velocity.y = PhysicsConstants.JUMP_FORCE
+			velocity.y = PhysicsConstants.JUMP_FORCE * jump_multiplier
 			# Apply additional impulse proportional to swing factor (reduced max)
 			var jump_mult = 1.0 + (swing_factor - 1.0) * (4.0 / 3.0)
 			velocity *= jump_mult
@@ -254,7 +255,7 @@ func handle_movement(delta: float) -> void:
 
 	# Handle jumping
 	if not is_game_win and Input.is_action_just_pressed("ui_up") and body.is_on_floor():
-		velocity.y = PhysicsConstants.JUMP_FORCE
+		velocity.y = PhysicsConstants.JUMP_FORCE * jump_multiplier
 		GlobalSignals.play_sfx.emit("jump")
 
 	# Only freeze Chonki after win once on the floor
