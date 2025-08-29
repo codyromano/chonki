@@ -23,3 +23,4 @@ signal slide_start
 signal slide_end
 signal dismiss_instructional_text(instructions_id: String)
 signal display_instructional_text(instructions_id: String)
+signal lever_status_changed(lever_name: String, is_on: bool)
