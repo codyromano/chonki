@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://0jybnryjbe51"]
+[gd_scene load_steps=31 format=3 uid="uid://0jybnryjbe51"]
 
 [ext_resource type="Texture2D" uid="uid://cue46gcr7x6qj" path="res://assets/environment/barn/barn_wall.jpg" id="1_553eq"]
 [ext_resource type="Script" path="res://scenes/intro.gd" id="1_gdkj6"]
@@ -7,7 +7,9 @@
 [ext_resource type="Texture2D" uid="uid://qx1ubqqi74hv" path="res://assets/collectibles/menu-icons/heart.png" id="4_ee0bn"]
 [ext_resource type="PackedScene" uid="uid://da1xtclqphxbr" path="res://scenes/characters/npc_dog.tscn" id="5_c0o7x"]
 [ext_resource type="PackedScene" uid="uid://ft24k8s13tpc" path="res://scenes/composable/instructional_text.tscn" id="7_2gl52"]
+[ext_resource type="Texture2D" uid="uid://be33ir4qg1jms" path="res://assets/friends/horse/horse_buck.png" id="7_duion"]
 [ext_resource type="Script" path="res://scenes/MoveLeftOrRightText.gd" id="7_y0mp2"]
+[ext_resource type="Texture2D" uid="uid://bnqhf5jhqkwgg" path="res://assets/friends/horse/horse.png" id="8_3jqeu"]
 [ext_resource type="Script" path="res://scenes/composable/jump_text.gd" id="9_72lhp"]
 [ext_resource type="Texture2D" uid="uid://c6606orxhye10" path="res://assets/environment/barn/forklift_body.png" id="9_ffq42"]
 [ext_resource type="Texture2D" uid="uid://dkbc4i868evsa" path="res://assets/environment/barn/hay_barrel.png" id="9_hvagn"]
@@ -41,6 +43,25 @@ size = Vector2(1421.52, 227.336)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wryiq"]
 size = Vector2(1661.75, 993.471)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_p650v"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("7_duion")
+}],
+"loop": true,
+"name": &"buck",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_3jqeu")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ih5xv"]
 size = Vector2(20, 1.67627)
@@ -225,7 +246,7 @@ polygon = PackedVector2Array(-10844.7, 336.809, 34709.7, 280.225, 34540.1, -2828
 
 [node name="Chonki" parent="." instance=ExtResource("3_meeps")]
 z_index = 5
-position = Vector2(6395, -3071)
+position = Vector2(22505, -8103)
 scale = Vector2(1.76, 1.76)
 heart_texture = ExtResource("4_ee0bn")
 jump_multiplier = 1.25
@@ -249,6 +270,17 @@ position = Vector2(2000, -3766)
 
 [node name="NPCDog2" parent="NPCs/Dogs" instance=ExtResource("5_c0o7x")]
 position = Vector2(2411, -3512)
+
+[node name="Horse" type="CharacterBody2D" parent="NPCs"]
+position = Vector2(1447, 0)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="NPCs/Horse"]
+position = Vector2(27664, -4564)
+scale = Vector2(14.12, 14.12)
+sprite_frames = SubResource("SpriteFrames_p650v")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="NPCs/Horse"]
+polygon = PackedVector2Array(25144, -5082, 25960, -6434, 27296, -6402, 27401, -5055, 27412, -4782, 29106, -4782, 29027, -2472, 26412, -2419, 26165, -4303, 25249, -4298)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 follow_viewport_enabled = true
