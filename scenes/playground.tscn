@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://b44yi4l36unph"]
 
-[ext_resource type="Script" path="res://scenes/FollowerMovesToTarget.gd" id="1_75rh5"]
+[ext_resource type="PackedScene" uid="uid://c7gf3p8xwuyah" path="res://scenes/composable/follower_moves_to_target.tscn" id="1_tu13v"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_ag2en"]
 vertices = PackedVector2Array(1498, 800, 12, 800, 8, 17, 1496, 16)
@@ -8,19 +8,19 @@ polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
 outlines = Array[PackedVector2Array]([PackedVector2Array(-2, 8, 2, 810, 1508, 810, 1506, 6)])
 source_geometry_group_name = &"navigation_polygon_source_group"
 
-[sub_resource type="Gradient" id="Gradient_ug3vo"]
+[sub_resource type="Gradient" id="Gradient_es8im"]
 colors = PackedColorArray(0, 0, 0, 1, 1, 0.00784314, 1, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_vc0p0"]
-gradient = SubResource("Gradient_ug3vo")
+gradient = SubResource("Gradient_es8im")
 fill_from = Vector2(1, 0)
 fill_to = Vector2(0, 0)
 
-[sub_resource type="Gradient" id="Gradient_s5bmw"]
+[sub_resource type="Gradient" id="Gradient_0hxwx"]
 colors = PackedColorArray(0, 0, 0, 1, 0.691197, 0.629037, 0.24384, 1)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_efes5"]
-gradient = SubResource("Gradient_s5bmw")
+gradient = SubResource("Gradient_0hxwx")
 fill_from = Vector2(1, 0.0192308)
 fill_to = Vector2(0, 0)
 
@@ -29,11 +29,7 @@ fill_to = Vector2(0, 0)
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
 navigation_polygon = SubResource("NavigationPolygon_ag2en")
 
-[node name="FollowerMovesToTarget" type="NavigationAgent2D" parent="NavigationRegion2D" node_paths=PackedStringArray("follower", "target")]
-script = ExtResource("1_75rh5")
-follower = NodePath("../Follower")
-target = NodePath("../Target")
-speed = 50
+[node name="FollowerMovesToTarget" parent="NavigationRegion2D" instance=ExtResource("1_tu13v")]
 
 [node name="Follower" type="Sprite2D" parent="NavigationRegion2D"]
 position = Vector2(155, 660)

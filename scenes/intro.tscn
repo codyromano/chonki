@@ -1,4 +1,4 @@
-[gd_scene load_steps=29 format=3 uid="uid://0jybnryjbe51"]
+[gd_scene load_steps=35 format=3 uid="uid://0jybnryjbe51"]
 
 [ext_resource type="Texture2D" uid="uid://cue46gcr7x6qj" path="res://assets/environment/barn/barn_wall.jpg" id="1_553eq"]
 [ext_resource type="Script" path="res://scenes/intro.gd" id="1_gdkj6"]
@@ -16,6 +16,7 @@
 [ext_resource type="PackedScene" uid="uid://dshggbjhf1bpj" path="res://scenes/composable/instruction_trigger.tscn" id="12_hq858"]
 [ext_resource type="PackedScene" uid="uid://cs71vpxi4b22q" path="res://scenes/composable/lever.tscn" id="13_50tjc"]
 [ext_resource type="Script" path="res://scenes/ForkLiftForks.gd" id="13_xew14"]
+[ext_resource type="PackedScene" uid="uid://c7gf3p8xwuyah" path="res://scenes/composable/follower_moves_to_target.tscn" id="17_pk6v0"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ed647"]
 distance = -500.0
@@ -59,6 +60,28 @@ size = Vector2(5635.79, 6340.83)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ih5xv"]
 size = Vector2(20, 1.67627)
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_n5sh2"]
+vertices = PackedVector2Array(1498, 800, 12, 800, 8, 17, 1496, 16)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-2, 8, 2, 810, 1508, 810, 1506, 6)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+
+[sub_resource type="Gradient" id="Gradient_ug3vo"]
+colors = PackedColorArray(0, 0, 0, 1, 1, 0.00784314, 1, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_pk8wi"]
+gradient = SubResource("Gradient_ug3vo")
+fill_from = Vector2(1, 0)
+fill_to = Vector2(0, 0)
+
+[sub_resource type="Gradient" id="Gradient_s5bmw"]
+colors = PackedColorArray(0, 0, 0, 1, 0.691197, 0.629037, 0.24384, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_8sq0x"]
+gradient = SubResource("Gradient_s5bmw")
+fill_from = Vector2(1, 0.0192308)
+fill_to = Vector2(0, 0)
 
 [node name="Intro" type="Node2D"]
 script = ExtResource("1_gdkj6")
@@ -238,7 +261,7 @@ polygon = PackedVector2Array(-10844.7, 336.809, 12102, 370.939, 12109.2, -2749.2
 
 [node name="Chonki" parent="." instance=ExtResource("3_meeps")]
 z_index = 1
-position = Vector2(5205, -2801)
+position = Vector2(196, -2756)
 scale = Vector2(1.76, 1.76)
 heart_texture = ExtResource("4_ee0bn")
 jump_multiplier = 1.25
@@ -264,6 +287,7 @@ position = Vector2(2000, -3766)
 position = Vector2(2411, -3512)
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="NPCs/Dogs"]
+visible = false
 position = Vector2(-8398, -2174)
 navigation_polygon = SubResource("NavigationPolygon_fowkj")
 
@@ -353,3 +377,21 @@ position = Vector2(2771, 8)
 [node name="JumpTrigger" parent="InstructionTriggers" instance=ExtResource("12_hq858")]
 position = Vector2(4672, -252)
 instructions_id = "Jump"
+
+[node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
+position = Vector2(-2558, -4840)
+navigation_polygon = SubResource("NavigationPolygon_n5sh2")
+
+[node name="FollowerMovesToTarget" parent="NavigationRegion2D" node_paths=PackedStringArray("follower", "target") instance=ExtResource("17_pk6v0")]
+follower = NodePath("../Follower")
+target = NodePath("../Target")
+
+[node name="Follower" type="Sprite2D" parent="NavigationRegion2D"]
+position = Vector2(155, 660)
+scale = Vector2(2.78125, 2.375)
+texture = SubResource("GradientTexture2D_pk8wi")
+
+[node name="Target" type="Sprite2D" parent="NavigationRegion2D"]
+position = Vector2(1304, 169)
+scale = Vector2(2.78125, 2.375)
+texture = SubResource("GradientTexture2D_8sq0x")
