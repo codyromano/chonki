@@ -10,38 +10,38 @@ var is_navigation_ready: bool = false
 func _ready():
 	# Setup NavigationAgent2D
 	call_deferred("setup_navigation")
-  
+
 func setup_navigation():
 	is_navigation_ready = true
 	target_desired_distance = desired_distance
 	path_desired_distance = 20.0
+	max_speed = speed
 
 func _physics_process(delta):
-	if not is_navigation_ready or not follower or not target:
+	if not is_navigation_ready:
+		return
+		
+	if not follower or not target:
+		return
+		
+	var target_pos = target.global_position
+	var follower_pos = follower.global_position
+	
+	print("Follower pos: ", follower_pos, " Target pos: ", target_pos)
+	
+	# Check if we're close enough to the target
+	var dist_to_target = follower_pos.distance_to(target_pos)
+	if dist_to_target < 50.0:  # Close enough threshold
+		print("Reached target!")
 		return
 	
-	# Set the target position
-	target_position = target.global_position
+	# Simple direct movement towards target for now
+	# This bypasses navigation issues and should work for testing
+	var direction = (target_pos - follower_pos).normalized()
+	var new_pos = follower_pos + direction * speed * delta
 	
-	# Check if navigation is finished (reached target)
-	if is_navigation_finished():
-		return
-	
-	# Get the next position in the navigation path
-	var next_path_position = get_next_path_position()
-	var direction = (next_path_position - follower.global_position).normalized()
-	
-	# Move the follower
-	if follower.has_method("set_velocity"):
-		# For CharacterBody2D
-		follower.velocity = direction * speed
-		follower.move_and_slide()
-	elif follower.has_method("apply_impulse"):
-		# For RigidBody2D
-		follower.apply_impulse(direction * speed * delta)
-	else:
-		# For regular Node2D, move directly
-		follower.global_position += direction * speed * delta
+	follower.global_position = new_pos
+	print("Moving follower directly towards target: ", new_pos, " Direction: ", direction)
 
 func set_follower(new_follower: Node2D):
 	"""Set the follower node"""

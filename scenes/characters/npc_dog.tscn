@@ -562,7 +562,7 @@ animations = [{
 size = Vector2(835, 823)
 
 [node name="NPCDog" type="CharacterBody2D"]
-position = Vector2(7020, -3431)
+position = Vector2(590, 816)
 scale = Vector2(1.88, 1.88)
 collision_layer = 16
 collision_mask = 8

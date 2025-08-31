@@ -1,4 +1,4 @@
-[gd_scene load_steps=35 format=3 uid="uid://0jybnryjbe51"]
+[gd_scene load_steps=31 format=3 uid="uid://0jybnryjbe51"]
 
 [ext_resource type="Texture2D" uid="uid://cue46gcr7x6qj" path="res://assets/environment/barn/barn_wall.jpg" id="1_553eq"]
 [ext_resource type="Script" path="res://scenes/intro.gd" id="1_gdkj6"]
@@ -7,7 +7,6 @@
 [ext_resource type="Texture2D" uid="uid://qx1ubqqi74hv" path="res://assets/collectibles/menu-icons/heart.png" id="4_ee0bn"]
 [ext_resource type="PackedScene" uid="uid://da1xtclqphxbr" path="res://scenes/characters/npc_dog.tscn" id="5_c0o7x"]
 [ext_resource type="PackedScene" uid="uid://ft24k8s13tpc" path="res://scenes/composable/instructional_text.tscn" id="7_2gl52"]
-[ext_resource type="Script" path="res://scenes/NPCDogNavigationAgent2D.gd" id="7_dep77"]
 [ext_resource type="Script" path="res://scenes/MoveLeftOrRightText.gd" id="7_y0mp2"]
 [ext_resource type="Script" path="res://scenes/composable/jump_text.gd" id="9_72lhp"]
 [ext_resource type="Texture2D" uid="uid://c6606orxhye10" path="res://assets/environment/barn/forklift_body.png" id="9_ffq42"]
@@ -43,10 +42,16 @@ size = Vector2(1421.52, 227.336)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wryiq"]
 size = Vector2(1661.75, 993.471)
 
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_fowkj"]
-vertices = PackedVector2Array(3982, -2239, 4000, -3602, 4960, -3578, 4972, -4337, 18967, -4348, 18942, -66, 2333, 66, -603, -2217, -622, -35)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2), PackedInt32Array(3, 4, 5, 2), PackedInt32Array(2, 5, 6, 0), PackedInt32Array(7, 0, 6, 8)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(2333, 76, 18952, -57, 18978, -4359, 4963, -4347, 4950, -3588, 3991, -3613, 3972, -2249, -613, -2227, -633, -26)])
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1xynk"]
+size = Vector2(5635.79, 6340.83)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ih5xv"]
+size = Vector2(20, 1.67627)
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_n5sh2"]
+vertices = PackedVector2Array(11124, 5332, -12324, 5528, -12126, -2561, 12366, -2669)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-12136, -2571, -12335, 5539, 11133, 5342, 12378, -2680)])
 source_geometry_group_name = &"navigation_polygon_source_group"
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_xtrc5"]
@@ -55,35 +60,13 @@ bounce = 0.5
 [sub_resource type="CircleShape2D" id="CircleShape2D_rar7w"]
 radius = 310.04
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_1xynk"]
-size = Vector2(5635.79, 6340.83)
+[sub_resource type="Gradient" id="Gradient_6yvey"]
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ih5xv"]
-size = Vector2(20, 1.67627)
-
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_n5sh2"]
-vertices = PackedVector2Array(1498, 800, 12, 800, 8, 17, 1496, 16)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-2, 8, 2, 810, 1508, 810, 1506, 6)])
-source_geometry_group_name = &"navigation_polygon_source_group"
-
-[sub_resource type="Gradient" id="Gradient_ug3vo"]
-colors = PackedColorArray(0, 0, 0, 1, 1, 0.00784314, 1, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_pk8wi"]
-gradient = SubResource("Gradient_ug3vo")
-fill_from = Vector2(1, 0)
-fill_to = Vector2(0, 0)
-
-[sub_resource type="Gradient" id="Gradient_s5bmw"]
-colors = PackedColorArray(0, 0, 0, 1, 0.691197, 0.629037, 0.24384, 1)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_8sq0x"]
-gradient = SubResource("Gradient_s5bmw")
-fill_from = Vector2(1, 0.0192308)
-fill_to = Vector2(0, 0)
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_5pufw"]
+gradient = SubResource("Gradient_6yvey")
 
 [node name="Intro" type="Node2D"]
+position = Vector2(17591, 8163)
 script = ExtResource("1_gdkj6")
 
 [node name="Environment" type="Node2D" parent="."]
@@ -286,18 +269,6 @@ position = Vector2(2000, -3766)
 [node name="NPCDog2" parent="NPCs/Dogs" instance=ExtResource("5_c0o7x")]
 position = Vector2(2411, -3512)
 
-[node name="NavigationRegion2D" type="NavigationRegion2D" parent="NPCs/Dogs"]
-visible = false
-position = Vector2(-8398, -2174)
-navigation_polygon = SubResource("NavigationPolygon_fowkj")
-
-[node name="ChaseDog" parent="NPCs/Dogs/NavigationRegion2D" instance=ExtResource("5_c0o7x")]
-position = Vector2(14851, -1906)
-is_flipped = true
-
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="NPCs/Dogs/NavigationRegion2D"]
-script = ExtResource("7_dep77")
-
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 follow_viewport_enabled = true
 
@@ -316,26 +287,6 @@ content = "Press up to jump"
 id = "Jump"
 
 [node name="Items" type="Node2D" parent="." groups=["Items"]]
-
-[node name="HayBall" type="RigidBody2D" parent="Items"]
-unique_name_in_owner = true
-z_index = 3
-position = Vector2(-12902, -2658)
-collision_layer = 4
-collision_mask = 5
-mass = 0.5
-physics_material_override = SubResource("PhysicsMaterial_xtrc5")
-gravity_scale = 3.0
-
-[node name="Sprite2D" type="Sprite2D" parent="Items/HayBall"]
-position = Vector2(8841, -3244)
-scale = Vector2(2.71997, 2.75545)
-texture = ExtResource("9_hvagn")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Items/HayBall"]
-position = Vector2(8837, -3236)
-scale = Vector2(1.48002, 1.48002)
-shape = SubResource("CircleShape2D_rar7w")
 
 [node name="ForkLift" type="Node2D" parent="Items"]
 scale = Vector2(0.925254, 0.99869)
@@ -379,19 +330,46 @@ position = Vector2(4672, -252)
 instructions_id = "Jump"
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
-position = Vector2(-2558, -4840)
+position = Vector2(1052, -5371)
 navigation_polygon = SubResource("NavigationPolygon_n5sh2")
 
 [node name="FollowerMovesToTarget" parent="NavigationRegion2D" node_paths=PackedStringArray("follower", "target") instance=ExtResource("17_pk6v0")]
-follower = NodePath("../Follower")
-target = NodePath("../Target")
+follower = NodePath("../ChaseDog")
+target = NodePath("../HayBall")
+speed = 400
+desired_distance = 25.0
 
-[node name="Follower" type="Sprite2D" parent="NavigationRegion2D"]
-position = Vector2(155, 660)
-scale = Vector2(2.78125, 2.375)
-texture = SubResource("GradientTexture2D_pk8wi")
+[node name="ChaseDog" parent="NavigationRegion2D" instance=ExtResource("5_c0o7x")]
+position = Vector2(5376, 1919)
+is_flipped = true
 
-[node name="Target" type="Sprite2D" parent="NavigationRegion2D"]
-position = Vector2(1304, 169)
-scale = Vector2(2.78125, 2.375)
-texture = SubResource("GradientTexture2D_8sq0x")
+[node name="HayBall" type="RigidBody2D" parent="NavigationRegion2D"]
+unique_name_in_owner = true
+z_index = 3
+position = Vector2(7449, 3179)
+collision_layer = 4
+collision_mask = 5
+mass = 0.5
+physics_material_override = SubResource("PhysicsMaterial_xtrc5")
+gravity_scale = 3.0
+
+[node name="Sprite2D" type="Sprite2D" parent="NavigationRegion2D/HayBall"]
+position = Vector2(13.9922, -25.1375)
+scale = Vector2(2.71997, 2.75545)
+texture = ExtResource("9_hvagn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="NavigationRegion2D/HayBall"]
+position = Vector2(9.99121, -17.137)
+scale = Vector2(1.48002, 1.48002)
+shape = SubResource("CircleShape2D_rar7w")
+
+[node name="Timer" type="Timer" parent="NavigationRegion2D"]
+wait_time = 5.0
+autostart = true
+
+[node name="placeholder" type="Sprite2D" parent="NavigationRegion2D"]
+position = Vector2(827, 2689)
+scale = Vector2(9.00001, 9.00001)
+texture = SubResource("GradientTexture2D_5pufw")
+
+[connection signal="timeout" from="NavigationRegion2D/Timer" to="NavigationRegion2D/FollowerMovesToTarget" method="_on_timer_timeout"]
