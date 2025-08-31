@@ -46,6 +46,7 @@ ui_up={
 2d_render/layer_1="player"
 2d_render/layer_2="enemy"
 2d_render/layer_3="items"
+2d_render/layer_4="ally_npc"
 2d_physics/layer_1="player"
 2d_physics/layer_2="enemy"
 2d_physics/layer_3="item"
