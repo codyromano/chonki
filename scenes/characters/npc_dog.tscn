@@ -572,7 +572,7 @@ script = ExtResource("1_4787o")
 position = Vector2(144.149, -142.021)
 scale = Vector2(0.923292, 0.923292)
 sprite_frames = SubResource("SpriteFrames_i1evp")
-animation = &"sleep"
+animation = &"run"
 autoplay = "sleep"
 script = ExtResource("130_tmv16")
 

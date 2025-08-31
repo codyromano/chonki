@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://0jybnryjbe51"]
+[gd_scene load_steps=29 format=3 uid="uid://0jybnryjbe51"]
 
 [ext_resource type="Texture2D" uid="uid://cue46gcr7x6qj" path="res://assets/environment/barn/barn_wall.jpg" id="1_553eq"]
 [ext_resource type="Script" path="res://scenes/intro.gd" id="1_gdkj6"]
@@ -31,7 +31,7 @@ particles_anim_loop = true
 size = Vector2(1525, 231)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lwem5"]
-size = Vector2(10361, 231)
+size = Vector2(21290, 283)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c0tnm"]
 size = Vector2(1244, 231)
@@ -49,9 +49,9 @@ size = Vector2(5635.79, 6340.83)
 size = Vector2(20, 1.67627)
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_n5sh2"]
-vertices = PackedVector2Array(11124, 5332, -12324, 5528, -12126, -2561, 12366, -2669)
+vertices = PackedVector2Array(9508, 2074, -9960, 1997, -9996, -228, 9558, -255)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-12136, -2571, -12335, 5539, 11133, 5342, 12378, -2680)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-10007, -238, -9970, 2007, 9518, 2085, 9569, -266)])
 source_geometry_group_name = &"navigation_polygon_source_group"
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_xtrc5"]
@@ -59,11 +59,6 @@ bounce = 0.5
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rar7w"]
 radius = 310.04
-
-[sub_resource type="Gradient" id="Gradient_6yvey"]
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_5pufw"]
-gradient = SubResource("Gradient_6yvey")
 
 [node name="Intro" type="Node2D"]
 position = Vector2(17591, 8163)
@@ -109,10 +104,10 @@ z_index = 1
 position = Vector2(-1239.5, -3668.5)
 shape = SubResource("RectangleShape2D_ev16l")
 
-[node name="FloatWood2" type="StaticBody2D" parent="Environment/PhysicsBarriers/FloatWoods"]
-position = Vector2(-8536, -4745)
+[node name="Ceiling" type="StaticBody2D" parent="Environment/PhysicsBarriers/FloatWoods"]
+position = Vector2(-8543, -4708)
 
-[node name="Sprite2D" type="Polygon2D" parent="Environment/PhysicsBarriers/FloatWoods/FloatWood2"]
+[node name="Sprite2D" type="Polygon2D" parent="Environment/PhysicsBarriers/FloatWoods/Ceiling"]
 modulate = Color(0.988235, 0.729412, 0.188235, 1)
 self_modulate = Color(0.568627, 0.65098, 0.501961, 1)
 z_index = 1
@@ -123,11 +118,11 @@ position = Vector2(-2013, -1558)
 scale = Vector2(5.26667, 1.435)
 texture = ExtResource("1_553eq")
 texture_offset = Vector2(550, 100)
-polygon = PackedVector2Array(7.33307, -1547.73, 7.33307, -1388.15, 1959.68, -1370.73, 1964.62, -1531.01)
+polygon = PackedVector2Array(7.33307, -1547.73, 7.33307, -1388.15, 4047.91, -1357.49, 4053.79, -1548.43)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/PhysicsBarriers/FloatWoods/FloatWood2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/PhysicsBarriers/FloatWoods/Ceiling"]
 z_index = 1
-position = Vector2(3178.5, -3668.5)
+position = Vector2(8643, -3642.5)
 shape = SubResource("RectangleShape2D_lwem5")
 
 [node name="FloatWood4" type="StaticBody2D" parent="Environment/PhysicsBarriers/FloatWoods"]
@@ -243,7 +238,7 @@ texture_scale = Vector2(0.25, 0.25)
 polygon = PackedVector2Array(-10844.7, 336.809, 12102, 370.939, 12109.2, -2749.26, -10918.7, -2722.32)
 
 [node name="Chonki" parent="." instance=ExtResource("3_meeps")]
-z_index = 1
+z_index = 5
 position = Vector2(196, -2756)
 scale = Vector2(1.76, 1.76)
 heart_texture = ExtResource("4_ee0bn")
@@ -330,23 +325,24 @@ position = Vector2(4672, -252)
 instructions_id = "Jump"
 
 [node name="NavigationRegion2D" type="NavigationRegion2D" parent="."]
-position = Vector2(1052, -5371)
+position = Vector2(1075, -3084)
 navigation_polygon = SubResource("NavigationPolygon_n5sh2")
 
 [node name="FollowerMovesToTarget" parent="NavigationRegion2D" node_paths=PackedStringArray("follower", "target") instance=ExtResource("17_pk6v0")]
 follower = NodePath("../ChaseDog")
 target = NodePath("../HayBall")
-speed = 400
-desired_distance = 25.0
+speed = 2000
+desired_distance = 1000.0
 
 [node name="ChaseDog" parent="NavigationRegion2D" instance=ExtResource("5_c0o7x")]
-position = Vector2(5376, 1919)
+z_index = 3
+position = Vector2(-1078, 177)
 is_flipped = true
 
 [node name="HayBall" type="RigidBody2D" parent="NavigationRegion2D"]
 unique_name_in_owner = true
 z_index = 3
-position = Vector2(7449, 3179)
+position = Vector2(-5053, -2794)
 collision_layer = 4
 collision_mask = 5
 mass = 0.5
@@ -362,14 +358,3 @@ texture = ExtResource("9_hvagn")
 position = Vector2(9.99121, -17.137)
 scale = Vector2(1.48002, 1.48002)
 shape = SubResource("CircleShape2D_rar7w")
-
-[node name="Timer" type="Timer" parent="NavigationRegion2D"]
-wait_time = 5.0
-autostart = true
-
-[node name="placeholder" type="Sprite2D" parent="NavigationRegion2D"]
-position = Vector2(827, 2689)
-scale = Vector2(9.00001, 9.00001)
-texture = SubResource("GradientTexture2D_5pufw")
-
-[connection signal="timeout" from="NavigationRegion2D/Timer" to="NavigationRegion2D/FollowerMovesToTarget" method="_on_timer_timeout"]

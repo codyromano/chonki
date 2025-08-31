@@ -3,56 +3,43 @@ extends NavigationAgent2D
 @export var follower: Node2D
 @export var target: Node2D
 @export var speed: int = 200
-@export var desired_distance: float = 50.0
-
-var is_navigation_ready: bool = false
+@export var desired_distance: float = 200.0
 
 func _ready():
-	# Setup NavigationAgent2D
-	call_deferred("setup_navigation")
-
-func setup_navigation():
-	is_navigation_ready = true
-	target_desired_distance = desired_distance
-	path_desired_distance = 20.0
+	# Configure NavigationAgent2D properties
 	max_speed = speed
+	path_desired_distance = 200.0
+	target_desired_distance = desired_distance
 
 func _physics_process(delta):
-	if not is_navigation_ready:
-		return
-		
 	if not follower or not target:
 		return
 		
-	var target_pos = target.global_position
-	var follower_pos = follower.global_position
+	# Set the navigation target
+	target_position = target.global_position
 	
-	print("Follower pos: ", follower_pos, " Target pos: ", target_pos)
-	
-	# Check if we're close enough to the target
-	var dist_to_target = follower_pos.distance_to(target_pos)
-	if dist_to_target < 50.0:  # Close enough threshold
-		print("Reached target!")
-		return
-	
-	# Simple direct movement towards target for now
-	# This bypasses navigation issues and should work for testing
-	var direction = (target_pos - follower_pos).normalized()
-	var new_pos = follower_pos + direction * speed * delta
-	
-	follower.global_position = new_pos
-	print("Moving follower directly towards target: ", new_pos, " Direction: ", direction)
-
-func set_follower(new_follower: Node2D):
-	"""Set the follower node"""
-	follower = new_follower
-
-func set_target(new_target: Node2D):
-	"""Set the target node"""
-	target = new_target
-
-func get_distance_to_target() -> float:
-	"""Get the current distance to the target"""
-	if follower and target:
-		return follower.global_position.distance_to(target.global_position)
-	return -1.0
+	# Get next path position from NavigationAgent2D
+	if is_target_reachable() && not is_navigation_finished():
+		var next_path_position = get_next_path_position()
+		var current_position = follower.global_position
+		
+		# Calculate direction to next path point
+		var direction = (next_path_position - current_position).normalized()
+		
+		# Set the follower's velocity instead of directly moving it
+		if follower is CharacterBody2D:
+			follower.velocity = direction * speed
+			follower.move_and_slide()
+		elif follower is RigidBody2D:
+			follower.linear_velocity = direction * speed
+		else:
+			# Fallback for other node types - still set position directly
+			var new_position = current_position + direction * speed * delta
+			follower.global_position = new_position
+	else:
+		# Stop the follower when navigation is finished
+		if follower is CharacterBody2D:
+			follower.velocity = Vector2.ZERO
+			follower.move_and_slide()
+		elif follower is RigidBody2D:
+			follower.linear_velocity = Vector2.ZERO
