@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://0jybnryjbe51"]
+[gd_scene load_steps=35 format=3 uid="uid://0jybnryjbe51"]
 
 [ext_resource type="Texture2D" uid="uid://cue46gcr7x6qj" path="res://assets/environment/barn/barn_wall.jpg" id="1_553eq"]
 [ext_resource type="Script" path="res://scenes/intro.gd" id="1_gdkj6"]
@@ -18,6 +18,7 @@
 [ext_resource type="Script" path="res://scenes/ForkLiftForks.gd" id="13_xew14"]
 [ext_resource type="Script" path="res://scenes/Trampoline.gd" id="16_u2n1w"]
 [ext_resource type="PackedScene" uid="uid://c7gf3p8xwuyah" path="res://scenes/composable/follower_moves_to_target.tscn" id="17_pk6v0"]
+[ext_resource type="Texture2D" uid="uid://kmb5e3d5wfww" path="res://assets/environment/barn/rope.png" id="19_cde4w"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ed647"]
 distance = -500.0
@@ -36,7 +37,7 @@ size = Vector2(1525, 231)
 size = Vector2(30679, 206.166)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a7ytl"]
-size = Vector2(6709.35, 306.851)
+size = Vector2(7456.36, 306.851)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_lwem5"]
 size = Vector2(3137.32, 363.332)
@@ -67,6 +68,9 @@ bounce = 0.5
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_rar7w"]
 radius = 310.04
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3cr5w"]
+size = Vector2(1805.82, 217.068)
 
 [node name="Intro" type="Node2D"]
 position = Vector2(17591, 8163)
@@ -136,6 +140,64 @@ shape = SubResource("RectangleShape2D_a7ytl")
 z_index = 1
 position = Vector2(-1211, 219)
 scale = Vector2(0.677769, 1.00232)
+color = Color(0.480342, 0.424905, 0.200685, 1)
+texture = ExtResource("1_553eq")
+texture_offset = Vector2(0, 200)
+polygon = PackedVector2Array(-49.2891, -201.494, 8564.8, -176.66, 8562.31, 93.7471, -67.5977, 92.8271)
+
+[node name="Ceiling4" type="StaticBody2D" parent="Environment/PhysicsBarriers/FloatWoods"]
+position = Vector2(-9460, -10103)
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/PhysicsBarriers/FloatWoods/Ceiling4"]
+z_index = 1
+position = Vector2(1993, 164.5)
+scale = Vector2(0.870129, 0.870129)
+shape = SubResource("RectangleShape2D_a7ytl")
+
+[node name="Polygon2D" type="Polygon2D" parent="Environment/PhysicsBarriers/FloatWoods/Ceiling4"]
+z_index = 1
+position = Vector2(-1211, 219)
+scale = Vector2(0.677769, 1.00232)
+color = Color(0.480342, 0.424905, 0.200685, 1)
+texture = ExtResource("1_553eq")
+texture_offset = Vector2(0, 200)
+polygon = PackedVector2Array(-49.2891, -201.494, 9463.4, -193.551, 9473.73, 86.7986, -67.5977, 92.8271)
+
+[node name="Ceiling5" type="StaticBody2D" parent="Environment/PhysicsBarriers/FloatWoods"]
+position = Vector2(-208, -10103)
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/PhysicsBarriers/FloatWoods/Ceiling5"]
+z_index = 1
+position = Vector2(1668, 164.5)
+scale = Vector2(0.870129, 0.870129)
+shape = SubResource("RectangleShape2D_a7ytl")
+
+[node name="Polygon2D" type="Polygon2D" parent="Environment/PhysicsBarriers/FloatWoods/Ceiling5"]
+z_index = 1
+position = Vector2(-1211, 219)
+scale = Vector2(0.677769, 1.00232)
+color = Color(0.480342, 0.424905, 0.200685, 1)
+texture = ExtResource("1_553eq")
+texture_offset = Vector2(0, 200)
+polygon = PackedVector2Array(-49.2891, -201.494, 8564.8, -176.66, 8562.31, 93.7471, -67.5977, 92.8271)
+
+[node name="SwivelDoor1" type="Polygon2D" parent="Environment/PhysicsBarriers/FloatWoods/Ceiling5"]
+z_index = 1
+position = Vector2(-4096, 216)
+rotation = 2.22517
+scale = Vector2(0.147847, 0.527627)
+color = Color(0.480342, 0.424905, 0.200685, 1)
+texture = ExtResource("1_553eq")
+texture_offset = Vector2(0, 200)
+polygon = PackedVector2Array(-49.2891, -201.494, 8564.8, -176.66, 8562.31, 93.7471, -67.5977, 92.8271)
+
+[node name="SwivelDoor2" type="Polygon2D" parent="Environment/PhysicsBarriers/FloatWoods/Ceiling5"]
+z_index = 1
+position = Vector2(-1184, 261)
+rotation = 0.79214
+scale = Vector2(0.147847, 0.527627)
 color = Color(0.480342, 0.424905, 0.200685, 1)
 texture = ExtResource("1_553eq")
 texture_offset = Vector2(0, 200)
@@ -421,5 +483,38 @@ shape = SubResource("CircleShape2D_rar7w")
 
 [node name="DebugPlayerStartMarker" type="Marker2D" parent="."]
 position = Vector2(22109, -7590)
+
+[node name="ElevatorSeat" type="StaticBody2D" parent="."]
+position = Vector2(-3914, -7194)
+rotation = -1.5682
+scale = Vector2(1, 1)
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ElevatorSeat"]
+z_index = 1
+position = Vector2(-85.7582, 1217.52)
+rotation = 1.57158
+scale = Vector2(0.87013, 0.87013)
+shape = SubResource("RectangleShape2D_3cr5w")
+
+[node name="Polygon2D" type="Polygon2D" parent="ElevatorSeat"]
+z_index = 1
+position = Vector2(-122.682, 446.126)
+rotation = 1.56505
+scale = Vector2(0.389841, 0.706271)
+color = Color(0.480342, 0.424905, 0.200685, 1)
+texture = ExtResource("1_553eq")
+texture_offset = Vector2(0, 200)
+polygon = PackedVector2Array(-49.2891, -201.494, 3902.88, -204.418, 3899.82, -49.075, 3896.71, 108.867, -67.5977, 92.8271)
+
+[node name="Rope" type="Polygon2D" parent="ElevatorSeat"]
+z_index = 1
+texture_repeat = 2
+position = Vector2(-354.808, -696.082)
+scale = Vector2(4.1126, 4.1126)
+texture = ExtResource("19_cde4w")
+texture_offset = Vector2(500, 0)
+texture_rotation = 1.5708
+polygon = PackedVector2Array(86.217, 428.46, 4268.3, 444.835, 4275.26, 503.418, 91.5259, 506.5)
 
 [connection signal="body_entered" from="Items/Trampoline" to="Items/Trampoline" method="_on_body_entered"]
