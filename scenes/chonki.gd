@@ -54,6 +54,7 @@ func _ready() -> void:
 	GlobalSignals.connect("chonki_touched_kite", _on_chonki_touched_kite)
 	GlobalSignals.connect("kite_rotated", _on_kite_rotated)
 	GlobalSignals.connect("game_zoom_level", _on_game_zoom_level)
+	GlobalSignals.connect("player_jump", _on_player_jump)
 	# Always reset GameState at the start of the level
 	GameState.reset()
 	# Cache and set total_stars for this level by scene path, using CollectibleStar group
@@ -257,11 +258,6 @@ func handle_movement(delta: float) -> void:
 	if velocity.y > PhysicsConstants.MAX_FALL_SPEED:
 		velocity.y = PhysicsConstants.MAX_FALL_SPEED
 
-	# Handle jumping
-	if not is_game_win and Input.is_action_just_pressed("ui_up") and body.is_on_floor():
-		velocity.y = PhysicsConstants.JUMP_FORCE * jump_multiplier
-		GlobalSignals.play_sfx.emit("jump")
-
 	# Only freeze Chonki after win once on the floor
 	if is_game_win and body.is_on_floor():
 		body.velocity = Vector2(0, 0)
@@ -308,3 +304,9 @@ func _on_player_out_of_hearts():
 		# Wait until Chonki is on the floor
 		await wait_for_chonki_to_land()
 		player_die()
+
+func _on_player_jump(intensity: float):
+	# Handle jumping via signal
+	if not is_game_win and body.is_on_floor():
+		velocity.y = PhysicsConstants.JUMP_FORCE * jump_multiplier * intensity
+		GlobalSignals.play_sfx.emit("jump")

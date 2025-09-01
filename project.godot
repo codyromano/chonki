@@ -24,6 +24,7 @@ FadeTransition="*res://scenes/FadeTransition.gd"
 GameState="*res://scripts/GameState.gd"
 FloatingHeartsManager="*res://FloatingHeartsManager.gd"
 AnimationConstantsFile="*res://scripts/AnimationConstants.gd"
+PlayerMovementController="*res://scenes/PlayerMovementController.gd"
 
 [display]
 
