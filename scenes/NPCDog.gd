@@ -8,7 +8,6 @@ var last_movement_time: int = 0
 const MOVEMENT_THRESHOLD = 500
 	
 func _process(_delta) -> void:
-	print('velocity.x: ', velocity.x)
 	# Any movement = awake; does not go back to sleep
 	if velocity.x != 0:
 		is_awake = true

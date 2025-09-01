@@ -1,4 +1,4 @@
-[gd_scene load_steps=31 format=3 uid="uid://0jybnryjbe51"]
+[gd_scene load_steps=33 format=3 uid="uid://0jybnryjbe51"]
 
 [ext_resource type="Texture2D" uid="uid://cue46gcr7x6qj" path="res://assets/environment/barn/barn_wall.jpg" id="1_553eq"]
 [ext_resource type="Script" path="res://scenes/intro.gd" id="1_gdkj6"]
@@ -17,6 +17,7 @@
 [ext_resource type="PackedScene" uid="uid://dshggbjhf1bpj" path="res://scenes/composable/instruction_trigger.tscn" id="12_hq858"]
 [ext_resource type="PackedScene" uid="uid://cs71vpxi4b22q" path="res://scenes/composable/lever.tscn" id="13_50tjc"]
 [ext_resource type="Script" path="res://scenes/ForkLiftForks.gd" id="13_xew14"]
+[ext_resource type="Script" path="res://scenes/Trampoline.gd" id="16_u2n1w"]
 [ext_resource type="PackedScene" uid="uid://c7gf3p8xwuyah" path="res://scenes/composable/follower_moves_to_target.tscn" id="17_pk6v0"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ed647"]
@@ -65,6 +66,9 @@ animations = [{
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ih5xv"]
 size = Vector2(20, 1.67627)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vph7a"]
+size = Vector2(1687.5, 170)
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_n5sh2"]
 vertices = PackedVector2Array(16885, 1839, -9960, 1996, -9996, -228, 16844, -338)
@@ -244,10 +248,11 @@ texture_offset = Vector2(0, 3750)
 texture_scale = Vector2(0.25, 0.25)
 polygon = PackedVector2Array(-10844.7, 336.809, 34709.7, 280.225, 34540.1, -2828.3, -10918.7, -2722.32)
 
-[node name="Chonki" parent="." instance=ExtResource("3_meeps")]
+[node name="Chonki" parent="." node_paths=PackedStringArray("debug_start_marker") instance=ExtResource("3_meeps")]
 z_index = 5
-position = Vector2(22505, -8103)
+position = Vector2(5113, -3086)
 scale = Vector2(1.76, 1.76)
+debug_start_marker = NodePath("../DebugPlayerStartMarker")
 heart_texture = ExtResource("4_ee0bn")
 jump_multiplier = 1.25
 
@@ -286,15 +291,19 @@ polygon = PackedVector2Array(25144, -5082, 25960, -6434, 27296, -6402, 27401, -5
 follow_viewport_enabled = true
 
 [node name="LeftOrRightText" parent="CanvasLayer" instance=ExtResource("7_2gl52")]
+offset_left = 19245.0
+offset_top = 5991.0
+offset_right = 21475.0
+offset_bottom = 6031.0
 script = ExtResource("7_y0mp2")
 content = "Press left or right to move"
 id = "MoveLeftOrRight"
 
 [node name="JumpText" parent="CanvasLayer" instance=ExtResource("7_2gl52")]
-offset_left = 5817.0
-offset_top = -5328.0
-offset_right = 8047.0
-offset_bottom = -5288.0
+offset_left = 31182.0
+offset_top = 3839.0
+offset_right = 33412.0
+offset_bottom = 3879.0
 script = ExtResource("9_72lhp")
 content = "Press up to jump"
 id = "Jump"
@@ -339,6 +348,14 @@ collision_mask = 17
 timer_duration = 2.0
 lever_name = "fork_lift_lever"
 
+[node name="Trampoline" type="Area2D" parent="Items"]
+position = Vector2(29838, -4976)
+script = ExtResource("16_u2n1w")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Items/Trampoline"]
+position = Vector2(-135.75, 715)
+shape = SubResource("RectangleShape2D_vph7a")
+
 [node name="InstructionTriggers" type="Node2D" parent="."]
 
 [node name="LeftOrRightTrigger" parent="InstructionTriggers" instance=ExtResource("12_hq858")]
@@ -381,3 +398,8 @@ texture = ExtResource("9_hvagn")
 position = Vector2(9.99121, -17.137)
 scale = Vector2(1.48002, 1.48002)
 shape = SubResource("CircleShape2D_rar7w")
+
+[node name="DebugPlayerStartMarker" type="Marker2D" parent="."]
+position = Vector2(22109, -7590)
+
+[connection signal="body_entered" from="Items/Trampoline" to="Items/Trampoline" method="_on_body_entered"]

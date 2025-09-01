@@ -1,6 +1,7 @@
 # Use centralized physics constants: PhysicsConstants.*
 extends Node2D
 
+@export var debug_start_marker: Marker2D
 @onready var body         : CharacterBody2D    = $ChonkiCharacter
 @onready var sprite       : AnimatedSprite2D   = $ChonkiCharacter/AnimatedSprite2D
 
@@ -43,6 +44,9 @@ var is_running_sound_playing: bool = false
 signal chonki_landed_and_hearts_spawned
 
 func _ready() -> void:
+	if debug_start_marker:
+		global_position = debug_start_marker.global_position
+		
 	#sprite.play("sleep")
 	GlobalSignals.connect("player_hit", on_player_hit)
 	GlobalSignals.connect("win_game", on_win_game)
