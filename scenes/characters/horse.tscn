@@ -1,0 +1,37 @@
+[gd_scene load_steps=5 format=3 uid="uid://ccvw8kpjbne33"]
+
+[ext_resource type="Script" path="res://scenes/Horse.gd" id="1_yf1rx"]
+[ext_resource type="Texture2D" uid="uid://be33ir4qg1jms" path="res://assets/friends/horse/horse_buck.png" id="2_8cubg"]
+[ext_resource type="Texture2D" uid="uid://bnqhf5jhqkwgg" path="res://assets/friends/horse/horse.png" id="3_4u7cv"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_p650v"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_8cubg")
+}],
+"loop": true,
+"name": &"buck",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_4u7cv")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[node name="Horse" type="CharacterBody2D"]
+position = Vector2(3299, 3787)
+script = ExtResource("1_yf1rx")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+position = Vector2(258.602, -375.5)
+scale = Vector2(14.12, 14.12)
+sprite_frames = SubResource("SpriteFrames_p650v")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(-27405.4, 4188.5)
+polygon = PackedVector2Array(25144, -5082, 25960, -6434, 27296, -6402, 27401, -5055, 27412, -4782, 29106, -4782, 29027, -2472, 26412, -2419, 26165, -4303, 25249, -4298)
