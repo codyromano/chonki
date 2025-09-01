@@ -29,7 +29,7 @@ animations = [{
 size = Vector2(256.357, 278.789)
 
 [node name="Collectible" type="Node2D"]
-position = Vector2(-6757, 635)
+position = Vector2(329, 339)
 script = ExtResource("1_su7td")
 collectible_name = "star"
 audio = ExtResource("2_auneg")
@@ -37,12 +37,12 @@ audio = ExtResource("2_auneg")
 [node name="StaticBody2D2" type="Area2D" parent="."]
 
 [node name="AnimatedSprite" type="AnimatedSprite2D" parent="StaticBody2D2"]
-position = Vector2(6973.69, -406.381)
+position = Vector2(23.3135, -17.6904)
 scale = Vector2(0.499487, 0.499487)
 sprite_frames = SubResource("SpriteFrames_l0b0a")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2"]
-position = Vector2(6973, -413)
+position = Vector2(22.623, -24.3093)
 rotation = -0.267852
 shape = SubResource("RectangleShape2D_ge1oa")
 

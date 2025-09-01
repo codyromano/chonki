@@ -5,16 +5,29 @@
 
 [node name="InstructionalText" type="Control"]
 layout_mode = 3
-anchors_preset = 0
-offset_left = 1656.0
-offset_top = -2048.0
-offset_right = 3886.0
-offset_bottom = -2008.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -1115.0
+offset_top = -20.0
+offset_right = 1115.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 script = ExtResource("1_xdabv")
 metadata/_edit_use_anchors_ = true
 
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
-layout_mode = 0
+layout_mode = 1
+anchors_preset = -1
+anchor_left = -1.02377
+anchor_top = -9.1
+anchor_right = -1.02377
+anchor_bottom = -9.1
 offset_left = 2158.0
 offset_top = 226.0
 offset_right = 4819.0
@@ -23,7 +36,9 @@ metadata/_edit_use_anchors_ = true
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
 theme = ExtResource("1_cbhj3")
+alignment = 1
 
 [node name="InstructionalTextPanel" type="Panel" parent="VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(0, 450)
@@ -33,6 +48,7 @@ theme = ExtResource("1_cbhj3")
 
 [node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/InstructionalTextPanel"]
 layout_mode = 2
+anchor_right = -0.481022
 offset_left = 197.0
 offset_top = 96.0
 offset_right = 3808.0
@@ -41,6 +57,7 @@ theme = ExtResource("1_cbhj3")
 theme_type_variation = &"HeaderLarge"
 theme_override_font_sizes/font_size = 200
 text = "Press left or right to move"
+horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 metadata/_edit_use_anchors_ = true

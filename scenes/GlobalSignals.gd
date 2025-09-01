@@ -26,3 +26,4 @@ signal display_instructional_text(instructions_id: String)
 signal lever_status_changed(lever_name: String, is_on: bool)
 signal player_jump(intensity: float)
 signal horse_buck
+signal enter_little_free_library

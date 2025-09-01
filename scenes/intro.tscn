@@ -1,4 +1,4 @@
-[gd_scene load_steps=41 format=3 uid="uid://0jybnryjbe51"]
+[gd_scene load_steps=48 format=3 uid="uid://0jybnryjbe51"]
 
 [ext_resource type="Texture2D" uid="uid://cue46gcr7x6qj" path="res://assets/environment/barn/barn_wall.jpg" id="1_553eq"]
 [ext_resource type="Script" path="res://scenes/intro.gd" id="1_gdkj6"]
@@ -16,8 +16,12 @@
 [ext_resource type="PackedScene" uid="uid://dshggbjhf1bpj" path="res://scenes/composable/instruction_trigger.tscn" id="12_hq858"]
 [ext_resource type="PackedScene" uid="uid://cs71vpxi4b22q" path="res://scenes/composable/lever.tscn" id="13_50tjc"]
 [ext_resource type="Script" path="res://scenes/ForkLiftForks.gd" id="13_xew14"]
+[ext_resource type="PackedScene" uid="uid://bm55n82sfyn37" path="res://scenes/collectible.tscn" id="16_2ntw1"]
 [ext_resource type="Script" path="res://scenes/Trampoline.gd" id="16_u2n1w"]
 [ext_resource type="PackedScene" uid="uid://c7gf3p8xwuyah" path="res://scenes/composable/follower_moves_to_target.tscn" id="17_pk6v0"]
+[ext_resource type="Texture2D" uid="uid://b5656rpujvxxt" path="res://assets/collectibles/book.png" id="17_pqrx7"]
+[ext_resource type="Texture2D" uid="uid://4su6gdoiqxsm" path="res://assets/interactables/library.png" id="18_4ufn7"]
+[ext_resource type="Script" path="res://scenes/LittleFreeLibrary.gd" id="18_fq2xm"]
 [ext_resource type="Texture2D" uid="uid://kmb5e3d5wfww" path="res://assets/environment/barn/rope.png" id="19_cde4w"]
 [ext_resource type="Script" path="res://scenes/ElevatorSeatPathFollow.gd" id="19_weuwc"]
 [ext_resource type="Script" path="res://scenes/PathFollowWallBesideHorse.gd" id="21_utod2"]
@@ -41,6 +45,9 @@ size = Vector2(30679, 206.166)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rm3sp"]
 size = Vector2(6709.35, 306.851)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qqude"]
+size = Vector2(4471.25, 310.426)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7qoyi"]
 size = Vector2(10113.4, 306.851)
 
@@ -61,6 +68,28 @@ size = Vector2(20, 1.67627)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vph7a"]
 size = Vector2(1687.5, 170)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_iijpv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("17_pqrx7")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_07tae"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("18_4ufn7")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="Curve2D" id="Curve2D_c8q2i"]
 _data = {
@@ -164,6 +193,26 @@ color = Color(0.480342, 0.424905, 0.200685, 1)
 texture = ExtResource("1_553eq")
 texture_offset = Vector2(0, 200)
 polygon = PackedVector2Array(-49.2891, -201.494, 8564.8, -176.66, 8562.31, 93.7471, -67.5977, 92.8271)
+
+[node name="LibraryCeiling" type="StaticBody2D" parent="Environment/PhysicsBarriers/FloatWoods"]
+position = Vector2(32985, -7453)
+rotation = 0.544069
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/PhysicsBarriers/FloatWoods/LibraryCeiling"]
+z_index = 1
+position = Vector2(698.281, 166.055)
+scale = Vector2(0.870129, 0.870129)
+shape = SubResource("RectangleShape2D_qqude")
+
+[node name="Polygon2D" type="Polygon2D" parent="Environment/PhysicsBarriers/FloatWoods/LibraryCeiling"]
+z_index = 1
+position = Vector2(-1225.89, 219)
+scale = Vector2(0.457425, 1.00232)
+color = Color(0.480342, 0.424905, 0.200685, 1)
+texture = ExtResource("1_553eq")
+texture_offset = Vector2(0, 200)
+polygon = PackedVector2Array(-49.2891, -201.494, 8564.8, -176.66, 8223.31, -20.8633, 7417.82, 93.6251, -67.5977, 92.8271)
 
 [node name="Ceiling3" type="StaticBody2D" parent="Environment/PhysicsBarriers/FloatWoods"]
 position = Vector2(23458, -13438)
@@ -406,6 +455,16 @@ script = ExtResource("9_72lhp")
 content = "Press up to jump"
 id = "Jump"
 
+[node name="LittleFreeLibraryText" parent="CanvasLayer" instance=ExtResource("7_2gl52")]
+offset_left = 49927.5
+offset_top = 5779.0
+offset_right = 52157.5
+offset_bottom = 5819.0
+script = ExtResource("9_72lhp")
+content = "Press R to read"
+id = "LittleFreeLibrary"
+delay_until_fade_in = 0.0
+
 [node name="Items" type="Node2D" parent="." groups=["Items"]]
 
 [node name="ForkLift" type="Node2D" parent="Items"]
@@ -469,6 +528,60 @@ collision_mask = 65
 timer_duration = 20.0
 lever_name = "wall_near_horse_lever"
 
+[node name="StoryLetters" type="Node2D" parent="Items"]
+
+[node name="Letter1" parent="Items/StoryLetters" instance=ExtResource("16_2ntw1")]
+z_index = 1
+position = Vector2(-5409, -4514)
+scale = Vector2(2.16, 2.16)
+frames = SubResource("SpriteFrames_iijpv")
+collectible_name = "letter1"
+float_intensity = 150.0
+
+[node name="Letter2" parent="Items/StoryLetters" instance=ExtResource("16_2ntw1")]
+z_index = 1
+position = Vector2(-2971, -10426)
+scale = Vector2(2.16, 2.16)
+frames = SubResource("SpriteFrames_iijpv")
+collectible_name = "letter2"
+float_intensity = 150.0
+
+[node name="Letter3" parent="Items/StoryLetters" instance=ExtResource("16_2ntw1")]
+z_index = 1
+position = Vector2(18256, -6912)
+scale = Vector2(2.16, 2.16)
+frames = SubResource("SpriteFrames_iijpv")
+collectible_name = "letter3"
+float_intensity = 150.0
+
+[node name="Letter4" parent="Items/StoryLetters" instance=ExtResource("16_2ntw1")]
+z_index = 1
+position = Vector2(19990, -15550)
+scale = Vector2(2.16, 2.16)
+frames = SubResource("SpriteFrames_iijpv")
+collectible_name = "letter4"
+float_intensity = 150.0
+
+[node name="Letter5" parent="Items/StoryLetters" instance=ExtResource("16_2ntw1")]
+z_index = 1
+position = Vector2(30271, -9169)
+scale = Vector2(2.16, 2.16)
+frames = SubResource("SpriteFrames_iijpv")
+collectible_name = "letter4"
+float_intensity = 150.0
+
+[node name="LittleFreeLibrary" type="Area2D" parent="Items"]
+position = Vector2(34068, -4620)
+script = ExtResource("18_fq2xm")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Items/LittleFreeLibrary"]
+position = Vector2(-753.002, 368)
+scale = Vector2(7.57796, 7.57796)
+sprite_frames = SubResource("SpriteFrames_07tae")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Items/LittleFreeLibrary"]
+polygon = PackedVector2Array(62, -63, 81, -774, -771, -1289, -1745, -692, -1604, -485, -1560, 533, -1597, 1337, -1345, 2026, -723, 2140, -134, 2018, 14, 1278, 14, 504)
+
 [node name="InstructionTriggers" type="Node2D" parent="."]
 
 [node name="LeftOrRightTrigger" parent="InstructionTriggers" instance=ExtResource("12_hq858")]
@@ -477,15 +590,18 @@ lever_name = "wall_near_horse_lever"
 position = Vector2(4672, -252)
 instructions_id = "Jump"
 
+[node name="LittleFreeLibraryTrigger" parent="InstructionTriggers" instance=ExtResource("12_hq858")]
+position = Vector2(28195, -170)
+instructions_id = "LittleFreeLibrary"
+
 [node name="DebugPlayerStartMarker" type="Marker2D" parent="."]
-position = Vector2(-5455, -4699)
+position = Vector2(35748, -2515)
 
 [node name="ScriptedAnimationScenarios" type="Node2D" parent="."]
 
 [node name="ElevatorSeatPath2D" type="Path2D" parent="ScriptedAnimationScenarios"]
 position = Vector2(24025, -13573)
 rotation = -1.5682
-scale = Vector2(1, 1)
 curve = SubResource("Curve2D_c8q2i")
 
 [node name="ElevatorSeatPathFollow" type="PathFollow2D" parent="ScriptedAnimationScenarios/ElevatorSeatPath2D"]
@@ -498,7 +614,6 @@ movement_duration = 10.0
 [node name="ElevatorSeat" type="CharacterBody2D" parent="ScriptedAnimationScenarios/ElevatorSeatPath2D/ElevatorSeatPathFollow"]
 position = Vector2(-22.6721, 27.2772)
 rotation = 1.56596
-scale = Vector2(1, 1)
 collision_layer = 8
 platform_on_leave = 1
 
@@ -542,7 +657,6 @@ movement_duration = 20.0
 [node name="WallBesideHorse" type="StaticBody2D" parent="ScriptedAnimationScenarios/WallNearHorsePath2D/PathFollowWallBesideHorse"]
 position = Vector2(7965.03, 295.202)
 rotation = 3.11734
-scale = Vector2(1, 1)
 collision_layer = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ScriptedAnimationScenarios/WallNearHorsePath2D/PathFollowWallBesideHorse/WallBesideHorse"]
@@ -599,3 +713,5 @@ scale = Vector2(1.48002, 1.48002)
 shape = SubResource("CircleShape2D_rar7w")
 
 [connection signal="body_entered" from="Items/Trampoline" to="Items/Trampoline" method="_on_body_entered"]
+[connection signal="body_entered" from="Items/LittleFreeLibrary" to="Items/LittleFreeLibrary" method="_on_body_entered"]
+[connection signal="body_exited" from="Items/LittleFreeLibrary" to="Items/LittleFreeLibrary" method="_on_body_exited"]
