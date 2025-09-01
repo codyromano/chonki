@@ -1,4 +1,4 @@
-[gd_scene load_steps=36 format=3 uid="uid://0jybnryjbe51"]
+[gd_scene load_steps=41 format=3 uid="uid://0jybnryjbe51"]
 
 [ext_resource type="Texture2D" uid="uid://cue46gcr7x6qj" path="res://assets/environment/barn/barn_wall.jpg" id="1_553eq"]
 [ext_resource type="Script" path="res://scenes/intro.gd" id="1_gdkj6"]
@@ -20,6 +20,7 @@
 [ext_resource type="PackedScene" uid="uid://c7gf3p8xwuyah" path="res://scenes/composable/follower_moves_to_target.tscn" id="17_pk6v0"]
 [ext_resource type="Texture2D" uid="uid://kmb5e3d5wfww" path="res://assets/environment/barn/rope.png" id="19_cde4w"]
 [ext_resource type="Script" path="res://scenes/ElevatorSeatPathFollow.gd" id="19_weuwc"]
+[ext_resource type="Script" path="res://scenes/PathFollowWallBesideHorse.gd" id="21_utod2"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ed647"]
 distance = -500.0
@@ -37,8 +38,14 @@ size = Vector2(1525, 231)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_y34ug"]
 size = Vector2(30679, 206.166)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rm3sp"]
+size = Vector2(6709.35, 306.851)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_7qoyi"]
+size = Vector2(10113.4, 306.851)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a7ytl"]
-size = Vector2(7456.36, 306.851)
+size = Vector2(7087.46, 306.851)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c0tnm"]
 size = Vector2(1244, 231)
@@ -55,6 +62,24 @@ size = Vector2(20, 1.67627)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vph7a"]
 size = Vector2(1687.5, 170)
 
+[sub_resource type="Curve2D" id="Curve2D_c8q2i"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -834.474, -4033.85, 0, 0, 0, 0, 27.2847, -26852.2, 0, 0, 0, 0, -8081.07, -26592.1)
+}
+point_count = 3
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_3cr5w"]
+size = Vector2(1805.82, 217.068)
+
+[sub_resource type="Curve2D" id="Curve2D_rulo6"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 31515, -1448, 0, 0, 0, 0, 31311, -12555)
+}
+point_count = 2
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a3fuc"]
+size = Vector2(13137.2, 406.926)
+
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_n5sh2"]
 vertices = PackedVector2Array(16885, 1839, -9960, 1996, -9996, -228, 16844, -338)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
@@ -67,15 +92,6 @@ bounce = 0.5
 [sub_resource type="CircleShape2D" id="CircleShape2D_rar7w"]
 radius = 310.04
 
-[sub_resource type="Curve2D" id="Curve2D_c8q2i"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, 4.62939, -1299.02, 0, 0, 0, 0, 27.2847, -26852.2, 0, 0, 0, 0, -8081.07, -26592.1)
-}
-point_count = 3
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_3cr5w"]
-size = Vector2(1805.82, 217.068)
-
 [node name="Intro" type="Node2D"]
 position = Vector2(17591, 8163)
 script = ExtResource("1_gdkj6")
@@ -86,14 +102,14 @@ position = Vector2(-65, 502)
 [node name="PhysicsBarriers" type="Node2D" parent="Environment"]
 
 [node name="Ground" type="StaticBody2D" parent="Environment/PhysicsBarriers"]
-position = Vector2(155, -2686)
+position = Vector2(155, -4392)
 scale = Vector2(10, 10)
-collision_layer = 15
-collision_mask = 255
+collision_layer = 8
+collision_mask = 251
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/PhysicsBarriers/Ground"]
 z_index = 100
-position = Vector2(317, -500)
+position = Vector2(283, -327.9)
 shape = SubResource("WorldBoundaryShape2D_ed647")
 debug_color = Color(0.307035, 0.494072, 1, 0.42)
 
@@ -136,9 +152,9 @@ collision_layer = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/PhysicsBarriers/FloatWoods/Ceiling2"]
 z_index = 1
-position = Vector2(1668, 164.5)
+position = Vector2(1672, 164.5)
 scale = Vector2(0.870129, 0.870129)
-shape = SubResource("RectangleShape2D_a7ytl")
+shape = SubResource("RectangleShape2D_rm3sp")
 
 [node name="Polygon2D" type="Polygon2D" parent="Environment/PhysicsBarriers/FloatWoods/Ceiling2"]
 z_index = 1
@@ -148,6 +164,25 @@ color = Color(0.480342, 0.424905, 0.200685, 1)
 texture = ExtResource("1_553eq")
 texture_offset = Vector2(0, 200)
 polygon = PackedVector2Array(-49.2891, -201.494, 8564.8, -176.66, 8562.31, 93.7471, -67.5977, 92.8271)
+
+[node name="Ceiling3" type="StaticBody2D" parent="Environment/PhysicsBarriers/FloatWoods"]
+position = Vector2(23458, -13438)
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/PhysicsBarriers/FloatWoods/Ceiling3"]
+z_index = 1
+position = Vector2(3740, 147)
+scale = Vector2(0.870129, 0.870129)
+shape = SubResource("RectangleShape2D_7qoyi")
+
+[node name="Polygon2D" type="Polygon2D" parent="Environment/PhysicsBarriers/FloatWoods/Ceiling3"]
+z_index = 1
+position = Vector2(-594.241, 219)
+scale = Vector2(0.632534, 1.00232)
+color = Color(0.480342, 0.424905, 0.200685, 1)
+texture = ExtResource("1_553eq")
+texture_offset = Vector2(0, 200)
+polygon = PackedVector2Array(-49.2891, -201.494, 13634.4, -209.514, 13609.4, 95.7778, -67.5977, 92.8271)
 
 [node name="Ceiling4" type="StaticBody2D" parent="Environment/PhysicsBarriers/FloatWoods"]
 position = Vector2(-9460, -10103)
@@ -319,10 +354,11 @@ texture_offset = Vector2(0, 3750)
 texture_scale = Vector2(0.25, 0.25)
 polygon = PackedVector2Array(-10844.7, 336.809, 34709.7, 280.225, 34540.1, -2828.3, -10918.7, -2722.32)
 
-[node name="Chonki" parent="." instance=ExtResource("3_meeps")]
+[node name="Chonki" parent="." node_paths=PackedStringArray("debug_start_marker") instance=ExtResource("3_meeps")]
 z_index = 5
 position = Vector2(5113, -3086)
 scale = Vector2(1.76, 1.76)
+debug_start_marker = NodePath("../DebugPlayerStartMarker")
 heart_texture = ExtResource("4_ee0bn")
 jump_multiplier = 1.25
 
@@ -405,8 +441,9 @@ scale = Vector2(119.454, 119.454)
 shape = SubResource("RectangleShape2D_ih5xv")
 
 [node name="Lever" parent="Items" instance=ExtResource("13_50tjc")]
-position = Vector2(2771, 8)
-collision_mask = 17
+position = Vector2(-5235, -2487)
+collision_layer = 32
+collision_mask = 65
 timer_duration = 2.0
 lever_name = "fork_lift_lever"
 
@@ -420,9 +457,17 @@ position = Vector2(-135.75, 715)
 shape = SubResource("RectangleShape2D_vph7a")
 
 [node name="Lever2" parent="Items" instance=ExtResource("13_50tjc")]
-position = Vector2(28838, -7958)
+position = Vector2(22973, -10783)
+collision_layer = 32
 timer_duration = 10.0
 lever_name = "elevator_seat_lever"
+
+[node name="Lever3" parent="Items" instance=ExtResource("13_50tjc")]
+position = Vector2(38292, -2500)
+collision_layer = 32
+collision_mask = 65
+timer_duration = 20.0
+lever_name = "wall_near_horse_lever"
 
 [node name="InstructionTriggers" type="Node2D" parent="."]
 
@@ -432,71 +477,39 @@ lever_name = "elevator_seat_lever"
 position = Vector2(4672, -252)
 instructions_id = "Jump"
 
-[node name="DogChaseHayBall" type="NavigationRegion2D" parent="."]
-position = Vector2(1075, -3084)
-navigation_polygon = SubResource("NavigationPolygon_n5sh2")
-
-[node name="FollowerMovesToTarget" parent="DogChaseHayBall" node_paths=PackedStringArray("follower", "target") instance=ExtResource("17_pk6v0")]
-follower = NodePath("../ChaseDog")
-target = NodePath("../HayBall")
-speed = 2000
-desired_distance = 1000.0
-
-[node name="ChaseDog" parent="DogChaseHayBall" instance=ExtResource("5_c0o7x")]
-z_index = 3
-position = Vector2(7154, -268)
-is_flipped = true
-
-[node name="HayBall" type="RigidBody2D" parent="DogChaseHayBall"]
-unique_name_in_owner = true
-z_index = 3
-position = Vector2(-5053, -2794)
-collision_layer = 4
-collision_mask = 5
-mass = 0.5
-physics_material_override = SubResource("PhysicsMaterial_xtrc5")
-gravity_scale = 3.0
-
-[node name="Sprite2D" type="Sprite2D" parent="DogChaseHayBall/HayBall"]
-position = Vector2(13.9922, -25.1375)
-scale = Vector2(2.71997, 2.75545)
-texture = ExtResource("9_hvagn")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="DogChaseHayBall/HayBall"]
-position = Vector2(9.99121, -17.137)
-scale = Vector2(1.48002, 1.48002)
-shape = SubResource("CircleShape2D_rar7w")
-
 [node name="DebugPlayerStartMarker" type="Marker2D" parent="."]
-position = Vector2(25148, -11111)
+position = Vector2(-5455, -4699)
 
-[node name="Path2D" type="Path2D" parent="."]
+[node name="ScriptedAnimationScenarios" type="Node2D" parent="."]
+
+[node name="ElevatorSeatPath2D" type="Path2D" parent="ScriptedAnimationScenarios"]
 position = Vector2(24025, -13573)
 rotation = -1.5682
 scale = Vector2(1, 1)
 curve = SubResource("Curve2D_c8q2i")
 
-[node name="ElevatorSeatPathFollow" type="PathFollow2D" parent="Path2D"]
-position = Vector2(4.62939, -1299.02)
+[node name="ElevatorSeatPathFollow" type="PathFollow2D" parent="ScriptedAnimationScenarios/ElevatorSeatPath2D"]
+position = Vector2(-834.474, -4033.85)
 rotation = 4.72397
 rotates = false
 script = ExtResource("19_weuwc")
 movement_duration = 10.0
 
-[node name="ElevatorSeat" type="StaticBody2D" parent="Path2D/ElevatorSeatPathFollow"]
+[node name="ElevatorSeat" type="CharacterBody2D" parent="ScriptedAnimationScenarios/ElevatorSeatPath2D/ElevatorSeatPathFollow"]
 position = Vector2(-22.6721, 27.2772)
 rotation = 1.56596
 scale = Vector2(1, 1)
 collision_layer = 8
+platform_on_leave = 1
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Path2D/ElevatorSeatPathFollow/ElevatorSeat"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ScriptedAnimationScenarios/ElevatorSeatPath2D/ElevatorSeatPathFollow/ElevatorSeat"]
 z_index = 1
 position = Vector2(-9.73198, -4.67688)
 rotation = 1.57158
 scale = Vector2(0.87013, 0.87013)
 shape = SubResource("RectangleShape2D_3cr5w")
 
-[node name="Polygon2D" type="Polygon2D" parent="Path2D/ElevatorSeatPathFollow/ElevatorSeat"]
+[node name="Polygon2D" type="Polygon2D" parent="ScriptedAnimationScenarios/ElevatorSeatPath2D/ElevatorSeatPathFollow/ElevatorSeat"]
 z_index = 1
 position = Vector2(-46.6559, -776.071)
 rotation = 1.56505
@@ -506,7 +519,7 @@ texture = ExtResource("1_553eq")
 texture_offset = Vector2(0, 200)
 polygon = PackedVector2Array(-49.2891, -201.494, 3902.88, -204.418, 3899.82, -49.075, 3896.71, 108.867, -67.5977, 92.8271)
 
-[node name="Rope" type="Polygon2D" parent="Path2D/ElevatorSeatPathFollow/ElevatorSeat"]
+[node name="Rope" type="Polygon2D" parent="ScriptedAnimationScenarios/ElevatorSeatPath2D/ElevatorSeatPathFollow/ElevatorSeat"]
 z_index = 1
 texture_repeat = 2
 position = Vector2(-278.781, -1918.28)
@@ -515,5 +528,74 @@ texture = ExtResource("19_cde4w")
 texture_offset = Vector2(500, 0)
 texture_rotation = 1.5708
 polygon = PackedVector2Array(86.217, 428.46, 4268.3, 444.835, 4275.26, 503.418, 91.5259, 506.5)
+
+[node name="WallNearHorsePath2D" type="Path2D" parent="ScriptedAnimationScenarios"]
+curve = SubResource("Curve2D_rulo6")
+
+[node name="PathFollowWallBesideHorse" type="PathFollow2D" parent="ScriptedAnimationScenarios/WallNearHorsePath2D"]
+position = Vector2(31515, -1448)
+rotation = -1.5707
+rotates = false
+script = ExtResource("21_utod2")
+movement_duration = 20.0
+
+[node name="WallBesideHorse" type="StaticBody2D" parent="ScriptedAnimationScenarios/WallNearHorsePath2D/PathFollowWallBesideHorse"]
+position = Vector2(7965.03, 295.202)
+rotation = 3.11734
+scale = Vector2(1, 1)
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ScriptedAnimationScenarios/WallNearHorsePath2D/PathFollowWallBesideHorse/WallBesideHorse"]
+z_index = 1
+position = Vector2(2281.68, 208.039)
+scale = Vector2(0.870129, 0.870129)
+shape = SubResource("RectangleShape2D_a3fuc")
+
+[node name="Polygon2D" type="Polygon2D" parent="ScriptedAnimationScenarios/WallNearHorsePath2D/PathFollowWallBesideHorse/WallBesideHorse"]
+z_index = 1
+position = Vector2(-3429.58, 219)
+rotation = 0.007998
+scale = Vector2(0.840488, 1.00232)
+color = Color(0.480342, 0.424905, 0.200685, 1)
+texture = ExtResource("1_553eq")
+texture_offset = Vector2(0, 200)
+polygon = PackedVector2Array(-49.2891, -201.494, 13634.4, -209.514, 13609.4, 95.7778, -67.5977, 92.8271)
+
+[node name="DogChaseHayBall" type="NavigationRegion2D" parent="ScriptedAnimationScenarios"]
+position = Vector2(1075, -3084)
+navigation_polygon = SubResource("NavigationPolygon_n5sh2")
+
+[node name="FollowerMovesToTarget" parent="ScriptedAnimationScenarios/DogChaseHayBall" node_paths=PackedStringArray("follower", "target") instance=ExtResource("17_pk6v0")]
+follower = NodePath("../ChaseDog")
+target = NodePath("../HayBall")
+speed = 2000
+desired_distance = 1000.0
+
+[node name="ChaseDog" parent="ScriptedAnimationScenarios/DogChaseHayBall" instance=ExtResource("5_c0o7x")]
+z_index = 3
+position = Vector2(7154, -268)
+collision_layer = 64
+collision_mask = 40
+is_flipped = true
+
+[node name="HayBall" type="RigidBody2D" parent="ScriptedAnimationScenarios/DogChaseHayBall"]
+unique_name_in_owner = true
+z_index = 3
+position = Vector2(-5053, -2794)
+collision_layer = 6
+collision_mask = 13
+mass = 0.5
+physics_material_override = SubResource("PhysicsMaterial_xtrc5")
+gravity_scale = 3.0
+
+[node name="Sprite2D" type="Sprite2D" parent="ScriptedAnimationScenarios/DogChaseHayBall/HayBall"]
+position = Vector2(13.9922, -25.1375)
+scale = Vector2(2.71997, 2.75545)
+texture = ExtResource("9_hvagn")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ScriptedAnimationScenarios/DogChaseHayBall/HayBall"]
+position = Vector2(9.99121, -17.137)
+scale = Vector2(1.48002, 1.48002)
+shape = SubResource("CircleShape2D_rar7w")
 
 [connection signal="body_entered" from="Items/Trampoline" to="Items/Trampoline" method="_on_body_entered"]

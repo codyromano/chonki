@@ -29,15 +29,17 @@ animations = [{
 size = Vector2(20, 33.7319)
 
 [node name="Lever" type="Area2D"]
+position = Vector2(374, 463)
+collision_layer = 4
 script = ExtResource("1_tbat4")
 
 [node name="LeverSprite" type="AnimatedSprite2D" parent="."]
-position = Vector2(-6124, -2843)
+position = Vector2(15.0024, 4.00244)
 scale = Vector2(1.80001, 1.80001)
 sprite_frames = SubResource("SpriteFrames_2iqb0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-6090, -2875.66)
+position = Vector2(49.0024, -28.6575)
 scale = Vector2(30.1556, -21.0687)
 shape = SubResource("RectangleShape2D_3gfrd")
 

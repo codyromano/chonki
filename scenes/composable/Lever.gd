@@ -19,8 +19,10 @@ func _process(_delta):
 		$Timer.stop()
 		$LeverTick.stop()
 
-func _on_body_entered(_body):
+func _on_body_entered(body):
 	$LeverPull.play()
+	print("triggered lever " + lever_name + ": " + body.name)
+	
 	is_on = !is_on
 	GlobalSignals.lever_status_changed.emit(lever_name, is_on)
 	
