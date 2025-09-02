@@ -1,4 +1,4 @@
-[gd_scene load_steps=48 format=3 uid="uid://0jybnryjbe51"]
+[gd_scene load_steps=49 format=3 uid="uid://0jybnryjbe51"]
 
 [ext_resource type="Texture2D" uid="uid://cue46gcr7x6qj" path="res://assets/environment/barn/barn_wall.jpg" id="1_553eq"]
 [ext_resource type="Script" path="res://scenes/intro.gd" id="1_gdkj6"]
@@ -25,6 +25,7 @@
 [ext_resource type="Texture2D" uid="uid://kmb5e3d5wfww" path="res://assets/environment/barn/rope.png" id="19_cde4w"]
 [ext_resource type="Script" path="res://scenes/ElevatorSeatPathFollow.gd" id="19_weuwc"]
 [ext_resource type="Script" path="res://scenes/PathFollowWallBesideHorse.gd" id="21_utod2"]
+[ext_resource type="Script" path="res://scripts/scene_transition_controller.gd" id="26_3mjik"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ed647"]
 distance = -500.0
@@ -403,11 +404,10 @@ texture_offset = Vector2(0, 3750)
 texture_scale = Vector2(0.25, 0.25)
 polygon = PackedVector2Array(-10844.7, 336.809, 34709.7, 280.225, 34540.1, -2828.3, -10918.7, -2722.32)
 
-[node name="Chonki" parent="." node_paths=PackedStringArray("debug_start_marker") instance=ExtResource("3_meeps")]
+[node name="Chonki" parent="." instance=ExtResource("3_meeps")]
 z_index = 5
 position = Vector2(5113, -3086)
 scale = Vector2(1.76, 1.76)
-debug_start_marker = NodePath("../DebugPlayerStartMarker")
 heart_texture = ExtResource("4_ee0bn")
 jump_multiplier = 1.25
 
@@ -711,6 +711,9 @@ texture = ExtResource("9_hvagn")
 position = Vector2(9.99121, -17.137)
 scale = Vector2(1.48002, 1.48002)
 shape = SubResource("CircleShape2D_rar7w")
+
+[node name="SceneTransitionController" type="Node2D" parent="."]
+script = ExtResource("26_3mjik")
 
 [connection signal="body_entered" from="Items/Trampoline" to="Items/Trampoline" method="_on_body_entered"]
 [connection signal="body_entered" from="Items/LittleFreeLibrary" to="Items/LittleFreeLibrary" method="_on_body_entered"]

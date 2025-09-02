@@ -25,6 +25,7 @@ GameState="*res://scripts/GameState.gd"
 FloatingHeartsManager="*res://FloatingHeartsManager.gd"
 AnimationConstantsFile="*res://scripts/AnimationConstants.gd"
 PlayerMovementController="*res://scenes/PlayerMovementController.gd"
+SceneTransitionController="*res://scripts/scene_transition_controller.gd"
 
 [display]
 
