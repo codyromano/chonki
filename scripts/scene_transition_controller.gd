@@ -38,7 +38,7 @@ func setup_overlay_size():
 		var viewport_size = get_viewport().get_visible_rect().size
 		fade_overlay.size = viewport_size
 		fade_overlay.position = Vector2.ZERO
-		print("Overlay setup complete - Size: ", fade_overlay.size, " Alpha: ", fade_overlay.color.a)
+		print("Overlay setup complete - Size: ", fade_overlay.size)
 
 func _on_enter_little_free_library():
 	print("Enter little free library signal received")
@@ -49,18 +49,20 @@ func fade_to_black():
 		print("Error: fade_overlay is null!")
 		return
 		
-	print("Starting fade to black - Current alpha: ", fade_overlay.color.a)
+	print("Starting fade to black")
 	
 	if tween:
 		tween.kill()
 	
 	tween = create_tween()
-	tween.tween_property(fade_overlay, "color:a", 1.0, enter_library_fade_duration)  # Fade to black over 3 seconds
+	tween.tween_property(fade_overlay, "color:a", 1.0, 3.0)  # Fade to black over 3 seconds
 	tween.tween_callback(_on_fade_complete)
 
 func _on_fade_complete():
-	print("Fade to black complete - Final alpha: ", fade_overlay.color.a if fade_overlay else "overlay is null")
+	print("Fade to black complete - loading little free library scene")
+	# Load the little free library scene
+	get_tree().change_scene_to_file("res://scenes/little_free_library.tscn")
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	pass

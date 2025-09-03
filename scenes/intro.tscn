@@ -1,4 +1,4 @@
-[gd_scene load_steps=49 format=3 uid="uid://0jybnryjbe51"]
+[gd_scene load_steps=51 format=3 uid="uid://0jybnryjbe51"]
 
 [ext_resource type="Texture2D" uid="uid://cue46gcr7x6qj" path="res://assets/environment/barn/barn_wall.jpg" id="1_553eq"]
 [ext_resource type="Script" path="res://scenes/intro.gd" id="1_gdkj6"]
@@ -24,6 +24,8 @@
 [ext_resource type="Script" path="res://scenes/LittleFreeLibrary.gd" id="18_fq2xm"]
 [ext_resource type="Texture2D" uid="uid://kmb5e3d5wfww" path="res://assets/environment/barn/rope.png" id="19_cde4w"]
 [ext_resource type="Script" path="res://scenes/ElevatorSeatPathFollow.gd" id="19_weuwc"]
+[ext_resource type="Texture2D" uid="uid://d3kktwx4c1h8h" path="res://assets/interactables/library_open.png" id="20_vbvn7"]
+[ext_resource type="AudioStream" uid="uid://c4pq71yiir21k" path="res://assets/sound/library_open.mp3" id="21_rb10m"]
 [ext_resource type="Script" path="res://scenes/PathFollowWallBesideHorse.gd" id="21_utod2"]
 [ext_resource type="Script" path="res://scripts/scene_transition_controller.gd" id="26_3mjik"]
 
@@ -89,6 +91,14 @@ animations = [{
 }],
 "loop": true,
 "name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("20_vbvn7")
+}],
+"loop": true,
+"name": &"open",
 "speed": 5.0
 }]
 
@@ -435,6 +445,7 @@ position = Vector2(2411, -3512)
 position = Vector2(28870, -4201)
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+visible = false
 follow_viewport_enabled = true
 
 [node name="LeftOrRightText" parent="CanvasLayer" instance=ExtResource("7_2gl52")]
@@ -575,12 +586,15 @@ position = Vector2(34068, -4620)
 script = ExtResource("18_fq2xm")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Items/LittleFreeLibrary"]
-position = Vector2(-753.002, 368)
-scale = Vector2(7.57796, 7.57796)
+position = Vector2(-753.002, 443.806)
+scale = Vector2(7.57796, 7.83065)
 sprite_frames = SubResource("SpriteFrames_07tae")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Items/LittleFreeLibrary"]
 polygon = PackedVector2Array(62, -63, 81, -774, -771, -1289, -1745, -692, -1604, -485, -1560, 533, -1597, 1337, -1345, 2026, -723, 2140, -134, 2018, 14, 1278, 14, 504)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Items/LittleFreeLibrary"]
+stream = ExtResource("21_rb10m")
 
 [node name="InstructionTriggers" type="Node2D" parent="."]
 
@@ -595,7 +609,7 @@ position = Vector2(28195, -170)
 instructions_id = "LittleFreeLibrary"
 
 [node name="DebugPlayerStartMarker" type="Marker2D" parent="."]
-position = Vector2(35748, -2515)
+position = Vector2(33872, -8767)
 
 [node name="ScriptedAnimationScenarios" type="Node2D" parent="."]
 

@@ -48,6 +48,7 @@ theme = ExtResource("1_cbhj3")
 
 [node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/InstructionalTextPanel"]
 layout_mode = 2
+anchor_left = -0.481022
 anchor_right = -0.481022
 offset_left = 197.0
 offset_top = 96.0

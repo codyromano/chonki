@@ -4,12 +4,15 @@ var is_standing_at_library: bool = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
+	$AnimatedSprite2D.play(
+		"open" if is_standing_at_library else "default"
+	)
 	if Input.is_action_just_pressed("read"):
-		print("press read")
 		GlobalSignals.enter_little_free_library.emit()
 
 func _on_body_entered(body):
 	if body.name == 'ChonkiCharacter':
+		$AudioStreamPlayer.play()
 		is_standing_at_library = true
 
 

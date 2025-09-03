@@ -1,0 +1,74 @@
+[gd_scene load_steps=6 format=3 uid="uid://dp3yga0d2a1m6"]
+
+[ext_resource type="Script" path="res://scenes/little_free_library.gd" id="1_axak0"]
+[ext_resource type="Texture2D" uid="uid://b7hibh4qqs132" path="res://assets/textures/little-free-library.jpg" id="1_ok28r"]
+[ext_resource type="Theme" uid="uid://dte5an7k6hog1" path="res://themes/base.tres" id="1_uuxfa"]
+[ext_resource type="Script" path="res://scenes/GusPatternTextureRec.gd" id="2_awbmx"]
+[ext_resource type="Script" path="res://scenes/SelectedLettersLabel.gd" id="5_g281h"]
+
+[node name="LittleFreeLibrary" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+script = ExtResource("1_axak0")
+win_word = "adopt"
+
+[node name="BackgroundTextureMarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -83.1667
+offset_right = 83.1667
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="GusPatternTextureRec" type="TextureRect" parent="BackgroundTextureMarginContainer"]
+texture_repeat = 2
+layout_mode = 2
+texture = ExtResource("1_ok28r")
+expand_mode = 3
+stretch_mode = 1
+script = ExtResource("2_awbmx")
+scroll_speed = Vector2(0.01, 0.01)
+
+[node name="AnagramMarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="AnagramResultDisplay" type="VBoxContainer" parent="AnagramMarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 25
+alignment = 1
+
+[node name="Label" type="Label" parent="AnagramMarginContainer/AnagramResultDisplay"]
+layout_mode = 2
+theme = ExtResource("1_uuxfa")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "Spell a word, discover a story"
+horizontal_alignment = 1
+
+[node name="SelectedLettersLabel" type="Label" parent="AnagramMarginContainer/AnagramResultDisplay"]
+layout_mode = 2
+theme = ExtResource("1_uuxfa")
+text = "_ _ _ _ _"
+horizontal_alignment = 1
+script = ExtResource("5_g281h")
+
+[node name="Separator" type="Control" parent="AnagramMarginContainer/AnagramResultDisplay"]
+layout_mode = 2
+
+[node name="SelectLettersButtonContainer" type="HBoxContainer" parent="AnagramMarginContainer/AnagramResultDisplay"]
+layout_mode = 2
+theme_override_constants/separation = 50
+alignment = 1

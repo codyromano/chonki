@@ -1,0 +1,13 @@
+[gd_scene load_steps=3 format=3 uid="uid://dl8yj77jxk1cn"]
+
+[ext_resource type="Theme" uid="uid://dte5an7k6hog1" path="res://themes/base.tres" id="1_sgg46"]
+[ext_resource type="Script" path="res://scenes/select_letter_button.gd" id="2_7s2w6"]
+
+[node name="Button1" type="Button"]
+custom_minimum_size = Vector2(75, 0)
+theme = ExtResource("1_sgg46")
+action_mode = 0
+text = "T"
+script = ExtResource("2_7s2w6")
+
+[connection signal="button_down" from="." to="." method="_on_button_down"]

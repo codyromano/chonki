@@ -1,5 +1,7 @@
-.DS_Store
+# Hide Mac shit
 **/.DS_Store
+.DS_Store
+*/.DS_Store
 
 # Godot 4+ specific ignores
 .godot/
@@ -21,3 +23,4 @@ mono_crash.*.json
 build/
 # Ignore build zip archives
 build.zip
+

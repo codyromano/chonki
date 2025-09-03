@@ -27,3 +27,4 @@ signal lever_status_changed(lever_name: String, is_on: bool)
 signal player_jump(intensity: float)
 signal horse_buck
 signal enter_little_free_library
+signal on_data_button_selected(button_id: String, data: String)
