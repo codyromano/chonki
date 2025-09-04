@@ -24,7 +24,7 @@ metadata/_edit_use_anchors_ = true
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = -1.02377
+anchor_left = -1.42332
 anchor_top = -9.1
 anchor_right = -1.02377
 anchor_bottom = -9.1
@@ -48,8 +48,10 @@ theme = ExtResource("1_cbhj3")
 
 [node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/InstructionalTextPanel"]
 layout_mode = 2
-anchor_left = -0.481022
-anchor_right = -0.481022
+anchor_left = -0.0222473
+anchor_top = 0.028
+anchor_right = -0.105604
+anchor_bottom = 0.028
 offset_left = 197.0
 offset_top = 96.0
 offset_right = 3808.0
