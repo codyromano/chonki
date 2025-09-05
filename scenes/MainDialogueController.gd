@@ -11,9 +11,13 @@ var is_ready: bool = false
 
 
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_WHEN_PAUSED
+	canvas_layer.process_mode = Node.PROCESS_MODE_ALWAYS
+
 	GlobalSignals.queue_main_dialogue.connect(_on_dialogue_queued)
 	GlobalSignals.dismiss_active_main_dialogue.connect(_on_dismiss_active_dialogue)
 
+	await get_tree().create_timer(2.0).timeout
 	_on_dialogue_queued("*Yawn* That was a long nap!")
 	_on_dialogue_queued("Today is a big day! I'd better find a way out of this barn...")
 
@@ -40,10 +44,12 @@ func _process_queue() -> void:
 		rendered_dialogue = null
 
 	if dialogue_queue.is_empty():
+		get_tree().paused = false
 		return
 
 	var next_dialogue = dialogue_queue.pop_front()
 	rendered_dialogue = _create_dialogue(next_dialogue)
+	get_tree().paused = true
 
 
 func _on_dialogue_queued(dialogue: String) -> void:

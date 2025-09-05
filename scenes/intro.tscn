@@ -604,16 +604,9 @@ stream = ExtResource("21_rb10m")
 
 [node name="InstructionTriggers" type="Node2D" parent="."]
 
-[node name="LeftOrRightTrigger" parent="InstructionTriggers" instance=ExtResource("12_hq858")]
-position = Vector2(-138, -44)
-
-[node name="JumpTrigger" parent="InstructionTriggers" instance=ExtResource("12_hq858")]
-position = Vector2(4672, -252)
-instructions_id = "Jump"
-
-[node name="LittleFreeLibraryTrigger" parent="InstructionTriggers" instance=ExtResource("12_hq858")]
-position = Vector2(28195, -170)
-instructions_id = "LittleFreeLibrary"
+[node name="IntroToBooksTrigger" parent="InstructionTriggers" instance=ExtResource("12_hq858")]
+position = Vector2(-10530, -2215)
+dialogue = "Hmm. Maybe the books will explain how I got here."
 
 [node name="DebugPlayerStartMarker" type="Marker2D" parent="."]
 position = Vector2(33872, -8767)
