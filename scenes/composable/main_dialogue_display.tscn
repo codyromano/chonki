@@ -1,0 +1,71 @@
+[gd_scene load_steps=11 format=3 uid="uid://c7l0kuusfunc6"]
+
+[ext_resource type="FontFile" uid="uid://dlfbvpauldaco" path="res://fonts/Sniglet-Regular.ttf" id="1_1qjv2"]
+[ext_resource type="Script" path="res://scenes/MainDialogueDisplay.gd" id="2_5cqqh"]
+[ext_resource type="StyleBox" uid="uid://gt8qeik7gjdp" path="res://themes/button_focus.tres" id="2_n08dc"]
+[ext_resource type="Script" path="res://scenes/TypewriterReveal.gd" id="3_2piwl"]
+[ext_resource type="StyleBox" uid="uid://d34fpnq2ua283" path="res://themes/button.tres" id="3_rn33i"]
+[ext_resource type="AudioStream" uid="uid://bv0vrph4s1t0m" path="res://assets/sound/pen_writing.mp3" id="4_88m0i"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rf6ka"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k6j0c"]
+bg_color = Color(1, 1, 1, 0)
+
+[sub_resource type="Theme" id="Theme_o4ulm"]
+Button/colors/font_color = Color(0.23212, 0.23212, 0.23212, 1)
+Button/fonts/font = ExtResource("1_1qjv2")
+Button/styles/focus = ExtResource("2_n08dc")
+Button/styles/hover = ExtResource("3_rn33i")
+Button/styles/normal = ExtResource("3_rn33i")
+Button/styles/pressed = ExtResource("3_rn33i")
+HBoxContainer/constants/separation = 4
+Label/colors/font_color = Color(0.129558, 0.129558, 0.129558, 1)
+Label/font_sizes/font_size = 50
+Label/fonts/font = ExtResource("1_1qjv2")
+Label/styles/normal = SubResource("StyleBoxTexture_rf6ka")
+Panel/styles/panel = null
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_k6j0c")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tawo2"]
+bg_color = Color(0.945098, 0.737255, 0.427451, 1)
+border_width_left = 16
+border_width_top = 16
+border_width_right = 16
+border_width_bottom = 16
+border_color = Color(0.253843, 0.253843, 0.253843, 1)
+corner_radius_top_left = 16
+corner_radius_top_right = 16
+corner_radius_bottom_right = 16
+corner_radius_bottom_left = 16
+expand_margin_left = 16.0
+expand_margin_top = 16.0
+expand_margin_right = 16.0
+expand_margin_bottom = 16.0
+
+[node name="MainDialogueDisplay" type="PanelContainer"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -95.5
+offset_right = 300.0
+offset_bottom = 95.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = SubResource("Theme_o4ulm")
+script = ExtResource("2_5cqqh")
+
+[node name="TypewriterReveal" type="Label" parent="."]
+layout_mode = 2
+theme = SubResource("Theme_o4ulm")
+theme_override_font_sizes/font_size = 40
+theme_override_styles/normal = SubResource("StyleBoxFlat_tawo2")
+horizontal_alignment = 1
+autowrap_mode = 2
+script = ExtResource("3_2piwl")
+
+[node name="PenWritingSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_88m0i")

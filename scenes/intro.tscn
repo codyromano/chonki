@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://0jybnryjbe51"]
+[gd_scene load_steps=52 format=3 uid="uid://0jybnryjbe51"]
 
 [ext_resource type="Texture2D" uid="uid://cue46gcr7x6qj" path="res://assets/environment/barn/barn_wall.jpg" id="1_553eq"]
 [ext_resource type="Script" path="res://scenes/intro.gd" id="1_gdkj6"]
@@ -9,11 +9,11 @@
 [ext_resource type="PackedScene" uid="uid://ft24k8s13tpc" path="res://scenes/composable/instructional_text.tscn" id="7_2gl52"]
 [ext_resource type="PackedScene" uid="uid://ccvw8kpjbne33" path="res://scenes/characters/horse.tscn" id="7_u4djh"]
 [ext_resource type="Script" path="res://scenes/MoveLeftOrRightText.gd" id="7_y0mp2"]
+[ext_resource type="Script" path="res://scenes/MainDialogueController.gd" id="8_7a76o"]
 [ext_resource type="Script" path="res://scenes/composable/jump_text.gd" id="9_72lhp"]
 [ext_resource type="Texture2D" uid="uid://c6606orxhye10" path="res://assets/environment/barn/forklift_body.png" id="9_ffq42"]
 [ext_resource type="Texture2D" uid="uid://dkbc4i868evsa" path="res://assets/environment/barn/hay_barrel.png" id="9_hvagn"]
 [ext_resource type="Texture2D" uid="uid://bfxtrf11y4w6e" path="res://assets/environment/barn/forklift_fork.png" id="10_lykgv"]
-[ext_resource type="Theme" uid="uid://dte5an7k6hog1" path="res://themes/base.tres" id="11_abn8x"]
 [ext_resource type="PackedScene" uid="uid://dshggbjhf1bpj" path="res://scenes/composable/instruction_trigger.tscn" id="12_hq858"]
 [ext_resource type="PackedScene" uid="uid://cs71vpxi4b22q" path="res://scenes/composable/lever.tscn" id="13_50tjc"]
 [ext_resource type="Script" path="res://scenes/ForkLiftForks.gd" id="13_xew14"]
@@ -66,30 +66,6 @@ size = Vector2(1421.52, 227.336)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wryiq"]
 size = Vector2(1661.75, 993.471)
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_z1x2y"]
-bg_color = Color(0.15, 0.15, 0.15, 0.75)
-corner_radius_top_left = 50
-corner_radius_top_right = 50
-corner_radius_bottom_right = 50
-corner_radius_bottom_left = 50
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tawo2"]
-bg_color = Color(0.945098, 0.737255, 0.427451, 1)
-border_width_left = 16
-border_width_top = 16
-border_width_right = 16
-border_width_bottom = 16
-border_color = Color(0.253843, 0.253843, 0.253843, 1)
-corner_radius_top_left = 16
-corner_radius_top_right = 16
-corner_radius_bottom_right = 16
-corner_radius_bottom_left = 16
-expand_margin_left = 16.0
-expand_margin_top = 16.0
-expand_margin_right = 16.0
-expand_margin_bottom = 16.0
-shadow_size = 10
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ih5xv"]
 size = Vector2(20, 1.67627)
@@ -472,27 +448,8 @@ position = Vector2(28870, -4201)
 [node name="TitleCanvasLayer" type="CanvasLayer" parent="."]
 layer = 10
 
-[node name="StoryTextPanel" type="PanelContainer" parent="TitleCanvasLayer"]
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -300.0
-offset_right = 300.0
-grow_horizontal = 2
-grow_vertical = 2
-theme = ExtResource("11_abn8x")
-theme_override_styles/panel = SubResource("StyleBoxFlat_z1x2y")
-
-[node name="Label" type="Label" parent="TitleCanvasLayer/StoryTextPanel"]
-layout_mode = 2
-theme = ExtResource("11_abn8x")
-theme_override_font_sizes/font_size = 40
-theme_override_styles/normal = SubResource("StyleBoxFlat_tawo2")
-text = "My earliest memory is of a barn. I woke up from a nap beside my mom and siblings."
-horizontal_alignment = 1
-autowrap_mode = 2
+[node name="MainDialogueController" type="Node2D" parent="TitleCanvasLayer"]
+script = ExtResource("8_7a76o")
 
 [node name="LeftOrRightText" parent="TitleCanvasLayer" instance=ExtResource("7_2gl52")]
 visible = false

@@ -7,7 +7,7 @@ func _process(_delta):
 	$AnimatedSprite2D.play(
 		"open" if is_standing_at_library else "default"
 	)
-	if Input.is_action_just_pressed("read"):
+	if is_standing_at_library && Input.is_action_just_pressed("read"):
 		GlobalSignals.enter_little_free_library.emit()
 
 func _on_body_entered(body):

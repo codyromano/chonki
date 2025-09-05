@@ -1,10 +1,32 @@
-[gd_scene load_steps=6 format=3 uid="uid://dp3yga0d2a1m6"]
+[gd_scene load_steps=11 format=3 uid="uid://dp3yga0d2a1m6"]
 
 [ext_resource type="Script" path="res://scenes/little_free_library.gd" id="1_axak0"]
 [ext_resource type="Texture2D" uid="uid://b7hibh4qqs132" path="res://assets/textures/little-free-library.jpg" id="1_ok28r"]
-[ext_resource type="Theme" uid="uid://dte5an7k6hog1" path="res://themes/base.tres" id="1_uuxfa"]
 [ext_resource type="Script" path="res://scenes/GusPatternTextureRec.gd" id="2_awbmx"]
+[ext_resource type="FontFile" uid="uid://dlfbvpauldaco" path="res://fonts/Sniglet-Regular.ttf" id="4_365ux"]
+[ext_resource type="StyleBox" uid="uid://gt8qeik7gjdp" path="res://themes/button_focus.tres" id="5_58vim"]
 [ext_resource type="Script" path="res://scenes/SelectedLettersLabel.gd" id="5_g281h"]
+[ext_resource type="StyleBox" uid="uid://d34fpnq2ua283" path="res://themes/button.tres" id="6_chu0h"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rf6ka"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k6j0c"]
+bg_color = Color(1, 1, 1, 0)
+
+[sub_resource type="Theme" id="Theme_o4ulm"]
+Button/colors/font_color = Color(0.23212, 0.23212, 0.23212, 1)
+Button/fonts/font = ExtResource("4_365ux")
+Button/styles/focus = ExtResource("5_58vim")
+Button/styles/hover = ExtResource("6_chu0h")
+Button/styles/normal = ExtResource("6_chu0h")
+Button/styles/pressed = ExtResource("6_chu0h")
+HBoxContainer/constants/separation = 4
+Label/colors/font_color = Color(0.129558, 0.129558, 0.129558, 1)
+Label/font_sizes/font_size = 50
+Label/fonts/font = ExtResource("4_365ux")
+Label/styles/normal = SubResource("StyleBoxTexture_rf6ka")
+Panel/styles/panel = null
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_k6j0c")
 
 [node name="LittleFreeLibrary" type="Control"]
 layout_mode = 3
@@ -53,14 +75,14 @@ alignment = 1
 
 [node name="Label" type="Label" parent="AnagramMarginContainer/AnagramResultDisplay"]
 layout_mode = 2
-theme = ExtResource("1_uuxfa")
+theme = SubResource("Theme_o4ulm")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Spell a word, discover a story"
 horizontal_alignment = 1
 
 [node name="SelectedLettersLabel" type="Label" parent="AnagramMarginContainer/AnagramResultDisplay"]
 layout_mode = 2
-theme = ExtResource("1_uuxfa")
+theme = SubResource("Theme_o4ulm")
 text = "_ _ _ _ _"
 horizontal_alignment = 1
 script = ExtResource("5_g281h")

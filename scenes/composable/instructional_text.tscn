@@ -1,7 +1,29 @@
-[gd_scene load_steps=3 format=3 uid="uid://ft24k8s13tpc"]
+[gd_scene load_steps=8 format=3 uid="uid://ft24k8s13tpc"]
 
-[ext_resource type="Theme" uid="uid://dte5an7k6hog1" path="res://themes/base.tres" id="1_cbhj3"]
 [ext_resource type="Script" path="res://scenes/composable/instructional_text.gd" id="1_xdabv"]
+[ext_resource type="FontFile" uid="uid://dlfbvpauldaco" path="res://fonts/Sniglet-Regular.ttf" id="2_jp7ha"]
+[ext_resource type="StyleBox" uid="uid://gt8qeik7gjdp" path="res://themes/button_focus.tres" id="3_js3se"]
+[ext_resource type="StyleBox" uid="uid://d34fpnq2ua283" path="res://themes/button.tres" id="4_ph7sf"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rf6ka"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k6j0c"]
+bg_color = Color(1, 1, 1, 0)
+
+[sub_resource type="Theme" id="Theme_o4ulm"]
+Button/colors/font_color = Color(0.23212, 0.23212, 0.23212, 1)
+Button/fonts/font = ExtResource("2_jp7ha")
+Button/styles/focus = ExtResource("3_js3se")
+Button/styles/hover = ExtResource("4_ph7sf")
+Button/styles/normal = ExtResource("4_ph7sf")
+Button/styles/pressed = ExtResource("4_ph7sf")
+HBoxContainer/constants/separation = 4
+Label/colors/font_color = Color(0.129558, 0.129558, 0.129558, 1)
+Label/font_sizes/font_size = 50
+Label/fonts/font = ExtResource("2_jp7ha")
+Label/styles/normal = SubResource("StyleBoxTexture_rf6ka")
+Panel/styles/panel = null
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_k6j0c")
 
 [node name="InstructionalText" type="Control"]
 layout_mode = 3
@@ -37,18 +59,18 @@ metadata/_edit_use_anchors_ = true
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
-theme = ExtResource("1_cbhj3")
+theme = SubResource("Theme_o4ulm")
 alignment = 1
 
 [node name="InstructionalTextPanel" type="Panel" parent="VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(0, 450)
 layout_mode = 2
 size_flags_horizontal = 3
-theme = ExtResource("1_cbhj3")
+theme = SubResource("Theme_o4ulm")
 
 [node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/InstructionalTextPanel"]
 layout_mode = 2
-anchor_left = -0.0222473
+anchor_left = -0.105604
 anchor_top = 0.028
 anchor_right = -0.105604
 anchor_bottom = 0.028
@@ -56,7 +78,7 @@ offset_left = 197.0
 offset_top = 96.0
 offset_right = 3808.0
 offset_bottom = 346.0
-theme = ExtResource("1_cbhj3")
+theme = SubResource("Theme_o4ulm")
 theme_type_variation = &"HeaderLarge"
 theme_override_font_sizes/font_size = 200
 text = "Press left or right to move"
