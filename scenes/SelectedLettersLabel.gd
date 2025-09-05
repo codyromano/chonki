@@ -6,6 +6,7 @@ var selected_letters: String
 	
 func _ready():
 	GlobalSignals.on_data_button_selected.connect(_on_data_button_selected)
+	GlobalSignals.press_reset_anagram.connect(_on_press_reset_anagram)
 	_update_letter_display()
 
 func _update_letter_display() -> void:
@@ -20,4 +21,8 @@ func _on_data_button_selected(id: String, data: String) -> void:
 	if id == "letter_button":
 		selected_letters += data
 		_update_letter_display()
+
+func _on_press_reset_anagram() -> void:
+	selected_letters = ''
+	_update_letter_display()
 		

@@ -8,6 +8,8 @@ extends Control
 func _ready():
 	create_select_letter_buttons()
 	selected_letters_label.total_letters = win_word.length()
+	
+	GlobalSignals.press_reset_anagram.connect(_on_press_reset_anagram)
 
 func create_select_letter_buttons() -> void:
 	var letters_array = Array(win_word.split())
@@ -19,3 +21,10 @@ func create_select_letter_buttons() -> void:
 		button.data = letter
 		
 		container.add_child(button)
+
+func _on_press_reset_anagram() -> void:
+	var buttons = container.get_children()
+	for button in buttons:
+		button.call_deferred("queue_free")
+		
+	create_select_letter_buttons()

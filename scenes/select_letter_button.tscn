@@ -1,33 +1,12 @@
-[gd_scene load_steps=8 format=3 uid="uid://dl8yj77jxk1cn"]
+[gd_scene load_steps=3 format=3 uid="uid://dl8yj77jxk1cn"]
 
-[ext_resource type="FontFile" uid="uid://dlfbvpauldaco" path="res://fonts/Sniglet-Regular.ttf" id="1_ost31"]
+[ext_resource type="Theme" uid="uid://bens1gsogrwah" path="res://themes/anagram_letter_button.tres" id="1_yw1pj"]
 [ext_resource type="Script" path="res://scenes/select_letter_button.gd" id="2_7s2w6"]
-[ext_resource type="StyleBox" uid="uid://gt8qeik7gjdp" path="res://themes/button_focus.tres" id="2_j50va"]
-[ext_resource type="StyleBox" uid="uid://d34fpnq2ua283" path="res://themes/button.tres" id="3_vpxsf"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rf6ka"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k6j0c"]
-bg_color = Color(1, 1, 1, 0)
-
-[sub_resource type="Theme" id="Theme_o4ulm"]
-Button/colors/font_color = Color(0.23212, 0.23212, 0.23212, 1)
-Button/fonts/font = ExtResource("1_ost31")
-Button/styles/focus = ExtResource("2_j50va")
-Button/styles/hover = ExtResource("3_vpxsf")
-Button/styles/normal = ExtResource("3_vpxsf")
-Button/styles/pressed = ExtResource("3_vpxsf")
-HBoxContainer/constants/separation = 4
-Label/colors/font_color = Color(0.129558, 0.129558, 0.129558, 1)
-Label/font_sizes/font_size = 50
-Label/fonts/font = ExtResource("1_ost31")
-Label/styles/normal = SubResource("StyleBoxTexture_rf6ka")
-Panel/styles/panel = null
-PanelContainer/styles/panel = SubResource("StyleBoxFlat_k6j0c")
-
-[node name="Button1" type="Button"]
+[node name="SelectLetterButton" type="Button"]
 custom_minimum_size = Vector2(75, 0)
-theme = SubResource("Theme_o4ulm")
+theme = ExtResource("1_yw1pj")
+theme_override_colors/font_color = Color(0, 0, 0, 1)
 action_mode = 0
 text = "T"
 script = ExtResource("2_7s2w6")
