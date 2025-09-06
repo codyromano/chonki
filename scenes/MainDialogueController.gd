@@ -18,7 +18,7 @@ func _ready() -> void:
 	GlobalSignals.dismiss_active_main_dialogue.connect(_on_dismiss_active_dialogue)
 
 	var current_scene = get_tree().current_scene
-	if current_scene && current_scene.name == 'intro':
+	if current_scene && current_scene.name == 'Intro':
 		await get_tree().create_timer(2.0).timeout
 		_on_dialogue_queued("*Yawn* That was a long nap!")
 		_on_dialogue_queued("Today is a big day! I'd better find a way out of this barn...")

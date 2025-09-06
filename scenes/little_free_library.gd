@@ -25,6 +25,9 @@ func _on_dismiss_active_dialogue() -> void:
 	SceneStack.pop_scene()
 	
 func _on_win() -> void:
+	var win_audio: AudioStreamPlayer = find_child('WinAudio')
+	win_audio.play()
+	
 	var tween = create_tween()
 	tween.tween_property(overall_game_container, 'modulate:a', 0, WIN_FADEOUT_DURATION)
 	await tween.finished

@@ -1,15 +1,17 @@
-[gd_scene load_steps=16 format=3 uid="uid://dp3yga0d2a1m6"]
+[gd_scene load_steps=18 format=3 uid="uid://dp3yga0d2a1m6"]
 
 [ext_resource type="Script" path="res://scenes/little_free_library.gd" id="1_axak0"]
 [ext_resource type="Texture2D" uid="uid://b7hibh4qqs132" path="res://assets/textures/little-free-library.jpg" id="1_ok28r"]
 [ext_resource type="Theme" uid="uid://dte5an7k6hog1" path="res://themes/base.tres" id="1_uuxfa"]
 [ext_resource type="Script" path="res://scenes/GusPatternTextureRec.gd" id="2_awbmx"]
+[ext_resource type="AudioStream" uid="uid://ddo0nhacuo5ls" path="res://assets/sound/anagram-win.mp3" id="2_t7jso"]
 [ext_resource type="FontFile" uid="uid://dlfbvpauldaco" path="res://fonts/Sniglet-Regular.ttf" id="4_365ux"]
 [ext_resource type="StyleBox" uid="uid://gt8qeik7gjdp" path="res://themes/button_focus.tres" id="5_58vim"]
 [ext_resource type="Script" path="res://scenes/SelectedLettersLabel.gd" id="5_g281h"]
 [ext_resource type="StyleBox" uid="uid://d34fpnq2ua283" path="res://themes/button.tres" id="6_chu0h"]
 [ext_resource type="Script" path="res://scenes/ResetButton.gd" id="9_uxspa"]
 [ext_resource type="Script" path="res://scenes/BackButton.gd" id="10_abcde"]
+[ext_resource type="AudioStream" uid="uid://dya1jv0j3riuu" path="res://assets/sound/button-pop-edited.mp3" id="11_k2dw8"]
 [ext_resource type="Script" path="res://scenes/MainDialogueController.gd" id="11_ww226"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rf6ka"]
@@ -55,6 +57,10 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("1_axak0")
 win_word = "adopt"
+
+[node name="WinAudio" type="AudioStreamPlayer" parent="."]
+process_mode = 3
+stream = ExtResource("2_t7jso")
 
 [node name="BackgroundTextureMarginContainer" type="MarginContainer" parent="."]
 layout_mode = 1
@@ -146,6 +152,10 @@ theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = SubResource("StyleBoxFlat_mtt3b")
 text = "Reset"
 script = ExtResource("9_uxspa")
+
+[node name="PopAudio" type="AudioStreamPlayer" parent="AnagramMarginContainer/AnagramResultDisplay"]
+stream = ExtResource("11_k2dw8")
+volume_db = -18.255
 
 [node name="TitleCanvasLayer" type="CanvasLayer" parent="."]
 layer = 10

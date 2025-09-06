@@ -22,6 +22,8 @@ func _on_data_button_selected(id: String, data: String) -> void:
 	if id != "letter_button":
 		return
 		
+	get_parent().find_child('PopAudio').play()
+		
 	selected_letters += data
 	_update_letter_display()
 	GlobalSignals.anagram_word_guess_updated.emit(selected_letters)
