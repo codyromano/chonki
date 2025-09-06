@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://tukkidvsj0jr"
-path="res://.godot/imported/barn_wall_upper.png-2fc1355505d5c6bb54e1e1946059b1e8.ctex"
+uid="uid://hdkwei4rbv1p"
+path="res://.godot/imported/barn_wall_upper.jpg-1a8fe295b44715918f4204292726e37e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/environment/barn/barn_wall_upper.png"
-dest_files=["res://.godot/imported/barn_wall_upper.png-2fc1355505d5c6bb54e1e1946059b1e8.ctex"]
+source_file="res://assets/environment/barn/barn_wall_upper.jpg"
+dest_files=["res://.godot/imported/barn_wall_upper.jpg-1a8fe295b44715918f4204292726e37e.ctex"]
 
 [params]
 
