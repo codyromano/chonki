@@ -602,6 +602,7 @@ polygon = PackedVector2Array(62, -63, 81, -774, -771, -1289, -1745, -692, -1604,
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Items/LittleFreeLibrary"]
 stream = ExtResource("21_rb10m")
+volume_db = -21.83
 
 [node name="InstructionTriggers" type="Node2D" parent="."]
 

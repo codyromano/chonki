@@ -17,9 +17,11 @@ func _ready() -> void:
 	GlobalSignals.queue_main_dialogue.connect(_on_dialogue_queued)
 	GlobalSignals.dismiss_active_main_dialogue.connect(_on_dismiss_active_dialogue)
 
-	await get_tree().create_timer(2.0).timeout
-	_on_dialogue_queued("*Yawn* That was a long nap!")
-	_on_dialogue_queued("Today is a big day! I'd better find a way out of this barn...")
+	var current_scene = get_tree().current_scene
+	if current_scene && current_scene.name == 'intro':
+		await get_tree().create_timer(2.0).timeout
+		_on_dialogue_queued("*Yawn* That was a long nap!")
+		_on_dialogue_queued("Today is a big day! I'd better find a way out of this barn...")
 
 	await get_tree().create_timer(0.2).timeout
 	is_ready = true
@@ -39,17 +41,21 @@ func _create_dialogue(dialogue: String) -> PanelContainer:
 
 
 func _process_queue() -> void:
+	var tree = get_tree()
 	if rendered_dialogue:
 		rendered_dialogue.queue_free()
 		rendered_dialogue = null
 
 	if dialogue_queue.is_empty():
-		get_tree().paused = false
+		if tree:
+			tree.paused = false
 		return
 
 	var next_dialogue = dialogue_queue.pop_front()
 	rendered_dialogue = _create_dialogue(next_dialogue)
-	get_tree().paused = true
+	
+	if tree:
+		tree.paused = true
 
 
 func _on_dialogue_queued(dialogue: String) -> void:

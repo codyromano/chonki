@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://dp3yga0d2a1m6"]
+[gd_scene load_steps=16 format=3 uid="uid://dp3yga0d2a1m6"]
 
 [ext_resource type="Script" path="res://scenes/little_free_library.gd" id="1_axak0"]
 [ext_resource type="Texture2D" uid="uid://b7hibh4qqs132" path="res://assets/textures/little-free-library.jpg" id="1_ok28r"]
@@ -10,6 +10,7 @@
 [ext_resource type="StyleBox" uid="uid://d34fpnq2ua283" path="res://themes/button.tres" id="6_chu0h"]
 [ext_resource type="Script" path="res://scenes/ResetButton.gd" id="9_uxspa"]
 [ext_resource type="Script" path="res://scenes/BackButton.gd" id="10_abcde"]
+[ext_resource type="Script" path="res://scenes/MainDialogueController.gd" id="11_ww226"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rf6ka"]
 
@@ -98,6 +99,7 @@ horizontal_alignment = 1
 [node name="SelectedLettersLabel" type="Label" parent="AnagramMarginContainer/AnagramResultDisplay"]
 layout_mode = 2
 theme = SubResource("Theme_o4ulm")
+theme_override_font_sizes/font_size = 75
 text = "_ _ _ _ _"
 horizontal_alignment = 1
 script = ExtResource("5_g281h")
@@ -144,6 +146,12 @@ theme_override_font_sizes/font_size = 30
 theme_override_styles/normal = SubResource("StyleBoxFlat_mtt3b")
 text = "Reset"
 script = ExtResource("9_uxspa")
+
+[node name="TitleCanvasLayer" type="CanvasLayer" parent="."]
+layer = 10
+
+[node name="MainDialogueController" type="Node2D" parent="TitleCanvasLayer"]
+script = ExtResource("11_ww226")
 
 [connection signal="pressed" from="AnagramMarginContainer/AnagramResultDisplay/VBoxContainer/HBoxContainer/BackToGameButton" to="AnagramMarginContainer/AnagramResultDisplay/VBoxContainer/HBoxContainer/BackToGameButton" method="_on_pressed"]
 [connection signal="pressed" from="AnagramMarginContainer/AnagramResultDisplay/VBoxContainer/HBoxContainer/ResetButton" to="AnagramMarginContainer/AnagramResultDisplay/VBoxContainer/HBoxContainer/ResetButton" method="_on_pressed"]
