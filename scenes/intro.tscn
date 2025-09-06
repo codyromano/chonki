@@ -1,9 +1,10 @@
-[gd_scene load_steps=52 format=3 uid="uid://0jybnryjbe51"]
+[gd_scene load_steps=53 format=3 uid="uid://0jybnryjbe51"]
 
 [ext_resource type="Texture2D" uid="uid://cue46gcr7x6qj" path="res://assets/environment/barn/barn_wall.jpg" id="1_553eq"]
 [ext_resource type="Script" path="res://scenes/intro.gd" id="1_gdkj6"]
 [ext_resource type="Texture2D" uid="uid://yrm7tdljfide" path="res://assets/environment/barn/barn_floor.jpg" id="2_1wljg"]
 [ext_resource type="PackedScene" uid="uid://cyu6wosf2qc3v" path="res://scenes/chonki.tscn" id="3_meeps"]
+[ext_resource type="Texture2D" uid="uid://tukkidvsj0jr" path="res://assets/environment/barn/barn_wall_upper.png" id="3_pjc8g"]
 [ext_resource type="Texture2D" uid="uid://qx1ubqqi74hv" path="res://assets/collectibles/menu-icons/heart.png" id="4_ee0bn"]
 [ext_resource type="PackedScene" uid="uid://da1xtclqphxbr" path="res://scenes/characters/npc_dog.tscn" id="5_c0o7x"]
 [ext_resource type="PackedScene" uid="uid://ft24k8s13tpc" path="res://scenes/composable/instructional_text.tscn" id="7_2gl52"]
@@ -383,13 +384,52 @@ z_index = 1
 texture_repeat = 2
 material = SubResource("CanvasItemMaterial_ggcgc")
 use_parent_material = true
-position = Vector2(-2026.2, 5727.93)
+position = Vector2(-3997.07, 5845.6)
 scale = Vector2(7.06718, 6.1298)
 texture = ExtResource("1_553eq")
 texture_offset = Vector2(500, 0)
-polygon = PackedVector2Array(7.33307, -1547.73, 7.33307, -1388.15, 243.535, -1390.94, 243.149, -1551.92)
+polygon = PackedVector2Array(-151.704, -1542.67, -152.276, -1299.26, 524.404, -1293.11, 522.319, -1560.94)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/PhysicsBarriers/FloatWoods/BigWall"]
+visible = false
+z_index = 1
+position = Vector2(-1146.37, -3279.26)
+shape = SubResource("RectangleShape2D_wryiq")
+
+[node name="BigFloor" type="StaticBody2D" parent="Environment/PhysicsBarriers/FloatWoods"]
+position = Vector2(-5620, 11068)
+rotation = 1.56786
+scale = Vector2(4.84301, 6.97693)
+
+[node name="Sprite2D" type="Polygon2D" parent="Environment/PhysicsBarriers/FloatWoods/BigFloor"]
+modulate = Color(0.988235, 0.729412, 0.188235, 1)
+self_modulate = Color(0.568627, 0.65098, 0.501961, 1)
+z_index = 1
+texture_repeat = 2
+material = SubResource("CanvasItemMaterial_ggcgc")
+use_parent_material = true
+position = Vector2(7108.5, -2411.23)
+rotation = -1.56014
+scale = Vector2(7.06718, 6.1298)
+texture = ExtResource("1_553eq")
+texture_offset = Vector2(500, 0)
+polygon = PackedVector2Array(-41.19, -1546.62, -39.9421, -1297.45, 568.321, -1290.53, 563.311, -1553.72)
+
+[node name="Sprite2D2" type="Polygon2D" parent="Environment/PhysicsBarriers/FloatWoods/BigFloor"]
+modulate = Color(0.988235, 0.729412, 0.188235, 1)
+self_modulate = Color(0.568627, 0.65098, 0.501961, 1)
+z_index = 1
+texture_repeat = 2
+material = SubResource("CanvasItemMaterial_ggcgc")
+use_parent_material = true
+position = Vector2(7060.36, 1891.44)
+rotation = -1.56014
+scale = Vector2(7.06718, 6.1298)
+texture = ExtResource("1_553eq")
+texture_offset = Vector2(500, 0)
+polygon = PackedVector2Array(-85.8659, -1542.4, -87.3332, -1301.94, 568.321, -1290.53, 567.556, -1547.38)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/PhysicsBarriers/FloatWoods/BigFloor"]
 visible = false
 z_index = 1
 position = Vector2(-1146.37, -3279.26)
@@ -405,6 +445,15 @@ texture = ExtResource("1_553eq")
 texture_offset = Vector2(0, 3750)
 texture_scale = Vector2(0.25, 0.25)
 polygon = PackedVector2Array(-10928.6, 213.761, 34527.5, 152.687, 34240.7, -12959.5, -11462.6, -12570.6)
+
+[node name="Wall Upper" type="Polygon2D" parent="Environment/Sprites"]
+texture_repeat = 2
+position = Vector2(1218, -8662)
+scale = Vector2(1.10874, 1.11339)
+texture = ExtResource("3_pjc8g")
+texture_offset = Vector2(0, 3750)
+texture_scale = Vector2(0.25, 0.25)
+polygon = PackedVector2Array(-10928.6, 213.761, 34527.5, 152.687, 34240.7, -18459.8, -11737.6, -18016.2)
 
 [node name="Floor" type="Polygon2D" parent="Environment/Sprites"]
 texture_repeat = 2
@@ -608,6 +657,11 @@ volume_db = -21.83
 [node name="IntroToBooksTrigger" parent="InstructionTriggers" instance=ExtResource("12_hq858")]
 position = Vector2(-10530, -2215)
 dialogue = "Hmm. Maybe the books will explain how I got here."
+
+[node name="LittleFreeLibraryTrigger" parent="InstructionTriggers" instance=ExtResource("12_hq858")]
+position = Vector2(28950, -569)
+scale = Vector2(0.872198, 0.732905)
+dialogue = "I can press 'r' to return my books to a little free library"
 
 [node name="DebugPlayerStartMarker" type="Marker2D" parent="."]
 position = Vector2(36296, -3333)
