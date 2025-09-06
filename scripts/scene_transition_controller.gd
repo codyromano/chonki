@@ -5,6 +5,7 @@ extends Node
 var fade_overlay: ColorRect
 var tween: Tween
 var canvas_layer: CanvasLayer
+var is_transitioning: bool = false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -13,8 +14,32 @@ func _ready():
 	
 	# Create fade overlay
 	create_fade_overlay()
+	
+	# Clear any existing fade when scene becomes active again
+	call_deferred("clear_fade")
+
+func clear_fade():
+	# Reset the fade overlay to transparent when returning to this scene
+	if fade_overlay:
+		fade_overlay.color.a = 0.0
+		print("Fade overlay cleared - alpha set to 0")
+	
+	# Reset transition flag when returning to this scene
+	is_transitioning = false
+	
+	# Re-register the player for audio when scene is restored
+	for child in get_tree().current_scene.get_children():
+		if child.name.begins_with("Chonki") or child.has_method("_on_player_jump"):
+			print("Re-registering player for audio: ", child.name)
+			GlobalSignals.player_registered.emit(child)
+			break
 
 func create_fade_overlay():
+	# Don't create if overlay already exists
+	if fade_overlay:
+		print("Fade overlay already exists, skipping creation")
+		return
+		
 	print("Creating fade overlay...")
 	
 	# Create a CanvasLayer to ensure the overlay is on top of everything
@@ -42,6 +67,14 @@ func setup_overlay_size():
 
 func _on_enter_little_free_library():
 	print("Enter little free library signal received")
+	
+	if is_transitioning:
+		print("Already transitioning, ignoring signal")
+		return
+	
+	# Set flag immediately to prevent multiple signals
+	is_transitioning = true
+	print("Transition flag set - starting fade")
 	fade_to_black()
 
 func fade_to_black():
@@ -60,8 +93,15 @@ func fade_to_black():
 
 func _on_fade_complete():
 	print("Fade to black complete - loading little free library scene")
-	# Load the little free library scene
-	get_tree().change_scene_to_file("res://scenes/little_free_library.tscn")
+	print("time to save scene")
+	
+	var library_scene = load("res://scenes/little_free_library.tscn")
+	print("About to call SceneStack.push_scene")
+	SceneStack.push_scene(library_scene)
+	print("SceneStack.push_scene completed")
+	
+	# Reset the transition flag
+	is_transitioning = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):

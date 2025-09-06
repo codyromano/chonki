@@ -32,3 +32,5 @@ signal dismiss_active_main_dialogue()
 signal queue_main_dialogue(dialogue_id: String)
 signal internal_force_display_main_dialogue(dialogue_id: String)
 signal press_reset_anagram()
+signal player_registered(player: Node2D)
+signal player_unregistered

@@ -8,16 +8,29 @@ var ouch_sound: AudioStreamPlayer2D
 var chill_bark_sound: AudioStreamPlayer2D
 
 func _ready() -> void:
-	# Find nodes by name recursively from the current scene's root
-	# Note: This is less performant than using @export vars or direct paths.
-	run_sound = get_tree().current_scene.find_child("AudioRun", true, false)
-	rest_sound = get_tree().current_scene.find_child("RestRun", true, false)
-	jump_sound = get_tree().current_scene.find_child("AudioJump", true, false)
-	ouch_sound = get_tree().current_scene.find_child("AudioOuch", true, false)
-	chill_bark_sound = get_tree().current_scene.find_child("ChillBark", true, false)
-
+	# Connect to player registration signals
+	GlobalSignals.connect("player_registered", _on_player_registered)
+	GlobalSignals.connect("player_unregistered", _on_player_unregistered)
+	
+	# Connect to SFX signals
 	GlobalSignals.connect("play_sfx", _on_play_sfx)
 	GlobalSignals.connect("stop_sfx", _on_stop_sfx)
+
+func _on_player_registered(player: Node2D) -> void:
+	# Find audio nodes from the player reference instead of current_scene
+	run_sound = player.find_child("AudioRun", true, false)
+	rest_sound = player.find_child("RestRun", true, false)
+	jump_sound = player.find_child("AudioJump", true, false)
+	ouch_sound = player.find_child("AudioOuch", true, false)
+	chill_bark_sound = player.find_child("ChillBark", true, false)
+
+func _on_player_unregistered() -> void:
+	# Clear audio node references when player leaves
+	run_sound = null
+	rest_sound = null
+	jump_sound = null
+	ouch_sound = null
+	chill_bark_sound = null
 
 func _on_play_sfx(sound_name: String) -> void:
 	var sound_player: AudioStreamPlayer2D
@@ -39,6 +52,8 @@ func _on_play_sfx(sound_name: String) -> void:
 func _on_stop_sfx(sound_name: String) -> void:
 	match sound_name:
 		"run":
-			run_sound.stop()
+			if run_sound:
+				run_sound.stop()
 		"rest":
-			rest_sound.stop()
+			if rest_sound:
+				rest_sound.stop()

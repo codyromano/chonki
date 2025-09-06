@@ -43,6 +43,75 @@ The player has three lives for each scene, which are displayed as heart icons wi
 
 After losing three lives, the Chonki character (Chonki.gd) plays a "sleep" animation for its child AnimatedSprite2D. Meanwhile, the rest of the screen freezes. After 4 seconds, the screen fades to black, then the level restarts with its state reset.
 
+## Scene Transition System
+
+The game implements a stateful scene caching system to preserve complete runtime state when transitioning between scenes (e.g., intro ↔ library).
+
+### SceneStack Pattern
+
+**Location**: `res://scripts/SceneStack.gd` (autoload singleton)
+
+The SceneStack maintains an array of cached scenes that preserves ALL runtime state including:
+- Node positions, velocities, and physics states
+- Variable values and object properties  
+- Animation states and timers
+- UI state and player progress
+
+**Key Methods**:
+- `push_scene(packed_scene)`: Caches current scene (disabled but not freed) and loads new scene
+- `pop_scene()`: Restores previous scene from cache with complete state intact
+- `clear_cache()`: Frees all cached scenes (use when returning to main menu)
+
+**Critical Implementation Details**:
+- Cached scenes are **disabled** (`process_mode = PROCESS_MODE_DISABLED`) but NOT freed
+- Scene nodes remain in memory with all properties preserved
+- `_ready()` is NOT called when scenes are restored from cache
+- Maximum cache size configurable via `max_cached_scenes` export variable
+
+### Scene Transition Controller
+
+**Location**: `res://scripts/scene_transition_controller.gd` (attached to intro.tscn only)
+
+Handles fade transitions and library access. **IMPORTANT**: This controller exists as a scene-specific node, NOT an autoload singleton.
+
+**Key Features**:
+- Fade overlay management with CanvasLayer (layer 100)
+- Transition state protection via `is_transitioning` boolean flag
+- Automatic fade clearing when scenes are restored
+- Player re-registration for audio system (see Player Registration below)
+
+**Critical Debugging Notes**:
+- If multiple transitions occur, check for duplicate controller instances
+- Controller should ONLY be attached to intro.tscn, not registered as autoload
+- Library entry signal (`enter_little_free_library`) includes protection against multiple emissions
+
+### Player Registration System
+
+**Problem Solved**: Audio nodes become disconnected when scenes are restored from SceneStack because `_ready()` doesn't re-execute.
+
+**Implementation**:
+- `GlobalSignals.player_registered` / `player_unregistered` signals manage audio node references
+- `ChonkiAudioController.gd` (autoload) listens for registration signals
+- Player emits registration in `_ready()` and unregistration in `_exit_tree()`
+- **Scene restoration fix**: `scene_transition_controller.clear_fade()` automatically re-emits player registration
+
+**Code Locations**:
+- Registration emission: `chonki.gd` lines 47 and 317
+- Signal handling: `ChonkiAudioController.gd` 
+- Re-registration: `scene_transition_controller.gd` in `clear_fade()` method
+
+**LLM Debugging Guide**:
+- If audio stops working after scene transitions, check player registration signals
+- Look for "Re-registering player for audio" console message when returning from library
+- Ensure `ChonkiAudioController` receives both registration and unregistration signals
+
+### Library Interaction
+
+**Location**: `res://scenes/LittleFreeLibrary.gd`
+
+**Signal Protection**: Uses `has_entered_library` boolean to prevent multiple signal emissions per visit. Flag resets when player exits library area.
+
+**Input Handling**: Responds to "read" action (`Input.is_action_just_pressed("read")`) only when player is standing at library AND hasn't already entered.
 
 ## Coding Conventions
 

@@ -44,6 +44,8 @@ var is_running_sound_playing: bool = false
 signal chonki_landed_and_hearts_spawned
 
 func _ready() -> void:
+	GlobalSignals.player_registered.emit(self)
+	
 	if debug_start_marker:
 		global_position = debug_start_marker.global_position
 		
@@ -310,3 +312,6 @@ func _on_player_jump(intensity: float):
 	if not is_game_win and body.is_on_floor():
 		velocity.y = PhysicsConstants.JUMP_FORCE * jump_multiplier * intensity
 		GlobalSignals.play_sfx.emit("jump")
+
+func _exit_tree() -> void:
+	GlobalSignals.player_unregistered.emit()
