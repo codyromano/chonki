@@ -66,6 +66,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_tawo2")
 horizontal_alignment = 1
 autowrap_mode = 2
 script = ExtResource("3_2piwl")
+animation_duration = 1.5
 
 [node name="PenWritingSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_88m0i")

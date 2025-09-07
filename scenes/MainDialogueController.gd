@@ -35,7 +35,7 @@ func _process(_delta: float) -> void:
 func _create_dialogue(dialogue: String) -> PanelContainer:
 	var scene = dialogue_scene.instantiate()
 	scene.dialogue = dialogue
-	scene.duration = dialogue.length() * duration_per_character
+	scene.duration = float(dialogue.length()) * 0.025
 	canvas_layer.call_deferred("add_child", scene)
 	return scene
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=53 format=3 uid="uid://0jybnryjbe51"]
+[gd_scene load_steps=54 format=3 uid="uid://0jybnryjbe51"]
 
 [ext_resource type="Texture2D" uid="uid://cue46gcr7x6qj" path="res://assets/environment/barn/barn_wall.jpg" id="1_553eq"]
 [ext_resource type="Script" path="res://scenes/intro.gd" id="1_gdkj6"]
@@ -29,6 +29,7 @@
 [ext_resource type="Texture2D" uid="uid://d3kktwx4c1h8h" path="res://assets/interactables/library_open.png" id="20_vbvn7"]
 [ext_resource type="AudioStream" uid="uid://c4pq71yiir21k" path="res://assets/sound/library_open.mp3" id="21_rb10m"]
 [ext_resource type="Script" path="res://scenes/PathFollowWallBesideHorse.gd" id="21_utod2"]
+[ext_resource type="Texture2D" uid="uid://cbt7augdvxsql" path="res://assets/environment/barn/cable/cable1.png" id="24_2n5ts"]
 [ext_resource type="Script" path="res://scripts/scene_transition_controller.gd" id="26_3mjik"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ed647"]
@@ -48,7 +49,7 @@ size = Vector2(1525, 231)
 size = Vector2(30679, 206.166)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rm3sp"]
-size = Vector2(6709.35, 306.851)
+size = Vector2(4417.73, 306.851)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qqude"]
 size = Vector2(4471.25, 310.426)
@@ -194,7 +195,7 @@ collision_layer = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/PhysicsBarriers/FloatWoods/Ceiling2"]
 z_index = 1
-position = Vector2(1672, 164.5)
+position = Vector2(675, 164.5)
 scale = Vector2(0.870129, 0.870129)
 shape = SubResource("RectangleShape2D_rm3sp")
 
@@ -205,7 +206,7 @@ scale = Vector2(0.677769, 1.00232)
 color = Color(0.480342, 0.424905, 0.200685, 1)
 texture = ExtResource("1_553eq")
 texture_offset = Vector2(0, 200)
-polygon = PackedVector2Array(-49.2891, -201.494, 8564.8, -176.66, 8562.31, 93.7471, -67.5977, 92.8271)
+polygon = PackedVector2Array(-49.2891, -201.494, 5500.4, -191.555, 5488.59, 87.7964, -67.5977, 92.8271)
 
 [node name="LibraryCeiling" type="StaticBody2D" parent="Environment/PhysicsBarriers/FloatWoods"]
 position = Vector2(32985, -7453)
@@ -492,13 +493,14 @@ position = Vector2(2000, -3766)
 position = Vector2(2411, -3512)
 
 [node name="Horse" parent="NPCs" instance=ExtResource("7_u4djh")]
-position = Vector2(28870, -4201)
+position = Vector2(26831, -4213)
 
 [node name="TitleCanvasLayer" type="CanvasLayer" parent="."]
 layer = 10
 
 [node name="MainDialogueController" type="Node2D" parent="TitleCanvasLayer"]
 script = ExtResource("8_7a76o")
+duration_per_character = 0.001
 
 [node name="LeftOrRightText" parent="TitleCanvasLayer" instance=ExtResource("7_2gl52")]
 visible = false
@@ -543,6 +545,7 @@ collision_layer = 12
 collision_mask = 7
 
 [node name="ForkLiftSprite" type="Sprite2D" parent="Items/ForkLift/ForkLiftBody"]
+z_index = 2
 position = Vector2(3198.7, -1862.14)
 scale = Vector2(18.0412, 16.1566)
 texture = ExtResource("9_ffq42")
@@ -552,8 +555,9 @@ position = Vector2(3167.68, -1873.94)
 polygon = PackedVector2Array(-2696.27, -3106.32, -2600.08, 3086.79, 2782.22, 3105.81, 2720.62, 197.004, 1816, 197.004, 1658.21, -2179.11, -1763.55, -2116.03, -1804.62, -3151.38)
 
 [node name="ForkLiftForks" type="CharacterBody2D" parent="Items/ForkLift"]
+z_index = 1
 script = ExtResource("13_xew14")
-animation_duration = 2.0
+animation_duration = 1.5
 
 [node name="Sprite2D" type="Sprite2D" parent="Items/ForkLift/ForkLiftForks"]
 position = Vector2(10452.3, -7383.67)
@@ -566,14 +570,15 @@ scale = Vector2(119.454, 119.454)
 shape = SubResource("RectangleShape2D_ih5xv")
 
 [node name="Lever" parent="Items" instance=ExtResource("13_50tjc")]
-position = Vector2(-5235, -2487)
+z_index = 1
+position = Vector2(-2025, -2245)
 collision_layer = 32
 collision_mask = 65
-timer_duration = 2.0
+timer_duration = 1.5
 lever_name = "fork_lift_lever"
 
 [node name="Trampoline" type="Area2D" parent="Items"]
-position = Vector2(29877, -4848)
+position = Vector2(27683, -4963)
 script = ExtResource("16_u2n1w")
 trampoline_id = "horse_buck"
 
@@ -622,7 +627,7 @@ float_intensity = 150.0
 
 [node name="Letter4" parent="Items/StoryLetters" instance=ExtResource("16_2ntw1")]
 z_index = 1
-position = Vector2(19990, -15550)
+position = Vector2(29078, -13665)
 scale = Vector2(2.16, 2.16)
 frames = SubResource("SpriteFrames_iijpv")
 collectible_name = "letter4"
@@ -630,7 +635,7 @@ float_intensity = 150.0
 
 [node name="Letter5" parent="Items/StoryLetters" instance=ExtResource("16_2ntw1")]
 z_index = 1
-position = Vector2(30271, -9169)
+position = Vector2(27550, -4712)
 scale = Vector2(2.16, 2.16)
 frames = SubResource("SpriteFrames_iijpv")
 collectible_name = "letter4"
@@ -651,6 +656,19 @@ polygon = PackedVector2Array(62, -63, 81, -774, -771, -1289, -1745, -692, -1604,
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Items/LittleFreeLibrary"]
 stream = ExtResource("21_rb10m")
 volume_db = -21.83
+
+[node name="Cable" type="Node2D" parent="Items"]
+position = Vector2(8654, 0)
+scale = Vector2(0.925254, 0.99869)
+
+[node name="Polygon2D" type="Polygon2D" parent="Items/Cable"]
+z_as_relative = false
+texture_repeat = 2
+position = Vector2(12771.6, -1599.09)
+scale = Vector2(0.394761, 0.394761)
+texture = ExtResource("24_2n5ts")
+texture_scale = Vector2(0.1, 0.1)
+polygon = PackedVector2Array(-465.43, -1326.59, -476.383, -750.804, -61538, -677.245, -61431.2, -1209.91)
 
 [node name="InstructionTriggers" type="Node2D" parent="."]
 
