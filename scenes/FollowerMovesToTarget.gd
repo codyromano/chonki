@@ -5,14 +5,24 @@ extends NavigationAgent2D
 @export var speed: int = 200
 @export var desired_distance: float = 200.0
 
+var navigation_ready: bool = false
+
 func _ready():
 	# Configure NavigationAgent2D properties
 	max_speed = speed
 	path_desired_distance = 200.0
 	target_desired_distance = desired_distance
+	
+	# Wait for the navigation map to be ready
+	call_deferred("_setup_navigation")
+
+func _setup_navigation():
+	# Wait for the navigation map to synchronize
+	await get_tree().physics_frame
+	navigation_ready = true
 
 func _physics_process(delta):
-	if not follower or not target:
+	if not navigation_ready or not follower or not target:
 		return
 		
 	# Set the navigation target

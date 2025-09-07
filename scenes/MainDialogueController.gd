@@ -41,21 +41,25 @@ func _create_dialogue(dialogue: String) -> PanelContainer:
 
 
 func _process_queue() -> void:
+	if not is_inside_tree():
+		return
+		
 	var tree = get_tree()
+	if not tree:
+		return
+		
 	if rendered_dialogue:
 		rendered_dialogue.queue_free()
 		rendered_dialogue = null
 
 	if dialogue_queue.is_empty():
-		if tree:
-			tree.paused = false
+		tree.paused = false
 		return
 
 	var next_dialogue = dialogue_queue.pop_front()
 	rendered_dialogue = _create_dialogue(next_dialogue)
 	
-	if tree:
-		tree.paused = true
+	tree.paused = true
 
 
 func _on_dialogue_queued(dialogue: String) -> void:

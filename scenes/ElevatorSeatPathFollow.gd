@@ -15,7 +15,7 @@ func _on_lever_changed(lever_name: String, is_on: bool) -> void:
 		lever_change_time = Time.get_unix_time_from_system()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta):
+func _process(_delta):
 	if !lever_change_time:
 		return
 		

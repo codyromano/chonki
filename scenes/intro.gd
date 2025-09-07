@@ -12,5 +12,5 @@ func _process(_delta) -> void:
 		GlobalSignals.game_zoom_level.emit(0.075)		
 
 
-func _on_little_free_library_body_entered(body):
+func _on_little_free_library_body_entered(_body):
 	pass # Replace with function body.

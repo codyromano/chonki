@@ -15,7 +15,7 @@ func _ready() -> void:
 		_lever_status_changed
 	)
 
-func _lever_status_changed(lever_name: String, is_on: bool) -> void:
+func _lever_status_changed(_lever_name: String, is_on: bool) -> void:
 	if move_tween:
 		move_tween.kill()
 	
