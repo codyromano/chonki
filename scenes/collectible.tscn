@@ -1,7 +1,8 @@
-[gd_scene load_steps=8 format=3 uid="uid://bm55n82sfyn37"]
+[gd_scene load_steps=9 format=3 uid="uid://bm55n82sfyn37"]
 
 [ext_resource type="Script" path="res://scenes/Collectible.gd" id="1_su7td"]
 [ext_resource type="AudioStream" uid="uid://5eq4y1psdc7d" path="res://assets/sound/book1.mp3" id="2_auneg"]
+[ext_resource type="Theme" uid="uid://dte5an7k6hog1" path="res://themes/base.tres" id="4_3nuli"]
 [ext_resource type="Texture2D" uid="uid://b5656rpujvxxt" path="res://assets/collectibles/book.png" id="9_frf8e"]
 [ext_resource type="Texture2D" uid="uid://cu7vs55b4bjil" path="res://assets/collectibles/book-open.png" id="9_jwhar"]
 [ext_resource type="AudioStream" uid="uid://3u0hk83prun5" path="res://assets/sound/chill-bark.mp3" id="9_towvv"]
@@ -51,5 +52,14 @@ position = Vector2(6792, -534)
 stream = ExtResource("9_towvv")
 volume_db = 4.657
 
-[connection signal="area_entered" from="StaticBody2D2" to="." method="_on_static_body_2d_2_area_entered"]
+[node name="Label" type="Label" parent="."]
+offset_left = -93.0
+offset_top = -348.0
+offset_right = 85.0
+offset_bottom = -223.0
+theme = ExtResource("4_3nuli")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 100
+text = "Label"
+
 [connection signal="body_entered" from="StaticBody2D2" to="." method="_on_static_body_2d_2_body_entered"]

@@ -1,4 +1,4 @@
-[gd_scene load_steps=54 format=3 uid="uid://0jybnryjbe51"]
+[gd_scene load_steps=59 format=3 uid="uid://0jybnryjbe51"]
 
 [ext_resource type="Texture2D" uid="uid://cue46gcr7x6qj" path="res://assets/environment/barn/barn_wall.jpg" id="1_553eq"]
 [ext_resource type="Script" path="res://scenes/intro.gd" id="1_gdkj6"]
@@ -30,7 +30,10 @@
 [ext_resource type="AudioStream" uid="uid://c4pq71yiir21k" path="res://assets/sound/library_open.mp3" id="21_rb10m"]
 [ext_resource type="Script" path="res://scenes/PathFollowWallBesideHorse.gd" id="21_utod2"]
 [ext_resource type="Texture2D" uid="uid://cbt7augdvxsql" path="res://assets/environment/barn/cable/cable1.png" id="24_2n5ts"]
+[ext_resource type="Script" path="res://scenes/fork_lift_hint.gd" id="24_whm4s"]
+[ext_resource type="Script" path="res://scenes/ball_hint.gd" id="25_xe845"]
 [ext_resource type="Script" path="res://scripts/scene_transition_controller.gd" id="26_3mjik"]
+[ext_resource type="Texture2D" uid="uid://jxoalg47qfnm" path="res://assets/collectibles/bone.png" id="27_bone1"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ed647"]
 distance = -500.0
@@ -105,6 +108,28 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_x6vo4"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("27_bone1")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6sxqd"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("27_bone1")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [sub_resource type="Curve2D" id="Curve2D_c8q2i"]
 _data = {
 "points": PackedVector2Array(0, 0, 0, 0, -834.474, -4033.85, 0, 0, 0, 0, 27.2847, -26852.2, 0, 0, 0, 0, -8081.07, -26592.1)
@@ -175,6 +200,27 @@ texture_offset = Vector2(500, 0)
 polygon = PackedVector2Array(7.33307, -1547.73, 7.33307, -1388.15, 243.535, -1390.94, 243.149, -1551.92)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/PhysicsBarriers/FloatWoods/FloatWood"]
+z_index = 1
+position = Vector2(-1239.5, -3668.5)
+shape = SubResource("RectangleShape2D_ev16l")
+
+[node name="ForkLiftHintWood" type="StaticBody2D" parent="Environment/PhysicsBarriers/FloatWoods"]
+position = Vector2(15251, -634)
+
+[node name="Sprite2D" type="Polygon2D" parent="Environment/PhysicsBarriers/FloatWoods/ForkLiftHintWood"]
+modulate = Color(0.988235, 0.729412, 0.188235, 1)
+self_modulate = Color(0.568627, 0.65098, 0.501961, 1)
+z_index = 1
+texture_repeat = 2
+material = SubResource("CanvasItemMaterial_ggcgc")
+use_parent_material = true
+position = Vector2(-2013, -1558)
+scale = Vector2(5.26667, 1.435)
+texture = ExtResource("1_553eq")
+texture_offset = Vector2(500, 0)
+polygon = PackedVector2Array(7.33307, -1547.73, 7.33307, -1388.15, 243.535, -1390.94, 243.149, -1551.92)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/PhysicsBarriers/FloatWoods/ForkLiftHintWood"]
 z_index = 1
 position = Vector2(-1239.5, -3668.5)
 shape = SubResource("RectangleShape2D_ev16l")
@@ -569,14 +615,6 @@ position = Vector2(10349.6, -6272.22)
 scale = Vector2(119.454, 119.454)
 shape = SubResource("RectangleShape2D_ih5xv")
 
-[node name="Lever" parent="Items" instance=ExtResource("13_50tjc")]
-z_index = 1
-position = Vector2(-2025, -2245)
-collision_layer = 32
-collision_mask = 65
-timer_duration = 1.5
-lever_name = "fork_lift_lever"
-
 [node name="Trampoline" type="Area2D" parent="Items"]
 position = Vector2(27683, -4963)
 script = ExtResource("16_u2n1w")
@@ -586,24 +624,11 @@ trampoline_id = "horse_buck"
 position = Vector2(-135.75, 715)
 shape = SubResource("RectangleShape2D_vph7a")
 
-[node name="Lever2" parent="Items" instance=ExtResource("13_50tjc")]
-position = Vector2(22973, -10783)
-collision_layer = 32
-timer_duration = 10.0
-lever_name = "elevator_seat_lever"
-
-[node name="Lever3" parent="Items" instance=ExtResource("13_50tjc")]
-position = Vector2(38292, -2500)
-collision_layer = 32
-collision_mask = 65
-timer_duration = 20.0
-lever_name = "wall_near_horse_lever"
-
 [node name="StoryLetters" type="Node2D" parent="Items"]
 
 [node name="Letter1" parent="Items/StoryLetters" instance=ExtResource("16_2ntw1")]
 z_index = 1
-position = Vector2(-5409, -4514)
+position = Vector2(22433, -7945)
 scale = Vector2(2.16, 2.16)
 frames = SubResource("SpriteFrames_iijpv")
 collectible_name = "letter1"
@@ -619,7 +644,7 @@ float_intensity = 150.0
 
 [node name="Letter3" parent="Items/StoryLetters" instance=ExtResource("16_2ntw1")]
 z_index = 1
-position = Vector2(18256, -6912)
+position = Vector2(24601, -11289)
 scale = Vector2(2.16, 2.16)
 frames = SubResource("SpriteFrames_iijpv")
 collectible_name = "letter3"
@@ -670,10 +695,51 @@ texture = ExtResource("24_2n5ts")
 texture_scale = Vector2(0.1, 0.1)
 polygon = PackedVector2Array(-465.43, -1326.59, -476.383, -750.804, -61538, -677.245, -61431.2, -1209.91)
 
+[node name="Hints" type="Node2D" parent="Items"]
+
+[node name="ForkLiftHint" parent="Items/Hints" instance=ExtResource("16_2ntw1")]
+position = Vector2(13803, -4914)
+scale = Vector2(2.64, 2.64)
+script = ExtResource("24_whm4s")
+frames = SubResource("SpriteFrames_x6vo4")
+collectible_name = "fork_lift_hint"
+audio = null
+
+[node name="BallHint" parent="Items/Hints" instance=ExtResource("16_2ntw1")]
+position = Vector2(-9968, -4767)
+scale = Vector2(2.64, 2.64)
+script = ExtResource("25_xe845")
+frames = SubResource("SpriteFrames_6sxqd")
+collectible_name = "ball_hint"
+audio = null
+
+[node name="Levers" type="Node2D" parent="Items"]
+
+[node name="Lever" parent="Items/Levers" instance=ExtResource("13_50tjc")]
+z_index = 1
+position = Vector2(-2025, -2245)
+collision_layer = 32
+collision_mask = 65
+timer_duration = 1.5
+lever_name = "fork_lift_lever"
+
+[node name="Lever2" parent="Items/Levers" instance=ExtResource("13_50tjc")]
+position = Vector2(22973, -10783)
+collision_layer = 32
+timer_duration = 10.0
+lever_name = "elevator_seat_lever"
+
+[node name="Lever3" parent="Items/Levers" instance=ExtResource("13_50tjc")]
+position = Vector2(38292, -2500)
+collision_layer = 32
+collision_mask = 65
+timer_duration = 20.0
+lever_name = "wall_near_horse_lever"
+
 [node name="InstructionTriggers" type="Node2D" parent="."]
 
 [node name="IntroToBooksTrigger" parent="InstructionTriggers" instance=ExtResource("12_hq858")]
-position = Vector2(-10530, -2215)
+position = Vector2(17230, -5340)
 dialogue = "Hmm. Maybe the books will explain how I got here."
 
 [node name="LittleFreeLibraryTrigger" parent="InstructionTriggers" instance=ExtResource("12_hq858")]

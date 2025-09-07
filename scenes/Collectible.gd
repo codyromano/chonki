@@ -1,5 +1,6 @@
 extends Node2D
 
+@export var label_text: String
 @export var frames: SpriteFrames
 @export var collectible_name: String
 @export var audio: AudioStream  # Allows .mp3, .ogg, etc.
@@ -13,15 +14,26 @@ extends Node2D
 var float_tween: Tween
 var base_y: float
 @onready var audio_player: AudioStreamPlayer = AudioStreamPlayer.new()
+@onready var label: Label = find_child('Label')
 
 var is_collected: bool = false
 
 
+# Override
+func _on_item_collected(collectible_name: String) -> void:
+	pass
+
 func _ready():
 	add_child(audio_player)
+	var  label: Label = find_child('Label')
+	if label_text:
+		label.text = label_text
+	else:
+		label.visible = false
 
 	# Start floating animation
 	if sprite:
+		sprite.sprite_frames = frames
 		base_y = sprite.position.y
 		_start_floating()
 
@@ -47,10 +59,14 @@ func _process(_delta):
 func _on_static_body_2d_2_body_entered(body):
 	if is_collected:
 		return
+		
+	_on_item_collected(collectible_name)
 
 	if "on_item_collected" in body:
 		body.on_item_collected(collectible_name)
-		sprite.play("opened")
+		
+		if collectible_name.to_lower().contains('book'):
+			sprite.play("opened")
 
 		# Play sound (non-blocking)
 		if audio:
@@ -66,6 +82,9 @@ func _on_static_body_2d_2_body_entered(body):
 		tween.tween_property(sprite, "scale", sprite.scale * 1.5, duration)
 		tween.tween_property(sprite, "rotation_degrees", sprite.rotation_degrees + 360, duration)
 		tween.tween_property(sprite, "modulate:a", 0.0, duration)
+		
+		tween.tween_property(label, "scale", sprite.scale * 1.5, duration)
+		tween.tween_property(label, "modulate:a", 0.0, duration)
 
 		await audio_player.finished
 		$ChillBark.play()
