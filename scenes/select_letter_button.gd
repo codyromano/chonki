@@ -36,17 +36,20 @@ func update_button_focus() -> void:
 	if current_index == -1:
 		return
 	
+	# Rebuild the horizontal focus chain for remaining focusable buttons
+	_rebuild_horizontal_focus_chain()
+	
 	# Try to find an enabled button to the right
 	for i in range(current_index + 1, all_buttons.size()):
 		var button = all_buttons[i]
-		if button is Button and not button.disabled:
+		if button is Button and button.focus_mode != Control.FOCUS_NONE:
 			button.grab_focus()
 			return
 	
 	# If no enabled button to the right, try to the left
 	for i in range(current_index - 1, -1, -1):
 		var button = all_buttons[i]
-		if button is Button and not button.disabled:
+		if button is Button and button.focus_mode != Control.FOCUS_NONE:
 			button.grab_focus()
 			return
 	
@@ -55,6 +58,34 @@ func update_button_focus() -> void:
 	var back_button = scene_root.find_child("BackToGameButton", true, false)
 	if back_button:
 		back_button.grab_focus()
+
+func _rebuild_horizontal_focus_chain():
+	# Get all focusable letter buttons and rebuild their left/right neighbors
+	var container = get_parent()
+	if not container:
+		return
+	
+	var focusable_buttons = []
+	for child in container.get_children():
+		if child is Button and child.focus_mode != Control.FOCUS_NONE:
+			focusable_buttons.append(child)
+	
+	# Clear existing horizontal neighbors for all buttons
+	for button in focusable_buttons:
+		button.focus_neighbor_left = NodePath()
+		button.focus_neighbor_right = NodePath()
+	
+	# Rebuild the chain
+	for i in range(focusable_buttons.size()):
+		var button = focusable_buttons[i]
+		
+		# Set left neighbor
+		if i > 0:
+			button.focus_neighbor_left = focusable_buttons[i - 1].get_path()
+		
+		# Set right neighbor  
+		if i < focusable_buttons.size() - 1:
+			button.focus_neighbor_right = focusable_buttons[i + 1].get_path()
 
 func _on_button_down() -> void:
 	if !disabled:
