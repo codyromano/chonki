@@ -35,20 +35,31 @@ func _on_win() -> void:
 	GlobalSignals.queue_main_dialogue.emit('Gus, the Corgi, was born in a barn in Olympia, Washington. His future owner drove from Seattle to pick him up.')
 		
 func _on_anagram_word_guess_updated(word: String) -> void:
-	print("progress: " + word + " vs. " + win_word)
 	if word == win_word:
 		_on_win()
+
+func add_single_button(index: int, letter: String) -> Button:
+	var button = button_scene.instantiate()
+	button.id = 'letter_button'
+	button.data = letter
+	button.rendering_order = index
 	
+	container.add_child(button)
+	return button
+
 func create_select_letter_buttons() -> void:
 	var letters_array = Array(win_word.split())
 	letters_array.shuffle()
 	
-	for letter in letters_array:
-		var button = button_scene.instantiate()
-		button.id = 'letter_button'
-		button.data = letter
-		
-		container.add_child(button)
+	# Create a button for the first letter and focus on it
+	var first_button = add_single_button(0, letters_array[0])
+	first_button.grab_focus()
+	
+	var buttons = [first_button]
+	
+	# Create the remaining letters:
+	for i in range(1, letters_array.size()):
+		buttons.append(add_single_button(i, letters_array[i]))
 
 func _on_press_reset_anagram() -> void:
 	var buttons = container.get_children()

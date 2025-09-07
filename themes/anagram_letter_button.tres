@@ -1,16 +1,17 @@
 [gd_resource type="Theme" load_steps=4 format=3 uid="uid://bens1gsogrwah"]
 
-[ext_resource type="StyleBox" uid="uid://dschtr25qbqu3" path="res://themes/anagram_letter_style_box.tres" id="1_a486u"]
 [ext_resource type="FontFile" uid="uid://dlfbvpauldaco" path="res://fonts/Sniglet-Regular.ttf" id="1_ibmnk"]
+[ext_resource type="StyleBox" uid="uid://c1mj2x2m35i86" path="res://themes/anagram_disabled_letter_style_box.tres" id="2_1v7ut"]
 [ext_resource type="StyleBox" uid="uid://dwbaj4hh5v8to" path="res://themes/anagram_hover_letter_style_box.tres" id="3_kurqj"]
 
 [resource]
 Button/colors/font_color = Color(0, 0, 0, 1)
+Button/colors/font_focus_color = Color(0, 0, 0, 1)
 Button/colors/font_hover_color = Color(0, 0, 0, 1)
 Button/font_sizes/font_size = 40
 Button/fonts/font = ExtResource("1_ibmnk")
-Button/styles/disabled = ExtResource("1_a486u")
+Button/styles/disabled = ExtResource("2_1v7ut")
 Button/styles/focus = ExtResource("3_kurqj")
 Button/styles/hover = ExtResource("3_kurqj")
-Button/styles/normal = ExtResource("1_a486u")
+Button/styles/normal = ExtResource("2_1v7ut")
 Button/styles/pressed = ExtResource("3_kurqj")
