@@ -307,9 +307,11 @@ func _on_player_out_of_hearts():
 		await wait_for_chonki_to_land()
 		player_die()
 
-func _on_player_jump(intensity: float):
-	# Handle jumping via signal
-	if not is_game_win and body.is_on_floor():
+# TODO: String param should be an enum here
+func _on_player_jump(intensity: float, entity_applying_force: String):
+	# Allow objects such as trampolines to apply jump force to the player even
+	# when the player is not on the ground.
+	if not is_game_win and (body.is_on_floor() || entity_applying_force != "player"):
 		velocity.y = PhysicsConstants.JUMP_FORCE * jump_multiplier * intensity
 		GlobalSignals.play_sfx.emit("jump")
 

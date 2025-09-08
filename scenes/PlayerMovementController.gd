@@ -18,4 +18,4 @@ func _process(_delta):
 	if Input.is_action_just_pressed("ui_up"):
 		# Base jump intensity is 1.0, can be modified for different jump types
 		var jump_intensity = 1.0
-		GlobalSignals.player_jump.emit(jump_intensity)
+		GlobalSignals.player_jump.emit(jump_intensity, "player")

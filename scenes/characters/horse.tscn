@@ -1,8 +1,27 @@
 [gd_scene load_steps=5 format=3 uid="uid://ccvw8kpjbne33"]
 
-[ext_resource type="Script" path="res://scenes/Horse.gd" id="1_yf1rx"]
 [ext_resource type="Texture2D" uid="uid://be33ir4qg1jms" path="res://assets/friends/horse/horse_buck.png" id="2_8cubg"]
 [ext_resource type="Texture2D" uid="uid://bnqhf5jhqkwgg" path="res://assets/friends/horse/horse.png" id="3_4u7cv"]
+
+[sub_resource type="GDScript" id="GDScript_s6hp8"]
+script/source = "extends CharacterBody2D
+
+@export var flip_h: bool = false
+
+## Horse script
+## 
+## Handles horse behavior including the buck animation triggered by
+## the horse_buck trampoline
+
+var original_rotation: float = 0.0
+var is_bucking: bool = false
+
+func _ready():
+	$AnimatedSprite2D.flip_h = flip_h 
+	
+	# Store the original rotation
+	original_rotation = rotation_degrees
+"
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_p650v"]
 animations = [{
@@ -25,7 +44,7 @@ animations = [{
 
 [node name="Horse" type="CharacterBody2D"]
 position = Vector2(3299, 3787)
-script = ExtResource("1_yf1rx")
+script = SubResource("GDScript_s6hp8")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(258.602, -375.5)

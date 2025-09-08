@@ -76,7 +76,7 @@ size = Vector2(1661.75, 993.471)
 size = Vector2(20, 1.67627)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vph7a"]
-size = Vector2(2961.38, 598)
+size = Vector2(3422, 1944.5)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_iijpv"]
 animations = [{
@@ -551,10 +551,11 @@ shape = SubResource("RectangleShape2D_ih5xv")
 [node name="Trampoline" type="Area2D" parent="Items"]
 position = Vector2(27683, -4963)
 script = ExtResource("16_u2n1w")
+jump_intensity = 1.75
 trampoline_id = "horse_buck"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Items/Trampoline"]
-position = Vector2(1144.31, 2077)
+position = Vector2(1240, 2613.25)
 shape = SubResource("RectangleShape2D_vph7a")
 
 [node name="Sprite2D" type="Sprite2D" parent="Items/Trampoline"]
@@ -688,7 +689,7 @@ scale = Vector2(0.872198, 0.732905)
 dialogue = "I can press 'r' to return my books to a little free library"
 
 [node name="DebugPlayerStartMarker" type="Marker2D" parent="."]
-position = Vector2(36296, -3333)
+position = Vector2(23871, -5912)
 
 [node name="ScriptedAnimationScenarios" type="Node2D" parent="."]
 

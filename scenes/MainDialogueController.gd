@@ -16,6 +16,9 @@ func _ready() -> void:
 
 	GlobalSignals.queue_main_dialogue.connect(_on_dialogue_queued)
 	GlobalSignals.dismiss_active_main_dialogue.connect(_on_dismiss_active_dialogue)
+	
+	# Configure all audio players to continue playing during dialogue pause
+	_configure_audio_players_for_dialogue()
 
 	var current_scene = get_tree().current_scene
 	if current_scene && current_scene.name == 'Intro':
@@ -24,6 +27,30 @@ func _ready() -> void:
 
 	await get_tree().create_timer(0.2).timeout
 	is_ready = true
+
+
+func _configure_audio_players_for_dialogue() -> void:
+	# Find all AudioStreamPlayer and AudioStreamPlayer2D nodes and configure them
+	# to continue playing during dialogue pauses
+	var current_scene = get_tree().current_scene
+	if current_scene:
+		var audio_nodes = _find_all_audio_nodes(current_scene)
+		for audio_node in audio_nodes:
+			audio_node.process_mode = Node.PROCESS_MODE_ALWAYS
+
+
+func _find_all_audio_nodes(node: Node) -> Array:
+	var audio_nodes = []
+	
+	# Check if current node is an audio player
+	if node is AudioStreamPlayer or node is AudioStreamPlayer2D:
+		audio_nodes.append(node)
+	
+	# Recursively check all children
+	for child in node.get_children():
+		audio_nodes.append_array(_find_all_audio_nodes(child))
+	
+	return audio_nodes
 
 
 func _process(_delta: float) -> void:

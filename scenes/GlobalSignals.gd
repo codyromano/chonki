@@ -24,7 +24,7 @@ signal slide_end
 signal dismiss_instructional_text(instructions_id: String)
 signal display_instructional_text(instructions_id: String)
 signal lever_status_changed(lever_name: String, is_on: bool)
-signal player_jump(intensity: float)
+signal player_jump(intensity: float, entity_applying_force: String)
 signal horse_buck
 signal enter_little_free_library
 signal on_data_button_selected(button_id: String, data: String)
