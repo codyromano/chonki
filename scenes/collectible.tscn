@@ -59,7 +59,9 @@ offset_right = 85.0
 offset_bottom = -223.0
 theme = ExtResource("4_3nuli")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_font_sizes/font_size = 100
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 150
 text = "Label"
 
 [connection signal="body_entered" from="StaticBody2D2" to="." method="_on_static_body_2d_2_body_entered"]

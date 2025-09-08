@@ -19,8 +19,7 @@ func _ready() -> void:
 
 	var current_scene = get_tree().current_scene
 	if current_scene && current_scene.name == 'Intro':
-		await get_tree().create_timer(2.0).timeout
-		_on_dialogue_queued("*Yawn* That was a long nap!")
+		await get_tree().create_timer(1.0).timeout
 		_on_dialogue_queued("Today is a big day! I'd better find a way out of this barn...")
 
 	await get_tree().create_timer(0.2).timeout
