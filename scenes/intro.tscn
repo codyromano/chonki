@@ -8,7 +8,6 @@
 [ext_resource type="Texture2D" uid="uid://qx1ubqqi74hv" path="res://assets/collectibles/menu-icons/heart.png" id="4_ee0bn"]
 [ext_resource type="PackedScene" uid="uid://da1xtclqphxbr" path="res://scenes/characters/npc_dog.tscn" id="5_c0o7x"]
 [ext_resource type="PackedScene" uid="uid://ft24k8s13tpc" path="res://scenes/composable/instructional_text.tscn" id="7_2gl52"]
-[ext_resource type="PackedScene" uid="uid://ccvw8kpjbne33" path="res://scenes/characters/horse.tscn" id="7_u4djh"]
 [ext_resource type="Script" path="res://scenes/MoveLeftOrRightText.gd" id="7_y0mp2"]
 [ext_resource type="Script" path="res://scenes/MainDialogueController.gd" id="8_7a76o"]
 [ext_resource type="Script" path="res://scenes/composable/jump_text.gd" id="9_72lhp"]
@@ -19,6 +18,7 @@
 [ext_resource type="PackedScene" uid="uid://cs71vpxi4b22q" path="res://scenes/composable/lever.tscn" id="13_50tjc"]
 [ext_resource type="Script" path="res://scenes/ForkLiftForks.gd" id="13_xew14"]
 [ext_resource type="PackedScene" uid="uid://bm55n82sfyn37" path="res://scenes/collectible.tscn" id="16_2ntw1"]
+[ext_resource type="Texture2D" uid="uid://cmy2rubmjq6un" path="res://assets/interactables/trampoline.png" id="16_rdahe"]
 [ext_resource type="Script" path="res://scenes/Trampoline.gd" id="16_u2n1w"]
 [ext_resource type="PackedScene" uid="uid://c7gf3p8xwuyah" path="res://scenes/composable/follower_moves_to_target.tscn" id="17_pk6v0"]
 [ext_resource type="Texture2D" uid="uid://b5656rpujvxxt" path="res://assets/collectibles/book.png" id="17_pqrx7"]
@@ -76,7 +76,7 @@ size = Vector2(1661.75, 993.471)
 size = Vector2(20, 1.67627)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_vph7a"]
-size = Vector2(1687.5, 170)
+size = Vector2(2961.38, 598)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_iijpv"]
 animations = [{
@@ -474,9 +474,6 @@ position = Vector2(2000, -3766)
 [node name="NPCDog2" parent="NPCs/Dogs" instance=ExtResource("5_c0o7x")]
 position = Vector2(2411, -3512)
 
-[node name="Horse" parent="NPCs" instance=ExtResource("7_u4djh")]
-position = Vector2(26831, -4213)
-
 [node name="TitleCanvasLayer" type="CanvasLayer" parent="."]
 layer = 10
 
@@ -557,8 +554,13 @@ script = ExtResource("16_u2n1w")
 trampoline_id = "horse_buck"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Items/Trampoline"]
-position = Vector2(-135.75, 715)
+position = Vector2(1144.31, 2077)
 shape = SubResource("RectangleShape2D_vph7a")
+
+[node name="Sprite2D" type="Sprite2D" parent="Items/Trampoline"]
+position = Vector2(1202, 2381)
+scale = Vector2(8.76, 8.76)
+texture = ExtResource("16_rdahe")
 
 [node name="StoryLetters" type="Node2D" parent="Items"]
 
@@ -596,7 +598,7 @@ float_intensity = 150.0
 
 [node name="Letter5" parent="Items/StoryLetters" instance=ExtResource("16_2ntw1")]
 z_index = 1
-position = Vector2(27550, -4712)
+position = Vector2(12566, -13612)
 scale = Vector2(2.16, 2.16)
 frames = SubResource("SpriteFrames_iijpv")
 collectible_name = "letter4"
