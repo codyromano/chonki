@@ -1,7 +1,4 @@
-[gd_scene load_steps=5 format=3 uid="uid://ccvw8kpjbne33"]
-
-[ext_resource type="Texture2D" uid="uid://be33ir4qg1jms" path="res://assets/friends/horse/horse_buck.png" id="2_8cubg"]
-[ext_resource type="Texture2D" uid="uid://bnqhf5jhqkwgg" path="res://assets/friends/horse/horse.png" id="3_4u7cv"]
+[gd_scene load_steps=5 format=3 uid="uid://cp6xnb4qmrhi4"]
 
 [sub_resource type="GDScript" id="GDScript_s6hp8"]
 script/source = "extends CharacterBody2D
@@ -23,11 +20,17 @@ func _ready():
 	original_rotation = rotation_degrees
 "
 
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_4tpjs"]
+load_path = "res://.godot/imported/horse_buck.png-7feddfc2291eb19ba4e98ee1734698e9.ctex"
+
+[sub_resource type="CompressedTexture2D" id="CompressedTexture2D_8ec40"]
+load_path = "res://.godot/imported/horse.png-5e15a16cf6ba67267e173115af1a22c5.ctex"
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_p650v"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_8cubg")
+"texture": SubResource("CompressedTexture2D_4tpjs")
 }],
 "loop": true,
 "name": &"buck",
@@ -35,7 +38,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_4u7cv")
+"texture": SubResource("CompressedTexture2D_8ec40")
 }],
 "loop": true,
 "name": &"default",
