@@ -1,108 +1,135 @@
 [gd_scene load_steps=8 format=3 uid="uid://b41x2t8numn7a"]
 
-[ext_resource type="Script" path="res://scenes/HUDControl.gd" id="1_3g370"]
+[ext_resource type="Script" path="res://scenes/PrimaryGameplayHUD.gd" id="1_pehsw"]
 [ext_resource type="Texture2D" uid="uid://qx1ubqqi74hv" path="res://assets/collectibles/menu-icons/heart.png" id="2"]
-[ext_resource type="Script" path="res://scenes/StarLabel.gd" id="3_s5bop"]
 [ext_resource type="Texture2D" uid="uid://b5656rpujvxxt" path="res://assets/collectibles/book.png" id="3_yxrfy"]
 [ext_resource type="Theme" uid="uid://dte5an7k6hog1" path="res://themes/base.tres" id="4_a3yto"]
 [ext_resource type="Texture2D" uid="uid://bqld0cf1kt3t4" path="res://assets/collectibles/menu-icons/clock.png" id="5_sva7s"]
 [ext_resource type="Script" path="res://scenes/menus/TimerText.gd" id="6_05hcm"]
 
-[node name="HUD" type="CanvasLayer"]
+[sub_resource type="GDScript" id="GDScript_0dcqf"]
+script/source = "extends Label
+
+
+	
+# Called every frame. 'delta' is the elapsed time since the previous frame.
+func _process(_delta):
+	pass
+	#text = str(total_collected)
+"
+
+[node name="PrimaryGameplayHUD" type="CanvasLayer"]
+script = ExtResource("1_pehsw")
+is_health_visible = true
+is_timer_visible = true
 
 [node name="HUDControl" type="Control" parent="."]
-custom_minimum_size = Vector2(0, 100)
 layout_mode = 3
-anchors_preset = 0
-offset_bottom = 100.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-script = ExtResource("1_3g370")
 
-[node name="Heart1" type="TextureRect" parent="HUDControl"]
+[node name="VBoxContainer" type="VBoxContainer" parent="HUDControl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -387.0
+offset_right = 395.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TopMenuHBoxContainer" type="HBoxContainer" parent="HUDControl/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
+[node name="HeartsHBoxContainer" type="HBoxContainer" parent="HUDControl/VBoxContainer/TopMenuHBoxContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+
+[node name="Heart1" type="TextureRect" parent="HUDControl/VBoxContainer/TopMenuHBoxContainer/HeartsHBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
-offset_left = 22.0
-offset_top = 22.0
-offset_right = 422.0
-offset_bottom = 422.0
-scale = Vector2(0.25, 0.25)
 size_flags_horizontal = 0
 size_flags_vertical = 4
 texture = ExtResource("2")
 stretch_mode = 2
 
-[node name="Heart2" type="TextureRect" parent="HUDControl"]
+[node name="Heart2" type="TextureRect" parent="HUDControl/VBoxContainer/TopMenuHBoxContainer/HeartsHBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
-offset_left = 118.0
-offset_top = 22.0
-offset_right = 518.0
-offset_bottom = 422.0
-scale = Vector2(0.25, 0.25)
 size_flags_horizontal = 0
 size_flags_vertical = 4
 texture = ExtResource("2")
 stretch_mode = 2
 
-[node name="Heart3" type="TextureRect" parent="HUDControl"]
+[node name="Heart3" type="TextureRect" parent="HUDControl/VBoxContainer/TopMenuHBoxContainer/HeartsHBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
-offset_left = 217.0
-offset_top = 22.0
-offset_right = 617.0
-offset_bottom = 422.0
-scale = Vector2(0.25, 0.25)
 size_flags_horizontal = 0
 size_flags_vertical = 4
 texture = ExtResource("2")
 stretch_mode = 2
 
-[node name="StarIcon" type="TextureRect" parent="HUDControl"]
+[node name="Label" type="Label" parent="HUDControl/VBoxContainer/TopMenuHBoxContainer/HeartsHBoxContainer"]
 layout_mode = 2
-offset_left = 1458.0
-offset_top = 30.0
-offset_right = 2212.0
-offset_bottom = 784.0
-scale = Vector2(0.101457, 0.111822)
-texture = ExtResource("3_yxrfy")
-expand_mode = 2
-stretch_mode = 2
-
-[node name="StarLabel" type="Label" parent="HUDControl"]
-custom_minimum_size = Vector2(50, 0)
-layout_mode = 2
-offset_left = 1548.0
-offset_top = 24.0
-offset_right = 1646.0
-offset_bottom = 127.0
-theme = ExtResource("4_a3yto")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 75
-text = "0
-"
-script = ExtResource("3_s5bop")
+text = "H"
 
-[node name="TimerText" type="Label" parent="HUDControl"]
-layout_mode = 0
-offset_left = 830.0
-offset_top = 18.0
-offset_right = 917.0
-offset_bottom = 121.0
+[node name="TimeHBoxContainer" type="HBoxContainer" parent="HUDControl/VBoxContainer/TopMenuHBoxContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+alignment = 1
+
+[node name="TimerText" type="Label" parent="HUDControl/VBoxContainer/TopMenuHBoxContainer/TimeHBoxContainer"]
+layout_mode = 2
 theme = ExtResource("4_a3yto")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 75
 text = "90"
 script = ExtResource("6_05hcm")
 
-[node name="Timer" type="Timer" parent="HUDControl/TimerText"]
+[node name="Timer" type="Timer" parent="HUDControl/VBoxContainer/TopMenuHBoxContainer/TimeHBoxContainer/TimerText"]
 autostart = true
 
-[node name="ClockIcon" type="TextureRect" parent="HUDControl"]
-layout_mode = 0
-offset_left = 712.0
-offset_top = 8.0
-offset_right = 1736.0
-offset_bottom = 1032.0
-scale = Vector2(0.12, 0.12)
+[node name="ClockIcon" type="TextureRect" parent="HUDControl/VBoxContainer/TopMenuHBoxContainer/TimeHBoxContainer"]
+visible = false
+layout_mode = 2
 texture = ExtResource("5_sva7s")
 
-[connection signal="timeout" from="HUDControl/TimerText/Timer" to="HUDControl/TimerText" method="_on_timer_timeout"]
+[node name="BooksHBoxContainer" type="HBoxContainer" parent="HUDControl/VBoxContainer/TopMenuHBoxContainer"]
+custom_minimum_size = Vector2(400, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+alignment = 2
+
+[node name="StarIcon" type="TextureRect" parent="HUDControl/VBoxContainer/TopMenuHBoxContainer/BooksHBoxContainer"]
+visible = false
+layout_mode = 2
+texture = ExtResource("3_yxrfy")
+expand_mode = 2
+stretch_mode = 2
+
+[node name="StarLabel" type="Label" parent="HUDControl/VBoxContainer/TopMenuHBoxContainer/BooksHBoxContainer"]
+custom_minimum_size = Vector2(50, 0)
+layout_mode = 2
+theme = ExtResource("4_a3yto")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 75
+text = "0
+"
+script = SubResource("GDScript_0dcqf")
+
+[connection signal="timeout" from="HUDControl/VBoxContainer/TopMenuHBoxContainer/TimeHBoxContainer/TimerText/Timer" to="HUDControl/VBoxContainer/TopMenuHBoxContainer/TimeHBoxContainer/TimerText" method="_on_timer_timeout"]

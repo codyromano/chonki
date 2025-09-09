@@ -1,4 +1,4 @@
-[gd_scene load_steps=59 format=3 uid="uid://0jybnryjbe51"]
+[gd_scene load_steps=60 format=3 uid="uid://0jybnryjbe51"]
 
 [ext_resource type="Texture2D" uid="uid://cue46gcr7x6qj" path="res://assets/environment/barn/barn_wall.jpg" id="1_553eq"]
 [ext_resource type="Script" path="res://scenes/intro.gd" id="1_gdkj6"]
@@ -34,6 +34,7 @@
 [ext_resource type="Script" path="res://scenes/ball_hint.gd" id="25_xe845"]
 [ext_resource type="Script" path="res://scripts/scene_transition_controller.gd" id="26_3mjik"]
 [ext_resource type="Texture2D" uid="uid://jxoalg47qfnm" path="res://assets/collectibles/bone.png" id="27_bone1"]
+[ext_resource type="PackedScene" uid="uid://b41x2t8numn7a" path="res://scenes/HUD.tscn" id="31_i8bqy"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ed647"]
 distance = -500.0
@@ -474,44 +475,6 @@ position = Vector2(2000, -3766)
 [node name="NPCDog2" parent="NPCs/Dogs" instance=ExtResource("5_c0o7x")]
 position = Vector2(2411, -3512)
 
-[node name="TitleCanvasLayer" type="CanvasLayer" parent="."]
-layer = 10
-
-[node name="MainDialogueController" type="Node2D" parent="TitleCanvasLayer"]
-script = ExtResource("8_7a76o")
-duration_per_character = 0.001
-
-[node name="LeftOrRightText" parent="TitleCanvasLayer" instance=ExtResource("7_2gl52")]
-visible = false
-offset_left = 21132.5
-offset_top = 5746.0
-offset_right = 23362.5
-offset_bottom = 5786.0
-script = ExtResource("7_y0mp2")
-content = "My earliest memory is of a barn."
-id = "MoveLeftOrRight"
-
-[node name="JumpText" parent="TitleCanvasLayer" instance=ExtResource("7_2gl52")]
-visible = false
-offset_left = 31182.0
-offset_top = 3839.0
-offset_right = 33412.0
-offset_bottom = 3879.0
-script = ExtResource("9_72lhp")
-content = "Press up to jump"
-id = "Jump"
-
-[node name="LittleFreeLibraryText" parent="TitleCanvasLayer" instance=ExtResource("7_2gl52")]
-visible = false
-offset_left = 49927.5
-offset_top = 5779.0
-offset_right = 52157.5
-offset_bottom = 5819.0
-script = ExtResource("9_72lhp")
-content = "Press R to read"
-id = "LittleFreeLibrary"
-delay_until_fade_in = 0.0
-
 [node name="Items" type="Node2D" parent="." groups=["Items"]]
 
 [node name="ForkLift" type="Node2D" parent="Items"]
@@ -808,6 +771,48 @@ shape = SubResource("CircleShape2D_rar7w")
 
 [node name="SceneTransitionController" type="Node2D" parent="."]
 script = ExtResource("26_3mjik")
+
+[node name="TitleLayers" type="Node2D" parent="."]
+
+[node name="HUD" parent="TitleLayers" instance=ExtResource("31_i8bqy")]
+
+[node name="TitleCanvasLayer" type="CanvasLayer" parent="TitleLayers"]
+layer = 10
+
+[node name="MainDialogueController" type="Node2D" parent="TitleLayers/TitleCanvasLayer"]
+script = ExtResource("8_7a76o")
+duration_per_character = 0.001
+
+[node name="LeftOrRightText" parent="TitleLayers/TitleCanvasLayer" instance=ExtResource("7_2gl52")]
+visible = false
+offset_left = 21132.5
+offset_top = 5746.0
+offset_right = 23362.5
+offset_bottom = 5786.0
+script = ExtResource("7_y0mp2")
+content = "My earliest memory is of a barn."
+id = "MoveLeftOrRight"
+
+[node name="JumpText" parent="TitleLayers/TitleCanvasLayer" instance=ExtResource("7_2gl52")]
+visible = false
+offset_left = 31182.0
+offset_top = 3839.0
+offset_right = 33412.0
+offset_bottom = 3879.0
+script = ExtResource("9_72lhp")
+content = "Press up to jump"
+id = "Jump"
+
+[node name="LittleFreeLibraryText" parent="TitleLayers/TitleCanvasLayer" instance=ExtResource("7_2gl52")]
+visible = false
+offset_left = 49927.5
+offset_top = 5779.0
+offset_right = 52157.5
+offset_bottom = 5819.0
+script = ExtResource("9_72lhp")
+content = "Press R to read"
+id = "LittleFreeLibrary"
+delay_until_fade_in = 0.0
 
 [connection signal="body_entered" from="Items/Trampoline" to="Items/Trampoline" method="_on_body_entered"]
 [connection signal="body_entered" from="Items/LittleFreeLibrary" to="Items/LittleFreeLibrary" method="_on_body_entered"]
