@@ -63,9 +63,10 @@ func _on_static_body_2d_2_body_entered(body):
 	_on_item_collected(collectible_name)
 
 	if "on_item_collected" in body:
-		body.on_item_collected(collectible_name)
-		
-		if collectible_name.to_lower().contains('book'):
+		# Interacting with a hint should not increase the count of books
+		# collected in the HUD menu
+		if !collectible_name.to_lower().contains('hint'):
+			body.on_item_collected(collectible_name)
 			sprite.play("opened")
 
 		# Play sound (non-blocking)

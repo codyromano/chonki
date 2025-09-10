@@ -609,7 +609,7 @@ collectible_name = "fork_lift_hint"
 audio = null
 
 [node name="BallHint" parent="Items/Hints" instance=ExtResource("16_2ntw1")]
-position = Vector2(-2092, -4767)
+position = Vector2(-9786, -4767)
 scale = Vector2(2.64, 2.64)
 script = ExtResource("25_xe845")
 label_text = "Hint"
@@ -633,13 +633,6 @@ collision_layer = 32
 timer_duration = 10.0
 lever_name = "elevator_seat_lever"
 
-[node name="Lever3" parent="Items/Levers" instance=ExtResource("13_50tjc")]
-position = Vector2(38292, -2500)
-collision_layer = 32
-collision_mask = 65
-timer_duration = 20.0
-lever_name = "wall_near_horse_lever"
-
 [node name="InstructionTriggers" type="Node2D" parent="."]
 
 [node name="IntroToBooksTrigger" parent="InstructionTriggers" instance=ExtResource("12_hq858")]
@@ -652,7 +645,7 @@ scale = Vector2(0.872198, 0.732905)
 dialogue = "I can press 'r' to return my books to a little free library"
 
 [node name="DebugPlayerStartMarker" type="Marker2D" parent="."]
-position = Vector2(23871, -5912)
+position = Vector2(25076, -11517)
 
 [node name="ScriptedAnimationScenarios" type="Node2D" parent="."]
 
