@@ -49,6 +49,7 @@ size_flags_vertical = 4
 alignment = 1
 script = ExtResource("1_0thiv")
 fade_in_duration = 0.0
+display_duration = 2.5
 fade_out_duration = 0.0
 
 [node name="Image1" type="TextureRect" parent="AnimationSequence/Control/VBoxContainer/AnimationContainer"]

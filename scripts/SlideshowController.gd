@@ -47,33 +47,68 @@ func _start_slideshow() -> void:
 	
 	for i in range(images.size()):
 		var image = images[i]
-		print("Starting animation for image ", i + 1, ": ", image.name)
+		print("Displaying image ", i + 1, ": ", image.name)
 		
-		# Make the image visible and ready for fade in
+		# Show the image immediately
 		image.visible = true
-		image.modulate.a = 0.0
-		
-		# --- Fade In ---
-		print("Fading in ", image.name)
-		var fade_in_tween = create_tween()
-		fade_in_tween.tween_property(image, "modulate:a", 1.0, fade_in_duration)
-		await fade_in_tween.finished
-		print("Fade in complete for ", image.name)
+		image.modulate.a = 1.0
 		
 		# --- Wait for Display Duration ---
-		print("Displaying ", image.name, " for ", display_duration, " seconds")
-		await get_tree().create_timer(display_duration).timeout
+		var current_display_duration = 7.0 if (i == images.size() - 1) else display_duration
+		print("Displaying ", image.name, " for ", current_display_duration, " seconds")
+		await get_tree().create_timer(current_display_duration).timeout
 		print("Display time complete for ", image.name)
 		
-		# --- Fade Out ---
-		print("Fading out ", image.name)
-		var fade_out_tween = create_tween()
-		fade_out_tween.tween_property(image, "modulate:a", 0.0, fade_out_duration)
-		await fade_out_tween.finished
-		print("Fade out complete for ", image.name)
+		# If this is the final image, fade out music while keeping image visible
+		if i == images.size() - 1:
+			print("Final image - fading out music over 3 seconds...")
+			
+			# Find all audio players and fade them out
+			var audio_players = _find_all_audio_players(get_tree().current_scene)
+			var music_fade_tween = create_tween()
+			music_fade_tween.set_parallel(true)  # Allow multiple tweens to run simultaneously
+			
+			for audio_player in audio_players:
+				if audio_player.playing:
+					music_fade_tween.tween_property(audio_player, "volume_db", -80.0, 3.0)
+			
+			await music_fade_tween.finished
+			print("Music fade out complete")
 		
-		# Hide the image completely after fade out
+		# Hide the image immediately (except final image is hidden after music fade)
 		image.visible = false
-		print("Set ", image.name, " visibility to false")
+		image.modulate.a = 0.0
+		print("Hidden ", image.name)
 	
-	print("Slideshow finished.")
+	print("Slideshow finished. Starting fade to black...")
+	
+	# Create a black overlay for fade effect
+	var black_overlay = ColorRect.new()
+	black_overlay.color = Color.BLACK
+	black_overlay.modulate.a = 0.0
+	black_overlay.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	get_tree().current_scene.add_child(black_overlay)
+	
+	# Fade to black over 2 seconds
+	var fade_tween = create_tween()
+	fade_tween.tween_property(black_overlay, "modulate:a", 1.0, 2.0)
+	await fade_tween.finished
+	
+	print("Fade complete. Navigating to intro.tscn...")
+	
+	# Navigate to intro.tscn
+	get_tree().change_scene_to_file("res://scenes/intro.tscn")
+
+# Helper function to find all audio players in the scene
+func _find_all_audio_players(node: Node) -> Array:
+	var audio_players = []
+	
+	# Check if current node is an audio player
+	if node is AudioStreamPlayer or node is AudioStreamPlayer2D or node is AudioStreamPlayer3D:
+		audio_players.append(node)
+	
+	# Recursively check all children
+	for child in node.get_children():
+		audio_players.append_array(_find_all_audio_players(child))
+	
+	return audio_players
