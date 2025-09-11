@@ -1,0 +1,74 @@
+[gd_scene load_steps=8 format=3 uid="uid://dgfp3mnafwk1g"]
+
+[ext_resource type="Texture2D" uid="uid://1m7j25ttlm0f" path="res://assets/animations/intro_car_aerial.jpg" id="1_m73g3"]
+[ext_resource type="Texture2D" uid="uid://sxb3wj3qoj1a" path="res://assets/animations/intro_car_oncoming.jpg" id="2_eyrjb"]
+[ext_resource type="Texture2D" uid="uid://xxu83x12vyu7" path="res://assets/animations/intro_car_thinking.png" id="3_txui0"]
+[ext_resource type="Texture2D" uid="uid://dmadejn1wg1hy" path="res://assets/animations/intro_car_barn.png" id="4_qihy8"]
+[ext_resource type="Texture2D" uid="uid://blpnup1alh7in" path="res://assets/animations/intro_car_entering_barn.png" id="5_rgy4a"]
+[ext_resource type="Texture2D" uid="uid://7ehjxyh2ymw2" path="res://assets/animations/intro_puppies_for_adoption.png" id="6_tmmyj"]
+[ext_resource type="Texture2D" uid="uid://bfo4c16bduxom" path="res://assets/animations/intro_gus_comic_hero.jpg" id="7_eafvx"]
+
+[node name="OpeningAnimationSequence" type="Node2D"]
+position = Vector2(527, 495)
+
+[node name="AnimationSequence" type="Node2D" parent="."]
+
+[node name="Control" type="Control" parent="AnimationSequence"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="AnimationSequence/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -528.0
+offset_top = -496.0
+offset_right = 1059.0
+offset_bottom = 496.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AnimationContainer" type="HBoxContainer" parent="AnimationSequence/Control/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+
+[node name="Image1" type="TextureRect" parent="AnimationSequence/Control/VBoxContainer/AnimationContainer"]
+layout_mode = 2
+texture = ExtResource("1_m73g3")
+
+[node name="Image2" type="TextureRect" parent="AnimationSequence/Control/VBoxContainer/AnimationContainer"]
+layout_mode = 2
+texture = ExtResource("2_eyrjb")
+
+[node name="Image3" type="TextureRect" parent="AnimationSequence/Control/VBoxContainer/AnimationContainer"]
+layout_mode = 2
+texture = ExtResource("3_txui0")
+
+[node name="Image4" type="TextureRect" parent="AnimationSequence/Control/VBoxContainer/AnimationContainer"]
+layout_mode = 2
+texture = ExtResource("4_qihy8")
+
+[node name="Image5" type="TextureRect" parent="AnimationSequence/Control/VBoxContainer/AnimationContainer"]
+layout_mode = 2
+texture = ExtResource("5_rgy4a")
+
+[node name="Image6" type="TextureRect" parent="AnimationSequence/Control/VBoxContainer/AnimationContainer"]
+layout_mode = 2
+texture = ExtResource("6_tmmyj")
+
+[node name="Image7" type="TextureRect" parent="AnimationSequence/Control/VBoxContainer/AnimationContainer"]
+layout_mode = 2
+texture = ExtResource("7_eafvx")
