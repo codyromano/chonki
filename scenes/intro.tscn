@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://0jybnryjbe51"]
+[gd_scene load_steps=61 format=3 uid="uid://0jybnryjbe51"]
 
 [ext_resource type="Texture2D" uid="uid://cue46gcr7x6qj" path="res://assets/environment/barn/barn_wall.jpg" id="1_553eq"]
 [ext_resource type="Script" path="res://scenes/intro.gd" id="1_gdkj6"]
@@ -71,7 +71,10 @@ size = Vector2(1244, 231)
 size = Vector2(1421.52, 227.336)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_wryiq"]
-size = Vector2(1661.75, 993.471)
+size = Vector2(4918.48, 1548.38)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_kxiur"]
+size = Vector2(4918.48, 1548.38)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ih5xv"]
 size = Vector2(20, 1.67627)
@@ -171,7 +174,7 @@ position = Vector2(-65, 502)
 [node name="PhysicsBarriers" type="Node2D" parent="Environment"]
 
 [node name="Ground" type="StaticBody2D" parent="Environment/PhysicsBarriers"]
-position = Vector2(155, -4392)
+position = Vector2(133, -3830)
 scale = Vector2(10, 10)
 collision_layer = 8
 collision_mask = 251
@@ -355,13 +358,35 @@ texture_offset = Vector2(500, 0)
 polygon = PackedVector2Array(-151.704, -1542.67, -152.276, -1299.26, 524.404, -1293.11, 522.319, -1560.94)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/PhysicsBarriers/FloatWoods/BigWall"]
-visible = false
 z_index = 1
-position = Vector2(-1146.37, -3279.26)
+position = Vector2(-2729.92, -2884.57)
 shape = SubResource("RectangleShape2D_wryiq")
 
-[node name="BigFloor" type="StaticBody2D" parent="Environment/PhysicsBarriers/FloatWoods"]
-position = Vector2(-5620, 11068)
+[node name="BigWall2" type="StaticBody2D" parent="Environment/PhysicsBarriers/FloatWoods"]
+position = Vector2(-36690, 1123)
+rotation = 1.56786
+scale = Vector2(4.84301, 6.97693)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/PhysicsBarriers/FloatWoods/BigWall2"]
+z_index = 1
+position = Vector2(-2762.64, -13744.7)
+shape = SubResource("RectangleShape2D_kxiur")
+
+[node name="Sprite2D3" type="Polygon2D" parent="Environment/PhysicsBarriers/FloatWoods/BigWall2"]
+modulate = Color(0.988235, 0.729412, 0.188235, 1)
+self_modulate = Color(0.568627, 0.65098, 0.501961, 1)
+z_index = 1
+texture_repeat = 2
+material = SubResource("CanvasItemMaterial_ggcgc")
+use_parent_material = true
+position = Vector2(-3949.54, -7243.79)
+scale = Vector2(7.06718, 6.1298)
+texture = ExtResource("1_553eq")
+texture_offset = Vector2(500, 0)
+polygon = PackedVector2Array(-314.199, -1553.88, -312.872, -928.086, 522.377, -931.711, 522.319, -1560.94)
+
+[node name="BigFloor" type="Node2D" parent="Environment/PhysicsBarriers/FloatWoods"]
+position = Vector2(-5585, 11056)
 rotation = 1.56786
 scale = Vector2(4.84301, 6.97693)
 
@@ -377,7 +402,21 @@ rotation = -1.56014
 scale = Vector2(7.06718, 6.1298)
 texture = ExtResource("1_553eq")
 texture_offset = Vector2(500, 0)
-polygon = PackedVector2Array(-41.19, -1546.62, -39.9421, -1297.45, 568.321, -1290.53, 563.311, -1553.72)
+polygon = PackedVector2Array(-41.19, -1546.62, -39.9421, -1297.45, 568.321, -1290.53, 567.053, -1550.07)
+
+[node name="Sprite2D3" type="Polygon2D" parent="Environment/PhysicsBarriers/FloatWoods/BigFloor"]
+modulate = Color(0.988235, 0.729412, 0.188235, 1)
+self_modulate = Color(0.568627, 0.65098, 0.501961, 1)
+z_index = 1
+texture_repeat = 2
+material = SubResource("CanvasItemMaterial_ggcgc")
+use_parent_material = true
+position = Vector2(7149.76, -6697.15)
+rotation = -1.56014
+scale = Vector2(7.06718, 6.1298)
+texture = ExtResource("1_553eq")
+texture_offset = Vector2(500, 0)
+polygon = PackedVector2Array(-40.3857, -1549.85, -40.0026, -1289.7, 568.321, -1290.53, 567.053, -1550.07)
 
 [node name="Sprite2D2" type="Polygon2D" parent="Environment/PhysicsBarriers/FloatWoods/BigFloor"]
 modulate = Color(0.988235, 0.729412, 0.188235, 1)
@@ -392,12 +431,6 @@ scale = Vector2(7.06718, 6.1298)
 texture = ExtResource("1_553eq")
 texture_offset = Vector2(500, 0)
 polygon = PackedVector2Array(-85.8659, -1542.4, -87.3332, -1301.94, 568.321, -1290.53, 567.556, -1547.38)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/PhysicsBarriers/FloatWoods/BigFloor"]
-visible = false
-z_index = 1
-position = Vector2(-1146.37, -3279.26)
-shape = SubResource("RectangleShape2D_wryiq")
 
 [node name="SwivelDoor1" type="Polygon2D" parent="Environment/PhysicsBarriers/FloatWoods"]
 z_index = 1
@@ -428,7 +461,7 @@ scale = Vector2(1.10874, 1.11339)
 texture = ExtResource("1_553eq")
 texture_offset = Vector2(0, 3750)
 texture_scale = Vector2(0.25, 0.25)
-polygon = PackedVector2Array(-10928.6, 213.761, 34527.5, 152.687, 34240.7, -12959.5, -11462.6, -12570.6)
+polygon = PackedVector2Array(-10928.6, 213.761, 48312.5, 16.167, 48565, -12926.3, -11462.6, -12570.6)
 
 [node name="Wall Upper" type="Polygon2D" parent="Environment/Sprites"]
 texture_repeat = 2
@@ -437,7 +470,7 @@ scale = Vector2(1.10874, 1.11339)
 texture = ExtResource("3_y37m7")
 texture_offset = Vector2(0, 3750)
 texture_scale = Vector2(0.25, 0.25)
-polygon = PackedVector2Array(-10928.6, 213.761, 34527.5, 152.687, 34240.7, -18459.8, -11737.6, -18016.2)
+polygon = PackedVector2Array(-10928.6, 213.761, 47900.3, 194.9, 48054.5, -18229.9, -11737.6, -18016.2)
 
 [node name="Floor" type="Polygon2D" parent="Environment/Sprites"]
 texture_repeat = 2
@@ -446,7 +479,7 @@ scale = Vector2(1.10874, 1.11339)
 texture = ExtResource("2_1wljg")
 texture_offset = Vector2(0, 3750)
 texture_scale = Vector2(0.25, 0.25)
-polygon = PackedVector2Array(-10844.7, 336.809, 34709.7, 280.225, 34540.1, -2828.3, -10918.7, -2722.32)
+polygon = PackedVector2Array(-10844.7, 336.809, 47613.5, 364.652, 47580.1, -2675.61, -10918.7, -2722.32)
 
 [node name="Chonki" parent="." instance=ExtResource("3_meeps")]
 z_index = 5

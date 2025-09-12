@@ -148,7 +148,28 @@ func on_player_hit() -> void:
 func _physics_process(delta: float) -> void:
 	handle_movement(delta)
 	GlobalSignals.chonki_state_updated.emit(velocity, body.is_on_floor(), is_chonki_sliding, can_slide_on_release, last_action_time, time_held, state)
+	
+	# Store original velocity before collision processing
+	var pre_collision_velocity = body.velocity
+	
 	body.move_and_slide()
+	
+	# Handle BigFloor collision filtering - restore horizontal movement if blocked by BigFloor
+	if body.get_slide_collision_count() > 0:
+		var was_blocked_by_bigfloor = false
+		for i in body.get_slide_collision_count():
+			var collision = body.get_slide_collision(i)
+			var collider = collision.get_collider()
+			var normal = collision.get_normal()
+			
+			# Check if this is a BigFloor collision blocking horizontal movement
+			if collider and collider.name == "BigFloor" and abs(normal.x) > 0.5:
+				was_blocked_by_bigfloor = true
+				break
+		
+		# If BigFloor blocked horizontal movement, restore it
+		if was_blocked_by_bigfloor:
+			body.velocity.x = pre_collision_velocity.x
 	
 func get_platform_velocity() -> Vector2:
 	# Returns the velocity of the platform Chonki is standing on, or Vector2.ZERO if not on a moving platform
@@ -202,13 +223,17 @@ func handle_movement(delta: float) -> void:
 
 	if is_chonki_sliding:
 		velocity.x = move_toward(velocity.x, 0, PhysicsConstants.DECELERATION * delta)
-		# Stop sliding if velocity reaches zero, not on floor, or hit a wall
+		# Stop sliding if velocity reaches zero, not on floor, or hit a wall (but ignore BigFloor)
 		var hit_wall = false
 		if body.get_slide_collision_count() > 0:
 			for i in body.get_slide_collision_count():
 				var collision = body.get_slide_collision(i)
 				# Check if collision normal is mostly horizontal (wall collision)
 				if abs(collision.get_normal().x) > 0.5:
+					var collider = collision.get_collider()
+					# Ignore BigFloor collisions for sliding
+					if collider and collider.name == "BigFloor":
+						continue
 					hit_wall = true
 					break
 		
