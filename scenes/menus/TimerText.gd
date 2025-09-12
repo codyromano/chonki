@@ -8,7 +8,7 @@ func _process(_delta):
 	text = str(GameState.time_elapsed)
 	# Update GameState.time_elapsed as time spent (not time left)
 
-func stop_timer() -> void:
+func stop_timer(_zoom_intensity: float = 0.5) -> void:
 	if $Timer:
 		$Timer.queue_free()
 

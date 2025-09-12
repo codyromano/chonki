@@ -61,8 +61,9 @@ func _on_animate_camera_zoom_level(zoom_level: float, zoom_duration: float = 2.0
 
 
 # Called when Chonki has landed and hearts have spawned
-func _on_chonki_landed_and_hearts_spawned():
+func _on_chonki_landed_and_hearts_spawned(zoom_intensity: float = 0.5):
 	if not target:
+		print("Camera2D: No target set")
 		return
 
 	# Ensure this camera is current
@@ -77,8 +78,10 @@ func _on_chonki_landed_and_hearts_spawned():
 	# Calculate target position (center on the target)
 	var target_position = target.global_position
 
-	# Define zoom level (you can adjust this value as needed)
-	var target_zoom = Vector2(0.5, 0.5)  # Zoom in 3x
+	# Use the zoom intensity passed directly from the signal
+	var target_zoom = Vector2(zoom_intensity, zoom_intensity)
+	print("Camera2D: Using zoom intensity from signal: ", zoom_intensity)
+	print("Camera2D: Setting target zoom to: ", target_zoom)
 
 	# Animate position to target
 	tween.tween_property(self, "global_position", target_position, duration)

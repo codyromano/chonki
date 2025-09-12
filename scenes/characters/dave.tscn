@@ -1,15 +1,14 @@
-[gd_scene load_steps=7 format=3 uid="uid://bffjk8vm2vkp5"]
+[gd_scene load_steps=6 format=3 uid="uid://bffjk8vm2vkp5"]
 
-[ext_resource type="Texture2D" uid="uid://b7qh0y5tnestj" path="res://assets/dave/concerned.png" id="1_rsmiq"]
 [ext_resource type="Script" path="res://scenes/characters/dave.gd" id="1_u84ec"]
-[ext_resource type="Texture2D" uid="uid://7jvbxm4kdt1" path="res://assets/dave/happy.png" id="2_0kvtk"]
+[ext_resource type="Texture2D" uid="uid://3tbiiq22wvjd" path="res://assets/dave/standing.png" id="2_3qwgg"]
 [ext_resource type="Texture2D" uid="uid://bi2svjppnw6c7" path="res://assets/dave/kneeling.png" id="3_4fnqg"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_3i4ir"]
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("1_rsmiq")
+"texture": ExtResource("2_3qwgg")
 }],
 "loop": false,
 "name": &"concerned",
@@ -17,7 +16,7 @@ animations = [{
 }, {
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("2_0kvtk")
+"texture": ExtResource("2_3qwgg")
 }, {
 "duration": 1.0,
 "texture": ExtResource("3_4fnqg")
@@ -28,18 +27,19 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jsfiw"]
-size = Vector2(43.5, 4286)
+size = Vector2(101.375, 22214)
 
 [node name="Dave" type="Area2D"]
 script = ExtResource("1_u84ec")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
-position = Vector2(512, 910)
+position = Vector2(512, -783)
+scale = Vector2(11.9454, 11.9454)
 sprite_frames = SubResource("SpriteFrames_3i4ir")
-animation = &"concerned"
+animation = &"happy"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(187, -616)
+position = Vector2(-14, -9580)
 shape = SubResource("RectangleShape2D_jsfiw")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

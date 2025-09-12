@@ -3,7 +3,7 @@ extends CharacterBody2D
 func _ready() -> void:
 	GlobalSignals.win_game.connect(on_game_won)
 
-func on_game_won() -> void:
+func on_game_won(_zoom_intensity: float = 0.5) -> void:
 	var timer = Timer.new()
 	timer.one_shot = true 
 	timer.autostart = true

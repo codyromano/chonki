@@ -5,6 +5,8 @@ enum State {
 	HAPPY
 }
 
+@export var zoom_intensity: float = 0.5
+
 @onready var sprite: AnimatedSprite2D = $AnimatedSprite2D
 var state: State = State.CONCERNED
 
@@ -21,10 +23,9 @@ func _process(_delta):
 	if sprite.animation != next_sprite:
 		print("play ", next_sprite)
 		sprite.play(next_sprite)
-		
-	sprite.flip_h = sprite.animation == "happy"
 	
 func _on_body_entered(body):
 	if body.name == "ChonkiCharacter":
-		GlobalSignals.win_game.emit()
+		print("Dave collision detected! Zoom intensity: ", zoom_intensity)
+		GlobalSignals.win_game.emit(zoom_intensity)
 		state = State.HAPPY
