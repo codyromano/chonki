@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=3 uid="uid://uc8liperea12"]
 
 [ext_resource type="Texture2D" uid="uid://cld0cxoj1c7bp" path="res://assets/environment/kites/kite1.png" id="1_40dy5"]
-[ext_resource type="Script" path="res://scenes/kite.gd" id="1_lu5pa"]
+[ext_resource type="Script" uid="uid://h6mhnuk8gugd" path="res://scenes/kite.gd" id="1_lu5pa"]
 [ext_resource type="AudioStream" uid="uid://ckuprt3cwdhsi" path="res://assets/sound/wind_background.mp3" id="3_1pqtc"]
 [ext_resource type="AudioStream" uid="uid://fe6cpw1jxqka" path="res://assets/sound/wind_whoosh.mp3" id="4_v176e"]
 

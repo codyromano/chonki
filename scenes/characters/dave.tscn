@@ -1,6 +1,6 @@
 [gd_scene load_steps=7 format=3 uid="uid://bffjk8vm2vkp5"]
 
-[ext_resource type="Script" path="res://scenes/characters/dave.gd" id="1_u84ec"]
+[ext_resource type="Script" uid="uid://dp76ys6s433q1" path="res://scenes/characters/dave.gd" id="1_u84ec"]
 [ext_resource type="Texture2D" uid="uid://3tbiiq22wvjd" path="res://assets/dave/standing.png" id="2_3qwgg"]
 [ext_resource type="Texture2D" uid="uid://bi2svjppnw6c7" path="res://assets/dave/kneeling.png" id="3_4fnqg"]
 

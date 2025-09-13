@@ -1,10 +1,10 @@
 [gd_scene load_steps=8 format=3 uid="uid://b41x2t8numn7a"]
 
-[ext_resource type="Script" path="res://scenes/PrimaryGameplayHUD.gd" id="1_pehsw"]
+[ext_resource type="Script" uid="uid://cmji548mt4n3g" path="res://scenes/PrimaryGameplayHUD.gd" id="1_pehsw"]
 [ext_resource type="Texture2D" uid="uid://qx1ubqqi74hv" path="res://assets/collectibles/menu-icons/heart.png" id="2"]
 [ext_resource type="Theme" uid="uid://dte5an7k6hog1" path="res://themes/base.tres" id="4_a3yto"]
 [ext_resource type="Texture2D" uid="uid://bqld0cf1kt3t4" path="res://assets/collectibles/menu-icons/clock.png" id="5_sva7s"]
-[ext_resource type="Script" path="res://scenes/menus/TimerText.gd" id="6_05hcm"]
+[ext_resource type="Script" uid="uid://ejttmqs6u0a5" path="res://scenes/menus/TimerText.gd" id="6_05hcm"]
 [ext_resource type="Texture2D" uid="uid://bti2rf7sbqgge" path="res://assets/collectibles/book-hud-icon.png" id="6_rxnsk"]
 
 [sub_resource type="GDScript" id="GDScript_0dcqf"]

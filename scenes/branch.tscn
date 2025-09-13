@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://b1i2j3k4l5m6"]
 
-[ext_resource type="Script" path="res://scenes/branch_script.gd" id="1_abcde"]
+[ext_resource type="Script" uid="uid://b6av6ftqmt1gp" path="res://scenes/branch_script.gd" id="1_abcde"]
 [ext_resource type="Texture2D" uid="uid://cmx1y70k7khta" path="res://assets/collectibles/branch.png" id="2_fghij"]
-[ext_resource type="Script" path="res://scenes/BranchDropArea2D.gd" id="3_afj8a"]
+[ext_resource type="Script" uid="uid://bliwjhkovltwc" path="res://scenes/BranchDropArea2D.gd" id="3_afj8a"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_branch"]
 size = Vector2(403.625, 316.22)

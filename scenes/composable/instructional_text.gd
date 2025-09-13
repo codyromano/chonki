@@ -43,4 +43,3 @@ func _on_dismiss(instructions_id: String) -> void:
 
 func _on_fade_out_finished():
 	queue_free.call_deferred()
-

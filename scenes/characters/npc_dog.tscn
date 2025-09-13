@@ -1,6 +1,6 @@
 [gd_scene load_steps=133 format=3 uid="uid://da1xtclqphxbr"]
 
-[ext_resource type="Script" path="res://scenes/NPCDog.gd" id="1_4787o"]
+[ext_resource type="Script" uid="uid://bdml0sppc1thg" path="res://scenes/NPCDog.gd" id="1_4787o"]
 [ext_resource type="Texture2D" uid="uid://batkaluf3jygl" path="res://assets/corgi/01_idle/skeleton-0b_idle_00.png" id="2_qb1d2"]
 [ext_resource type="Texture2D" uid="uid://dyi1618ew4mac" path="res://assets/corgi/01_idle/skeleton-0b_idle_01.png" id="3_qboau"]
 [ext_resource type="Texture2D" uid="uid://cn4gyafnt00v5" path="res://assets/corgi/01_idle/skeleton-0b_idle_02.png" id="4_8b0qg"]
@@ -129,7 +129,7 @@
 [ext_resource type="Texture2D" uid="uid://coqro4vbhguju" path="res://assets/corgi/09_sleep/skeleton-0i_sleep_28.png" id="127_f56a7"]
 [ext_resource type="Texture2D" uid="uid://p42daahm30w5" path="res://assets/corgi/09_sleep/skeleton-0i_sleep_29.png" id="128_f3vfj"]
 [ext_resource type="Texture2D" uid="uid://btd5sk1aar6rx" path="res://assets/corgi/09_sleep/skeleton-0i_sleep_30.png" id="129_wtmtg"]
-[ext_resource type="Script" path="res://scenes/NPCDogAnimatedSprite.gd" id="130_tmv16"]
+[ext_resource type="Script" uid="uid://c4orrbx8o06en" path="res://scenes/NPCDogAnimatedSprite.gd" id="130_tmv16"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_i1evp"]
 animations = [{

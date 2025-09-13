@@ -1,6 +1,6 @@
 [gd_scene load_steps=8 format=3 uid="uid://cs71vpxi4b22q"]
 
-[ext_resource type="Script" path="res://scenes/composable/Lever.gd" id="1_tbat4"]
+[ext_resource type="Script" uid="uid://d3y4k1330ef8" path="res://scenes/composable/Lever.gd" id="1_tbat4"]
 [ext_resource type="Texture2D" uid="uid://cvc1sa5wf7rrh" path="res://assets/interactables/lever/lever_off.png" id="2_wqnlg"]
 [ext_resource type="Texture2D" uid="uid://cy3ehdeou5wqi" path="res://assets/interactables/lever/lever_on.png" id="3_q5tqy"]
 [ext_resource type="AudioStream" uid="uid://d1isk4f14axrm" path="res://assets/sound/lever_pull.mp3" id="4_rgjmx"]

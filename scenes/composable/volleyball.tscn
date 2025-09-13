@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bhxw5nu7tpc6u"]
 
-[ext_resource type="Script" path="res://scenes/Volleyball.gd" id="1_vrc85"]
+[ext_resource type="Script" uid="uid://mnj2yutqavyk" path="res://scenes/Volleyball.gd" id="1_vrc85"]
 [ext_resource type="Texture2D" uid="uid://do40vx10g03uc" path="res://assets/environment/volleyball.png" id="2_23g3a"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_bfyv5"]

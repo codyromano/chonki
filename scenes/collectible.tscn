@@ -1,6 +1,6 @@
 [gd_scene load_steps=9 format=3 uid="uid://bm55n82sfyn37"]
 
-[ext_resource type="Script" path="res://scenes/Collectible.gd" id="1_su7td"]
+[ext_resource type="Script" uid="uid://be75y6ijiw2wl" path="res://scenes/Collectible.gd" id="1_su7td"]
 [ext_resource type="AudioStream" uid="uid://5eq4y1psdc7d" path="res://assets/sound/book1.mp3" id="2_auneg"]
 [ext_resource type="Theme" uid="uid://dte5an7k6hog1" path="res://themes/base.tres" id="4_3nuli"]
 [ext_resource type="Texture2D" uid="uid://b5656rpujvxxt" path="res://assets/collectibles/book.png" id="9_frf8e"]

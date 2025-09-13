@@ -1,6 +1,6 @@
 [gd_scene load_steps=11 format=3 uid="uid://dgfp3mnafwk1g"]
 
-[ext_resource type="Script" path="res://scripts/SlideshowController.gd" id="1_0thiv"]
+[ext_resource type="Script" uid="uid://x8w1g2c80t4e" path="res://scripts/SlideshowController.gd" id="1_0thiv"]
 [ext_resource type="Texture2D" uid="uid://oummmkpj10mj" path="res://assets/animations/intro_03_car_oncoming.png" id="2_eyrjb"]
 [ext_resource type="Texture2D" uid="uid://cudkmwbssd5pp" path="res://assets/animations/intro_01_road_empty.jpg" id="2_iwimn"]
 [ext_resource type="Texture2D" uid="uid://bdlpccyvuvjck" path="res://assets/animations/intro_02_road_aerial.jpeg" id="3_rnui1"]

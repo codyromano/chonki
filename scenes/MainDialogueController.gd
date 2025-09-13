@@ -96,4 +96,3 @@ func _on_dialogue_queued(dialogue: String) -> void:
 
 func _on_dismiss_active_dialogue() -> void:
 	_process_queue()
-

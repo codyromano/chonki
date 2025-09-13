@@ -1,8 +1,8 @@
 [gd_scene load_steps=145 format=3 uid="uid://cyu6wosf2qc3v"]
 
 [ext_resource type="Texture2D" uid="uid://batkaluf3jygl" path="res://assets/corgi/01_idle/skeleton-0b_idle_00.png" id="1_0os5j"]
-[ext_resource type="Script" path="res://scenes/chonki.gd" id="1_j6uc5"]
-[ext_resource type="Script" path="res://scenes/ChonkiBody.gd" id="2_si7u3"]
+[ext_resource type="Script" uid="uid://1562citi4nss" path="res://scenes/chonki.gd" id="1_j6uc5"]
+[ext_resource type="Script" uid="uid://ghyqnuev2ipa" path="res://scenes/ChonkiBody.gd" id="2_si7u3"]
 [ext_resource type="Texture2D" uid="uid://dyi1618ew4mac" path="res://assets/corgi/01_idle/skeleton-0b_idle_01.png" id="2_v0sv5"]
 [ext_resource type="Texture2D" uid="uid://cn4gyafnt00v5" path="res://assets/corgi/01_idle/skeleton-0b_idle_02.png" id="3_mwp3x"]
 [ext_resource type="Texture2D" uid="uid://12daaqh7ebhs" path="res://assets/corgi/01_idle/skeleton-0b_idle_03.png" id="4_xa5kk"]
@@ -137,11 +137,11 @@
 [ext_resource type="AudioStream" uid="uid://culiqfeaauxt7" path="res://assets/sound/push.mp3" id="124_bhcov"]
 [ext_resource type="AudioStream" uid="uid://bxokgwf35y540" path="res://assets/sound/jump.mp3" id="125_r2wll"]
 [ext_resource type="AudioStream" uid="uid://3u0hk83prun5" path="res://assets/sound/chill-bark.mp3" id="127_vip41"]
-[ext_resource type="Script" path="res://scenes/ChonkiSpriteController.gd" id="137_5hcnw"]
-[ext_resource type="Script" path="res://scenes/Camera2D.gd" id="137_s2qkj"]
+[ext_resource type="Script" uid="uid://cpmrk8cy0fi0w" path="res://scenes/ChonkiSpriteController.gd" id="137_5hcnw"]
+[ext_resource type="Script" uid="uid://dhsaw4wf2lbak" path="res://scenes/Camera2D.gd" id="137_s2qkj"]
 [ext_resource type="AudioStream" uid="uid://7um8tvamt40s" path="res://assets/sound/autumn.mp3" id="138_chkli"]
 [ext_resource type="AudioStream" uid="uid://bckidyukxqyoi" path="res://assets/sound/won.wav" id="141_rqm40"]
-[ext_resource type="Script" path="res://scenes/ChonkiAudioController.gd" id="142_wdirl"]
+[ext_resource type="Script" uid="uid://dhssmho81ae2l" path="res://scenes/ChonkiAudioController.gd" id="142_wdirl"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_fg46y"]
 animations = [{

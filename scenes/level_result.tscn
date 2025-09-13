@@ -1,11 +1,13 @@
 [gd_scene load_steps=7 format=3 uid="uid://d2uc0l3arbtlm"]
 
 [ext_resource type="Theme" uid="uid://dte5an7k6hog1" path="res://themes/base.tres" id="1_tfmrf"]
-[ext_resource type="Texture2D" uid="uid://c86w4kwchb685" path="res://assets/collectibles/star/frame-1.png" id="2_pmcvd"]
 [ext_resource type="Texture2D" uid="uid://b03qgw6hx1idl" path="res://assets/environment/sleep.png" id="3_0jhst"]
 [ext_resource type="Texture2D" uid="uid://bqld0cf1kt3t4" path="res://assets/collectibles/menu-icons/clock.png" id="3_6rcod"]
-[ext_resource type="Script" path="res://scenes/level_result.gd" id="4_script"]
+[ext_resource type="Script" uid="uid://djou2e1f7ax52" path="res://scenes/level_result.gd" id="4_script"]
 [ext_resource type="StyleBox" uid="uid://ocrfa4frk56n" path="res://themes/button_secondary.tres" id="6_ol5yv"]
+
+[sub_resource type="Resource" id="Resource_f57qt"]
+metadata/__load_path__ = "res://assets/collectibles/star/frame-1.png"
 
 [node name="LevelResult" type="Node2D"]
 script = ExtResource("4_script")
@@ -62,7 +64,7 @@ layout_mode = 2
 [node name="Sprite2D" type="Sprite2D" parent="Control/StarContainer/HBoxContainer2"]
 position = Vector2(-39, 27)
 scale = Vector2(0.178484, 0.178484)
-texture = ExtResource("2_pmcvd")
+texture = SubResource("Resource_f57qt")
 
 [node name="Label2" type="Label" parent="Control/StarContainer/HBoxContainer2"]
 layout_mode = 2

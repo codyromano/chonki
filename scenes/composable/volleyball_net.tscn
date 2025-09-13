@@ -2,7 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://cr33t8k8qfl6k" path="res://assets/environment/volleyball_net.png" id="1_h6hxh"]
 [ext_resource type="Texture2D" uid="uid://cuajvbho7i7av" path="res://assets/environment/volleyball_net_leg_repeatable.png" id="2_qn72g"]
-[ext_resource type="Script" path="res://scenes/composable/volleyball_net.gd" id="2_vcodj"]
+[ext_resource type="Script" uid="uid://nq3ykj44qysv" path="res://scenes/composable/volleyball_net.gd" id="2_vcodj"]
 [ext_resource type="Texture2D" uid="uid://oe3ishoia2lb" path="res://assets/environment/volleyball_net_leg_cap.png" id="4_j8kuq"]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_f2wwt"]

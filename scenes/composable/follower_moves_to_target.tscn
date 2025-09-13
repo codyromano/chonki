@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://c7gf3p8xwuyah"]
 
-[ext_resource type="Script" path="res://scenes/FollowerMovesToTarget.gd" id="1_7u2ch"]
+[ext_resource type="Script" uid="uid://d4ct8caftr6s4" path="res://scenes/FollowerMovesToTarget.gd" id="1_7u2ch"]
 
 [node name="FollowerMovesToTarget" type="NavigationAgent2D" node_paths=PackedStringArray("follower", "target")]
 script = ExtResource("1_7u2ch")

@@ -78,4 +78,3 @@ func _prune_cache_if_needed() -> void:
 	if max_cached_scenes > 0 and _stack.size() > max_cached_scenes:
 		var old: Node = _stack.pop_front()
 		old.queue_free()
-

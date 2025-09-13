@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=3 uid="uid://dl8yj77jxk1cn"]
 
 [ext_resource type="Theme" uid="uid://bens1gsogrwah" path="res://themes/anagram_letter_button.tres" id="1_yw1pj"]
-[ext_resource type="Script" path="res://scenes/select_letter_button.gd" id="2_7s2w6"]
+[ext_resource type="Script" uid="uid://dvlk3hv2g0nli" path="res://scenes/select_letter_button.gd" id="2_7s2w6"]
 
 [node name="SelectLetterButton" type="Button"]
 custom_minimum_size = Vector2(75, 0)
