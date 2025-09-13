@@ -1,4 +1,4 @@
-[gd_scene load_steps=61 format=3 uid="uid://0jybnryjbe51"]
+[gd_scene load_steps=62 format=3 uid="uid://0jybnryjbe51"]
 
 [ext_resource type="Texture2D" uid="uid://cue46gcr7x6qj" path="res://assets/environment/barn/barn_wall.jpg" id="1_553eq"]
 [ext_resource type="Script" uid="uid://c03hlmhkiab4v" path="res://scenes/intro.gd" id="1_gdkj6"]
@@ -36,6 +36,7 @@
 [ext_resource type="Script" uid="uid://djn0u7mqiiuj" path="res://scripts/scene_transition_controller.gd" id="26_3mjik"]
 [ext_resource type="Texture2D" uid="uid://jxoalg47qfnm" path="res://assets/collectibles/bone.png" id="27_bone1"]
 [ext_resource type="PackedScene" uid="uid://b41x2t8numn7a" path="res://scenes/HUD.tscn" id="31_i8bqy"]
+[ext_resource type="PackedScene" uid="uid://cuwwurdmnqssc" path="res://scenes/SecretLetter.tscn" id="37_7ukfb"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ed647"]
 distance = -500.0
@@ -822,6 +823,12 @@ script = ExtResource("9_72lhp")
 content = "Press R to read"
 id = "LittleFreeLibrary"
 delay_until_fade_in = 0.0
+
+[node name="SecretLetter" parent="." instance=ExtResource("37_7ukfb")]
+offset_left = 6800.0
+offset_top = -8137.0
+offset_right = 6864.0
+offset_bottom = -8073.0
 
 [connection signal="body_entered" from="Items/Trampoline" to="Items/Trampoline" method="_on_body_entered"]
 [connection signal="body_entered" from="Items/LittleFreeLibrary" to="Items/LittleFreeLibrary" method="_on_body_entered"]
