@@ -1,0 +1,231 @@
+[gd_scene load_steps=6 format=3 uid="uid://b1n8n7maqx5t"][gd_scene load_steps=6 format=3 uid="uid://b1n8n7l9qx5t"][gd_scene load_steps=6 format=3 uid="uid://b1n8n7maqx5t"][gd_scene load_steps=5 format=3 uid="uid://bqthdyjxe1il"]
+
+
+
+[ext_resource type="Script" path="res://scenes/RotatingGoldLetter.gd" id="1_0abcd"]
+
+
+
+[sub_resource type="Environment" id="Environment_1"][ext_resource type="Script" path="res://scenes/RotatingGoldLetter.gd" id="1_0abcd"]
+
+background_mode = 1
+
+background_color = Color(0, 0, 0, 0)
+
+ambient_light_source = 3
+
+ambient_light_color = Color(1, 1, 1, 1)[sub_resource type="Environment" id="Environment_1"][ext_resource type="Script" path="res://scenes/RotatingGoldLetter.gd" id="1_0abcd"][ext_resource type="Script" uid="uid://d0igfxe4sukm2" path="res://scenes/RotatingGoldLetter.gd" id="1_0abcd"]
+
+ambient_light_energy = 0.3
+
+background_mode = 1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1"]
+
+albedo_color = Color(1, 0.843, 0, 1)background_color = Color(0, 0, 0, 0)
+
+metallic = 0.8
+
+roughness = 0.2ambient_light_source = 3
+
+emission = Color(1, 0.843, 0, 0.1)
+
+ambient_light_color = Color(1, 1, 1, 1)[sub_resource type="Environment" id="Environment_1"][sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1"]
+
+[sub_resource type="TextMesh" id="TextMesh_1"]
+
+text = "A"ambient_light_energy = 0.3
+
+font_size = 240
+
+depth = 1.0background_mode = 1albedo_color = Color(1, 0.843, 0, 1)
+
+horizontal_alignment = 1
+
+vertical_alignment = 1[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1"]
+
+
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_1"]albedo_color = Color(1, 0.843, 0, 1)background_color = Color(0, 0, 0, 0)metallic = 0.8
+
+viewport_path = NodePath("SubViewport")
+
+metallic = 0.8
+
+[node name="RotatingGoldLetter" type="Control"]
+
+layout_mode = 3roughness = 0.2ambient_light_source = 3roughness = 0.2
+
+anchors_preset = 0
+
+offset_right = 64.0emission = Color(1, 0.843, 0, 0.1)
+
+offset_bottom = 64.0
+
+script = ExtResource("1_0abcd")ambient_light_color = Color(1, 1, 1, 1)emission = Color(1, 0.843, 0, 0.1)
+
+
+
+[node name="SubViewport" type="SubViewport" parent="."][sub_resource type="TextMesh" id="TextMesh_1"]
+
+size = Vector2i(64, 64)
+
+render_target_update_mode = 4text = "A"ambient_light_energy = 0.3
+
+environment = SubResource("Environment_1")
+
+font_size = 240
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport"]
+
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 2, 8)depth = 1.0[sub_resource type="TextMesh" id="TextMesh_1"]
+
+fov = 45.0
+
+horizontal_alignment = 1
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewport"]
+
+transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 0, 0, 0)vertical_alignment = 1[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1"]text = "A"
+
+light_energy = 1.0
+
+shadow_enabled = true
+
+
+
+[node name="LetterMesh" type="MeshInstance3D" parent="SubViewport"][sub_resource type="ViewportTexture" id="ViewportTexture_1"]albedo_color = Color(1, 0.843, 0, 1)font_size = 48
+
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+material_override = SubResource("StandardMaterial3D_1")viewport_path = NodePath("SubViewport")
+
+mesh = SubResource("TextMesh_1")
+
+metallic = 0.8depth = 0.2
+
+[node name="TextureRect" type="TextureRect" parent="."]
+
+layout_mode = 1[node name="RotatingGoldLetter" type="Control"]
+
+anchors_preset = 15
+
+anchor_right = 1.0layout_mode = 3roughness = 0.2
+
+anchor_bottom = 1.0
+
+texture = SubResource("ViewportTexture_1")anchors_preset = 0
+
+stretch_mode = 5
+
+offset_right = 64.0emission = Color(1, 0.843, 0, 0.1)[sub_resource type="ViewportTexture" id="ViewportTexture_1"]
+
+offset_bottom = 64.0
+
+script = ExtResource("1_0abcd")viewport_path = NodePath("SubViewport")
+
+
+
+[node name="SubViewport" type="SubViewport" parent="."][sub_resource type="TextMesh" id="TextMesh_1"]
+
+size = Vector2i(64, 64)
+
+render_target_update_mode = 4text = "A"[node name="RotatingGoldLetter" type="Control"]
+
+environment = SubResource("Environment_1")
+
+font_size = 240layout_mode = 3
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport"]
+
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 2, 8)depth = 1.0anchors_preset = 0
+
+fov = 45.0
+
+horizontal_alignment = 1offset_right = 64.0
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewport"]
+
+transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 0, 0, 0)vertical_alignment = 1offset_bottom = 64.0
+
+light_energy = 1.0
+
+shadow_enabled = truescript = ExtResource("1_0abcd")
+
+
+
+[node name="LetterMesh" type="MeshInstance3D" parent="SubViewport"][sub_resource type="ViewportTexture" id="ViewportTexture_1"]font_size = 50
+
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)
+
+material_override = SubResource("StandardMaterial3D_1")viewport_path = NodePath("SubViewport")
+
+mesh = SubResource("TextMesh_1")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+
+[node name="TextureRect" type="TextureRect" parent="."]
+
+layout_mode = 1[node name="RotatingGoldLetter" type="Control"]size = Vector2i(64, 64)
+
+anchors_preset = 15
+
+anchor_right = 1.0layout_mode = 3render_target_update_mode = 4
+
+anchor_bottom = 1.0
+
+texture = SubResource("ViewportTexture_1")anchors_preset = 0
+
+stretch_mode = 5
+
+offset_right = 64.0[node name="Camera3D" type="Camera3D" parent="SubViewport"]
+
+offset_bottom = 64.0transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 1, 2)
+
+script = ExtResource("1_0abcd")fov = 45.0
+
+
+
+[node name="SubViewport" type="SubViewport" parent="."][node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewport"]
+
+size = Vector2i(64, 64)transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 0, 0, 0)
+
+render_target_update_mode = 4shadow_enabled = true
+
+environment = SubResource("Environment_1")
+
+[node name="LetterMesh" type="MeshInstance3D" parent="SubViewport"]
+
+[node name="Camera3D" type="Camera3D" parent="SubViewport"]material_override = SubResource("StandardMaterial3D_1")
+
+transform = Transform3D(1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 2, 8)mesh = SubResource("TextMesh_1")
+
+fov = 45.0
+
+[node name="TextureRect" type="TextureRect" parent="."]
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="SubViewport"]layout_mode = 1
+
+transform = Transform3D(0.707107, -0.5, 0.5, 0, 0.707107, 0.707107, -0.707107, -0.5, 0.5, 0, 0, 0)anchors_preset = 15
+
+light_energy = 1.0anchor_right = 1.0
+
+shadow_enabled = trueanchor_bottom = 1.0
+
+grow_horizontal = 2
+
+[node name="LetterMesh" type="MeshInstance3D" parent="SubViewport"]grow_vertical = 2
+
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0)texture = SubResource("ViewportTexture_1")
+
+material_override = SubResource("StandardMaterial3D_1")stretch_mode = 5
+
+mesh = SubResource("TextMesh_1")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+texture = SubResource("ViewportTexture_1")
+stretch_mode = 5
