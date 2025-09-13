@@ -459,11 +459,10 @@ texture_offset = Vector2(0, 3750)
 texture_scale = Vector2(0.25, 0.25)
 polygon = PackedVector2Array(-10844.7, 336.809, 47613.5, 364.652, 47580.1, -2675.61, -10918.7, -2722.32)
 
-[node name="Chonki" parent="." node_paths=PackedStringArray("debug_start_marker") instance=ExtResource("3_meeps")]
+[node name="Chonki" parent="." instance=ExtResource("3_meeps")]
 z_index = 5
 position = Vector2(5113, -3086)
 scale = Vector2(1.76, 1.76)
-debug_start_marker = NodePath("../DebugPlayerStartMarker")
 heart_texture = ExtResource("4_ee0bn")
 jump_multiplier = 1.25
 
