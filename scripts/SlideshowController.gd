@@ -54,33 +54,27 @@ func _start_slideshow() -> void:
 		image.modulate.a = 1.0
 		
 		# --- Wait for Display Duration ---
-		var current_display_duration = 7.0 if (i == images.size() - 1) else display_duration
+		var current_display_duration = 3.0 if (i == images.size() - 1) else display_duration
 		print("Displaying ", image.name, " for ", current_display_duration, " seconds")
 		await get_tree().create_timer(current_display_duration).timeout
 		print("Display time complete for ", image.name)
 		
-		# If this is the final image, fade out music while keeping image visible
+		# If this is the final image, fade out the image first
 		if i == images.size() - 1:
-			print("Final image - fading out music over 3 seconds...")
-			
-			# Find all audio players and fade them out
-			var audio_players = _find_all_audio_players(get_tree().current_scene)
-			var music_fade_tween = create_tween()
-			music_fade_tween.set_parallel(true)  # Allow multiple tweens to run simultaneously
-			
-			for audio_player in audio_players:
-				if audio_player.playing:
-					music_fade_tween.tween_property(audio_player, "volume_db", -80.0, 3.0)
-			
-			await music_fade_tween.finished
-			print("Music fade out complete")
+			# Add 1-second fade out for the final image
+			print("Final image - fading out image over 1 second...")
+			var image_fade_tween = create_tween()
+			image_fade_tween.tween_property(image, "modulate:a", 0.0, 1.0)
+			await image_fade_tween.finished
+			print("Final image fade out complete")
 		
-		# Hide the image immediately (except final image is hidden after music fade)
-		image.visible = false
-		image.modulate.a = 0.0
-		print("Hidden ", image.name)
+		# Hide the image immediately (except final image which already faded out)
+		if i < images.size() - 1:
+			image.visible = false
+			image.modulate.a = 0.0
+			print("Hidden ", image.name)
 	
-	print("Slideshow finished. Starting fade to black...")
+	print("Slideshow finished. Starting fade to black and music fade out...")
 	
 	# Create a black overlay for fade effect
 	var black_overlay = ColorRect.new()
@@ -89,11 +83,21 @@ func _start_slideshow() -> void:
 	black_overlay.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
 	get_tree().current_scene.add_child(black_overlay)
 	
-	# Fade to black over 2 seconds
+	# Start both music fade out and black overlay fade simultaneously
 	var fade_tween = create_tween()
-	fade_tween.tween_property(black_overlay, "modulate:a", 1.0, 2.0)
-	await fade_tween.finished
+	fade_tween.set_parallel(true)  # Allow multiple tweens to run simultaneously
 	
+	# Fade to black over 2 seconds
+	fade_tween.tween_property(black_overlay, "modulate:a", 1.0, 2.0)
+	
+	# Fade out music over 3 seconds (overlapping with black fade)
+	print("Music fading out over 3 seconds while scene fades to black...")
+	var audio_players = _find_all_audio_players(get_tree().current_scene)
+	for audio_player in audio_players:
+		if audio_player.playing:
+			fade_tween.tween_property(audio_player, "volume_db", -80.0, 3.0)
+	
+	await fade_tween.finished
 	print("Fade complete. Navigating to intro.tscn...")
 	
 	# Navigate to intro.tscn

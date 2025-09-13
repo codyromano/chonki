@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://0jybnryjbe51"]
+[gd_scene load_steps=61 format=3 uid="uid://0jybnryjbe51"]
 
 [ext_resource type="Texture2D" uid="uid://cue46gcr7x6qj" path="res://assets/environment/barn/barn_wall.jpg" id="1_553eq"]
 [ext_resource type="Script" path="res://scenes/intro.gd" id="1_gdkj6"]
@@ -55,9 +55,6 @@ size = Vector2(30679, 206.166)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_rm3sp"]
 size = Vector2(31473.5, 306.851)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_qqude"]
-size = Vector2(4471.25, 310.426)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7qoyi"]
 size = Vector2(10113.4, 306.851)
@@ -137,7 +134,7 @@ animations = [{
 
 [sub_resource type="Curve2D" id="Curve2D_c8q2i"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, -834.474, -4033.85, 0, 0, 0, 0, 27.2847, -26852.2, 0, 0, 0, 0, -8081.07, -26592.1)
+"points": PackedVector2Array(0, 0, 0, 0, 371.465, -4057.98, 0, 0, 0, 0, 27.2847, -26852.2, 0, 0, 0, 0, -8081.07, -26592.1)
 }
 point_count = 3
 
@@ -154,9 +151,9 @@ point_count = 2
 size = Vector2(13137.2, 406.926)
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_n5sh2"]
-vertices = PackedVector2Array(16885, 1839, -9960, 1996, -9996, -228, 16844, -338)
+vertices = PackedVector2Array(16885, 1839, -11842, 2084, -11946, -262, 16844, -338)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(-10007, -238, -9970, 2007, 16896, 1849, 16854, -349)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(-11957, -272, -11852, 2095, 16896, 1849, 16854, -349)])
 source_geometry_group_name = &"navigation_polygon_source_group"
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_xtrc5"]
@@ -237,26 +234,6 @@ color = Color(0.480342, 0.424905, 0.200685, 1)
 texture = ExtResource("1_553eq")
 texture_offset = Vector2(0, 200)
 polygon = PackedVector2Array(-34815.7, -170.604, 5500.4, -191.555, 5488.59, 87.7964, -34845.2, 134.688)
-
-[node name="LibraryCeiling" type="StaticBody2D" parent="Environment/PhysicsBarriers/FloatWoods"]
-position = Vector2(32985, -7453)
-rotation = 0.544069
-collision_layer = 8
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/PhysicsBarriers/FloatWoods/LibraryCeiling"]
-z_index = 1
-position = Vector2(698.281, 166.055)
-scale = Vector2(0.870129, 0.870129)
-shape = SubResource("RectangleShape2D_qqude")
-
-[node name="Polygon2D" type="Polygon2D" parent="Environment/PhysicsBarriers/FloatWoods/LibraryCeiling"]
-z_index = 1
-position = Vector2(-1225.89, 219)
-scale = Vector2(0.457425, 1.00232)
-color = Color(0.480342, 0.424905, 0.200685, 1)
-texture = ExtResource("1_553eq")
-texture_offset = Vector2(0, 200)
-polygon = PackedVector2Array(-49.2891, -201.494, 8564.8, -176.66, 8223.31, -20.8633, 7417.82, 93.6251, -67.5977, 92.8271)
 
 [node name="Ceiling3" type="StaticBody2D" parent="Environment/PhysicsBarriers/FloatWoods"]
 position = Vector2(23458, -13438)
@@ -510,7 +487,7 @@ position = Vector2(2000, -3766)
 position = Vector2(2411, -3512)
 
 [node name="Dave" parent="NPCs" instance=ExtResource("8_uteif")]
-position = Vector2(42727, -3497)
+position = Vector2(49454, -3497)
 scale = Vector2(0.877844, 0.877844)
 zoom_intensity = 0.1
 
@@ -608,7 +585,7 @@ collectible_name = "letter4"
 float_intensity = 150.0
 
 [node name="LittleFreeLibrary" type="Area2D" parent="Items"]
-position = Vector2(34068, -4620)
+position = Vector2(40619, -4620)
 script = ExtResource("18_fq2xm")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Items/LittleFreeLibrary"]
@@ -679,12 +656,12 @@ position = Vector2(17230, -5340)
 dialogue = "Hmm. Maybe the books will explain how I got here."
 
 [node name="LittleFreeLibraryTrigger" parent="InstructionTriggers" instance=ExtResource("12_hq858")]
-position = Vector2(28950, -569)
+position = Vector2(35366, -569)
 scale = Vector2(0.872198, 0.732905)
-dialogue = "I can press 'r' to return my books to a little free library"
+dialogue = "Little free libraries contain secret stories"
 
 [node name="DebugPlayerStartMarker" type="Marker2D" parent="."]
-position = Vector2(36420, -3782)
+position = Vector2(19135, -11087)
 
 [node name="ScriptedAnimationScenarios" type="Node2D" parent="."]
 
@@ -694,14 +671,14 @@ rotation = -1.5682
 curve = SubResource("Curve2D_c8q2i")
 
 [node name="ElevatorSeatPathFollow" type="PathFollow2D" parent="ScriptedAnimationScenarios/ElevatorSeatPath2D"]
-position = Vector2(-834.474, -4033.85)
+position = Vector2(371.465, -4057.98)
 rotation = 4.72397
 rotates = false
 script = ExtResource("19_weuwc")
 movement_duration = 10.0
 
 [node name="ElevatorSeat" type="CharacterBody2D" parent="ScriptedAnimationScenarios/ElevatorSeatPath2D/ElevatorSeatPathFollow"]
-position = Vector2(-22.6721, 27.2772)
+position = Vector2(-53.8302, 12.7643)
 rotation = 1.56596
 collision_layer = 8
 platform_on_leave = 1
@@ -721,7 +698,7 @@ scale = Vector2(0.389841, 0.706271)
 color = Color(0.480342, 0.424905, 0.200685, 1)
 texture = ExtResource("1_553eq")
 texture_offset = Vector2(0, 200)
-polygon = PackedVector2Array(-49.2891, -201.494, 3902.88, -204.418, 3899.82, -49.075, 3896.71, 108.867, -67.5977, 92.8271)
+polygon = PackedVector2Array(-49.2891, -201.494, 1798.47, -202.861, 3902.88, -204.418, 3899.82, -49.075, 3896.71, 108.867, -67.5977, 92.8271)
 
 [node name="Rope" type="Polygon2D" parent="ScriptedAnimationScenarios/ElevatorSeatPath2D/ElevatorSeatPathFollow/ElevatorSeat"]
 z_index = 1

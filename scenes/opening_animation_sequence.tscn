@@ -1,14 +1,14 @@
 [gd_scene load_steps=11 format=3 uid="uid://dgfp3mnafwk1g"]
 
 [ext_resource type="Script" path="res://scripts/SlideshowController.gd" id="1_0thiv"]
-[ext_resource type="Texture2D" uid="uid://1m7j25ttlm0f" path="res://assets/animations/intro_car_aerial.jpg" id="1_m73g3"]
-[ext_resource type="Texture2D" uid="uid://sxb3wj3qoj1a" path="res://assets/animations/intro_car_oncoming.jpg" id="2_eyrjb"]
-[ext_resource type="Texture2D" uid="uid://dslg8bkkebg0o" path="res://assets/animations/intro_empty_road.jpg" id="2_pkk2j"]
-[ext_resource type="Texture2D" uid="uid://xxu83x12vyu7" path="res://assets/animations/intro_car_thinking.png" id="3_txui0"]
-[ext_resource type="Texture2D" uid="uid://dmadejn1wg1hy" path="res://assets/animations/intro_car_barn.png" id="4_qihy8"]
-[ext_resource type="Texture2D" uid="uid://blpnup1alh7in" path="res://assets/animations/intro_car_entering_barn.png" id="5_rgy4a"]
-[ext_resource type="Texture2D" uid="uid://7ehjxyh2ymw2" path="res://assets/animations/intro_puppies_for_adoption.png" id="6_tmmyj"]
-[ext_resource type="Texture2D" uid="uid://bfo4c16bduxom" path="res://assets/animations/intro_gus_comic_hero.jpg" id="7_eafvx"]
+[ext_resource type="Texture2D" uid="uid://oummmkpj10mj" path="res://assets/animations/intro_03_car_oncoming.png" id="2_eyrjb"]
+[ext_resource type="Texture2D" uid="uid://cudkmwbssd5pp" path="res://assets/animations/intro_01_road_empty.jpg" id="2_iwimn"]
+[ext_resource type="Texture2D" uid="uid://bdlpccyvuvjck" path="res://assets/animations/intro_02_road_aerial.jpeg" id="3_rnui1"]
+[ext_resource type="Texture2D" uid="uid://csy5g544vv6l2" path="res://assets/animations/intro_04_car_thinking.png" id="3_txui0"]
+[ext_resource type="Texture2D" uid="uid://bki5op33ixv6i" path="res://assets/animations/intro_05_barn_entering.jpeg" id="6_h31sv"]
+[ext_resource type="Texture2D" uid="uid://dl3q5eu7fko5r" path="res://assets/animations/intro_07_barn_close_up.png" id="6_tmmyj"]
+[ext_resource type="Texture2D" uid="uid://dfr4a3ar7bpe3" path="res://assets/animations/intro_06_barn_leaving_car.jpeg" id="7_2dau1"]
+[ext_resource type="Texture2D" uid="uid://cp6bn5xsfkxjp" path="res://assets/animations/intro_08_gus_title.jpg" id="7_eafvx"]
 [ext_resource type="AudioStream" uid="uid://dwec1ue8yxuth" path="res://assets/sound/cat-dreams-kawaii-chill-future-house-259197.mp3" id="9_hr13r"]
 
 [node name="OpeningAnimationSequence" type="Node2D"]
@@ -54,11 +54,11 @@ fade_out_duration = 0.0
 
 [node name="Image1" type="TextureRect" parent="AnimationSequence/Control/VBoxContainer/AnimationContainer"]
 layout_mode = 2
-texture = ExtResource("2_pkk2j")
+texture = ExtResource("2_iwimn")
 
 [node name="Image2" type="TextureRect" parent="AnimationSequence/Control/VBoxContainer/AnimationContainer"]
 layout_mode = 2
-texture = ExtResource("1_m73g3")
+texture = ExtResource("3_rnui1")
 
 [node name="Image3" type="TextureRect" parent="AnimationSequence/Control/VBoxContainer/AnimationContainer"]
 layout_mode = 2
@@ -70,11 +70,11 @@ texture = ExtResource("3_txui0")
 
 [node name="Image5" type="TextureRect" parent="AnimationSequence/Control/VBoxContainer/AnimationContainer"]
 layout_mode = 2
-texture = ExtResource("4_qihy8")
+texture = ExtResource("6_h31sv")
 
 [node name="Image6" type="TextureRect" parent="AnimationSequence/Control/VBoxContainer/AnimationContainer"]
 layout_mode = 2
-texture = ExtResource("5_rgy4a")
+texture = ExtResource("7_2dau1")
 
 [node name="Image7" type="TextureRect" parent="AnimationSequence/Control/VBoxContainer/AnimationContainer"]
 layout_mode = 2
