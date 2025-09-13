@@ -9,6 +9,15 @@ const TOTAL_CHARACTERS: int = 5
 func _ready() -> void:
 	text = data
 	
+func _gui_input(event: InputEvent) -> void:
+	# Handle both "read" and "jump" actions to select the button
+	if has_focus() and (event.is_action_pressed("read") or event.is_action_pressed("jump")):
+		print("Button ", data, " handling action - has focus: ", has_focus())
+		_on_button_down()
+		var viewport = get_viewport()
+		if viewport:
+			viewport.set_input_as_handled()  # Prevent other buttons from handling this input
+	
 func animate_hide_button() -> void:
 	focus_mode = Control.FOCUS_NONE
 
