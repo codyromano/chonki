@@ -1,4 +1,4 @@
-[gd_scene load_steps=6 format=3 uid="uid://bffjk8vm2vkp5"]
+[gd_scene load_steps=7 format=3 uid="uid://bffjk8vm2vkp5"]
 
 [ext_resource type="Script" path="res://scenes/characters/dave.gd" id="1_u84ec"]
 [ext_resource type="Texture2D" uid="uid://3tbiiq22wvjd" path="res://assets/dave/standing.png" id="2_3qwgg"]
@@ -27,7 +27,10 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jsfiw"]
-size = Vector2(101.375, 22214)
+size = Vector2(555.688, 22573)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vcpca"]
+size = Vector2(4730, 20849)
 
 [node name="Dave" type="Area2D"]
 script = ExtResource("1_u84ec")
@@ -39,7 +42,13 @@ sprite_frames = SubResource("SpriteFrames_3i4ir")
 animation = &"happy"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(-14, -9580)
+position = Vector2(-370.844, -9400.5)
 shape = SubResource("RectangleShape2D_jsfiw")
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(1907, -10362.5)
+shape = SubResource("RectangleShape2D_vcpca")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]
