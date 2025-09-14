@@ -36,3 +36,4 @@ signal press_reset_anagram()
 signal anagram_word_guess_updated(word: String)
 signal player_registered(player: Node2D)
 signal player_unregistered
+signal secret_letter_collected(letter: String)

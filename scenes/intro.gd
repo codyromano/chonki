@@ -1,9 +1,15 @@
 extends Node2D
 
+@onready var letters_discovered_layer: CanvasLayer = $TitleLayers/LettersDiscoveredLayer
+@onready var letters_discovered_control: Control = $TitleLayers/LettersDiscoveredLayer/Control
+
 var player_moved_initially: bool = false
 
 func _ready():
 	GlobalSignals.game_zoom_level.emit(0.2)
+	
+	# Connect to secret letter collection signal
+	GlobalSignals.secret_letter_collected.connect(_on_secret_letter_collected)
 	
 	# Add fade-in effect when scene loads
 	_add_fade_in_effect()
@@ -40,3 +46,20 @@ func _process(_delta) -> void:
 
 func _on_little_free_library_body_entered(_body):
 	pass # Replace with function body.
+
+## Handle secret letter collection and animate the LettersDiscoveredLayer
+func _on_secret_letter_collected(_letter: String):
+	if not letters_discovered_control:
+		return
+	
+	# Create fade in/out animation
+	var tween = create_tween()
+	
+	# Fade in over 0.5 seconds
+	tween.tween_property(letters_discovered_control, "modulate:a", 1.0, 0.5)
+	
+	# Stay visible for 3.5 seconds
+	tween.tween_interval(3.5)
+	
+	# Fade out over 0.5 seconds
+	tween.tween_property(letters_discovered_control, "modulate:a", 0.0, 0.5)

@@ -21,11 +21,11 @@ func _ready() -> void:
 	_configure_audio_players_for_dialogue()
 
 	var current_scene = get_tree().current_scene
-	if current_scene && current_scene.name == 'Intro':
-		await get_tree().create_timer(1.0).timeout
-		_on_dialogue_queued("Today is a big day! I'd better find a way out of this barn...")
+	#if current_scene && current_scene.name == 'Intro':
+		#await get_tree().create_timer(1.0).timeout
+		# _on_dialogue_queued("Today is a big day! I'd better find a way out of this barn...")
 
-	await get_tree().create_timer(0.2).timeout
+	# await get_tree().create_timer(0.2).timeout
 	is_ready = true
 
 

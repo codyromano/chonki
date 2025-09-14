@@ -13,8 +13,12 @@ class_name SecretLetter
 @onready var letter_mesh: MeshInstance3D = $SubViewport/LetterMesh
 @onready var text_mesh: TextMesh = $SubViewport/LetterMesh.mesh
 @onready var area_2d: Area2D = $Area2D
+@onready var magic_dust_particles: CPUParticles2D = $MagicDustParticles
 
 @onready var font_family: Font = preload("res://fonts/Sniglet-Regular.ttf")
+
+# Audio player - made optional to prevent errors if node doesn't exist
+var audio_player: AudioStreamPlayer
 
 var original_rotation_speed: float
 var is_collected: bool = false
@@ -23,6 +27,13 @@ var tween: Tween
 func _ready():
 	# Store the original rotation speed
 	original_rotation_speed = rotation_speed
+	
+	# Safely get the audio player if it exists
+	audio_player = get_node_or_null("AudioStreamPlayer")
+	
+	# Start with particles disabled - they'll only appear after collision
+	if magic_dust_particles:
+		magic_dust_particles.emitting = false
 	
 	# Connect the collision detection
 	if area_2d:
@@ -106,7 +117,23 @@ func _on_body_entered(body: Node2D):
 
 ## Start the collection animation sequence
 func _start_collection_sequence():
-	# Step 1: Increase rotation speed by 10x
+	# Emit global signal that a secret letter was collected
+	GlobalSignals.secret_letter_collected.emit(letter)
+	
+	# Play the secret letter collection sound
+	if audio_player:
+		audio_player.play()
+	
+	# Step 1: Start particle emission and increase rotation speed by 10x
+	if magic_dust_particles:
+		magic_dust_particles.emitting = true
+		# Intensify particle effects during collection
+		magic_dust_particles.amount = 60  # Double the particles
+		magic_dust_particles.initial_velocity_min = 40.0
+		magic_dust_particles.initial_velocity_max = 80.0
+		magic_dust_particles.orbit_velocity_min = 0.5
+		magic_dust_particles.orbit_velocity_max = 1.0
+	
 	rotation_speed = original_rotation_speed * 10.0
 	
 	# Step 2: After 2 seconds, start shrinking
@@ -115,6 +142,10 @@ func _start_collection_sequence():
 
 ## Shrink the letter to 1/10th size over 0.5 seconds
 func _start_shrinking():
+	# Stop particle emission during shrinking
+	if magic_dust_particles:
+		magic_dust_particles.emitting = false
+	
 	tween = create_tween()
 	var target_scale = scale * 0.1
 	

@@ -1,4 +1,4 @@
-[gd_scene load_steps=60 format=3 uid="uid://0jybnryjbe51"]
+[gd_scene load_steps=61 format=3 uid="uid://0jybnryjbe51"]
 
 [ext_resource type="Texture2D" uid="uid://cue46gcr7x6qj" path="res://assets/environment/barn/barn_wall.jpg" id="1_553eq"]
 [ext_resource type="Script" uid="uid://c03hlmhkiab4v" path="res://scenes/intro.gd" id="1_gdkj6"]
@@ -35,6 +35,7 @@
 [ext_resource type="Script" uid="uid://djn0u7mqiiuj" path="res://scripts/scene_transition_controller.gd" id="26_3mjik"]
 [ext_resource type="Texture2D" uid="uid://jxoalg47qfnm" path="res://assets/collectibles/bone.png" id="27_bone1"]
 [ext_resource type="PackedScene" uid="uid://b41x2t8numn7a" path="res://scenes/HUD.tscn" id="31_i8bqy"]
+[ext_resource type="Theme" uid="uid://dte5an7k6hog1" path="res://themes/base.tres" id="36_7ukfb"]
 [ext_resource type="PackedScene" uid="uid://divvcbosmeqxn" path="res://scenes/SecretLetter.tscn" id="37_7ukfb"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ed647"]
@@ -427,7 +428,6 @@ polygon = PackedVector2Array(-49.2891, -201.494, 8564.8, -176.66, 8562.31, 93.74
 [node name="WallBesideHorse" type="StaticBody2D" parent="Environment/PhysicsBarriers"]
 position = Vector2(31876, -9915)
 rotation = 1.54664
-scale = Vector2(1, 1)
 collision_layer = 8
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/PhysicsBarriers/WallBesideHorse"]
@@ -771,6 +771,7 @@ script = ExtResource("26_3mjik")
 [node name="TitleLayers" type="Node2D" parent="."]
 
 [node name="HUD" parent="TitleLayers" instance=ExtResource("31_i8bqy")]
+visible = false
 
 [node name="TitleCanvasLayer" type="CanvasLayer" parent="TitleLayers"]
 layer = 10
@@ -809,6 +810,59 @@ script = ExtResource("9_72lhp")
 content = "Press R to read"
 id = "LittleFreeLibrary"
 delay_until_fade_in = 0.0
+
+[node name="LettersDiscoveredLayer" type="CanvasLayer" parent="TitleLayers"]
+
+[node name="Control" type="Control" parent="TitleLayers/LettersDiscoveredLayer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 3
+anchors_preset = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="TitleLayers/LettersDiscoveredLayer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 400
+theme_override_constants/margin_top = 400
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TitleLayers/LettersDiscoveredLayer/Control/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TitleLayers/LettersDiscoveredLayer/Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TitleLayers/LettersDiscoveredLayer/Control/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TitleLayers/LettersDiscoveredLayer/Control/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("36_7ukfb")
+theme_override_colors/font_color = Color(1, 1, 0.529412, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 20
+theme_override_font_sizes/font_size = 125
+text = "1/5"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="TitleLayers/LettersDiscoveredLayer/Control/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("36_7ukfb")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 20
+theme_override_font_sizes/font_size = 30
+text = "Secret letters discovered"
 
 [node name="SecretLetter" parent="." instance=ExtResource("37_7ukfb")]
 offset_left = 9902.0
