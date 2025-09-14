@@ -36,7 +36,7 @@
 [ext_resource type="Script" uid="uid://djn0u7mqiiuj" path="res://scripts/scene_transition_controller.gd" id="26_3mjik"]
 [ext_resource type="Texture2D" uid="uid://jxoalg47qfnm" path="res://assets/collectibles/bone.png" id="27_bone1"]
 [ext_resource type="PackedScene" uid="uid://b41x2t8numn7a" path="res://scenes/HUD.tscn" id="31_i8bqy"]
-[ext_resource type="PackedScene" uid="uid://1kmtik842kpa" path="res://scenes/SecretLetter.tscn" id="37_7ukfb"]
+[ext_resource type="PackedScene" uid="uid://divvcbosmeqxn" path="res://scenes/SecretLetter.tscn" id="37_7ukfb"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ed647"]
 distance = -500.0

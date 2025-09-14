@@ -13,9 +13,12 @@ class_name SecretLetter
 @onready var letter_mesh: MeshInstance3D = $SubViewport/LetterMesh
 @onready var text_mesh: TextMesh = $SubViewport/LetterMesh.mesh
 
+@onready var font_family: Font = preload("res://fonts/Sniglet-Regular.ttf")
+
 func _ready():
 	# Ensure the letter is set properly when the scene loads
 	if text_mesh:
+		text_mesh.font = font_family
 		set_letter(letter)
 		set_font_size(font_size)
 		set_letter_depth(letter_depth)
