@@ -40,6 +40,7 @@ var current_speed: float = PhysicsConstants.SPEED
 var can_slide_on_release: bool = false
 
 var is_running_sound_playing: bool = false
+var is_backflipping: bool = false
 
 # Signal to indicate Chonki has landed and hearts have spawned
 signal chonki_landed_and_hearts_spawned(zoom_intensity: float)
@@ -58,6 +59,7 @@ func _ready() -> void:
 	GlobalSignals.connect("kite_rotated", _on_kite_rotated)
 	GlobalSignals.connect("game_zoom_level", _on_game_zoom_level)
 	GlobalSignals.connect("player_jump", _on_player_jump)
+	GlobalSignals.connect("backflip_triggered", _on_backflip_triggered)
 	# Always reset GameState at the start of the level
 	GameState.reset()
 	# Cache and set total_stars for this level by scene path, using CollectibleStar group
@@ -343,6 +345,31 @@ func _on_player_jump(intensity: float, entity_applying_force: String):
 	if not is_game_win and (body.is_on_floor() || entity_applying_force != "player"):
 		velocity.y = PhysicsConstants.JUMP_FORCE * jump_multiplier * intensity
 		GlobalSignals.play_sfx.emit("jump")
+
+func _on_backflip_triggered():
+	# Prevent multiple simultaneous backflips
+	if is_backflipping:
+		return
+		
+	is_backflipping = true
+	
+	# Play bark sound at the start of rotation
+	GlobalSignals.play_sfx.emit("bark")
+	
+	# Perform 360 degree rotation on sprite only (not the body/camera) over 0.5 seconds
+	var start_rotation = sprite.rotation_degrees
+	var tween = create_tween()
+	tween.tween_property(sprite, "rotation_degrees", start_rotation + 360, 0.5)
+	tween.set_ease(Tween.EASE_IN_OUT)
+	tween.set_trans(Tween.TRANS_SINE)
+	
+	# Reset the backflip flag when animation completes
+	await tween.finished
+	
+	# Ensure sprite rotation is exactly reset to 0 to prevent interference with sprite flipping
+	sprite.rotation_degrees = 0
+	
+	is_backflipping = false
 
 func _exit_tree() -> void:
 	GlobalSignals.player_unregistered.emit()

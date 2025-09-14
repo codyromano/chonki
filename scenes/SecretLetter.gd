@@ -1,5 +1,4 @@
 extends Control
-class_name SecretLetter
 
 ## A 3D rotating gold letter that can be used in 2D scenes
 ## Uses a SubViewport to render 3D content for use in 2D games
