@@ -12,10 +12,22 @@ class_name SecretLetter
 @onready var subviewport: SubViewport = $SubViewport
 @onready var letter_mesh: MeshInstance3D = $SubViewport/LetterMesh
 @onready var text_mesh: TextMesh = $SubViewport/LetterMesh.mesh
+@onready var area_2d: Area2D = $Area2D
 
 @onready var font_family: Font = preload("res://fonts/Sniglet-Regular.ttf")
 
+var original_rotation_speed: float
+var is_collected: bool = false
+var tween: Tween
+
 func _ready():
+	# Store the original rotation speed
+	original_rotation_speed = rotation_speed
+	
+	# Connect the collision detection
+	if area_2d:
+		area_2d.body_entered.connect(_on_body_entered)
+	
 	# Ensure the letter is set properly when the scene loads
 	if text_mesh:
 		text_mesh.font = font_family
@@ -84,3 +96,30 @@ func set_rotation_speed(speed: float):
 ## Pause/resume rotation
 func set_rotation_enabled(enabled: bool):
 	set_process(enabled)
+
+## Called when Chonki collides with the SecretLetter
+func _on_body_entered(body: Node2D):
+	# Check if it's Chonki (CharacterBody2D)
+	if body is CharacterBody2D and not is_collected:
+		is_collected = true
+		_start_collection_sequence()
+
+## Start the collection animation sequence
+func _start_collection_sequence():
+	# Step 1: Increase rotation speed by 10x
+	rotation_speed = original_rotation_speed * 10.0
+	
+	# Step 2: After 2 seconds, start shrinking
+	await get_tree().create_timer(2.0).timeout
+	_start_shrinking()
+
+## Shrink the letter to 1/10th size over 0.5 seconds
+func _start_shrinking():
+	tween = create_tween()
+	var target_scale = scale * 0.1
+	
+	# Shrink over 0.5 seconds
+	tween.tween_property(self, "scale", target_scale, 0.5)
+	
+	# When shrinking is complete, queue free
+	tween.tween_callback(queue_free)
