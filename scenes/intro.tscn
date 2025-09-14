@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://0jybnryjbe51"]
+[gd_scene load_steps=60 format=3 uid="uid://0jybnryjbe51"]
 
 [ext_resource type="Texture2D" uid="uid://cue46gcr7x6qj" path="res://assets/environment/barn/barn_wall.jpg" id="1_553eq"]
 [ext_resource type="Script" uid="uid://c03hlmhkiab4v" path="res://scenes/intro.gd" id="1_gdkj6"]
@@ -29,7 +29,6 @@
 [ext_resource type="Script" uid="uid://dyt10li0j8lju" path="res://scenes/ElevatorSeatPathFollow.gd" id="19_weuwc"]
 [ext_resource type="Texture2D" uid="uid://d3kktwx4c1h8h" path="res://assets/interactables/library_open.png" id="20_vbvn7"]
 [ext_resource type="AudioStream" uid="uid://c4pq71yiir21k" path="res://assets/sound/library_open.mp3" id="21_rb10m"]
-[ext_resource type="Script" uid="uid://ber6accw6te3" path="res://scenes/PathFollowWallBesideHorse.gd" id="21_utod2"]
 [ext_resource type="Texture2D" uid="uid://cbt7augdvxsql" path="res://assets/environment/barn/cable/cable1.png" id="24_2n5ts"]
 [ext_resource type="Script" uid="uid://bq3ma0rsy6gjp" path="res://scenes/fork_lift_hint.gd" id="24_whm4s"]
 [ext_resource type="Script" uid="uid://dxqbafw4ha14s" path="res://scenes/ball_hint.gd" id="25_xe845"]
@@ -74,6 +73,9 @@ size = Vector2(4918.48, 1548.38)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_kxiur"]
 size = Vector2(4918.48, 1548.38)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a3fuc"]
+size = Vector2(13137.2, 406.926)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ih5xv"]
 size = Vector2(20, 1.67627)
@@ -142,15 +144,6 @@ point_count = 3
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3cr5w"]
 size = Vector2(1805.82, 217.068)
 
-[sub_resource type="Curve2D" id="Curve2D_rulo6"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, 31515, -1448, 0, 0, 0, 0, 31311, -12555)
-}
-point_count = 2
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_a3fuc"]
-size = Vector2(13137.2, 406.926)
-
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_n5sh2"]
 vertices = PackedVector2Array(16885, 1839, -11842, 2084, -11946, -262, 16844, -338)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
@@ -187,7 +180,7 @@ debug_color = Color(0.307035, 0.494072, 1, 0.42)
 [node name="FloatWoods" type="Node2D" parent="Environment/PhysicsBarriers"]
 
 [node name="FloatWood" type="StaticBody2D" parent="Environment/PhysicsBarriers/FloatWoods"]
-position = Vector2(-3917, -634)
+position = Vector2(4064, -31209)
 
 [node name="Sprite2D" type="Polygon2D" parent="Environment/PhysicsBarriers/FloatWoods/FloatWood"]
 modulate = Color(0.988235, 0.729412, 0.188235, 1)
@@ -275,7 +268,7 @@ texture_offset = Vector2(0, 200)
 polygon = PackedVector2Array(-49.2891, -201.494, 9463.4, -193.551, 9473.73, 86.7986, -67.5977, 92.8271)
 
 [node name="FloatWood4" type="StaticBody2D" parent="Environment/PhysicsBarriers/FloatWoods"]
-position = Vector2(-2672, -2112)
+position = Vector2(5309, -32687)
 
 [node name="Sprite2D" type="Polygon2D" parent="Environment/PhysicsBarriers/FloatWoods/FloatWood4"]
 modulate = Color(0.988235, 0.729412, 0.188235, 1)
@@ -296,7 +289,7 @@ position = Vector2(-1350, -3667.5)
 shape = SubResource("RectangleShape2D_c0tnm")
 
 [node name="FloatWood3" type="StaticBody2D" parent="Environment/PhysicsBarriers/FloatWoods"]
-position = Vector2(-8704, -3282)
+position = Vector2(-1495, -32007)
 rotation = 1.56912
 scale = Vector2(1.20811, 1.14374)
 
@@ -431,6 +424,28 @@ texture = ExtResource("1_553eq")
 texture_offset = Vector2(0, 200)
 polygon = PackedVector2Array(-49.2891, -201.494, 8564.8, -176.66, 8562.31, 93.7471, -67.5977, 92.8271)
 
+[node name="WallBesideHorse" type="StaticBody2D" parent="Environment/PhysicsBarriers"]
+position = Vector2(31876, -9915)
+rotation = 1.54664
+scale = Vector2(1, 1)
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/PhysicsBarriers/WallBesideHorse"]
+z_index = 1
+position = Vector2(2281.68, 208.039)
+scale = Vector2(0.870129, 0.870129)
+shape = SubResource("RectangleShape2D_a3fuc")
+
+[node name="Polygon2D" type="Polygon2D" parent="Environment/PhysicsBarriers/WallBesideHorse"]
+z_index = 1
+position = Vector2(-3429.58, 219)
+rotation = 0.007998
+scale = Vector2(0.840488, 1.00232)
+color = Color(0.480342, 0.424905, 0.200685, 1)
+texture = ExtResource("1_553eq")
+texture_offset = Vector2(0, 200)
+polygon = PackedVector2Array(-49.2891, -201.494, 13634.4, -209.514, 13609.4, 95.7778, -67.5977, 92.8271)
+
 [node name="Sprites" type="Node2D" parent="Environment"]
 
 [node name="Wall" type="Polygon2D" parent="Environment/Sprites"]
@@ -462,7 +477,7 @@ polygon = PackedVector2Array(-10844.7, 336.809, 47613.5, 364.652, 47580.1, -2675
 
 [node name="Chonki" parent="." instance=ExtResource("3_meeps")]
 z_index = 5
-position = Vector2(5113, -3086)
+position = Vector2(-2845, -3086)
 scale = Vector2(1.76, 1.76)
 heart_texture = ExtResource("4_ee0bn")
 jump_multiplier = 1.25
@@ -471,6 +486,7 @@ jump_multiplier = 1.25
 position = Vector2(-25, 628)
 
 [node name="Dogs" type="Node2D" parent="NPCs"]
+position = Vector2(-7958, 0)
 
 [node name="NPCDog4" parent="NPCs/Dogs" instance=ExtResource("5_c0o7x")]
 z_index = 1
@@ -612,9 +628,10 @@ position = Vector2(12771.6, -1599.09)
 scale = Vector2(0.394761, 0.394761)
 texture = ExtResource("24_2n5ts")
 texture_scale = Vector2(0.1, 0.1)
-polygon = PackedVector2Array(-465.43, -1326.59, -476.383, -750.804, -61538, -677.245, -61431.2, -1209.91)
+polygon = PackedVector2Array(-465.43, -1326.59, -476.383, -750.804, -36065.2, -669.647, -36065.2, -1242.9)
 
 [node name="Hints" type="Node2D" parent="Items"]
+position = Vector2(0, -33136)
 
 [node name="ForkLiftHint" parent="Items/Hints" instance=ExtResource("16_2ntw1")]
 position = Vector2(13803, -4914)
@@ -638,7 +655,7 @@ audio = null
 
 [node name="Lever" parent="Items/Levers" instance=ExtResource("13_50tjc")]
 z_index = 1
-position = Vector2(-2025, -2245)
+position = Vector2(7280, -2245)
 collision_layer = 32
 collision_mask = 65
 timer_duration = 1.5
@@ -711,37 +728,6 @@ texture_offset = Vector2(500, 0)
 texture_rotation = 1.5708
 polygon = PackedVector2Array(86.217, 428.46, 4268.3, 444.835, 4275.26, 503.418, 91.5259, 506.5)
 
-[node name="WallNearHorsePath2D" type="Path2D" parent="ScriptedAnimationScenarios"]
-curve = SubResource("Curve2D_rulo6")
-
-[node name="PathFollowWallBesideHorse" type="PathFollow2D" parent="ScriptedAnimationScenarios/WallNearHorsePath2D"]
-position = Vector2(31515, -1448)
-rotation = -1.5707
-rotates = false
-script = ExtResource("21_utod2")
-movement_duration = 20.0
-
-[node name="WallBesideHorse" type="StaticBody2D" parent="ScriptedAnimationScenarios/WallNearHorsePath2D/PathFollowWallBesideHorse"]
-position = Vector2(7965.03, 295.202)
-rotation = 3.11734
-collision_layer = 8
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ScriptedAnimationScenarios/WallNearHorsePath2D/PathFollowWallBesideHorse/WallBesideHorse"]
-z_index = 1
-position = Vector2(2281.68, 208.039)
-scale = Vector2(0.870129, 0.870129)
-shape = SubResource("RectangleShape2D_a3fuc")
-
-[node name="Polygon2D" type="Polygon2D" parent="ScriptedAnimationScenarios/WallNearHorsePath2D/PathFollowWallBesideHorse/WallBesideHorse"]
-z_index = 1
-position = Vector2(-3429.58, 219)
-rotation = 0.007998
-scale = Vector2(0.840488, 1.00232)
-color = Color(0.480342, 0.424905, 0.200685, 1)
-texture = ExtResource("1_553eq")
-texture_offset = Vector2(0, 200)
-polygon = PackedVector2Array(-49.2891, -201.494, 13634.4, -209.514, 13609.4, 95.7778, -67.5977, 92.8271)
-
 [node name="DogChaseHayBall" type="NavigationRegion2D" parent="ScriptedAnimationScenarios"]
 position = Vector2(1075, -3084)
 navigation_polygon = SubResource("NavigationPolygon_n5sh2")
@@ -762,7 +748,7 @@ is_flipped = true
 [node name="HayBall" type="RigidBody2D" parent="ScriptedAnimationScenarios/DogChaseHayBall"]
 unique_name_in_owner = true
 z_index = 3
-position = Vector2(-5053, -2794)
+position = Vector2(864, 264)
 collision_layer = 6
 collision_mask = 13
 mass = 0.5
@@ -825,10 +811,11 @@ id = "LittleFreeLibrary"
 delay_until_fade_in = 0.0
 
 [node name="SecretLetter" parent="." instance=ExtResource("37_7ukfb")]
-offset_left = 6800.0
-offset_top = -8137.0
-offset_right = 6864.0
-offset_bottom = -8073.0
+offset_left = 9902.0
+offset_top = -5527.0
+offset_right = 9966.0
+offset_bottom = -5463.0
+scale = Vector2(13.744, 13.744)
 
 [connection signal="body_entered" from="Items/Trampoline" to="Items/Trampoline" method="_on_body_entered"]
 [connection signal="body_entered" from="Items/LittleFreeLibrary" to="Items/LittleFreeLibrary" method="_on_body_entered"]
