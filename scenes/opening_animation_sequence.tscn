@@ -4,11 +4,11 @@
 [ext_resource type="Texture2D" uid="uid://oummmkpj10mj" path="res://assets/animations/intro_03_car_oncoming.png" id="2_eyrjb"]
 [ext_resource type="Texture2D" uid="uid://cudkmwbssd5pp" path="res://assets/animations/intro_01_road_empty.jpg" id="2_iwimn"]
 [ext_resource type="Texture2D" uid="uid://bdlpccyvuvjck" path="res://assets/animations/intro_02_road_aerial.jpeg" id="3_rnui1"]
-[ext_resource type="Texture2D" uid="uid://csy5g544vv6l2" path="res://assets/animations/intro_04_car_thinking.png" id="3_txui0"]
+[ext_resource type="Texture2D" uid="uid://h6rxn4dsr4oo" path="res://assets/animations/intro_04_car_thinking2.jpeg" id="5_olsx0"]
 [ext_resource type="Texture2D" uid="uid://bki5op33ixv6i" path="res://assets/animations/intro_05_barn_entering.jpeg" id="6_h31sv"]
-[ext_resource type="Texture2D" uid="uid://dl3q5eu7fko5r" path="res://assets/animations/intro_07_barn_close_up.png" id="6_tmmyj"]
-[ext_resource type="Texture2D" uid="uid://dfr4a3ar7bpe3" path="res://assets/animations/intro_06_barn_leaving_car.jpeg" id="7_2dau1"]
-[ext_resource type="Texture2D" uid="uid://cp6bn5xsfkxjp" path="res://assets/animations/intro_08_gus_title.jpg" id="7_eafvx"]
+[ext_resource type="Texture2D" uid="uid://4q2gv02541o6" path="res://assets/animations/intro_07_barn_close_up2.jpeg" id="6_tmmyj"]
+[ext_resource type="Texture2D" uid="uid://cmw1eurua1m8i" path="res://assets/animations/intro_06_barn_leaving_car2.jpeg" id="7_2dau1"]
+[ext_resource type="Texture2D" uid="uid://dyk1puvhux186" path="res://assets/animations/intro_08_gus_title2.png" id="7_eafvx"]
 [ext_resource type="AudioStream" uid="uid://dwec1ue8yxuth" path="res://assets/sound/cat-dreams-kawaii-chill-future-house-259197.mp3" id="9_hr13r"]
 
 [node name="OpeningAnimationSequence" type="Node2D"]
@@ -66,7 +66,7 @@ texture = ExtResource("2_eyrjb")
 
 [node name="Image4" type="TextureRect" parent="AnimationSequence/Control/VBoxContainer/AnimationContainer"]
 layout_mode = 2
-texture = ExtResource("3_txui0")
+texture = ExtResource("5_olsx0")
 
 [node name="Image5" type="TextureRect" parent="AnimationSequence/Control/VBoxContainer/AnimationContainer"]
 layout_mode = 2

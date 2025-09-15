@@ -1,8 +1,9 @@
-[gd_scene load_steps=61 format=3 uid="uid://0jybnryjbe51"]
+[gd_scene load_steps=62 format=3 uid="uid://0jybnryjbe51"]
 
 [ext_resource type="Texture2D" uid="uid://cue46gcr7x6qj" path="res://assets/environment/barn/barn_wall.jpg" id="1_553eq"]
 [ext_resource type="Script" uid="uid://c03hlmhkiab4v" path="res://scenes/intro.gd" id="1_gdkj6"]
 [ext_resource type="Texture2D" uid="uid://yrm7tdljfide" path="res://assets/environment/barn/barn_floor.jpg" id="2_1wljg"]
+[ext_resource type="PackedScene" uid="uid://2c8olicgfplg" path="res://scenes/hay_box.tscn" id="3_7kkmp"]
 [ext_resource type="PackedScene" uid="uid://cyu6wosf2qc3v" path="res://scenes/chonki.tscn" id="3_meeps"]
 [ext_resource type="Texture2D" uid="uid://hdkwei4rbv1p" path="res://assets/environment/barn/barn_wall_upper.jpg" id="3_y37m7"]
 [ext_resource type="Texture2D" uid="uid://qx1ubqqi74hv" path="res://assets/collectibles/menu-icons/heart.png" id="4_ee0bn"]
@@ -447,6 +448,31 @@ texture = ExtResource("1_553eq")
 texture_offset = Vector2(0, 200)
 polygon = PackedVector2Array(-49.2891, -201.494, 13634.4, -209.514, 13609.4, 95.7778, -67.5977, 92.8271)
 
+[node name="HaySquares" type="Node2D" parent="Environment/PhysicsBarriers"]
+
+[node name="HayBox" parent="Environment/PhysicsBarriers/HaySquares" instance=ExtResource("3_7kkmp")]
+position = Vector2(17656, -15757)
+
+[node name="HayBox2" parent="Environment/PhysicsBarriers/HaySquares" instance=ExtResource("3_7kkmp")]
+position = Vector2(2246, -15766)
+
+[node name="HayBox3" parent="Environment/PhysicsBarriers/HaySquares" instance=ExtResource("3_7kkmp")]
+position = Vector2(2246, -15766)
+
+[node name="HayBox4" parent="Environment/PhysicsBarriers/HaySquares" instance=ExtResource("3_7kkmp")]
+position = Vector2(3675, -15770)
+has_rope = false
+
+[node name="HayBox5" parent="Environment/PhysicsBarriers/HaySquares" instance=ExtResource("3_7kkmp")]
+position = Vector2(5046, -15770)
+has_rope = false
+
+[node name="HayBox6" parent="Environment/PhysicsBarriers/HaySquares" instance=ExtResource("3_7kkmp")]
+position = Vector2(6480, -15770)
+
+[node name="HayBox7" parent="Environment/PhysicsBarriers/HaySquares" instance=ExtResource("3_7kkmp")]
+position = Vector2(4423, -16907)
+
 [node name="Sprites" type="Node2D" parent="Environment"]
 
 [node name="Wall" type="Polygon2D" parent="Environment/Sprites"]
@@ -716,7 +742,7 @@ scale = Vector2(0.872198, 0.732905)
 dialogue = "Little free libraries contain secret stories"
 
 [node name="DebugPlayerStartMarker" type="Marker2D" parent="."]
-position = Vector2(22399, -8136)
+position = Vector2(17635, -16831)
 
 [node name="ScriptedAnimationScenarios" type="Node2D" parent="."]
 
@@ -899,7 +925,7 @@ theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 20
 theme_override_font_sizes/font_size = 30
-text = "Secret letters discovered"
+text = "Mystery letters discovered"
 
 [connection signal="body_entered" from="Items/Trampoline" to="Items/Trampoline" method="_on_body_entered"]
 [connection signal="body_entered" from="Items/LittleFreeLibrary" to="Items/LittleFreeLibrary" method="_on_body_entered"]
