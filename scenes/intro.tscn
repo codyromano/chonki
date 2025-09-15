@@ -604,12 +604,39 @@ frames = SubResource("SpriteFrames_iijpv")
 collectible_name = "letter4"
 float_intensity = 150.0
 
-[node name="SecretLetterA" parent="Items/StoryLetters" instance=ExtResource("37_7ukfb")]
-offset_left = 12644.0
-offset_top = -3765.0
-offset_right = 12708.0
-offset_bottom = -3701.0
-scale = Vector2(18.024, 18.024)
+[node name="SecretLetter" parent="Items/StoryLetters" instance=ExtResource("37_7ukfb")]
+offset_left = 3412.0
+offset_top = -4397.0
+offset_right = 3476.0
+offset_bottom = -4333.0
+
+[node name="SecretLetter2" parent="Items/StoryLetters" instance=ExtResource("37_7ukfb")]
+offset_left = 27452.0
+offset_top = -6020.0
+offset_right = 27516.0
+offset_bottom = -5956.0
+letter = "D"
+
+[node name="SecretLetter3" parent="Items/StoryLetters" instance=ExtResource("37_7ukfb")]
+offset_left = 24486.0
+offset_top = -16095.0
+offset_right = 24550.0
+offset_bottom = -16031.0
+letter = "O"
+
+[node name="SecretLetter4" parent="Items/StoryLetters" instance=ExtResource("37_7ukfb")]
+offset_left = -3920.0
+offset_top = -14780.0
+offset_right = -3856.0
+offset_bottom = -14716.0
+letter = "P"
+
+[node name="SecretLetter5" parent="Items/StoryLetters" instance=ExtResource("37_7ukfb")]
+offset_left = 32574.0
+offset_top = -13548.0
+offset_right = 32638.0
+offset_bottom = -13484.0
+letter = "T"
 
 [node name="LittleFreeLibrary" type="Area2D" parent="Items"]
 position = Vector2(40619, -4620)

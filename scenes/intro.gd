@@ -2,8 +2,11 @@ extends Node2D
 
 @onready var letters_discovered_layer: CanvasLayer = $TitleLayers/LettersDiscoveredLayer
 @onready var letters_discovered_control: Control = $TitleLayers/LettersDiscoveredLayer/Control
+@onready var letters_count_label: Label = $TitleLayers/LettersDiscoveredLayer/Control/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/Label
 
 var player_moved_initially: bool = false
+var total_secret_letters: int = 0
+var collected_secret_letters: int = 0
 
 func _ready():
 	GlobalSignals.game_zoom_level.emit(0.2)
@@ -11,8 +14,54 @@ func _ready():
 	# Connect to secret letter collection signal
 	GlobalSignals.secret_letter_collected.connect(_on_secret_letter_collected)
 	
+	# Count total secret letters in the scene
+	_count_total_secret_letters()
+	print("Found ", total_secret_letters, " secret letters in the scene")
+	
+	# Initialize the display
+	_update_letters_count_display()
+	
 	# Add fade-in effect when scene loads
 	_add_fade_in_effect()
+
+## Count all SecretLetter instances in the scene
+func _count_total_secret_letters():
+	total_secret_letters = 0
+	
+	# First try to find them in the StoryLetters group
+	var story_letters = get_node_or_null("Items/StoryLetters")
+	if story_letters:
+		for child in story_letters.get_children():
+			if child.name.begins_with("SecretLetter"):
+				total_secret_letters += 1
+	
+	# Fallback: search by group
+	if total_secret_letters == 0:
+		var secret_letters = get_tree().get_nodes_in_group("secret_letters")
+		total_secret_letters = secret_letters.size()
+	
+	# Final fallback: recursive search
+	if total_secret_letters == 0:
+		total_secret_letters = _count_secret_letters_recursive(self)
+
+## Recursively count SecretLetter nodes
+func _count_secret_letters_recursive(node: Node) -> int:
+	var count = 0
+	
+	# Check if this node has the SecretLetter script
+	if node.get_script() and node.get_script().get_path().ends_with("SecretLetter.gd"):
+		count += 1
+	
+	# Check all children recursively
+	for child in node.get_children():
+		count += _count_secret_letters_recursive(child)
+	
+	return count
+
+## Update the letters count display
+func _update_letters_count_display():
+	if letters_count_label:
+		letters_count_label.text = "%d/%d" % [collected_secret_letters, total_secret_letters]
 	
 func _add_fade_in_effect():
 	# Create a black overlay for fade-in effect
@@ -51,6 +100,13 @@ func _on_little_free_library_body_entered(_body):
 func _on_secret_letter_collected(_letter: String):
 	if not letters_discovered_control:
 		return
+	
+	# Increment collected count
+	collected_secret_letters += 1
+	print("Secret letter collected: ", _letter, " (", collected_secret_letters, "/", total_secret_letters, ")")
+	
+	# Update the display
+	_update_letters_count_display()
 	
 	# Create fade in/out animation
 	var tween = create_tween()

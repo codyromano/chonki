@@ -10,11 +10,14 @@ extends Control
 
 @onready var subviewport: SubViewport = $SubViewport
 @onready var letter_mesh: MeshInstance3D = $SubViewport/LetterMesh
-@onready var text_mesh: TextMesh = $SubViewport/LetterMesh.mesh
+# @onready var text_mesh: TextMesh = $SubViewport/LetterMesh.mesh
 @onready var area_2d: Area2D = $Area2D
 @onready var magic_dust_particles: CPUParticles2D = $MagicDustParticles
 
 @onready var font_family: Font = preload("res://fonts/Sniglet-Regular.ttf")
+
+var is_mesh_text_set: bool = false
+
 
 # Audio player - made optional to prevent errors if node doesn't exist
 var audio_player: AudioStreamPlayer
@@ -23,12 +26,26 @@ var original_rotation_speed: float
 var is_collected: bool = false
 var tween: Tween
 
+var text_mesh: TextMesh
+
 func _ready():
+	# Create a unique TextMesh resource for this instance
+	text_mesh = TextMesh.new()
+	text_mesh.font = font_family
+	text_mesh.font_size = font_size
+	text_mesh.depth = letter_depth
+	
+	# Assign the unique TextMesh to the MeshInstance3D
+	if letter_mesh:
+		letter_mesh.mesh = text_mesh
+	
 	# Store the original rotation speed
 	original_rotation_speed = rotation_speed
 	
 	# Safely get the audio player if it exists
 	audio_player = get_node_or_null("AudioStreamPlayer")
+	
+	print("_ready() received letter ", letter)
 	
 	# Start with particles disabled - they'll only appear after collision
 	if magic_dust_particles:
@@ -40,10 +57,7 @@ func _ready():
 	
 	# Ensure the letter is set properly when the scene loads
 	if text_mesh:
-		text_mesh.font = font_family
 		set_letter(letter)
-		set_font_size(font_size)
-		set_letter_depth(letter_depth)
 
 func _process(delta):
 	# Continuously rotate the letter around the Y-axis
@@ -54,10 +68,13 @@ func set_letter(new_letter: String):
 	letter = new_letter.to_upper()  # Convert to uppercase for consistency
 	
 	if text_mesh:
-		text_mesh.text = letter
-	else:
+		print("setting letter to ", letter, " on text mesh RID ", text_mesh.get_rid())
+		if !is_mesh_text_set:
+			text_mesh.text = letter
+			is_mesh_text_set = true
+	#else:
 		# If called before _ready, store the value for later
-		call_deferred("_update_letter_text")
+		#call_deferred("_update_letter_text")
 
 func set_font_size(new_size: int):
 	font_size = new_size
@@ -76,8 +93,10 @@ func set_letter_depth(new_depth: float):
 		call_deferred("_update_letter_depth")
 
 func _update_letter_text():
-	if text_mesh:
-		text_mesh.text = letter
+	pass
+	#if text_mesh:
+		#print("updating letter to ", letter, " on text mesh RID ", text_mesh.get_rid())
+		#text_mesh.text = letter
 
 func _update_font_size():
 	if text_mesh:
