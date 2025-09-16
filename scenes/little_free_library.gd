@@ -17,9 +17,7 @@ func _ready():
 	GlobalSignals.press_reset_anagram.connect(_on_press_reset_anagram)
 	GlobalSignals.anagram_word_guess_updated.connect(_on_anagram_word_guess_updated)
 	GlobalSignals.dismiss_active_main_dialogue.connect(_on_dismiss_active_dialogue)
-	# Debugging
-	# _on_win()
-
+	
 func _on_dismiss_active_dialogue() -> void:
 	print("Story content dismissed - calling SceneStack.pop_scene()")
 	SceneStack.pop_scene()
@@ -48,7 +46,7 @@ func add_single_button(index: int, letter: String) -> Button:
 	return button
 
 func create_select_letter_buttons() -> void:
-	var letters_array = Array(win_word.split())
+	var letters_array = Array(GameState.get_collected_letters())
 	letters_array.shuffle()
 	
 	# Create a button for the first letter and focus on it

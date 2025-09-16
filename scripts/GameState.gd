@@ -2,9 +2,13 @@ extends Node
 
 
 # Singleton to persist gameplay data between scenes
+var current_level: int = 1
 var stars_collected: int = 0
 var total_stars: int = 0
 var time_elapsed: float = 0.0
+var letters_collected_by_scene: Dictionary = {
+  1: [],
+}
 
 # Cache for total stars per level (by scene path)
 var stars_per_level := {}
@@ -44,3 +48,9 @@ func get_total_stars_for_level(level_path: String) -> int:
 		total_stars = stars_per_level[level_path]
 		return total_stars
 	return 0
+
+func add_collected_letter(letter: String) -> void:
+	letters_collected_by_scene[current_level].append(letter)
+
+func get_collected_letters() -> Array:
+	return letters_collected_by_scene[current_level]
