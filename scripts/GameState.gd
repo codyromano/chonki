@@ -6,6 +6,9 @@ var current_level: int = 1
 var stars_collected: int = 0
 var total_stars: int = 0
 var time_elapsed: float = 0.0
+var puzzle_solution_by_scene: Dictionary = {
+	1: "adopt"
+}
 var letters_collected_by_scene: Dictionary = {
   1: [],
 }
@@ -54,3 +57,6 @@ func add_collected_letter(letter: String) -> void:
 
 func get_collected_letters() -> Array:
 	return letters_collected_by_scene[current_level]
+
+func get_current_level_puzzle_solution() -> String:
+	return puzzle_solution_by_scene[current_level]

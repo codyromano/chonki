@@ -33,7 +33,8 @@ func _on_win() -> void:
 	GlobalSignals.queue_main_dialogue.emit('Gus, the Corgi, was born in a barn in Olympia, Washington. His future owner drove from Seattle to pick him up.')
 		
 func _on_anagram_word_guess_updated(word: String) -> void:
-	if word == win_word:
+	print(word, " vs. ", win_word)
+	if word.to_lower() == win_word:
 		_on_win()
 
 func add_single_button(index: int, letter: String) -> Button:

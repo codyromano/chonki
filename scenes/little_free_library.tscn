@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://dp3yga0d2a1m6"]
+[gd_scene load_steps=19 format=3 uid="uid://dp3yga0d2a1m6"]
 
 [ext_resource type="Script" uid="uid://c8mmhrymfec0w" path="res://scenes/little_free_library.gd" id="1_axak0"]
 [ext_resource type="Texture2D" uid="uid://b7hibh4qqs132" path="res://assets/textures/little-free-library.jpg" id="1_ok28r"]
@@ -9,6 +9,7 @@
 [ext_resource type="StyleBox" uid="uid://gt8qeik7gjdp" path="res://themes/button_focus.tres" id="5_58vim"]
 [ext_resource type="Script" uid="uid://bxw4ev7ar57gg" path="res://scenes/SelectedLettersLabel.gd" id="5_g281h"]
 [ext_resource type="StyleBox" uid="uid://d34fpnq2ua283" path="res://themes/button.tres" id="6_chu0h"]
+[ext_resource type="Script" uid="uid://cx82ffxs2vkbg" path="res://scenes/how_to_play_label.gd" id="8_k6xq4"]
 [ext_resource type="Script" uid="uid://cfl3xsdq5a418" path="res://scenes/ResetButton.gd" id="9_uxspa"]
 [ext_resource type="Script" uid="uid://c68mmaftgo8uj" path="res://scenes/BackButton.gd" id="10_abcde"]
 [ext_resource type="AudioStream" uid="uid://dya1jv0j3riuu" path="res://assets/sound/button-pop-edited.mp3" id="11_k2dw8"]
@@ -95,12 +96,13 @@ layout_mode = 2
 theme_override_constants/separation = 25
 alignment = 1
 
-[node name="Label" type="Label" parent="AnagramMarginContainer/AnagramResultDisplay"]
+[node name="HowToPlayLabel" type="Label" parent="AnagramMarginContainer/AnagramResultDisplay"]
 layout_mode = 2
 theme = SubResource("Theme_o4ulm")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Spell a word, discover a story"
 horizontal_alignment = 1
+script = ExtResource("8_k6xq4")
 
 [node name="SelectedLettersLabel" type="Label" parent="AnagramMarginContainer/AnagramResultDisplay"]
 layout_mode = 2
