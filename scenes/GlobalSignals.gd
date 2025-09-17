@@ -29,8 +29,8 @@ signal player_jump(intensity: float, entity_applying_force: String)
 signal horse_buck
 signal enter_little_free_library
 signal on_data_button_selected(button_id: String, data: String)
-signal dismiss_active_main_dialogue()
-signal queue_main_dialogue(dialogue_id: String)
+signal dismiss_active_main_dialogue(instruction_trigger_id: String)
+signal queue_main_dialogue(dialogue_id: String, instruction_trigger_id: String)
 signal internal_force_display_main_dialogue(dialogue_id: String)
 signal press_reset_anagram()
 signal anagram_word_guess_updated(word: String)

@@ -23,13 +23,6 @@ func _ready():
 	
 	# Add fade-in effect when scene loads
 	_add_fade_in_effect()
-	
-	# Debugging - @nocommit
-	GameState.add_collected_letter("A")
-	GameState.add_collected_letter("D")
-	GameState.add_collected_letter("O")
-	GameState.add_collected_letter("P")
-	GameState.add_collected_letter("T")
 
 ## Count all SecretLetter instances in the scene
 func _count_total_secret_letters():

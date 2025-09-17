@@ -18,7 +18,7 @@ func _ready():
 	GlobalSignals.anagram_word_guess_updated.connect(_on_anagram_word_guess_updated)
 	GlobalSignals.dismiss_active_main_dialogue.connect(_on_dismiss_active_dialogue)
 	
-func _on_dismiss_active_dialogue() -> void:
+func _on_dismiss_active_dialogue(_instruction_trigger_id: String) -> void:
 	print("Story content dismissed - calling SceneStack.pop_scene()")
 	SceneStack.pop_scene()
 	
@@ -30,7 +30,7 @@ func _on_win() -> void:
 	tween.tween_property(overall_game_container, 'modulate:a', 0, WIN_FADEOUT_DURATION)
 	await tween.finished
 	
-	GlobalSignals.queue_main_dialogue.emit('Gus, the Corgi, was born in a barn in Olympia, Washington. His future owner drove from Seattle to pick him up.')
+	GlobalSignals.queue_main_dialogue.emit('Gus, the Corgi, was born in a barn in Olympia, Washington. His future owner drove from Seattle to pick him up.', '')
 		
 func _on_anagram_word_guess_updated(word: String) -> void:
 	print(word, " vs. ", win_word)
@@ -48,6 +48,9 @@ func add_single_button(index: int, letter: String) -> Button:
 
 func create_select_letter_buttons() -> void:
 	var letters_array = Array(GameState.get_collected_letters())
+	if letters_array.is_empty():
+		return
+		
 	letters_array.shuffle()
 	
 	# Create a button for the first letter and focus on it

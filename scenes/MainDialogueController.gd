@@ -7,6 +7,7 @@ var dialogue_queue: Array = []
 @onready var canvas_layer: CanvasLayer = get_parent()
 
 var rendered_dialogue: PanelContainer
+var current_instruction_trigger_id: String = ""
 var is_ready: bool = false
 
 
@@ -20,7 +21,7 @@ func _ready() -> void:
 	# Configure all audio players to continue playing during dialogue pause
 	_configure_audio_players_for_dialogue()
 
-	var current_scene = get_tree().current_scene
+	var _current_scene = get_tree().current_scene
 	#if current_scene && current_scene.name == 'Intro':
 		#await get_tree().create_timer(1.0).timeout
 		# _on_dialogue_queued("Today is a big day! I'd better find a way out of this barn...")
@@ -55,14 +56,16 @@ func _find_all_audio_nodes(node: Node) -> Array:
 
 func _process(_delta: float) -> void:
 	if is_ready and rendered_dialogue and (Input.is_action_just_pressed("read") or Input.is_action_just_pressed("jump")):
-		GlobalSignals.dismiss_active_main_dialogue.emit()
+		GlobalSignals.dismiss_active_main_dialogue.emit(current_instruction_trigger_id)
 
 
-func _create_dialogue(dialogue: String) -> PanelContainer:
+func _create_dialogue(dialogue: String, trigger_id: String = "") -> PanelContainer:
 	var scene = dialogue_scene.instantiate()
 	scene.dialogue = dialogue
 	scene.duration = float(dialogue.length()) * 0.025
 	canvas_layer.call_deferred("add_child", scene)
+	# Use the custom setter method to ensure proper initialization
+	scene.call_deferred("set_instruction_trigger_id", trigger_id)
 	return scene
 
 
@@ -80,19 +83,26 @@ func _process_queue() -> void:
 
 	if dialogue_queue.is_empty():
 		tree.paused = false
+		current_instruction_trigger_id = ""
 		return
 
-	var next_dialogue = dialogue_queue.pop_front()
-	rendered_dialogue = _create_dialogue(next_dialogue)
+	var next_dialogue_data = dialogue_queue.pop_front()
+	var dialogue_text = next_dialogue_data.dialogue if next_dialogue_data is Dictionary else next_dialogue_data
+	current_instruction_trigger_id = next_dialogue_data.trigger_id if next_dialogue_data is Dictionary else ""
+	rendered_dialogue = _create_dialogue(dialogue_text, current_instruction_trigger_id)
 	
 	tree.paused = true
 
 
-func _on_dialogue_queued(dialogue: String) -> void:
-	dialogue_queue.push_back(dialogue)
+func _on_dialogue_queued(dialogue: String, instruction_trigger_id: String = "") -> void:
+	var dialogue_data = {
+		"dialogue": dialogue,
+		"trigger_id": instruction_trigger_id
+	}
+	dialogue_queue.push_back(dialogue_data)
 	if not rendered_dialogue:
 		_process_queue()
 
 
-func _on_dismiss_active_dialogue() -> void:
+func _on_dismiss_active_dialogue(_instruction_trigger_id: String) -> void:
 	_process_queue()
