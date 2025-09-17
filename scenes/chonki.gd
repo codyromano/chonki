@@ -41,12 +41,14 @@ var can_slide_on_release: bool = false
 
 var is_running_sound_playing: bool = false
 var is_backflipping: bool = false
+var is_frozen: bool = false
 
 # Signal to indicate Chonki has landed and hearts have spawned
 signal chonki_landed_and_hearts_spawned(zoom_intensity: float)
 
 func _ready() -> void:
 	GlobalSignals.player_registered.emit(self)
+	GlobalSignals.set_chonki_frozen.connect(_on_chonki_frozen)
 	
 	if debug_start_marker:
 		global_position = debug_start_marker.global_position
@@ -81,6 +83,9 @@ func _ready() -> void:
 	fade_rect.z_index = 1000
 	add_child(fade_rect)
 	fade_rect.visible = false
+
+func _on_chonki_frozen(frozen: bool) -> void:
+	is_frozen = frozen
 
 func _on_game_zoom_level(zoom_level: float, zoom_duration: float = 2.0) -> void:
 	if camera2d.has_method("_on_animate_camera_zoom_level"):
@@ -194,6 +199,12 @@ func get_platform_velocity() -> Vector2:
 	return Vector2.ZERO
 
 func handle_movement(delta: float) -> void:
+	# Don't process movement if Chonki is frozen
+	if is_frozen:
+		velocity = Vector2.ZERO
+		body.velocity = Vector2.ZERO
+		return
+		
 	if state == ChonkiState.HANG_ON:
 		# ... (hang on logic is correct)
 		if Input.is_action_just_pressed("ui_left") or Input.is_action_just_pressed("ui_right"):

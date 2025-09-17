@@ -27,6 +27,9 @@ func clear_fade():
 	# Reset transition flag when returning to this scene
 	is_transitioning = false
 	
+	# Unfreeze Chonki when scene loads/becomes active
+	GlobalSignals.set_chonki_frozen.emit(false)
+	
 	# Re-register the player for audio when scene is restored
 	for child in get_tree().current_scene.get_children():
 		if child.name.begins_with("Chonki") or child.has_method("_on_player_jump"):
@@ -74,6 +77,10 @@ func _on_enter_little_free_library():
 	
 	# Set flag immediately to prevent multiple signals
 	is_transitioning = true
+	
+	# Freeze Chonki before starting the transition
+	GlobalSignals.set_chonki_frozen.emit(true)
+	
 	print("Transition flag set - starting fade")
 	fade_to_black()
 
@@ -88,7 +95,7 @@ func fade_to_black():
 		tween.kill()
 	
 	tween = create_tween()
-	tween.tween_property(fade_overlay, "color:a", 1.0, 3.0)  # Fade to black over 3 seconds
+	tween.tween_property(fade_overlay, "color:a", 1.0, 0.5)  # Fade to black over 0.5 seconds
 	tween.tween_callback(_on_fade_complete)
 
 func _on_fade_complete():

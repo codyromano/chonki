@@ -38,3 +38,4 @@ signal player_registered(player: Node2D)
 signal player_unregistered
 signal secret_letter_collected(letter: String)
 signal backflip_triggered()
+signal set_chonki_frozen(is_frozen: bool)
