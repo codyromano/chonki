@@ -10,7 +10,7 @@ extends Control
 
 const WIN_FADEOUT_DURATION: float = 1.5
 
-func _ready():
+func _ready():		
 	create_select_letter_buttons()
 	selected_letters_label.total_letters = win_word.length()
 	
@@ -19,7 +19,6 @@ func _ready():
 	GlobalSignals.dismiss_active_main_dialogue.connect(_on_dismiss_active_dialogue)
 	
 func _on_dismiss_active_dialogue(_instruction_trigger_id: String) -> void:
-	print("Story content dismissed - calling SceneStack.pop_scene()")
 	SceneStack.pop_scene()
 	
 func _on_win() -> void:
@@ -33,7 +32,6 @@ func _on_win() -> void:
 	GlobalSignals.queue_main_dialogue.emit('Gus, the Corgi, was born in a barn in Olympia, Washington. His future owner drove from Seattle to pick him up.', '')
 		
 func _on_anagram_word_guess_updated(word: String) -> void:
-	print(word, " vs. ", win_word)
 	if word.to_lower() == win_word:
 		_on_win()
 
@@ -47,7 +45,9 @@ func add_single_button(index: int, letter: String) -> Button:
 	return button
 
 func create_select_letter_buttons() -> void:
-	var letters_array = Array(GameState.get_collected_letters())
+	# Debug - @nocommit
+	var letters_array = ['a','d','o','p','t']
+	# var letters_array = Array(GameState.get_collected_letters())
 	if letters_array.is_empty():
 		return
 		

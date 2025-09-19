@@ -27,7 +27,6 @@ func _on_data_button_selected(id: String, data: String) -> void:
 	selected_letters += data
 	_update_letter_display()
 	GlobalSignals.anagram_word_guess_updated.emit(selected_letters)
-	print('selected: ' + selected_letters)
 
 func _on_press_reset_anagram() -> void:
 	selected_letters = ''
