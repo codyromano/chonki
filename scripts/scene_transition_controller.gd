@@ -22,7 +22,6 @@ func clear_fade():
 	# Reset the fade overlay to transparent when returning to this scene
 	if fade_overlay:
 		fade_overlay.color.a = 0.0
-		print("Fade overlay cleared - alpha set to 0")
 	
 	# Reset transition flag when returning to this scene
 	is_transitioning = false
@@ -33,18 +32,14 @@ func clear_fade():
 	# Re-register the player for audio when scene is restored
 	for child in get_tree().current_scene.get_children():
 		if child.name.begins_with("Chonki") or child.has_method("_on_player_jump"):
-			print("Re-registering player for audio: ", child.name)
 			GlobalSignals.player_registered.emit(child)
 			break
 
 func create_fade_overlay():
 	# Don't create if overlay already exists
 	if fade_overlay:
-		print("Fade overlay already exists, skipping creation")
 		return
 		
-	print("Creating fade overlay...")
-	
 	# Create a CanvasLayer to ensure the overlay is on top of everything
 	canvas_layer = CanvasLayer.new()
 	canvas_layer.layer = 100  # High layer value to be on top
@@ -66,13 +61,9 @@ func setup_overlay_size():
 		var viewport_size = get_viewport().get_visible_rect().size
 		fade_overlay.size = viewport_size
 		fade_overlay.position = Vector2.ZERO
-		print("Overlay setup complete - Size: ", fade_overlay.size)
 
 func _on_enter_little_free_library():
-	print("Enter little free library signal received")
-	
 	if is_transitioning:
-		print("Already transitioning, ignoring signal")
 		return
 	
 	# Set flag immediately to prevent multiple signals
@@ -81,16 +72,12 @@ func _on_enter_little_free_library():
 	# Freeze Chonki before starting the transition
 	GlobalSignals.set_chonki_frozen.emit(true)
 	
-	print("Transition flag set - starting fade")
 	fade_to_black()
 
 func fade_to_black():
 	if not fade_overlay:
-		print("Error: fade_overlay is null!")
 		return
 		
-	print("Starting fade to black")
-	
 	if tween:
 		tween.kill()
 	

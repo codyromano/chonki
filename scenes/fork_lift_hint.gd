@@ -2,7 +2,6 @@ extends "res://scenes/Collectible.gd"
 
 func _ready() -> void:
 	super._ready()
-	print("ForkLiftHint _ready() called")
 
 func _on_item_collected(_collectible_name: String) -> void:
 	print("ForkLiftHint: _on_item_collected called with: ", _collectible_name)

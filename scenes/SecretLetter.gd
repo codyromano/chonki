@@ -45,8 +45,6 @@ func _ready():
 	# Safely get the audio player if it exists
 	audio_player = get_node_or_null("AudioStreamPlayer")
 	
-	print("_ready() received letter ", letter)
-	
 	# Start with particles disabled - they'll only appear after collision
 	if magic_dust_particles:
 		magic_dust_particles.emitting = false
@@ -68,7 +66,6 @@ func set_letter(new_letter: String):
 	letter = new_letter.to_upper()  # Convert to uppercase for consistency
 	
 	if text_mesh:
-		print("setting letter to ", letter, " on text mesh RID ", text_mesh.get_rid())
 		if !is_mesh_text_set:
 			text_mesh.text = letter
 			is_mesh_text_set = true
@@ -138,8 +135,6 @@ func _start_collection_sequence():
 	# Emit global signal that a secret letter was collected
 	GlobalSignals.secret_letter_collected.emit(letter)
 	GameState.add_collected_letter(letter)
-	
-	print("letters: ", GameState.get_collected_letters())
 	
 	# Play the secret letter collection sound
 	if audio_player:
