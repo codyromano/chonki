@@ -46,8 +46,8 @@ func add_single_button(index: int, letter: String) -> Button:
 
 func create_select_letter_buttons() -> void:
 	# Debug - @nocommit
-	var letters_array = ['a','d','o','p','t']
-	# var letters_array = Array(GameState.get_collected_letters())
+	# var letters_array = ['a','d','o','p','t']
+	var letters_array = Array(GameState.get_collected_letters())
 	if letters_array.is_empty():
 		return
 		

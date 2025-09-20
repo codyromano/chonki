@@ -5,6 +5,6 @@ func _ready() -> void:
 	var total_letters_collected = GameState.get_collected_letters().size()
 	
 	if total_solution_word_letters == total_letters_collected:
-		text = "Can you form a word from the " + str(total_letters_collected) + " letters you collected?"
+		text = "Spell a word to learn more of Gus's story"
 	else:
-		text = "You can't solve this puzzle yet. You have only collected " + str(total_letters_collected) + "/" + str(total_solution_word_letters) + " letters."
+		text = "You need " + str(total_solution_word_letters) + " mystery letters to solve this puzzle (" + str(total_letters_collected) + " collected). Come back after you've found all the letters."

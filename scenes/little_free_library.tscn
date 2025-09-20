@@ -102,6 +102,7 @@ theme = SubResource("Theme_o4ulm")
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "Spell a word, discover a story"
 horizontal_alignment = 1
+autowrap_mode = 3
 script = ExtResource("8_k6xq4")
 
 [node name="SelectedLettersLabel" type="Label" parent="AnagramMarginContainer/AnagramResultDisplay"]
