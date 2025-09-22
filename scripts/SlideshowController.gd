@@ -79,7 +79,19 @@ func _start_slideshow() -> void:
 			image.modulate.a = 0.0
 			print("Hidden ", image.name)
 	
-	print("Slideshow finished. Starting fade to black and music fade out...")
+	print("Slideshow finished. Starting final fade and showing text layer...")
+	
+	# Get reference to the AfterCutsceneTextLayer and its control node
+	var after_text_layer = get_tree().current_scene.get_node("AfterCutsceneTextLayer")
+	var after_text_control = null
+	if after_text_layer:
+		after_text_control = after_text_layer.get_node("AfterCutsceneTextControl")
+		if after_text_control:
+			# Initially hide the text control
+			after_text_control.modulate.a = 0.0
+			after_text_layer.visible = true
+		else:
+			print("Warning: AfterCutsceneTextControl not found")
 	
 	# Create a black overlay for fade effect
 	var black_overlay = ColorRect.new()
@@ -103,10 +115,19 @@ func _start_slideshow() -> void:
 			fade_tween.tween_property(audio_player, "volume_db", -80.0, 3.0)
 	
 	await fade_tween.finished
-	print("Fade complete. Navigating to intro.tscn...")
+	print("Fade complete. Now showing text layer...")
 	
-	# Navigate to intro.tscn
-	get_tree().change_scene_to_file("res://scenes/intro.tscn")
+	# Remove the black overlay and fade in the text layer
+	black_overlay.queue_free()
+	
+	if after_text_control:
+		# Fade in the text control over 0.5 seconds
+		var text_fade_tween = create_tween()
+		text_fade_tween.tween_property(after_text_control, "modulate:a", 1.0, 0.5)
+		await text_fade_tween.finished
+		print("Text layer fade-in complete. Scene will remain on final text.")
+	else:
+		print("Warning: AfterCutsceneTextLayer or AfterCutsceneTextControl not found in scene")
 
 # Helper function to find all audio players in the scene
 func _find_all_audio_players(node: Node) -> Array:

@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dmtvmgvml3lgn"]
+[gd_scene load_steps=13 format=3 uid="uid://dmtvmgvml3lgn"]
 
 [ext_resource type="Script" uid="uid://x8w1g2c80t4e" path="res://scripts/SlideshowController.gd" id="1_0pilm"]
 [ext_resource type="Texture2D" uid="uid://cqsn88tnxcat6" path="res://assets/animations/after_intro/after_intro_01.png" id="2_0pilm"]
@@ -11,6 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://bvv6rdile1epb" path="res://assets/animations/after_intro/after_intro_08.png" id="8_yiugc"]
 [ext_resource type="Texture2D" uid="uid://cwkmnx07fbkyf" path="res://assets/animations/after_intro/after_intro_09.png" id="9_jri8u"]
 [ext_resource type="AudioStream" uid="uid://oawbbgam1iw3" path="res://assets/sound/piano-trimmed.mp3" id="10_tmxdy"]
+[ext_resource type="Theme" uid="uid://dte5an7k6hog1" path="res://themes/base.tres" id="12_xk76i"]
 
 [node name="after_intro_animation_sequence" type="Node2D"]
 position = Vector2(527, 495)
@@ -94,3 +95,38 @@ texture = ExtResource("9_jri8u")
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="AnimationSequence"]
 stream = ExtResource("10_tmxdy")
 autoplay = true
+
+[node name="AfterCutsceneTextLayer" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="AfterCutsceneTextControl" type="Control" parent="AfterCutsceneTextLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="AfterCutsceneTextLayer/AfterCutsceneTextControl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="AfterCutsceneTextLayer/AfterCutsceneTextControl/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="AfterCutsceneTextLayer/AfterCutsceneTextControl/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(800, 0)
+layout_mode = 2
+theme = ExtResource("12_xk76i")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Thank you so much for playing! I'm working to add more content. I welcome your feedback in the meantime. 
+
+- SideQuestsOnly"
+vertical_alignment = 1
+autowrap_mode = 2
