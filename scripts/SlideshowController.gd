@@ -3,6 +3,7 @@ extends Node
 @export var fade_in_duration: float = 1.0
 @export var display_duration: float = 2.0
 @export var fade_out_duration: float = 1.0
+@export var crop_bottom_pixels: int = 25  # Pixels to crop from bottom of each image
 
 var images: Array[TextureRect]
 
@@ -21,6 +22,10 @@ func _ready() -> void:
 	if images.is_empty():
 		print("SlideshowController: No TextureRect children found. Aborting.")
 		return
+
+	# Apply cropping to all images before starting slideshow
+	if crop_bottom_pixels > 0:
+		_apply_cropping_to_images()
 
 	# Sort children by name numerically to ensure correct order
 	images.sort_custom(func(a, b): 
@@ -116,3 +121,51 @@ func _find_all_audio_players(node: Node) -> Array:
 		audio_players.append_array(_find_all_audio_players(child))
 	
 	return audio_players
+
+# Apply cropping shader to all images in the slideshow
+func _apply_cropping_to_images():
+	print("SlideshowController: Applying %d pixel crop to %d images" % [crop_bottom_pixels, images.size()])
+	
+	# Custom shader code for cropping bottom pixels
+	var crop_shader_code = """
+shader_type canvas_item;
+
+uniform float crop_bottom : hint_range(0.0, 1.0) = 0.1;
+
+void fragment() {
+	// Calculate the adjusted UV coordinates
+	// We need to scale the UV.y to exclude the bottom portion
+	vec2 adjusted_uv = UV;
+	adjusted_uv.y = UV.y * (1.0 - crop_bottom);
+	
+	// Sample the texture with the adjusted coordinates
+	COLOR = texture(TEXTURE, adjusted_uv);
+	
+	// Make cropped area transparent
+	if (UV.y > (1.0 - crop_bottom)) {
+		COLOR.a = 0.0;
+	}
+}
+"""
+	
+	for image in images:
+		if not image.texture:
+			print("SlideshowController: Skipping %s - no texture assigned" % image.name)
+			continue
+			
+		# Get the texture dimensions to calculate crop ratio
+		var texture_size = image.texture.get_size()
+		var crop_ratio = float(crop_bottom_pixels) / texture_size.y
+		
+		# Create the shader material
+		var shader = Shader.new()
+		shader.code = crop_shader_code
+		
+		var shader_material = ShaderMaterial.new()
+		shader_material.shader = shader
+		shader_material.set_shader_parameter("crop_bottom", crop_ratio)
+		
+		# Apply the material to the TextureRect
+		image.material = shader_material
+		
+		print("SlideshowController: Applied crop to %s (crop ratio: %.3f)" % [image.name, crop_ratio])
