@@ -20,12 +20,11 @@ var is_collected: bool = false
 
 
 # Override
-func _on_item_collected(collectible_name: String) -> void:
+func _on_item_collected(_item_name: String) -> void:
 	pass
 
 func _ready():
 	add_child(audio_player)
-	var  label: Label = find_child('Label')
 	if label_text:
 		label.text = label_text
 	else:

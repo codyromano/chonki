@@ -19,7 +19,7 @@ var slide_tween: Tween
 func _ready() -> void:
 	GlobalSignals.connect("chonki_state_updated", _on_chonki_state_updated)
 	GlobalSignals.connect("player_hit", _on_player_hit)
-	GlobalSignals.connect("win_game", func(): is_game_win = true)
+	GlobalSignals.connect("win_game", func(_zoom_intensity: float): is_game_win = true)
 	GlobalSignals.connect("player_out_of_hearts", _on_player_out_of_hearts)
 	GlobalSignals.connect("chonki_touched_kite", _on_chonki_touched_kite)
 	GlobalSignals.connect("slide_start", _on_slide_start)

@@ -35,7 +35,7 @@ func _gui_input(event: InputEvent) -> void:
 		if viewport:
 			viewport.set_input_as_handled()  # Prevent other buttons from handling this input
 	
-func _on_data_button_selected(id: String, data: String) -> void:
+func _on_data_button_selected(id: String, _data: String) -> void:
 	if id == 'letter_button':
 		visible = true
 
