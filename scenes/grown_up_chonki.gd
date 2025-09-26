@@ -7,6 +7,7 @@ extends Node2D
 
 @export var heart_texture: Texture2D
 @export var jump_multiplier: float = 1.0
+@export var speed_multiplier: float = 0.375
 
 enum ChonkiState { IDLE, RUN, ATTACK, HANG_ON }
 
@@ -36,7 +37,7 @@ var hang_offset: Vector2 = Vector2.ZERO
 var swing_factor: float = 1.0  # Current swing speed factor from kite
 
 var time_held: float = 0.0
-var current_speed: float = PhysicsConstants.SPEED
+var current_speed: float = PhysicsConstants.SPEED * speed_multiplier
 var can_slide_on_release: bool = false
 
 var is_running_sound_playing: bool = false
@@ -180,7 +181,7 @@ func _physics_process(delta: float) -> void:
 		
 		# If BigFloor blocked horizontal movement, restore it
 		if was_blocked_by_bigfloor:
-			body.velocity.x = pre_collision_velocity.x
+			body.velocity.x = pre_collision_velocity.x * speed_multiplier
 	
 func get_platform_velocity() -> Vector2:
 	# Returns the velocity of the platform Chonki is standing on, or Vector2.ZERO if not on a moving platform
@@ -199,6 +200,8 @@ func get_platform_velocity() -> Vector2:
 	return Vector2.ZERO
 
 func handle_movement(delta: float) -> void:
+	print("[Chonki] Movement speed:", velocity.x, " | speed_multiplier:", str(speed_multiplier))
+
 	# Don't process movement if Chonki is frozen
 	if is_frozen:
 		velocity = Vector2.ZERO
@@ -209,7 +212,7 @@ func handle_movement(delta: float) -> void:
 		# ... (hang on logic is correct)
 		if Input.is_action_just_pressed("ui_left") or Input.is_action_just_pressed("ui_right"):
 			# Base jump impulse
-			velocity.x = hang_direction * PhysicsConstants.SPEED
+			velocity.x = hang_direction * PhysicsConstants.SPEED * speed_multiplier
 			velocity.y = PhysicsConstants.JUMP_FORCE * jump_multiplier
 			# Apply additional impulse proportional to swing factor (reduced max)
 			var jump_mult = 1.0 + (swing_factor - 1.0) * (4.0 / 3.0)
@@ -239,7 +242,7 @@ func handle_movement(delta: float) -> void:
 		last_action_time = Time.get_unix_time_from_system()
 
 	if is_chonki_sliding:
-		velocity.x = move_toward(velocity.x, 0, PhysicsConstants.DECELERATION * delta)
+		velocity.x = move_toward(velocity.x, 0, PhysicsConstants.DECELERATION * speed_multiplier * delta)
 		# Stop sliding if velocity reaches zero, not on floor, or hit a wall (but ignore BigFloor)
 		var hit_wall = false
 		if body.get_slide_collision_count() > 0:
@@ -260,17 +263,18 @@ func handle_movement(delta: float) -> void:
 		time_held += delta
 		var speed_fraction = min(time_held / PhysicsConstants.TIME_UNTIL_MAX_SPEED, 1.0)
 		current_speed = lerp(PhysicsConstants.SPEED, PhysicsConstants.MAX_SPEED, speed_fraction)
-		velocity.x = direction * current_speed + platform_velocity.x
+		velocity.x = direction * current_speed * speed_multiplier + platform_velocity.x
+		print("[Chonki] Movement speed:", velocity.x, " | speed_multiplier:", str(speed_multiplier))
 		
-		if current_speed >= PhysicsConstants.MAX_SPEED:
+		if current_speed >= PhysicsConstants.MAX_SPEED * speed_multiplier:
 			can_slide_on_release = true
-		
+
 		if not is_running_sound_playing:
 			GlobalSignals.play_sfx.emit("run")
 			is_running_sound_playing = true
 	else: # Not sliding and no direction input
 		time_held = 0
-		current_speed = PhysicsConstants.SPEED
+		current_speed = PhysicsConstants.SPEED * speed_multiplier
 		
 		if can_slide_on_release:
 			is_chonki_sliding = true
@@ -283,12 +287,12 @@ func handle_movement(delta: float) -> void:
 		
 		# Only apply regular deceleration if NOT sliding
 		if not is_chonki_sliding:
-			velocity.x = move_toward(velocity.x, 0, PhysicsConstants.DECELERATION_NON_SLIDING * delta)
+			velocity.x = move_toward(velocity.x, 0, PhysicsConstants.DECELERATION_NON_SLIDING * speed_multiplier * delta)
 
 	var current_time = Time.get_unix_time_from_system()
 
 	if hit_time != null && current_time - hit_time <= PhysicsConstants.HIT_RECOVERY_TIME:
-		velocity.x = 2000 if sprite.flip_h else -2000
+		velocity.x = (2000 * speed_multiplier) if sprite.flip_h else (-2000 * speed_multiplier)
 		velocity.y = 1000
 		body.velocity = velocity
 		return
@@ -307,6 +311,7 @@ func handle_movement(delta: float) -> void:
 		body.velocity = Vector2(0, 0)
 		return
 
+	print("[Chonki] Movement speed:", velocity.x, " (multiplier:", speed_multiplier, ")")
 	body.velocity = velocity
 
 func player_die():
