@@ -135,10 +135,8 @@ func _on_chonki_touched_kite(kite_position: Vector2, kite_rotation_deg: int) -> 
 	hang_offset = Vector2(0, half_h)
 
 func on_win_game(zoom_intensity: float = 0.5) -> void:
-	print("Chonki on_win_game called with zoom_intensity: ", zoom_intensity)
 	is_game_win = true
 	win_zoom_intensity = zoom_intensity
-	print("Chonki win_zoom_intensity set to: ", win_zoom_intensity)
 	# Wait for Chonki to land on the floor before spawning hearts
 	await wait_for_chonki_to_land()
 	GlobalSignals.spawn_hearts_begin.emit()
@@ -200,7 +198,6 @@ func get_platform_velocity() -> Vector2:
 	return Vector2.ZERO
 
 func handle_movement(delta: float) -> void:
-	print("[Chonki] Movement speed:", velocity.x, " | speed_multiplier:", str(speed_multiplier))
 
 	# Don't process movement if Chonki is frozen
 	if is_frozen:
@@ -264,7 +261,6 @@ func handle_movement(delta: float) -> void:
 		var speed_fraction = min(time_held / PhysicsConstants.TIME_UNTIL_MAX_SPEED, 1.0)
 		current_speed = lerp(PhysicsConstants.SPEED, PhysicsConstants.MAX_SPEED, speed_fraction)
 		velocity.x = direction * current_speed * speed_multiplier + platform_velocity.x
-		print("[Chonki] Movement speed:", velocity.x, " | speed_multiplier:", str(speed_multiplier))
 		
 		if current_speed >= PhysicsConstants.MAX_SPEED * speed_multiplier:
 			can_slide_on_release = true
@@ -311,7 +307,6 @@ func handle_movement(delta: float) -> void:
 		body.velocity = Vector2(0, 0)
 		return
 
-	print("[Chonki] Movement speed:", velocity.x, " (multiplier:", speed_multiplier, ")")
 	body.velocity = velocity
 
 func player_die():

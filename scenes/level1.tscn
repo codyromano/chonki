@@ -1,9 +1,8 @@
-[gd_scene load_steps=43 format=3 uid="uid://br8ftak73gmww"]
+[gd_scene load_steps=41 format=3 uid="uid://br8ftak73gmww"]
 
 [ext_resource type="PackedScene" uid="uid://bk3oytbasgs5w" path="res://scenes/grown_up_chonki.tscn" id="1_6i0tl"]
 [ext_resource type="Texture2D" uid="uid://bpqdlmvtkr1i5" path="res://assets/environment/lake.png" id="1_vplxb"]
 [ext_resource type="Texture2D" uid="uid://bytsxlqncfgi8" path="res://assets/environment/sky.png" id="2_gc4xo"]
-[ext_resource type="PackedScene" uid="uid://bm55n82sfyn37" path="res://scenes/collectible.tscn" id="4_ew37v"]
 [ext_resource type="PackedScene" uid="uid://bwsqagx4t8jlw" path="res://FloatingHearts.tscn" id="7_7xcao"]
 [ext_resource type="Script" uid="uid://7hgh2bfs1wl" path="res://FloatingHeartsManager.gd" id="8_8hmqo"]
 [ext_resource type="Texture2D" uid="uid://4bko6gewu3m1" path="res://assets/enemies/goose/goose1.png" id="13_7b16e"]
@@ -33,7 +32,6 @@
 [ext_resource type="Script" uid="uid://b5gtgqwpligv2" path="res://scenes/composable/bicyclist_patrol_loop.gd" id="26_b2buy"]
 [ext_resource type="Texture2D" uid="uid://c1jvgsj8ygn4l" path="res://assets/enemies/bike/bike2.png" id="26_x6hvv"]
 [ext_resource type="Texture2D" uid="uid://dvr6b70gg7k47" path="res://assets/enemies/bike/bike_concerned.png" id="27_abcde"]
-[ext_resource type="PackedScene" uid="uid://uc8liperea12" path="res://scenes/kite.tscn" id="32_gf4kt"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_1ju1f"]
 vertices = PackedVector2Array(18088, 3, 13139, 8, 13188, -2378, 18259, -2419)
@@ -177,22 +175,8 @@ speed_multiplier = 0.75
 [node name="World2D" type="Node2D" parent="." groups=["world"]]
 unique_name_in_owner = true
 
-[node name="Collectibles" type="Node2D" parent="World2D"]
-
-[node name="Collectible" parent="World2D/Collectibles" instance=ExtResource("4_ew37v")]
-z_index = 1
-position = Vector2(5251, -2416)
-
-[node name="Collectible2" parent="World2D/Collectibles" instance=ExtResource("4_ew37v")]
-z_index = 1
-position = Vector2(18196, -7723)
-
-[node name="Collectible3" parent="World2D/Collectibles" instance=ExtResource("4_ew37v")]
-z_index = 1
-position = Vector2(14511, -6720)
-
 [node name="Dave" parent="World2D" instance=ExtResource("16_ytk5w")]
-position = Vector2(51073, -1442)
+position = Vector2(104566, -1442)
 
 [node name="Environment" type="Node2D" parent="World2D"]
 z_index = -1
@@ -323,7 +307,7 @@ move_duration = 7.0
 
 [node name="Bicyclist" type="Area2D" parent="World2D/NPCs"]
 z_index = 2
-position = Vector2(18707, -627)
+position = Vector2(60816, -627)
 script = ExtResource("24_ndwrk")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World2D/NPCs/Bicyclist"]
@@ -345,7 +329,7 @@ position = Vector2(23805, -14)
 position = Vector2(-1280, 21)
 
 [node name="BicyclistPatrolLoop" parent="World2D/NPCs" node_paths=PackedStringArray("body") instance=ExtResource("26_67tjq")]
-position = Vector2(19298, -513)
+position = Vector2(61439, -513)
 script = ExtResource("26_b2buy")
 body = NodePath("../Bicyclist")
 move_duration = 6.0
@@ -378,7 +362,7 @@ shape = SubResource("WorldBoundaryShape2D_piwsr")
 debug_color = Color(0.307035, 0.494072, 1, 0.42)
 
 [node name="CherryTreeBody" type="StaticBody2D" parent="World2D/Platforms & Barriers"]
-position = Vector2(1117, 13)
+position = Vector2(1117, 5304)
 collision_layer = 8
 collision_mask = 21
 script = ExtResource("15_iid5p")
@@ -413,20 +397,8 @@ leg_height = 55.0
 position = Vector2(21175, -1574)
 leg_height = 20.0
 
-[node name="Kites" type="Node2D" parent="World2D/Platforms & Barriers"]
-
-[node name="Kite" parent="World2D/Platforms & Barriers/Kites" instance=ExtResource("32_gf4kt")]
-z_index = 3
-position = Vector2(22327, -4359)
-
-[node name="Kite2" parent="World2D/Platforms & Barriers/Kites" instance=ExtResource("32_gf4kt")]
-z_index = 3
-position = Vector2(24665, -6220)
-
 [node name="HUD" parent="." instance=ExtResource("20_g3dfk")]
 
 [connection signal="timeout" from="World2D/NPCs/GooseRegion2D/Goose/Timer" to="World2D/NPCs/GooseRegion2D/Goose" method="_on_hop_timer_timeout"]
 [connection signal="body_entered" from="World2D/NPCs/Bicyclist" to="World2D/NPCs/Bicyclist" method="_on_body_entered"]
 [connection signal="input_event" from="World2D/Platforms & Barriers/CherryTreeBody" to="World2D/Platforms & Barriers/CherryTreeBody" method="_on_input_event"]
-[connection signal="body_entered" from="World2D/Platforms & Barriers/Kites/Kite" to="World2D/Platforms & Barriers/Kites/Kite" method="_on_body_entered"]
-[connection signal="body_entered" from="World2D/Platforms & Barriers/Kites/Kite2" to="World2D/Platforms & Barriers/Kites/Kite2" method="_on_body_entered"]
