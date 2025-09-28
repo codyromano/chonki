@@ -34,7 +34,7 @@ func setup_particle_system():
 	lifetime = leaf_lifetime
 	
 	# Create and configure the process material
-	material = ParticleProcessMaterial.new()
+	process_material = ParticleProcessMaterial.new()
 	
 	# Set the texture if provided
 	if leaf_texture:
@@ -46,97 +46,88 @@ func setup_particle_system():
 	configure_physics()
 	
 	# Apply the material
-	process_material = material
+	process_material_override = process_material
 
 func configure_emission():
 	"""Configure how and where particles spawn"""
-	material.emission_shape = ParticleProcessMaterial.EMISSION_SHAPE_BOX
+	process_material.emission_shape = ParticleProcessMaterial.EMISSION_SHAPE_BOX
 	# Spawn across the width of the screen, slightly below
-	material.emission_box_extents = Vector3(400, 10, 0)
+	process_material.emission_box_extents = Vector3(400, 10, 0)
+	
+	# Spawn rate
+	process_material.emission_rate = leaf_count / leaf_lifetime
 
 func configure_movement():
 	"""Set up the floating and wind movement"""
-	# Base direction (slightly upward with wind)
-	material.direction = Vector3(wind_strength.x, -upward_force, 0)
+	# Base direction (slightly upward)
+	process_material.direction = Vector3(wind_strength.x, -upward_force, 0)
 	
-	# Initial velocity using the new API
-	material.set_param_min(ParticleProcessMaterial.PARAM_INITIAL_LINEAR_VELOCITY, initial_velocity_range.x)
-	material.set_param_max(ParticleProcessMaterial.PARAM_INITIAL_LINEAR_VELOCITY, initial_velocity_range.y)
+	# Initial velocity
+	process_material.initial_velocity_min = initial_velocity_range.x
+	process_material.initial_velocity_max = initial_velocity_range.y
 	
 	# Gravity (negative for upward force)
-	material.gravity = Vector3(0, gravity_strength, 0)
+	process_material.gravity = Vector3(0, gravity_strength, 0)
 	
-	# Angular velocity (rotation)
-	material.set_param_min(ParticleProcessMaterial.PARAM_ANGULAR_VELOCITY, deg_to_rad(angular_velocity_range.x))
-	material.set_param_max(ParticleProcessMaterial.PARAM_ANGULAR_VELOCITY, deg_to_rad(angular_velocity_range.y))
+	# Rotation
+	process_material.angular_velocity_min = angular_velocity_range.x
+	process_material.angular_velocity_max = angular_velocity_range.y
 
 func configure_appearance():
 	"""Configure visual aspects of the leaves"""
 	# Scale variation
-	material.set_param_min(ParticleProcessMaterial.PARAM_SCALE, scale_range.x)
-	material.set_param_max(ParticleProcessMaterial.PARAM_SCALE, scale_range.y)
+	process_material.scale_min = scale_range.x
+	process_material.scale_max = scale_range.y
 	
 	# Color variation for autumn leaves
 	if color_variation:
-		material.color = Color.WHITE
-		var color_ramp_texture = create_autumn_color_ramp()
-		material.color_ramp = color_ramp_texture
+		# Autumn leaf colors
+		process_material.color = Color.WHITE
+		process_material.color_ramp = create_autumn_color_ramp()
 	
-	# Fade out over time using alpha curve
+	# Fade out over time
 	var alpha_curve = Curve.new()
-	alpha_curve.add_point(Vector2(0.0, 1.0))  # Start fully visible
-	alpha_curve.add_point(Vector2(0.8, 1.0))  # Stay visible most of the time
-	alpha_curve.add_point(Vector2(1.0, 0.0))  # Fade out at the end
+	alpha_curve.add_point(0.0, 1.0)  # Start fully visible
+	alpha_curve.add_point(0.8, 1.0)  # Stay visible most of the time
+	alpha_curve.add_point(1.0, 0.0)  # Fade out at the end
 	
-	var alpha_curve_texture = CurveTexture.new()
-	alpha_curve_texture.curve = alpha_curve
-	material.alpha_curve = alpha_curve_texture
+	process_material.alpha_curve = alpha_curve
 
 func configure_physics():
 	"""Add turbulence and variation for realistic movement"""
 	# Add some randomness to make leaves flutter
-	material.turbulence_enabled = enable_wind_zones
+	process_material.turbulence_enabled = enable_wind_zones
 	if enable_wind_zones:
-		material.turbulence_noise_strength = wind_turbulence
-		material.turbulence_noise_scale = 2.0
-		material.set_param_min(ParticleProcessMaterial.PARAM_TURB_VEL_INFLUENCE, 0.1)
-		material.set_param_max(ParticleProcessMaterial.PARAM_TURB_VEL_INFLUENCE, 0.3)
-		
-		# Create turbulence influence curve
-		var turb_curve = Curve.new()
-		turb_curve.add_point(Vector2(0.0, 0.2))
-		turb_curve.add_point(Vector2(0.5, 1.0))
-		turb_curve.add_point(Vector2(1.0, 0.3))
-		
-		var turb_curve_texture = CurveTexture.new()
-		turb_curve_texture.curve = turb_curve
-		material.set_param_texture(ParticleProcessMaterial.PARAM_TURB_INFLUENCE_OVER_LIFE, turb_curve_texture)
+		process_material.turbulence_strength = wind_turbulence
+		process_material.turbulence_scale = 2.0
+		process_material.turbulence_influence_min = 0.1
+		process_material.turbulence_influence_max = 0.3
 
-func create_autumn_color_ramp() -> GradientTexture1D:
-	"""Create a gradient texture with autumn leaf colors"""
+func create_autumn_color_ramp() -> Gradient:
+	"""Create a gradient with autumn leaf colors"""
 	var gradient = Gradient.new()
 	
-	# Set colors one by one using set_color method
-	gradient.set_color(0, Color(0.2, 0.8, 0.2))    # Green
-	gradient.add_point(0.2, Color(1.0, 1.0, 0.3))  # Yellow
-	gradient.add_point(0.4, Color(1.0, 0.6, 0.2))  # Orange
-	gradient.add_point(0.7, Color(0.8, 0.3, 0.2))  # Red
-	gradient.add_point(1.0, Color(0.6, 0.4, 0.2))  # Brown
+	# Autumn colors: green -> yellow -> orange -> red -> brown
+	gradient.colors = [
+		Color(0.2, 0.8, 0.2),    # Green
+		Color(1.0, 1.0, 0.3),    # Yellow
+		Color(1.0, 0.6, 0.2),    # Orange
+		Color(0.8, 0.3, 0.2),    # Red
+		Color(0.6, 0.4, 0.2)     # Brown
+	]
 	
-	# Create gradient texture
-	var gradient_texture = GradientTexture1D.new()
-	gradient_texture.gradient = gradient
+	gradient.offsets = [0.0, 0.2, 0.4, 0.7, 1.0]
 	
-	return gradient_texture
+	return gradient
 
 func _process(delta):
 	"""Update wind effects over time"""
 	time_passed += delta
 	
 	# Create dynamic wind by modifying gravity
-	if enable_wind_zones and material:
+	if enable_wind_zones:
 		var wind_variation = sin(time_passed * 0.5) * 5.0
-		material.gravity = Vector3(wind_variation, gravity_strength, 0)
+		process_material.gravity = Vector3(wind_variation, gravity_strength, 0)
 
 # Public methods to control the effect
 
@@ -155,13 +146,15 @@ func clear_all_leaves():
 func set_wind_direction(direction: Vector2):
 	"""Change wind direction dynamically"""
 	wind_strength = direction
-	if material:
-		material.direction = Vector3(direction.x, -upward_force, 0)
+	if process_material:
+		process_material.direction = Vector3(direction.x, -upward_force, 0)
 
 func set_leaf_density(density: int):
 	"""Change the number of leaves"""
 	leaf_count = density
 	amount = leaf_count
+	if process_material:
+		process_material.emission_rate = float(leaf_count) / leaf_lifetime
 
 # Helper function to create different leaf presets
 func apply_preset(preset_name: String):
