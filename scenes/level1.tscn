@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://br8ftak73gmww"]
+[gd_scene load_steps=53 format=3 uid="uid://br8ftak73gmww"]
 
 [ext_resource type="PackedScene" uid="uid://bk3oytbasgs5w" path="res://scenes/grown_up_chonki.tscn" id="1_6i0tl"]
 [ext_resource type="Script" uid="uid://b2cncqbuotdcl" path="res://scenes/level_1.gd" id="1_hvrd6"]
@@ -37,6 +37,7 @@
 [ext_resource type="Texture2D" uid="uid://dkductyaildvy" path="res://assets/friends/momo/momo.png" id="34_6lx4c"]
 [ext_resource type="Texture2D" uid="uid://dkbc4i868evsa" path="res://assets/environment/barn/hay_barrel.png" id="35_6lx4c"]
 [ext_resource type="Script" uid="uid://dli13y3iqt0uo" path="res://scenes/gpu_particles_2d.gd" id="36_6xmqk"]
+[ext_resource type="Theme" uid="uid://dte5an7k6hog1" path="res://themes/base.tres" id="36_y3pui"]
 [ext_resource type="Texture2D" uid="uid://cff1qabpfn1hq" path="res://assets/environment/cherry_leaf.png" id="38_1vjko"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_1ju1f"]
@@ -387,7 +388,7 @@ shape = SubResource("WorldBoundaryShape2D_piwsr")
 debug_color = Color(0.307035, 0.494072, 1, 0.42)
 
 [node name="CherryTreeBody" type="StaticBody2D" parent="World2D/Platforms & Barriers"]
-position = Vector2(-1954, 0)
+position = Vector2(542, 0)
 collision_layer = 8
 collision_mask = 21
 script = ExtResource("15_iid5p")
@@ -429,7 +430,7 @@ speed_multiplier = 0.75
 [node name="HUD" parent="." instance=ExtResource("20_g3dfk")]
 
 [node name="QuestGiver" type="Node2D" parent="."]
-position = Vector2(18464, -446)
+position = Vector2(8768, -446)
 script = ExtResource("33_6i0tl")
 frames = SubResource("SpriteFrames_6i0tl")
 sprite_scale = Vector2(2, 2)
@@ -443,6 +444,18 @@ sprite_frames = SubResource("SpriteFrames_6lx4c")
 [node name="QuestGiverCollisionShape" type="CollisionShape2D" parent="QuestGiver/Area2D"]
 position = Vector2(34, 26)
 shape = SubResource("RectangleShape2D_6lx4c")
+
+[node name="Instructions" type="Label" parent="QuestGiver"]
+modulate = Color(1, 1, 1, 0)
+offset_left = -383.0
+offset_top = -629.0
+offset_right = 505.0
+offset_bottom = -504.0
+theme = ExtResource("36_y3pui")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 100
+text = "Press \"enter\" to talk"
 
 [node name="HayBall" type="RigidBody2D" parent="."]
 unique_name_in_owner = true
@@ -481,3 +494,5 @@ enable_wind_zones = false
 [connection signal="timeout" from="World2D/NPCs/GooseRegion2D/Goose/Timer" to="World2D/NPCs/GooseRegion2D/Goose" method="_on_hop_timer_timeout"]
 [connection signal="body_entered" from="World2D/NPCs/Bicyclist" to="World2D/NPCs/Bicyclist" method="_on_body_entered"]
 [connection signal="input_event" from="World2D/Platforms & Barriers/CherryTreeBody" to="World2D/Platforms & Barriers/CherryTreeBody" method="_on_input_event"]
+[connection signal="body_entered" from="QuestGiver/Area2D" to="QuestGiver" method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="QuestGiver/Area2D" to="QuestGiver" method="_on_area_2d_body_exited"]

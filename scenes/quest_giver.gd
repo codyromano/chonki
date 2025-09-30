@@ -5,6 +5,7 @@ extends Node2D
 
 @onready var sprite: AnimatedSprite2D = find_child('QuestGiverSprite2D')
 @onready var collision_shape: CollisionShape2D = find_child('QuestGiverCollisionShape')
+@onready var instructions: Label = find_child('Instructions')
 
 func _ready() -> void:
 	sprite.sprite_frames = frames
@@ -22,3 +23,17 @@ func _prepare_collisions() -> void:
 		if tex and collision_shape.shape is RectangleShape2D:
 			var rect_shape = collision_shape.shape
 			rect_shape.size = tex.get_size() * sprite.scale
+
+
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	if body.name == 'ChonkiCharacter':
+		var tween = create_tween()
+		tween.tween_property(instructions, "modulate:a", 1, 0.25)
+		await tween.finished
+
+
+func _on_area_2d_body_exited(body: Node2D) -> void:
+	if body.name == 'ChonkiCharacter':
+		var tween = create_tween()
+		tween.tween_property(instructions, "modulate:a", 0, 3)
+		await tween.finished
