@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="DialogueTree" load_steps=3 format=3 uid="uid://dxwrvxurbrdk4"]
+
+[ext_resource type="Script" uid="uid://gxqutt48hhvp" path="res://scripts/DialogueTree.gd" id="1_agmc7"]
+[ext_resource type="Resource" uid="uid://cxer6gv8vbv1g" path="res://resources/dialogue_node.tres" id="1_gki8k"]
+
+[resource]
+script = ExtResource("1_agmc7")
+root_node = ExtResource("1_gki8k")

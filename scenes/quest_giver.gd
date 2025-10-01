@@ -3,6 +3,8 @@ extends Node2D
 @export var frames: SpriteFrames
 @export var sprite_scale: Vector2 = Vector2(1.0, 1.0)
 
+var dialogue_tree: Resource
+
 @onready var sprite: AnimatedSprite2D = find_child('QuestGiverSprite2D')
 @onready var collision_shape: CollisionShape2D = find_child('QuestGiverCollisionShape')
 @onready var instructions: Label = find_child('Instructions')
@@ -13,6 +15,12 @@ func _ready() -> void:
 	sprite.sprite_frames = frames
 	sprite.scale *= sprite_scale
 	_prepare_collisions()
+	
+	dialogue_tree = _get_dialogue_tree()
+	print('TODO: Use dialogue tree ', dialogue_tree)
+
+func _get_dialogue_tree():
+	push_warning("Quest giver should implement a dialogue tree")
 
 # TODO: The collision_shape should overlaid onto the sprite
 func _prepare_collisions() -> void:
