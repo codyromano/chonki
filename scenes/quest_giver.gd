@@ -7,6 +7,8 @@ extends Node2D
 @onready var collision_shape: CollisionShape2D = find_child('QuestGiverCollisionShape')
 @onready var instructions: Label = find_child('Instructions')
 
+var tween_instructions: Tween
+
 func _ready() -> void:
 	sprite.sprite_frames = frames
 	sprite.scale *= sprite_scale
@@ -25,15 +27,19 @@ func _prepare_collisions() -> void:
 			rect_shape.size = tex.get_size() * sprite.scale
 
 
+func _set_instructions_opacity(modulate_a: float, duration: float) -> void:
+		if tween_instructions:
+			tween_instructions.kill()
+			
+		tween_instructions = create_tween()
+		tween_instructions.tween_property(instructions, "modulate:a", modulate_a, duration)
+		await tween_instructions.finished
+
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.name == 'ChonkiCharacter':
-		var tween = create_tween()
-		tween.tween_property(instructions, "modulate:a", 1, 0.25)
-		await tween.finished
+		_set_instructions_opacity(1, 0.25)
 
 
 func _on_area_2d_body_exited(body: Node2D) -> void:
 	if body.name == 'ChonkiCharacter':
-		var tween = create_tween()
-		tween.tween_property(instructions, "modulate:a", 0, 3)
-		await tween.finished
+		_set_instructions_opacity(0, 1)

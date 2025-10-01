@@ -430,7 +430,7 @@ speed_multiplier = 0.75
 [node name="HUD" parent="." instance=ExtResource("20_g3dfk")]
 
 [node name="QuestGiver" type="Node2D" parent="."]
-position = Vector2(8768, -446)
+position = Vector2(8768, -346)
 script = ExtResource("33_6i0tl")
 frames = SubResource("SpriteFrames_6i0tl")
 sprite_scale = Vector2(2, 2)
@@ -447,14 +447,14 @@ shape = SubResource("RectangleShape2D_6lx4c")
 
 [node name="Instructions" type="Label" parent="QuestGiver"]
 modulate = Color(1, 1, 1, 0)
-offset_left = -383.0
-offset_top = -629.0
-offset_right = 505.0
-offset_bottom = -504.0
+offset_left = -495.0
+offset_top = -755.0
+offset_right = 614.0
+offset_bottom = -598.0
 theme = ExtResource("36_y3pui")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 100
+theme_override_font_sizes/font_size = 125
 text = "Press \"enter\" to talk"
 
 [node name="HayBall" type="RigidBody2D" parent="."]
