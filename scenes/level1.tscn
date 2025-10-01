@@ -37,7 +37,8 @@
 [ext_resource type="Texture2D" uid="uid://dkductyaildvy" path="res://assets/friends/momo/momo.png" id="34_6lx4c"]
 [ext_resource type="Texture2D" uid="uid://dkbc4i868evsa" path="res://assets/environment/barn/hay_barrel.png" id="35_6lx4c"]
 [ext_resource type="Script" uid="uid://dli13y3iqt0uo" path="res://scenes/gpu_particles_2d.gd" id="36_6xmqk"]
-[ext_resource type="Texture2D" uid="uid://dfd5i5sik86qe" path="res://assets/environment/level1/leaf.png" id="38_1vjko"]
+[ext_resource type="Theme" uid="uid://dte5an7k6hog1" path="res://themes/base.tres" id="36_y3pui"]
+[ext_resource type="Texture2D" uid="uid://cff1qabpfn1hq" path="res://assets/environment/cherry_leaf.png" id="38_1vjko"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_1ju1f"]
 vertices = PackedVector2Array(18088, 3, 13139, 8, 13188, -2378, 18259, -2419)
@@ -192,11 +193,6 @@ bounce = 0.5
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hvrd6"]
 radius = 310.04
-
-[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_1vjko"]
-particle_flag_rotate_y = true
-particle_flag_disable_z = true
-gravity = Vector3(0, 98, 0)
 
 [node name="Level1" type="Node2D"]
 position = Vector2(-5159, -12)
@@ -392,7 +388,7 @@ shape = SubResource("WorldBoundaryShape2D_piwsr")
 debug_color = Color(0.307035, 0.494072, 1, 0.42)
 
 [node name="CherryTreeBody" type="StaticBody2D" parent="World2D/Platforms & Barriers"]
-position = Vector2(-1954, 0)
+position = Vector2(542, 0)
 collision_layer = 8
 collision_mask = 21
 script = ExtResource("15_iid5p")
@@ -414,7 +410,7 @@ movement_distance_x = 0.0
 movement_speed_seconds = 2.0
 
 [node name="Volleyball" parent="World2D/Platforms & Barriers/Volleyballs" instance=ExtResource("16_q08mg")]
-position = Vector2(-3032, 2184)
+position = Vector2(6733, 2184)
 movement_distance_y = 1000.0
 movement_speed_seconds = 2.0
 
@@ -434,7 +430,7 @@ speed_multiplier = 0.75
 [node name="HUD" parent="." instance=ExtResource("20_g3dfk")]
 
 [node name="QuestGiver" type="Node2D" parent="."]
-position = Vector2(7323, -446)
+position = Vector2(8768, -346)
 script = ExtResource("33_6i0tl")
 frames = SubResource("SpriteFrames_6i0tl")
 sprite_scale = Vector2(2, 2)
@@ -448,6 +444,18 @@ sprite_frames = SubResource("SpriteFrames_6lx4c")
 [node name="QuestGiverCollisionShape" type="CollisionShape2D" parent="QuestGiver/Area2D"]
 position = Vector2(34, 26)
 shape = SubResource("RectangleShape2D_6lx4c")
+
+[node name="Instructions" type="Label" parent="QuestGiver"]
+modulate = Color(1, 1, 1, 0)
+offset_left = -495.0
+offset_top = -755.0
+offset_right = 614.0
+offset_bottom = -598.0
+theme = ExtResource("36_y3pui")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_font_sizes/font_size = 125
+text = "Press \"enter\" to talk"
 
 [node name="HayBall" type="RigidBody2D" parent="."]
 unique_name_in_owner = true
@@ -470,22 +478,21 @@ scale = Vector2(1.48002, 1.48002)
 shape = SubResource("CircleShape2D_hvrd6")
 
 [node name="Leaves" type="GPUParticles2D" parent="."]
-position = Vector2(9108, -1204)
-amount = 3
-randomness = 0.5
-process_material = SubResource("ParticleProcessMaterial_1vjko")
+position = Vector2(8981, -1133)
 script = ExtResource("36_6xmqk")
-leaf_count = 1
-leaf_lifetime = 5.0
-upward_force = 0.0
-wind_strength = Vector2(50, 500)
-initial_velocity_range = Vector2(500, 100)
-gravity_strength = -100.0
-angular_velocity_range = Vector2(5000, 500)
+leaf_lifetime = 4.0
+upward_force = 1000.0
+wind_strength = Vector2(5000, 0)
+initial_velocity_range = Vector2(1000, 500)
+gravity_strength = 500.0
+angular_velocity_range = Vector2(5000, 90)
 leaf_texture = ExtResource("38_1vjko")
-scale_range = Vector2(0.3, 0.5)
-wind_turbulence = 100.0
+scale_range = Vector2(0.75, 1.25)
+color_variation = false
+enable_wind_zones = false
 
 [connection signal="timeout" from="World2D/NPCs/GooseRegion2D/Goose/Timer" to="World2D/NPCs/GooseRegion2D/Goose" method="_on_hop_timer_timeout"]
 [connection signal="body_entered" from="World2D/NPCs/Bicyclist" to="World2D/NPCs/Bicyclist" method="_on_body_entered"]
 [connection signal="input_event" from="World2D/Platforms & Barriers/CherryTreeBody" to="World2D/Platforms & Barriers/CherryTreeBody" method="_on_input_event"]
+[connection signal="body_entered" from="QuestGiver/Area2D" to="QuestGiver" method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="QuestGiver/Area2D" to="QuestGiver" method="_on_area_2d_body_exited"]
