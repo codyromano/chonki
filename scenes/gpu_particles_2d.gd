@@ -95,9 +95,9 @@ func configure_appearance():
 	
 	# Fade out over time
 	var alpha_curve = Curve.new()
-	alpha_curve.add_point(0.0, 1.0)  # Start fully visible
-	alpha_curve.add_point(0.8, 1.0)  # Stay visible most of the time
-	alpha_curve.add_point(1.0, 0.0)  # Fade out at the end
+	alpha_curve.add_point(Vector2(0.0, 1.0))  # Start fully visible
+	alpha_curve.add_point(Vector2(0.8, 1.0))  # Stay visible most of the time
+	alpha_curve.add_point(Vector2(1.0, 0.0))  # Fade out at the end
 	
 	var alpha_curve_texture = CurveTexture.new()
 	alpha_curve_texture.curve = alpha_curve

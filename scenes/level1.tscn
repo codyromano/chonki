@@ -478,7 +478,7 @@ scale = Vector2(1.48002, 1.48002)
 shape = SubResource("CircleShape2D_hvrd6")
 
 [node name="Leaves" type="GPUParticles2D" parent="."]
-position = Vector2(8981, -1133)
+position = Vector2(11553, -1133)
 script = ExtResource("36_6xmqk")
 leaf_lifetime = 4.0
 upward_force = 1000.0
