@@ -3,11 +3,13 @@ extends PanelContainer
 @export var dialogue: String = "Hello, world"
 @export var duration: float = 3.0
 
+@onready var typewriter: Label = find_child('TypewriterReveal')
+
 var instruction_trigger_id: String = ""
 
 func _ready():
-	$TypewriterReveal.text_after_reveal = dialogue
-	$TypewriterReveal.animation_duration = duration
+	typewriter.text_after_reveal = dialogue
+	typewriter.animation_duration = duration
 
 func set_instruction_trigger_id(trigger_id: String) -> void:
 	instruction_trigger_id = trigger_id

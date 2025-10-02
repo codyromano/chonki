@@ -1,7 +1,7 @@
 extends Label
 
 @export var animation_duration: float = 3.0
-@onready var pen_sound: AudioStreamPlayer = get_parent().find_child('PenWritingSound')
+@onready var pen_sound: AudioStreamPlayer = get_parent().get_parent().find_child('PenWritingSound')
 
 @export var text_after_reveal: String
 var characters_revealed: int = 0
