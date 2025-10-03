@@ -87,7 +87,11 @@ func _add_fade_in_effect():
 	canvas_layer.queue_free()
 	
 	# GlobalSignals.queue_main_dialogue.emit("Adoption day!")
-	GlobalSignals.queue_main_dialogue.emit("It's adoption day! I need to find a way out of this barn to meet my owner.")
+	GlobalSignals.queue_main_dialogue.emit(
+		"It's adoption day! I need to find a way out of this barn to meet my owner.",
+		"",
+		"gus"
+	)
 	
 func _process(_delta) -> void:
 	if !player_moved_initially && (Input.is_action_just_pressed("ui_left") || Input.is_action_just_pressed("ui_right")):

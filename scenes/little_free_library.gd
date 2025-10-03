@@ -29,7 +29,11 @@ func _on_win() -> void:
 	tween.tween_property(overall_game_container, 'modulate:a', 0, WIN_FADEOUT_DURATION)
 	await tween.finished
 	
-	GlobalSignals.queue_main_dialogue.emit('Gus, the Corgi, was born in a barn in Olympia, Washington. His future owner drove from Seattle to pick him up.', '')
+	GlobalSignals.queue_main_dialogue.emit(
+		'Gus, the Corgi, was born in a barn in Olympia, Washington. His future owner drove from Seattle to pick him up.',
+		"",
+		"gus"
+	)
 		
 func _on_anagram_word_guess_updated(word: String) -> void:
 	if word.to_lower() == win_word:

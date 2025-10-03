@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://c7l0kuusfunc6"]
+[gd_scene load_steps=11 format=3 uid="uid://c7l0kuusfunc6"]
 
 [ext_resource type="FontFile" uid="uid://dlfbvpauldaco" path="res://fonts/Sniglet-Regular.ttf" id="1_1qjv2"]
 [ext_resource type="Script" uid="uid://chicc1v1fl7kc" path="res://scenes/MainDialogueDisplay.gd" id="2_5cqqh"]
@@ -6,7 +6,6 @@
 [ext_resource type="Script" uid="uid://cd0bxakf1qi0b" path="res://scenes/TypewriterReveal.gd" id="3_2piwl"]
 [ext_resource type="StyleBox" uid="uid://d34fpnq2ua283" path="res://themes/button.tres" id="3_rn33i"]
 [ext_resource type="AudioStream" uid="uid://bv0vrph4s1t0m" path="res://assets/sound/pen_writing.mp3" id="4_88m0i"]
-[ext_resource type="Texture2D" uid="uid://da5xoa1udvfvk" path="res://assets/avatar/avatar-gus.png" id="7_rowyo"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rf6ka"]
 
@@ -71,7 +70,6 @@ theme_override_constants/separation = -50
 [node name="Avatar" type="TextureRect" parent="HBoxContainer"]
 custom_minimum_size = Vector2(200, 250)
 layout_mode = 2
-texture = ExtResource("7_rowyo")
 expand_mode = 3
 
 [node name="TypewriterReveal" type="Label" parent="HBoxContainer"]

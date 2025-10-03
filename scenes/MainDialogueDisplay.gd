@@ -2,14 +2,16 @@ extends PanelContainer
 
 @export var dialogue: String = "Hello, world"
 @export var duration: float = 3.0
+@export var avatar_texture: CompressedTexture2D
 
 @onready var typewriter: Label = find_child('TypewriterReveal')
-
+@onready var  avatar: TextureRect = find_child('Avatar')
 var instruction_trigger_id: String = ""
 
 func _ready():
 	typewriter.text_after_reveal = dialogue
 	typewriter.animation_duration = duration
+	avatar.texture = avatar_texture
 
 func set_instruction_trigger_id(trigger_id: String) -> void:
 	instruction_trigger_id = trigger_id

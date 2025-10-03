@@ -59,10 +59,12 @@ func _process(_delta: float) -> void:
 		GlobalSignals.dismiss_active_main_dialogue.emit(current_instruction_trigger_id)
 
 
-func _create_dialogue(dialogue: String, trigger_id: String = "") -> PanelContainer:
+func _create_dialogue(dialogue: String, trigger_id: String = "", avatar_name: String = "") -> PanelContainer:
 	var scene = dialogue_scene.instantiate()
 	scene.dialogue = dialogue
 	scene.duration = float(dialogue.length()) * 0.025
+	if avatar_name != "":
+		scene.avatar_texture = get_avatar_texture(avatar_name)
 	canvas_layer.call_deferred("add_child", scene)
 	# Use the custom setter method to ensure proper initialization
 	scene.call_deferred("set_instruction_trigger_id", trigger_id)
@@ -72,11 +74,11 @@ func _create_dialogue(dialogue: String, trigger_id: String = "") -> PanelContain
 func _process_queue() -> void:
 	if not is_inside_tree():
 		return
-		
+	
 	var tree = get_tree()
 	if not tree:
 		return
-		
+	
 	if rendered_dialogue:
 		rendered_dialogue.queue_free()
 		rendered_dialogue = null
@@ -89,15 +91,17 @@ func _process_queue() -> void:
 	var next_dialogue_data = dialogue_queue.pop_front()
 	var dialogue_text = next_dialogue_data.dialogue if next_dialogue_data is Dictionary else next_dialogue_data
 	current_instruction_trigger_id = next_dialogue_data.trigger_id if next_dialogue_data is Dictionary else ""
-	rendered_dialogue = _create_dialogue(dialogue_text, current_instruction_trigger_id)
+	var avatar_name = next_dialogue_data.avatar_name if next_dialogue_data.has("avatar_name") else ""
+	rendered_dialogue = _create_dialogue(dialogue_text, current_instruction_trigger_id, avatar_name)
 	
 	tree.paused = true
 
 
-func _on_dialogue_queued(dialogue: String, instruction_trigger_id: String = "") -> void:
+func _on_dialogue_queued(dialogue: String, instruction_trigger_id: String = "", avatar_name: String = "") -> void:
 	var dialogue_data = {
 		"dialogue": dialogue,
-		"trigger_id": instruction_trigger_id
+		"trigger_id": instruction_trigger_id,
+		"avatar_name": avatar_name
 	}
 	dialogue_queue.push_back(dialogue_data)
 	if not rendered_dialogue:
@@ -106,3 +110,15 @@ func _on_dialogue_queued(dialogue: String, instruction_trigger_id: String = "") 
 
 func _on_dismiss_active_dialogue(_instruction_trigger_id: String) -> void:
 	_process_queue()
+
+
+# Returns a CompressedTexture2D for the given avatar name, or null if not found
+func get_avatar_texture(avatar_name: String) -> CompressedTexture2D:
+	match avatar_name:
+		"gus":
+			return load("res://assets/avatar/avatar-gus.png")
+		# Add more avatar mappings here as needed
+		"":
+			return null
+		_:
+			return null
