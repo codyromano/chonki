@@ -23,6 +23,12 @@ func _ready() -> void:
 	GlobalSignals.dismiss_active_main_dialogue.connect(_on_dialogue_dismissed)
 
 func _process(_delta) -> void:
+  ###########################################
+  ##########################################
+  # TODO: Display the dialogue choices inside of the dialogue node
+  ##########################################
+  ##########################################
+  
 	# Check if we're waiting for key release and the key is now released
 	if waiting_for_key_release and !Input.is_action_pressed("read"):
 		waiting_for_key_release = false
@@ -39,9 +45,14 @@ func _on_dialogue_dismissed(_instruction_trigger_id: String) -> void:
 
 func _initiate_dialogue() -> void:
 	# Display the current dialogue from the character's dialogue tree
-	var relevant_text: String = _get_dialogue_tree().root_node.text
+	var root_node = _get_dialogue_tree().root_node
+	var relevant_text: String = root_node.text
 	print("should display dialogue: " + relevant_text)
 	GlobalSignals.queue_main_dialogue.emit(relevant_text, "", avatar_name)
+	
+	# Emit dialogue options if the node has choices
+	if root_node.choices != null and root_node.choices.size() > 0:
+		GlobalSignals.set_dialogue_options.emit(root_node.choices)
 	
 
 func _get_dialogue_tree() -> DialogueTree:

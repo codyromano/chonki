@@ -12,8 +12,8 @@ func _get_dialogue_tree() -> DialogueTree:
 	var momo_offer = DialogueNode.new()
 	momo_offer.text = "Hello! I lost some pieces of pottery. Can you help me find them?"
 	momo_offer.choices = [
-		{"text": "Yes, I'll help!", "next_node": momo_accept},
-		{"text": "No, sorry.", "next_node": momo_decline}
+		{"id": "momo-accept", "text": "Yes, I'll help!", "next_node": momo_accept},
+		{"id": "momo-decline", "text": "No, sorry.", "next_node": momo_decline}
 	]
 
 	var momo_tree = DialogueTree.new()
