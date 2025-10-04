@@ -6,10 +6,11 @@ var dialogue_queue: Array = []
 @onready var dialogue_scene: PackedScene = preload("res://scenes/composable/main_dialogue_display.tscn")
 @onready var canvas_layer: CanvasLayer = get_parent()
 
+var time_dialogue_created: float
 var rendered_dialogue: PanelContainer
 var current_instruction_trigger_id: String = ""
 var is_ready: bool = false
-
+var can_dismiss_dialogue: bool = false
 
 func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_WHEN_PAUSED
@@ -54,8 +55,8 @@ func _find_all_audio_nodes(node: Node) -> Array:
 	return audio_nodes
 
 
-func _process(_delta: float) -> void:
-	if is_ready and rendered_dialogue and (Input.is_action_just_pressed("read") or Input.is_action_just_pressed("jump")):
+func _process(_delta: float) -> void:	
+	if is_ready and rendered_dialogue and can_dismiss_dialogue and (Input.is_action_just_pressed("read") or Input.is_action_just_pressed("jump")):
 		GlobalSignals.dismiss_active_main_dialogue.emit(current_instruction_trigger_id)
 
 
@@ -68,6 +69,14 @@ func _create_dialogue(dialogue: String, trigger_id: String = "", avatar_name: St
 	canvas_layer.call_deferred("add_child", scene)
 	# Use the custom setter method to ensure proper initialization
 	scene.call_deferred("set_instruction_trigger_id", trigger_id)
+	
+	time_dialogue_created = Time.get_unix_time_from_system()
+	
+	# Prevent immediate dismissal by waiting one frame
+	can_dismiss_dialogue = false
+	await get_tree().process_frame
+	can_dismiss_dialogue = true
+	
 	return scene
 
 
@@ -92,7 +101,7 @@ func _process_queue() -> void:
 	var dialogue_text = next_dialogue_data.dialogue if next_dialogue_data is Dictionary else next_dialogue_data
 	current_instruction_trigger_id = next_dialogue_data.trigger_id if next_dialogue_data is Dictionary else ""
 	var avatar_name = next_dialogue_data.avatar_name if next_dialogue_data.has("avatar_name") else ""
-	rendered_dialogue = _create_dialogue(dialogue_text, current_instruction_trigger_id, avatar_name)
+	rendered_dialogue = await _create_dialogue(dialogue_text, current_instruction_trigger_id, avatar_name)
 	
 	tree.paused = true
 
@@ -109,6 +118,7 @@ func _on_dialogue_queued(dialogue: String, instruction_trigger_id: String = "", 
 
 
 func _on_dismiss_active_dialogue(_instruction_trigger_id: String) -> void:
+	print("should dismiss dialogue")
 	_process_queue()
 
 
@@ -118,7 +128,7 @@ func get_avatar_texture(avatar_name: String) -> CompressedTexture2D:
 		"gus":
 			return load("res://assets/avatar/avatar-gus.png")
 		# Add more avatar mappings here as needed
-		"":
-			return null
+		"momo":
+			return load("res://assets/avatar/avatar-momo.png")
 		_:
 			return null

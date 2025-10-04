@@ -1,8 +1,7 @@
-[gd_scene load_steps=8 format=3 uid="uid://db4eojj42lfw7"]
+[gd_scene load_steps=7 format=3 uid="uid://db4eojj42lfw7"]
 
 [ext_resource type="Script" uid="uid://dijq81a1o8au0" path="res://scenes/quest_giver.gd" id="1_4emd1"]
 [ext_resource type="Texture2D" uid="uid://dkductyaildvy" path="res://assets/friends/momo/momo.png" id="2_qeo4x"]
-[ext_resource type="Resource" uid="uid://dxwrvxurbrdk4" path="res://resources/dialogue_tree.tres" id="3_qa58x"]
 [ext_resource type="Theme" uid="uid://dte5an7k6hog1" path="res://themes/base.tres" id="4_s3tby"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_6i0tl"]
@@ -25,7 +24,7 @@ size = Vector2(516, 788)
 script = ExtResource("1_4emd1")
 frames = SubResource("SpriteFrames_6i0tl")
 sprite_scale = Vector2(2, 2)
-dialogue_tree = ExtResource("3_qa58x")
+avatar_name = "momo"
 
 [node name="QuestGiverSprite2D" type="AnimatedSprite2D" parent="."]
 position = Vector2(0, 43)

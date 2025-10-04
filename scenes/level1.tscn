@@ -1,4 +1,4 @@
-[gd_scene load_steps=51 format=3 uid="uid://br8ftak73gmww"]
+[gd_scene load_steps=56 format=3 uid="uid://br8ftak73gmww"]
 
 [ext_resource type="PackedScene" uid="uid://bk3oytbasgs5w" path="res://scenes/grown_up_chonki.tscn" id="1_6i0tl"]
 [ext_resource type="Script" uid="uid://b2cncqbuotdcl" path="res://scenes/level_1.gd" id="1_hvrd6"]
@@ -39,6 +39,11 @@
 [ext_resource type="PackedScene" uid="uid://db4eojj42lfw7" path="res://scenes/composable/quest_giver.tscn" id="37_hvrd6"]
 [ext_resource type="Texture2D" uid="uid://cff1qabpfn1hq" path="res://assets/environment/cherry_leaf.png" id="38_1vjko"]
 [ext_resource type="Script" uid="uid://d0vo8jsubn4m1" path="res://scenes/composable/momo_quest_giver.gd" id="38_y3pui"]
+[ext_resource type="Script" uid="uid://b10nwts2sanuy" path="res://scenes/MainDialogueController.gd" id="40_i3v6o"]
+[ext_resource type="PackedScene" uid="uid://ft24k8s13tpc" path="res://scenes/composable/instructional_text.tscn" id="41_0xdic"]
+[ext_resource type="Script" uid="uid://bohb45sc7o600" path="res://scenes/MoveLeftOrRightText.gd" id="42_5ipuv"]
+[ext_resource type="Script" uid="uid://4mx2cyi0i3oy" path="res://scenes/composable/jump_text.gd" id="43_onmav"]
+[ext_resource type="Theme" uid="uid://dte5an7k6hog1" path="res://themes/base.tres" id="44_y4ufg"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_1ju1f"]
 vertices = PackedVector2Array(18088, 3, 13139, 8, 13188, -2378, 18259, -2419)
@@ -462,6 +467,102 @@ enable_wind_zones = false
 position = Vector2(8229, -363)
 script = ExtResource("38_y3pui")
 frames = SubResource("SpriteFrames_y3pui")
+
+[node name="TitleLayers" type="Node2D" parent="."]
+
+[node name="HUD" parent="TitleLayers" instance=ExtResource("20_g3dfk")]
+visible = false
+
+[node name="TitleCanvasLayer" type="CanvasLayer" parent="TitleLayers"]
+layer = 10
+
+[node name="MainDialogueController" type="Node2D" parent="TitleLayers/TitleCanvasLayer"]
+script = ExtResource("40_i3v6o")
+duration_per_character = 0.001
+
+[node name="LeftOrRightText" parent="TitleLayers/TitleCanvasLayer" instance=ExtResource("41_0xdic")]
+visible = false
+offset_left = 21132.5
+offset_top = 5746.0
+offset_right = 23362.5
+offset_bottom = 5786.0
+script = ExtResource("42_5ipuv")
+content = "My earliest memory is of a barn."
+id = "MoveLeftOrRight"
+
+[node name="JumpText" parent="TitleLayers/TitleCanvasLayer" instance=ExtResource("41_0xdic")]
+visible = false
+offset_left = 31182.0
+offset_top = 3839.0
+offset_right = 33412.0
+offset_bottom = 3879.0
+script = ExtResource("43_onmav")
+content = "Press up to jump"
+id = "Jump"
+
+[node name="LittleFreeLibraryText" parent="TitleLayers/TitleCanvasLayer" instance=ExtResource("41_0xdic")]
+visible = false
+offset_left = 49927.5
+offset_top = 5779.0
+offset_right = 52157.5
+offset_bottom = 5819.0
+script = ExtResource("43_onmav")
+content = "Press R to read"
+id = "LittleFreeLibrary"
+delay_until_fade_in = 0.0
+
+[node name="LettersDiscoveredLayer" type="CanvasLayer" parent="TitleLayers"]
+
+[node name="Control" type="Control" parent="TitleLayers/LettersDiscoveredLayer"]
+modulate = Color(1, 1, 1, 0)
+layout_mode = 3
+anchors_preset = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="TitleLayers/LettersDiscoveredLayer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 400
+theme_override_constants/margin_top = 400
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TitleLayers/LettersDiscoveredLayer/Control/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="TitleLayers/LettersDiscoveredLayer/Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="TitleLayers/LettersDiscoveredLayer/Control/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="TitleLayers/LettersDiscoveredLayer/Control/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("44_y4ufg")
+theme_override_colors/font_color = Color(1, 1, 0.529412, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 20
+theme_override_font_sizes/font_size = 125
+text = "1/5"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="TitleLayers/LettersDiscoveredLayer/Control/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("44_y4ufg")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 20
+theme_override_font_sizes/font_size = 30
+text = "Mystery letters discovered"
 
 [connection signal="timeout" from="World2D/NPCs/GooseRegion2D/Goose/Timer" to="World2D/NPCs/GooseRegion2D/Goose" method="_on_hop_timer_timeout"]
 [connection signal="body_entered" from="World2D/NPCs/Bicyclist" to="World2D/NPCs/Bicyclist" method="_on_body_entered"]
