@@ -1,4 +1,4 @@
-[gd_scene load_steps=56 format=3 uid="uid://br8ftak73gmww"]
+[gd_scene load_steps=64 format=3 uid="uid://br8ftak73gmww"]
 
 [ext_resource type="PackedScene" uid="uid://bk3oytbasgs5w" path="res://scenes/grown_up_chonki.tscn" id="1_6i0tl"]
 [ext_resource type="Script" uid="uid://b2cncqbuotdcl" path="res://scenes/level_1.gd" id="1_hvrd6"]
@@ -33,9 +33,14 @@
 [ext_resource type="Script" uid="uid://b5gtgqwpligv2" path="res://scenes/composable/bicyclist_patrol_loop.gd" id="26_b2buy"]
 [ext_resource type="Texture2D" uid="uid://c1jvgsj8ygn4l" path="res://assets/enemies/bike/bike2.png" id="26_x6hvv"]
 [ext_resource type="Texture2D" uid="uid://dvr6b70gg7k47" path="res://assets/enemies/bike/bike_concerned.png" id="27_abcde"]
+[ext_resource type="PackedScene" uid="uid://bm55n82sfyn37" path="res://scenes/collectible.tscn" id="32_5ipuv"]
+[ext_resource type="Texture2D" uid="uid://crqhusuex0bur" path="res://assets/collectibles/pottery_1.png" id="33_onmav"]
 [ext_resource type="Texture2D" uid="uid://dkductyaildvy" path="res://assets/friends/momo/momo.png" id="34_6lx4c"]
+[ext_resource type="AudioStream" uid="uid://fe6cpw1jxqka" path="res://assets/sound/wind_whoosh.mp3" id="34_onmav"]
 [ext_resource type="Texture2D" uid="uid://dkbc4i868evsa" path="res://assets/environment/barn/hay_barrel.png" id="35_6lx4c"]
+[ext_resource type="Texture2D" uid="uid://chdqs4nyfsous" path="res://assets/collectibles/pottery_2.png" id="35_y4ufg"]
 [ext_resource type="Script" uid="uid://dli13y3iqt0uo" path="res://scenes/gpu_particles_2d.gd" id="36_6xmqk"]
+[ext_resource type="Texture2D" uid="uid://c8gmllsoee5gj" path="res://assets/collectibles/pottery_3.png" id="36_mopj3"]
 [ext_resource type="PackedScene" uid="uid://db4eojj42lfw7" path="res://scenes/composable/quest_giver.tscn" id="37_hvrd6"]
 [ext_resource type="Texture2D" uid="uid://cff1qabpfn1hq" path="res://assets/environment/cherry_leaf.png" id="38_1vjko"]
 [ext_resource type="Script" uid="uid://d0vo8jsubn4m1" path="res://scenes/composable/momo_quest_giver.gd" id="38_y3pui"]
@@ -176,6 +181,39 @@ size = Vector2(3413.88, 20748.8)
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_piwsr"]
 distance = -500.0
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_y4ufg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("33_onmav")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_onmav"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("35_y4ufg")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_mopj3"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("36_mopj3")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_6xmqk"]
 bounce = 0.5
@@ -422,6 +460,29 @@ leg_height = 55.0
 [node name="VolleyballNet2" parent="World2D/Platforms & Barriers/Volleyballs" instance=ExtResource("17_nrtx7")]
 position = Vector2(21175, -1574)
 leg_height = 20.0
+
+[node name="Collectibles" type="Node2D" parent="World2D"]
+
+[node name="Pottery1" parent="World2D/Collectibles" instance=ExtResource("32_5ipuv")]
+position = Vector2(6820, -711)
+scale = Vector2(2.24, 2.24)
+frames = SubResource("SpriteFrames_y4ufg")
+collectible_name = "pottery1"
+audio = ExtResource("34_onmav")
+
+[node name="Pottery2" parent="World2D/Collectibles" instance=ExtResource("32_5ipuv")]
+position = Vector2(9180, -711)
+scale = Vector2(2.24, 2.24)
+frames = SubResource("SpriteFrames_onmav")
+collectible_name = "pottery2"
+audio = ExtResource("34_onmav")
+
+[node name="Pottery3" parent="World2D/Collectibles" instance=ExtResource("32_5ipuv")]
+position = Vector2(12762, -711)
+scale = Vector2(2.24, 2.24)
+frames = SubResource("SpriteFrames_mopj3")
+collectible_name = "pottery3"
+audio = ExtResource("34_onmav")
 
 [node name="GrownUpChonki" parent="." instance=ExtResource("1_6i0tl")]
 position = Vector2(5355, -477)
