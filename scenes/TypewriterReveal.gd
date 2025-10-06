@@ -1,11 +1,16 @@
 extends Label
 
+signal animation_complete
+
 @export var animation_duration: float = 3.0
-@onready var pen_sound: AudioStreamPlayer = get_parent().get_parent().find_child('PenWritingSound')
+
+# This is hacky :(
+@onready var pen_sound: AudioStreamPlayer = get_parent().get_parent().get_parent().find_child('PenWritingSound')
 
 @export var text_after_reveal: String
 var characters_revealed: int = 0
 var start_time: float
+var animation_finished: bool = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
@@ -22,4 +27,7 @@ func _process(_delta):
 	
 	if progress_ratio == 1:
 		pen_sound.stop()
+		if !animation_finished:
+			animation_finished = true
+			animation_complete.emit()
 	

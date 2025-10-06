@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://dp3yga0d2a1m6"]
+[gd_scene load_steps=18 format=3 uid="uid://dp3yga0d2a1m6"]
 
 [ext_resource type="Script" uid="uid://c8mmhrymfec0w" path="res://scenes/little_free_library.gd" id="1_axak0"]
 [ext_resource type="Texture2D" uid="uid://b7hibh4qqs132" path="res://assets/textures/little-free-library.jpg" id="1_ok28r"]
@@ -13,7 +13,6 @@
 [ext_resource type="Script" uid="uid://cfl3xsdq5a418" path="res://scenes/ResetButton.gd" id="9_uxspa"]
 [ext_resource type="Script" uid="uid://c68mmaftgo8uj" path="res://scenes/BackButton.gd" id="10_abcde"]
 [ext_resource type="AudioStream" uid="uid://dya1jv0j3riuu" path="res://assets/sound/button-pop-edited.mp3" id="11_k2dw8"]
-[ext_resource type="Script" uid="uid://b10nwts2sanuy" path="res://scenes/MainDialogueController.gd" id="11_ww226"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rf6ka"]
 
@@ -162,9 +161,6 @@ volume_db = -18.255
 
 [node name="TitleCanvasLayer" type="CanvasLayer" parent="."]
 layer = 10
-
-[node name="MainDialogueController" type="Node2D" parent="TitleCanvasLayer"]
-script = ExtResource("11_ww226")
 
 [connection signal="pressed" from="AnagramMarginContainer/AnagramResultDisplay/VBoxContainer/HBoxContainer/BackToGameButton" to="AnagramMarginContainer/AnagramResultDisplay/VBoxContainer/HBoxContainer/BackToGameButton" method="_on_pressed"]
 [connection signal="pressed" from="AnagramMarginContainer/AnagramResultDisplay/VBoxContainer/HBoxContainer/ResetButton" to="AnagramMarginContainer/AnagramResultDisplay/VBoxContainer/HBoxContainer/ResetButton" method="_on_pressed"]

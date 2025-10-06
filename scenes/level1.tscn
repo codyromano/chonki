@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=3 uid="uid://br8ftak73gmww"]
+[gd_scene load_steps=63 format=3 uid="uid://br8ftak73gmww"]
 
 [ext_resource type="PackedScene" uid="uid://bk3oytbasgs5w" path="res://scenes/grown_up_chonki.tscn" id="1_6i0tl"]
 [ext_resource type="Script" uid="uid://b2cncqbuotdcl" path="res://scenes/level_1.gd" id="1_hvrd6"]
@@ -44,7 +44,6 @@
 [ext_resource type="PackedScene" uid="uid://db4eojj42lfw7" path="res://scenes/composable/quest_giver.tscn" id="37_hvrd6"]
 [ext_resource type="Texture2D" uid="uid://cff1qabpfn1hq" path="res://assets/environment/cherry_leaf.png" id="38_1vjko"]
 [ext_resource type="Script" uid="uid://d0vo8jsubn4m1" path="res://scenes/composable/momo_quest_giver.gd" id="38_y3pui"]
-[ext_resource type="Script" uid="uid://b10nwts2sanuy" path="res://scenes/MainDialogueController.gd" id="40_i3v6o"]
 [ext_resource type="PackedScene" uid="uid://ft24k8s13tpc" path="res://scenes/composable/instructional_text.tscn" id="41_0xdic"]
 [ext_resource type="Script" uid="uid://bohb45sc7o600" path="res://scenes/MoveLeftOrRightText.gd" id="42_5ipuv"]
 [ext_resource type="Script" uid="uid://4mx2cyi0i3oy" path="res://scenes/composable/jump_text.gd" id="43_onmav"]
@@ -464,21 +463,21 @@ leg_height = 20.0
 [node name="Collectibles" type="Node2D" parent="World2D"]
 
 [node name="Pottery1" parent="World2D/Collectibles" instance=ExtResource("32_5ipuv")]
-position = Vector2(6820, -3569)
+position = Vector2(6820, -1673)
 scale = Vector2(2.24, 2.24)
 frames = SubResource("SpriteFrames_y4ufg")
 collectible_name = "pottery1"
 audio = ExtResource("34_onmav")
 
 [node name="Pottery2" parent="World2D/Collectibles" instance=ExtResource("32_5ipuv")]
-position = Vector2(11669, -3560)
+position = Vector2(8309, -1664)
 scale = Vector2(2.24, 2.24)
 frames = SubResource("SpriteFrames_onmav")
 collectible_name = "pottery2"
 audio = ExtResource("34_onmav")
 
 [node name="Pottery3" parent="World2D/Collectibles" instance=ExtResource("32_5ipuv")]
-position = Vector2(16112, -3596)
+position = Vector2(9510, -1700)
 scale = Vector2(2.24, 2.24)
 frames = SubResource("SpriteFrames_mopj3")
 collectible_name = "pottery3"
@@ -536,10 +535,6 @@ visible = false
 
 [node name="TitleCanvasLayer" type="CanvasLayer" parent="TitleLayers"]
 layer = 10
-
-[node name="MainDialogueController" type="Node2D" parent="TitleLayers/TitleCanvasLayer"]
-script = ExtResource("40_i3v6o")
-duration_per_character = 0.001
 
 [node name="LeftOrRightText" parent="TitleLayers/TitleCanvasLayer" instance=ExtResource("41_0xdic")]
 visible = false

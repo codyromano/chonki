@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://c7l0kuusfunc6"]
+[gd_scene load_steps=12 format=3 uid="uid://c7l0kuusfunc6"]
 
 [ext_resource type="FontFile" uid="uid://dlfbvpauldaco" path="res://fonts/Sniglet-Regular.ttf" id="1_1qjv2"]
 [ext_resource type="Script" uid="uid://chicc1v1fl7kc" path="res://scenes/MainDialogueDisplay.gd" id="2_5cqqh"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://cd0bxakf1qi0b" path="res://scenes/TypewriterReveal.gd" id="3_2piwl"]
 [ext_resource type="StyleBox" uid="uid://d34fpnq2ua283" path="res://themes/button.tres" id="3_rn33i"]
 [ext_resource type="AudioStream" uid="uid://bv0vrph4s1t0m" path="res://assets/sound/pen_writing.mp3" id="4_88m0i"]
+[ext_resource type="PackedScene" uid="uid://dlmi3a0nauhq5" path="res://scenes/menus/dialogue_option.tscn" id="7_e1u6s"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_rf6ka"]
 
@@ -57,22 +58,23 @@ grow_horizontal = 2
 grow_vertical = 2
 theme = SubResource("Theme_o4ulm")
 script = ExtResource("2_5cqqh")
-dialogue = "Hello, jojopotatotototototo"
-duration = 8.0
 
 [node name="PenWritingSound" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("4_88m0i")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = -50
 
-[node name="Avatar" type="TextureRect" parent="HBoxContainer"]
+[node name="Avatar" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(200, 250)
 layout_mode = 2
 expand_mode = 3
 
-[node name="TypewriterReveal" type="Label" parent="HBoxContainer"]
+[node name="TypewriterReveal" type="Label" parent="VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(700, 0)
 layout_mode = 2
 theme = SubResource("Theme_o4ulm")
@@ -83,3 +85,20 @@ horizontal_alignment = 1
 autowrap_mode = 2
 script = ExtResource("3_2piwl")
 animation_duration = 1.5
+
+[node name="VBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="DialogueOptions" type="VBoxContainer" parent="VBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="DialogueOption1" parent="VBoxContainer/VBoxContainer/DialogueOptions" instance=ExtResource("7_e1u6s")]
+visible = false
+layout_mode = 2
+focus_neighbor_bottom = NodePath("")
+
+[node name="DialogueOption2" parent="VBoxContainer/VBoxContainer/DialogueOptions" instance=ExtResource("7_e1u6s")]
+visible = false
+layout_mode = 2
+focus_neighbor_bottom = NodePath("")

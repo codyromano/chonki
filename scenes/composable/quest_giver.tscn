@@ -38,15 +38,15 @@ shape = SubResource("RectangleShape2D_6lx4c")
 
 [node name="Instructions" type="Label" parent="."]
 modulate = Color(1, 1, 1, 0)
-offset_left = -495.0
+offset_left = -496.0
 offset_top = -755.0
-offset_right = 614.0
+offset_right = 613.0
 offset_bottom = -598.0
 theme = ExtResource("4_s3tby")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
 theme_override_font_sizes/font_size = 125
-text = "Press \"enter\" to talk"
+text = "Press \"space\" to talk"
 
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
 [connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]
