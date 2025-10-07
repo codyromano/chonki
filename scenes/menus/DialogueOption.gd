@@ -5,6 +5,7 @@ var option_text: String = ""
 
 func _ready() -> void:
 	focus_entered.connect(_on_focus_entered)
+	pressed.connect(_on_pressed)
 
 func setup(id: String, choice_text: String) -> void:
 	option_id = id
@@ -12,10 +13,13 @@ func setup(id: String, choice_text: String) -> void:
 	text = choice_text
 
 func _on_focus_entered() -> void:
-	# Ensure this button is visible when focused
 	pass
 
-func _unhandled_input(event: InputEvent) -> void:
-	if has_focus() and event.is_action_pressed("read"):
-		GlobalSignals.dialogue_option_selected.emit(option_id, option_text)
-		get_viewport().set_input_as_handled()
+func _on_pressed() -> void:
+	GlobalSignals.dialogue_option_selected.emit(option_id, option_text)
+
+# Handle "read" action as if button was pressed
+func _gui_input(event: InputEvent) -> void:
+	if event.is_action_pressed("read"):
+		accept_event()
+		_on_pressed()

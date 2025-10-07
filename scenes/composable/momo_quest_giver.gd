@@ -2,7 +2,7 @@ extends "res://scenes/quest_giver.gd"
 
 func _get_dialogue_tree() -> DialogueTree:
 	var momo_accept = DialogueNode.new()
-	momo_accept.text = "Thank you! Please bring them back if you find any."
+	momo_accept.text = "Thanks for your help! Come back once you've collected all 3 pieces of pottery."
 	momo_accept.choices = []
 
 	var momo_decline = DialogueNode.new()
@@ -19,3 +19,6 @@ func _get_dialogue_tree() -> DialogueTree:
 	var momo_tree = DialogueTree.new()
 	momo_tree.root_node = momo_offer
 	return momo_tree
+	
+func get_next_dialogue_node_custom(current_node: DialogueNode, selected_option_id: String) -> DialogueNode:
+	return get_next_dialogue_node(current_node, selected_option_id)
