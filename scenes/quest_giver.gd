@@ -29,11 +29,11 @@ func _ready() -> void:
 func _process(_delta) -> void:  
 	# Check if we're waiting for key release and the key is now released
 	if waiting_for_key_release and !Input.is_action_pressed("read"):
-		#waiting_for_key_release = false
+		waiting_for_key_release = false
 		can_trigger_dialogue = true
 	
-	# Only allow initiating dialogue when game is not paused and we can trigger
-	if Input.is_action_just_pressed("read") && is_player_nearby && !get_tree().paused && can_trigger_dialogue:
+	# Only allow initiating dialogue when we can trigger and not waiting for key release
+	if Input.is_action_just_pressed("read") && is_player_nearby && can_trigger_dialogue && !waiting_for_key_release:
 		can_trigger_dialogue = false
 		_initiate_dialogue()
 
@@ -47,14 +47,22 @@ func _on_dialogue_option_selected(option_id: String, _option_text: String) -> vo
 	if !is_in_dialogue:
 		return
 	
+	# Dismiss the current dialogue first
+	GlobalSignals.dismiss_active_main_dialogue.emit("")
+	
 	# Find the next node based on the selected option
 	var next_node = get_next_dialogue_node_custom(current_dialogue_node, option_id)
 	if next_node:
 		current_dialogue_node = next_node
+		# Wait a frame before displaying the next node to ensure the current dialogue is dismissed
+		await get_tree().process_frame
 		_display_current_node()
 	# Warnings are already handled in get_next_dialogue_node()
 
 func _initiate_dialogue() -> void:
+	# Hide instructions when dialogue starts
+	_set_instructions_opacity(0, 0.25)
+	
 	# If we don't have a current node, start from the root
 	if !current_dialogue_node:
 		var dialogue_tree = _get_dialogue_tree()

@@ -115,22 +115,23 @@ func _process_queue() -> void:
 		return
 	
 	if rendered_dialogue:
+		print("[MainDialogueController] Freeing rendered_dialogue")
 		rendered_dialogue.queue_free()
 		rendered_dialogue = null
 
 	if dialogue_queue.is_empty():
-		tree.paused = false
+		print("[MainDialogueController] Queue is empty, nothing to display")
 		current_instruction_trigger_id = ""
 		return
 
+	print("[MainDialogueController] Processing queue, creating new dialogue")
 	var next_dialogue_data = dialogue_queue.pop_front()
 	var dialogue_text = next_dialogue_data.dialogue if next_dialogue_data is Dictionary else next_dialogue_data
 	current_instruction_trigger_id = next_dialogue_data.trigger_id if next_dialogue_data is Dictionary else ""
 	var avatar_name = next_dialogue_data.avatar_name if next_dialogue_data.has("avatar_name") else ""
 	var choices = next_dialogue_data.choices if next_dialogue_data.has("choices") else []
 	rendered_dialogue = await _create_dialogue(dialogue_text, current_instruction_trigger_id, avatar_name, choices)
-	
-	tree.paused = true
+	print("[MainDialogueController] New dialogue created")
 
 
 func _on_dialogue_queued(dialogue: String, instruction_trigger_id: String = "", avatar_name: String = "", choices: Array = []) -> void:
@@ -146,6 +147,7 @@ func _on_dialogue_queued(dialogue: String, instruction_trigger_id: String = "", 
 
 
 func _on_dismiss_active_dialogue(_instruction_trigger_id: String) -> void:
+	print("[MainDialogueController] _on_dismiss_active_dialogue called")
 	_process_queue()
 
 func get_dialogue_choices() -> Array:

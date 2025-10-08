@@ -297,7 +297,7 @@ script = ExtResource("8_8hmqo")
 [node name="NPCs" type="Node" parent="World2D"]
 
 [node name="GooseRegion2D" type="NavigationRegion2D" parent="World2D/NPCs"]
-position = Vector2(-5245, -12)
+position = Vector2(11316, -12)
 navigation_polygon = SubResource("NavigationPolygon_1ju1f")
 
 [node name="Goose" type="CharacterBody2D" parent="World2D/NPCs/GooseRegion2D"]
@@ -425,7 +425,7 @@ shape = SubResource("WorldBoundaryShape2D_piwsr")
 debug_color = Color(0.307035, 0.494072, 1, 0.42)
 
 [node name="CherryTreeBody" type="StaticBody2D" parent="World2D/Platforms & Barriers"]
-position = Vector2(542, 0)
+position = Vector2(16323, 0)
 collision_layer = 8
 collision_mask = 21
 script = ExtResource("15_iid5p")
@@ -524,7 +524,7 @@ color_variation = false
 enable_wind_zones = false
 
 [node name="MomoQuestGiver" parent="." instance=ExtResource("37_hvrd6")]
-position = Vector2(8229, -363)
+position = Vector2(15336, -363)
 script = ExtResource("38_y3pui")
 frames = SubResource("SpriteFrames_y3pui")
 
