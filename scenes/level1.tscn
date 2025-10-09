@@ -297,7 +297,7 @@ script = ExtResource("8_8hmqo")
 [node name="NPCs" type="Node" parent="World2D"]
 
 [node name="GooseRegion2D" type="NavigationRegion2D" parent="World2D/NPCs"]
-position = Vector2(11316, -12)
+position = Vector2(-621, -12)
 navigation_polygon = SubResource("NavigationPolygon_1ju1f")
 
 [node name="Goose" type="CharacterBody2D" parent="World2D/NPCs/GooseRegion2D"]
@@ -425,7 +425,7 @@ shape = SubResource("WorldBoundaryShape2D_piwsr")
 debug_color = Color(0.307035, 0.494072, 1, 0.42)
 
 [node name="CherryTreeBody" type="StaticBody2D" parent="World2D/Platforms & Barriers"]
-position = Vector2(16323, 0)
+position = Vector2(25478, 0)
 collision_layer = 8
 collision_mask = 21
 script = ExtResource("15_iid5p")
@@ -442,12 +442,12 @@ polygon = PackedVector2Array(10704, 13, 10569, -510, 10518, -846, 10430, -1006, 
 z_index = 1
 
 [node name="Volleyball3" parent="World2D/Platforms & Barriers/Volleyballs" instance=ExtResource("16_q08mg")]
-position = Vector2(6029, 2163)
+position = Vector2(13468, -2519)
 movement_distance_x = 0.0
 movement_speed_seconds = 2.0
 
 [node name="Volleyball" parent="World2D/Platforms & Barriers/Volleyballs" instance=ExtResource("16_q08mg")]
-position = Vector2(6733, 2184)
+position = Vector2(12171, 2184)
 movement_distance_y = 1000.0
 movement_speed_seconds = 2.0
 
@@ -457,8 +457,12 @@ position = Vector2(29118, -1656)
 leg_height = 55.0
 
 [node name="VolleyballNet2" parent="World2D/Platforms & Barriers/Volleyballs" instance=ExtResource("17_nrtx7")]
-position = Vector2(21175, -1574)
+position = Vector2(26613, -1574)
 leg_height = 20.0
+
+[node name="VolleyballNet3" parent="World2D/Platforms & Barriers/Volleyballs" instance=ExtResource("17_nrtx7")]
+position = Vector2(29553.4, -2622.64)
+scale = Vector2(2.4066, 2.4066)
 
 [node name="Collectibles" type="Node2D" parent="World2D"]
 
@@ -486,13 +490,14 @@ audio = ExtResource("34_onmav")
 [node name="GrownUpChonki" parent="." instance=ExtResource("1_6i0tl")]
 position = Vector2(5355, -477)
 speed_multiplier = 0.75
+initial_camera_zoom = Vector2(0.2, 0.2)
 
 [node name="HUD" parent="." instance=ExtResource("20_g3dfk")]
 
 [node name="HayBall" type="RigidBody2D" parent="."]
 unique_name_in_owner = true
 z_index = 3
-position = Vector2(23724, -497)
+position = Vector2(46919, -497)
 collision_layer = 6
 collision_mask = 13
 mass = 0.5

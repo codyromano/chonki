@@ -9,6 +9,8 @@ extends Node2D
 @export var jump_multiplier: float = 1.0
 @export var speed_multiplier: float = 0.375
 
+@export var initial_camera_zoom: Vector2 = Vector2(0.25, 0.25)
+
 enum ChonkiState { IDLE, RUN, ATTACK, HANG_ON }
 
 var state : ChonkiState = ChonkiState.IDLE
@@ -27,6 +29,8 @@ var is_game_win: bool = false
 @onready var camera2d: Camera2D = $ChonkiCharacter/Camera2D
 var fade_rect: ColorRect
 @onready var hud = get_tree().get_first_node_in_group("HUDControl")
+@onready var camera = find_child('Camera2D')
+
 var is_game_over = false
 var is_chonki_sliding = false
 
@@ -74,8 +78,8 @@ func _ready() -> void:
 	else:
 		GameState.total_stars = total_stars
 	# Set initial zoom level from signal or default
-	var initial_zoom = 0.25
-	camera2d.zoom = Vector2(initial_zoom, initial_zoom)
+	var initial_zoom = initial_camera_zoom
+	camera2d.zoom = initial_camera_zoom
 	# Create a fullscreen ColorRect for fade effect
 	fade_rect = ColorRect.new()
 	fade_rect.color = Color(0, 0, 0, 0)

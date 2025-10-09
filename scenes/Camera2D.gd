@@ -2,11 +2,12 @@ extends Camera2D
 
 @export var target: Node2D
 @export var duration: float = 5.0
+@export var initial_zoom_setting: Vector2
+
+var initial_zoom: Vector2
 
 var tween: Tween
-var initial_zoom: Vector2
 var initial_position: Vector2
-
 
 func _ready():
 	# Store initial camera state
@@ -21,6 +22,9 @@ func _ready():
 	if GlobalSignals.has_signal("game_zoom_level"):
 		GlobalSignals.game_zoom_level.connect(_on_game_zoom_level)
 
+func _process(_delta) -> void:
+	initial_zoom = initial_zoom_setting
+	
 func _on_game_zoom_level(zoom_level: float, zoom_duration: float = 2.0):
 	make_current()
 	if tween:
