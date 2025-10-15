@@ -139,7 +139,7 @@
 [ext_resource type="Script" uid="uid://cpmrk8cy0fi0w" path="res://scenes/ChonkiSpriteController.gd" id="137_mf45l"]
 [ext_resource type="Script" uid="uid://dhsaw4wf2lbak" path="res://scenes/Camera2D.gd" id="138_1hqnw"]
 [ext_resource type="AudioStream" uid="uid://3u0hk83prun5" path="res://assets/sound/chill-bark.mp3" id="139_t2k6g"]
-[ext_resource type="AudioStream" uid="uid://7um8tvamt40s" path="res://assets/sound/autumn.mp3" id="140_ooj3k"]
+[ext_resource type="AudioStream" uid="uid://djtflew7jvjfw" path="res://assets/sound/level1.mp3" id="140_h7loo"]
 [ext_resource type="AudioStream" uid="uid://bckidyukxqyoi" path="res://assets/sound/won.wav" id="141_luj0f"]
 [ext_resource type="Script" uid="uid://dhssmho81ae2l" path="res://scenes/ChonkiAudioController.gd" id="142_uym33"]
 
@@ -625,7 +625,7 @@ duration = 10.0
 stream = ExtResource("139_t2k6g")
 
 [node name="BackgroundAudio" type="AudioStreamPlayer2D" parent="ChonkiCharacter"]
-stream = ExtResource("140_ooj3k")
+stream = ExtResource("140_h7loo")
 volume_db = -10.0
 autoplay = true
 
