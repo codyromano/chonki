@@ -1,4 +1,4 @@
-[gd_scene load_steps=66 format=3 uid="uid://br8ftak73gmww"]
+[gd_scene load_steps=67 format=3 uid="uid://br8ftak73gmww"]
 
 [ext_resource type="PackedScene" uid="uid://bk3oytbasgs5w" path="res://scenes/grown_up_chonki.tscn" id="1_6i0tl"]
 [ext_resource type="Script" uid="uid://b2cncqbuotdcl" path="res://scenes/level_1.gd" id="1_hvrd6"]
@@ -40,6 +40,7 @@
 [ext_resource type="Texture2D" uid="uid://dkductyaildvy" path="res://assets/friends/momo/momo.png" id="34_6lx4c"]
 [ext_resource type="Texture2D" uid="uid://isjdue6t5l6t" path="res://assets/environment/level1/trunk_top.png" id="34_g6862"]
 [ext_resource type="AudioStream" uid="uid://fe6cpw1jxqka" path="res://assets/sound/wind_whoosh.mp3" id="34_onmav"]
+[ext_resource type="Script" uid="uid://dk6kslssi6qay" path="res://scenes/swivel_branch.gd" id="34_v3v4h"]
 [ext_resource type="Texture2D" uid="uid://dkbc4i868evsa" path="res://assets/environment/barn/hay_barrel.png" id="35_6lx4c"]
 [ext_resource type="Texture2D" uid="uid://chdqs4nyfsous" path="res://assets/collectibles/pottery_2.png" id="35_y4ufg"]
 [ext_resource type="Script" uid="uid://dli13y3iqt0uo" path="res://scenes/gpu_particles_2d.gd" id="36_6xmqk"]
@@ -479,11 +480,6 @@ position = Vector2(37382.9, -1798.85)
 scale = Vector2(6.16004, 6.16004)
 texture = ExtResource("32_mopj3")
 
-[node name="RBranch1" type="Sprite2D" parent="World2D/Platforms & Barriers/TreeMaze"]
-position = Vector2(36183.9, -1552.33)
-scale = Vector2(4.7543, 4.7543)
-texture = ExtResource("33_sjqnv")
-
 [node name="Branch4" type="Sprite2D" parent="World2D/Platforms & Barriers/TreeMaze"]
 position = Vector2(34295, -3192)
 rotation = 3.14159
@@ -516,6 +512,14 @@ texture = ExtResource("34_g6862")
 position = Vector2(33174, -6513)
 scale = Vector2(9.36006, 9.36006)
 texture = ExtResource("34_g6862")
+
+[node name="SwivelBranch" type="Node2D" parent="World2D/Platforms & Barriers/TreeMaze"]
+script = ExtResource("34_v3v4h")
+
+[node name="SwivelBranchSprite" type="Sprite2D" parent="World2D/Platforms & Barriers/TreeMaze/SwivelBranch"]
+position = Vector2(36183.9, -1552.33)
+scale = Vector2(4.7543, 4.7543)
+texture = ExtResource("33_sjqnv")
 
 [node name="Collectibles" type="Node2D" parent="World2D"]
 
