@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://bdhyongrfrh2w"]
+
+[ext_resource type="Script" uid="uid://dk6kslssi6qay" path="res://scenes/swivel_branch.gd" id="1_ewnt5"]
+[ext_resource type="Texture2D" uid="uid://f1okcxppdvbh" path="res://assets/environment/level1/branch.png" id="2_k2fir"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_branch"]
+size = Vector2(1814.5, 73.33)
+
+[node name="SwivelBranch" type="Node2D"]
+script = ExtResource("1_ewnt5")
+
+[node name="CollisionShape2D" type="StaticBody2D" parent="."]
+position = Vector2(36183.9, -1552.33)
+
+[node name="BranchCollisionShape" type="CollisionShape2D" parent="CollisionShape2D"]
+position = Vector2(-33.6484, 98.33)
+shape = SubResource("RectangleShape2D_branch")
+
+[node name="SwivelBranchSprite" type="Sprite2D" parent="CollisionShape2D"]
+position = Vector2(-94.8984, 58.33)
+scale = Vector2(4.7543, 4.7543)
+texture = ExtResource("2_k2fir")
+
+[node name="DebugTimer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
+
+[connection signal="timeout" from="DebugTimer" to="." method="_on_timer_timeout"]

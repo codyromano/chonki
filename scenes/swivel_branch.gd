@@ -1,55 +1,47 @@
 extends Node2D
 
-@export var is_facing_right: bool = true
+# Start in the swiveled state
+@export var is_swiveled: bool = false
 
-# Branch extends downward with a swivel animation.
-# It should appear to stay anchored to the tree trunk when swinging down.
-# Technically, this means that when the branch is facing right, the leftmost edge 
-# of the sprite, a rectangle, should remain in the same horizontal & vertical position.
-# Conversely, when the branch is facing left, the rightmost edge of the sprite should
-# remain in the same horizontal & vertical position.
-@export var is_facing_down: bool = false
+# Initial rotation in degrees (before swiveling)
+@export var initial_rotation_degrees: float = 0.0
 
-# Degrees to which the branch  will extend
-@export var swivel_down_rotation_degrees: float = 80.0
+# Degrees to rotate when swiveling (positive for clockwise, negative for counter-clockwise)
+@export var swivel_rotation_degrees: float = -80.0
 
-# Configure the speed of the downward swiveling
-@export var swivel_down_animation_duration: float = 2.5
+# Configure the speed of the swiveling animation
+@export var swivel_animation_duration: float = 1
 
+# Which edge of the sprite to use as anchor point when rotating
+# 1.0 = right edge, -1.0 = left edge, 0.0 = center
+@export var anchor_point_offset: float = 1.0
+
+@onready var collision_shape: StaticBody2D = find_child('CollisionShape2D')
 @onready var sprite: Sprite2D = find_child('SwivelBranchSprite')
+@onready var collision_shape_rect: CollisionShape2D = find_child('BranchCollisionShape')
 
-var initial_rotation: float = 0.0
 var initial_position: Vector2 = Vector2.ZERO
-var is_swiveling: bool = false
+var is_animating: bool = false
 var swivel_tween: Tween
 var debug_timer: float = 0.0
-var debug_toggle_interval: float = 8.0
+var debug_toggle_interval: float = 4.0
 
-func _ready() -> void:
-	initial_rotation = sprite.rotation_degrees
-	initial_position = sprite.position
-	sprite.flip_h = !is_facing_right
+func _ready() -> void:	
+	initial_position = collision_shape.position
 	
-	# Start in the down position if configured
-	if is_facing_down:
-		_set_swiveled_down_state(true)
+	# Set the initial rotation from the export variable
+	collision_shape.rotation_degrees = initial_rotation_degrees
 	
-func _process(delta) -> void:
-	sprite.flip_h = !is_facing_right
-	
-	# Debug: Auto-toggle every 8 seconds
-	debug_timer += delta
-	if debug_timer >= debug_toggle_interval:
-		debug_timer = 0.0
-		toggle_swivel()
+	# Start in the swiveled position if configured
+	if is_swiveled:
+		_set_swiveled_state_instant(true)
 
-# Swivel the branch down
-func swivel_down() -> void:
-	if is_swiveling or is_facing_down:
+# Swivel the branch to the swiveled position
+func swivel() -> void:
+	if is_animating or is_swiveled:
 		return
 	
-	is_swiveling = true
-	is_facing_down = true
+	is_animating = true
 	
 	# Cancel any existing tween
 	if swivel_tween:
@@ -59,34 +51,35 @@ func swivel_down() -> void:
 	swivel_tween.set_parallel(true)
 	
 	# Calculate the target rotation
-	var target_rotation = initial_rotation + swivel_down_rotation_degrees
+	var target_rotation = initial_rotation_degrees + swivel_rotation_degrees
 	
-	# Calculate the pivot offset to keep the correct edge anchored
+	# Calculate the pivot offset to keep the anchor point fixed
 	var sprite_size = sprite.get_rect().size * sprite.scale
-	var pivot_offset_x = sprite_size.x / 2.0 if is_facing_right else -sprite_size.x / 2.0
+	var pivot_offset_x = sprite_size.x / 2.0 * anchor_point_offset
 	
 	# When rotating, we need to adjust position to keep the anchor point fixed
-	# The anchor point is at the edge of the sprite
 	var anchor_offset = Vector2(pivot_offset_x, 0)
-	var rotated_offset = anchor_offset.rotated(deg_to_rad(swivel_down_rotation_degrees))
+	var rotated_offset = anchor_offset.rotated(deg_to_rad(swivel_rotation_degrees))
 	var position_adjustment = anchor_offset - rotated_offset
 	
-	# Animate rotation
-	swivel_tween.tween_property(sprite, "rotation_degrees", target_rotation, swivel_down_animation_duration).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
+	# Animate rotation of the collision shape (sprite rotates with it as a child)
+	swivel_tween.tween_property(collision_shape, "rotation_degrees", target_rotation, swivel_animation_duration).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
 	
 	# Animate position to keep anchor point fixed
-	swivel_tween.tween_property(sprite, "position", initial_position + position_adjustment, swivel_down_animation_duration).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
+	swivel_tween.tween_property(collision_shape, "position", initial_position + position_adjustment, swivel_animation_duration).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
 	
 	await swivel_tween.finished
-	is_swiveling = false
+	is_swiveled = true
+	is_animating = false
+	
+	collision_shape_rect.disabled = true
 
-# Swivel the branch back up
-func swivel_up() -> void:
-	if is_swiveling or !is_facing_down:
+# Un-swivel the branch back to initial position
+func unswivel() -> void:
+	if is_animating or !is_swiveled:
 		return
 	
-	is_swiveling = true
-	is_facing_down = false
+	is_animating = true
 	
 	# Cancel any existing tween
 	if swivel_tween:
@@ -96,33 +89,38 @@ func swivel_up() -> void:
 	swivel_tween.set_parallel(true)
 	
 	# Animate back to initial state
-	swivel_tween.tween_property(sprite, "rotation_degrees", initial_rotation, swivel_down_animation_duration).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
-	swivel_tween.tween_property(sprite, "position", initial_position, swivel_down_animation_duration).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
+	swivel_tween.tween_property(collision_shape, "rotation_degrees", initial_rotation_degrees, swivel_animation_duration).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
+	swivel_tween.tween_property(collision_shape, "position", initial_position, swivel_animation_duration).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CUBIC)
 	
 	await swivel_tween.finished
-	is_swiveling = false
+	is_swiveled = false
+	is_animating = false
 
-# Toggle between up and down
+# Toggle between swiveled and unswiveled
 func toggle_swivel() -> void:
-	if is_facing_down:
-		swivel_up()
+	# Disable collisions while swivel animation is in progress
+	collision_shape_rect.disabled = false
+	if is_swiveled:
+		unswivel()
 	else:
-		swivel_down()
+		swivel()
 
-# Set the branch to the swiveled down state instantly (no animation)
-func _set_swiveled_down_state(down: bool) -> void:
-	if down:
-		sprite.rotation_degrees = initial_rotation + swivel_down_rotation_degrees
+# Set the branch to swiveled state instantly (no animation)
+func _set_swiveled_state_instant(swiveled: bool) -> void:
+	if swiveled:
+		collision_shape.rotation_degrees = initial_rotation_degrees + swivel_rotation_degrees
 		
 		var sprite_size = sprite.get_rect().size * sprite.scale
-		var pivot_offset_x = sprite_size.x / 2.0 if is_facing_right else -sprite_size.x / 2.0
+		var pivot_offset_x = sprite_size.x / 2.0 * anchor_point_offset
 		var anchor_offset = Vector2(pivot_offset_x, 0)
-		var rotated_offset = anchor_offset.rotated(deg_to_rad(swivel_down_rotation_degrees))
+		var rotated_offset = anchor_offset.rotated(deg_to_rad(swivel_rotation_degrees))
 		var position_adjustment = anchor_offset - rotated_offset
 		
-		sprite.position = initial_position + position_adjustment
+		collision_shape.position = initial_position + position_adjustment
 	else:
-		sprite.rotation_degrees = initial_rotation
-		sprite.position = initial_position
+		collision_shape.rotation_degrees = initial_rotation_degrees
+		collision_shape.position = initial_position
 
-	
+
+func _on_timer_timeout() -> void:
+	toggle_swivel()
