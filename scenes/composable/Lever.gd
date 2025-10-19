@@ -1,10 +1,8 @@
 extends Area2D
 
 @export var timer_duration: float = 5.0
-@export var is_on_initially: bool = false
+@export var is_on: bool = false
 @export var lever_name: String
-
-var is_on: bool = is_on_initially
 
 func _ready() -> void:
 	$Timer.wait_time = timer_duration
@@ -19,11 +17,12 @@ func _process(_delta):
 		$Timer.stop()
 		$LeverTick.stop()
 
-func _on_body_entered(_body):
-	$LeverPull.play()
+func _on_body_entered(body):
+	if body.name == 'ChonkiCharacter':
+		$LeverPull.play()
 	
-	is_on = !is_on
-	GlobalSignals.lever_status_changed.emit(lever_name, is_on)
+		is_on = !is_on
+		GlobalSignals.lever_status_changed.emit(lever_name, is_on)
 	
 func _on_timer_timeout():
 	$LeverPull.play()

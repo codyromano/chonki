@@ -32,10 +32,16 @@ func _ready() -> void:
 	# Set the initial rotation from the export variable
 	collision_shape.rotation_degrees = initial_rotation_degrees
 	
+	GlobalSignals.lever_status_changed.connect(_on_lever_status_changed)
+	
 	# Start in the swiveled position if configured
 	if is_swiveled:
 		_set_swiveled_state_instant(true)
 
+func _on_lever_status_changed(lever_name, _is_on) -> void:
+	if lever_name == "tree_maze_lever":
+		toggle_swivel()
+	
 # Swivel the branch to the swiveled position
 func swivel() -> void:
 	if is_animating or is_swiveled:

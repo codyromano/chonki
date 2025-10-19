@@ -1,9 +1,10 @@
-[gd_scene load_steps=67 format=3 uid="uid://br8ftak73gmww"]
+[gd_scene load_steps=68 format=3 uid="uid://br8ftak73gmww"]
 
 [ext_resource type="PackedScene" uid="uid://bk3oytbasgs5w" path="res://scenes/grown_up_chonki.tscn" id="1_6i0tl"]
 [ext_resource type="Script" uid="uid://b2cncqbuotdcl" path="res://scenes/level_1.gd" id="1_hvrd6"]
 [ext_resource type="Texture2D" uid="uid://bpqdlmvtkr1i5" path="res://assets/environment/lake.png" id="1_vplxb"]
 [ext_resource type="Texture2D" uid="uid://bytsxlqncfgi8" path="res://assets/environment/sky.png" id="2_gc4xo"]
+[ext_resource type="PackedScene" uid="uid://cs71vpxi4b22q" path="res://scenes/composable/lever.tscn" id="2_vutef"]
 [ext_resource type="PackedScene" uid="uid://bwsqagx4t8jlw" path="res://FloatingHearts.tscn" id="7_7xcao"]
 [ext_resource type="Script" uid="uid://7hgh2bfs1wl" path="res://FloatingHeartsManager.gd" id="8_8hmqo"]
 [ext_resource type="Texture2D" uid="uid://4bko6gewu3m1" path="res://assets/enemies/goose/goose1.png" id="13_7b16e"]
@@ -238,6 +239,11 @@ animations = [{
 [node name="Level1" type="Node2D"]
 position = Vector2(-5159, -12)
 script = ExtResource("1_hvrd6")
+
+[node name="TreeMazeLever" parent="." instance=ExtResource("2_vutef")]
+position = Vector2(39475, -154)
+scale = Vector2(0.560019, 0.560019)
+lever_name = "tree_maze_lever"
 
 [node name="World2D" type="Node2D" parent="." groups=["world"]]
 unique_name_in_owner = true
