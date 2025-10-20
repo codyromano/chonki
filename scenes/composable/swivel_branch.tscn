@@ -4,7 +4,7 @@
 [ext_resource type="Texture2D" uid="uid://f1okcxppdvbh" path="res://assets/environment/level1/branch.png" id="2_k2fir"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_branch"]
-size = Vector2(1814.5, 73.33)
+size = Vector2(1901.25, 177)
 
 [node name="SwivelBranch" type="Node2D"]
 script = ExtResource("1_ewnt5")
@@ -13,7 +13,7 @@ script = ExtResource("1_ewnt5")
 position = Vector2(36183.9, -1552.33)
 
 [node name="BranchCollisionShape" type="CollisionShape2D" parent="CollisionShape2D"]
-position = Vector2(-33.6484, 98.33)
+position = Vector2(-75.5234, 115.83)
 shape = SubResource("RectangleShape2D_branch")
 
 [node name="SwivelBranchSprite" type="Sprite2D" parent="CollisionShape2D"]

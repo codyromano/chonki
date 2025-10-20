@@ -9,7 +9,7 @@ extends Node2D
 @export var jump_multiplier: float = 1.0
 @export var speed_multiplier: float = 0.375
 
-@export var initial_camera_zoom: Vector2 = Vector2(0.25, 0.25)
+@export var initial_camera_zoom: Vector2 = Vector2(0.2, 0.2)
 
 enum ChonkiState { IDLE, RUN, ATTACK, HANG_ON }
 

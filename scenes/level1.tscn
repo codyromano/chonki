@@ -1,4 +1,4 @@
-[gd_scene load_steps=68 format=3 uid="uid://br8ftak73gmww"]
+[gd_scene load_steps=67 format=3 uid="uid://br8ftak73gmww"]
 
 [ext_resource type="PackedScene" uid="uid://bk3oytbasgs5w" path="res://scenes/grown_up_chonki.tscn" id="1_6i0tl"]
 [ext_resource type="Script" uid="uid://b2cncqbuotdcl" path="res://scenes/level_1.gd" id="1_hvrd6"]
@@ -37,15 +37,14 @@
 [ext_resource type="PackedScene" uid="uid://bm55n82sfyn37" path="res://scenes/collectible.tscn" id="32_5ipuv"]
 [ext_resource type="Texture2D" uid="uid://c1pegd4l1nkvx" path="res://assets/environment/level1/trunk.png" id="32_mopj3"]
 [ext_resource type="Texture2D" uid="uid://crqhusuex0bur" path="res://assets/collectibles/pottery_1.png" id="33_onmav"]
-[ext_resource type="Texture2D" uid="uid://f1okcxppdvbh" path="res://assets/environment/level1/branch.png" id="33_sjqnv"]
 [ext_resource type="Texture2D" uid="uid://dkductyaildvy" path="res://assets/friends/momo/momo.png" id="34_6lx4c"]
 [ext_resource type="Texture2D" uid="uid://isjdue6t5l6t" path="res://assets/environment/level1/trunk_top.png" id="34_g6862"]
 [ext_resource type="AudioStream" uid="uid://fe6cpw1jxqka" path="res://assets/sound/wind_whoosh.mp3" id="34_onmav"]
-[ext_resource type="Texture2D" uid="uid://dkbc4i868evsa" path="res://assets/environment/barn/hay_barrel.png" id="35_6lx4c"]
 [ext_resource type="PackedScene" uid="uid://bdhyongrfrh2w" path="res://scenes/composable/swivel_branch.tscn" id="35_v3v4h"]
 [ext_resource type="Texture2D" uid="uid://chdqs4nyfsous" path="res://assets/collectibles/pottery_2.png" id="35_y4ufg"]
 [ext_resource type="Script" uid="uid://dli13y3iqt0uo" path="res://scenes/gpu_particles_2d.gd" id="36_6xmqk"]
 [ext_resource type="Texture2D" uid="uid://c8gmllsoee5gj" path="res://assets/collectibles/pottery_3.png" id="36_mopj3"]
+[ext_resource type="Texture2D" uid="uid://do40vx10g03uc" path="res://assets/environment/volleyball.png" id="36_v3v4h"]
 [ext_resource type="PackedScene" uid="uid://db4eojj42lfw7" path="res://scenes/composable/quest_giver.tscn" id="37_hvrd6"]
 [ext_resource type="Texture2D" uid="uid://cff1qabpfn1hq" path="res://assets/environment/cherry_leaf.png" id="38_1vjko"]
 [ext_resource type="Script" uid="uid://d0vo8jsubn4m1" path="res://scenes/composable/momo_quest_giver.gd" id="38_y3pui"]
@@ -186,6 +185,12 @@ size = Vector2(3413.88, 20748.8)
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_piwsr"]
 distance = -500.0
 
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_6xmqk"]
+bounce = 0.5
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_hvrd6"]
+radius = 310.04
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_y4ufg"]
 animations = [{
 "frames": [{
@@ -219,12 +224,6 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_6xmqk"]
-bounce = 0.5
-
-[sub_resource type="CircleShape2D" id="CircleShape2D_hvrd6"]
-radius = 310.04
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_y3pui"]
 animations = [{
 "frames": [{
@@ -241,7 +240,7 @@ position = Vector2(-5159, -12)
 script = ExtResource("1_hvrd6")
 
 [node name="TreeMazeLever" parent="." instance=ExtResource("2_vutef")]
-position = Vector2(39475, -154)
+position = Vector2(38842, -154)
 scale = Vector2(0.560019, 0.560019)
 lever_name = "tree_maze_lever"
 
@@ -261,7 +260,7 @@ scale = Vector2(1.10874, 1.11339)
 texture = ExtResource("2_gc4xo")
 texture_offset = Vector2(0, 3750)
 texture_scale = Vector2(0.25, 0.25)
-polygon = PackedVector2Array(-1009, 5, 108067, 12.0026, 108211, -2983.64, 108250, -4003.86, 53431.7, -4024.94, -1017.97, -4045.87)
+polygon = PackedVector2Array(-1009, 5, 108067, 12.0026, 108211, -2983.64, 108266, -4310.83, 53481.7, -4381.79, -995.425, -4447.35)
 
 [node name="CloudsBG3" type="Polygon2D" parent="World2D/Environment"]
 texture_repeat = 2
@@ -482,39 +481,17 @@ scale = Vector2(6.16004, 6.16004)
 texture = ExtResource("32_mopj3")
 
 [node name="Trunk2" type="Sprite2D" parent="World2D/Platforms & Barriers/TreeMaze"]
-position = Vector2(37382.9, -1798.85)
+position = Vector2(37666.9, -1798.85)
 scale = Vector2(6.16004, 6.16004)
 texture = ExtResource("32_mopj3")
 
-[node name="Branch4" type="Sprite2D" parent="World2D/Platforms & Barriers/TreeMaze"]
-modulate = Color(1, 1, 1, 0.392157)
-position = Vector2(34295, -3192)
-rotation = 3.14159
-scale = Vector2(4.7543, 4.7543)
-texture = ExtResource("33_sjqnv")
-
-[node name="Branch5" type="Sprite2D" parent="World2D/Platforms & Barriers/TreeMaze"]
-modulate = Color(1, 1, 1, 0.392157)
-position = Vector2(36238, -4699)
-scale = Vector2(4.7543, 4.7543)
-texture = ExtResource("33_sjqnv")
-
-[node name="Branch2" type="Sprite2D" parent="World2D/Platforms & Barriers/TreeMaze"]
-modulate = Color(1, 1, 1, 0.392157)
-position = Vector2(33470, -794)
-rotation = 4.43001
-scale = Vector2(4.7543, 4.7543)
-texture = ExtResource("33_sjqnv")
-
-[node name="RBranch2" type="Sprite2D" parent="World2D/Platforms & Barriers/TreeMaze"]
-modulate = Color(1, 1, 1, 0.392157)
-position = Vector2(36978.9, -3170.3)
-rotation = -1.36269
-scale = Vector2(4.7543, 4.7543)
-texture = ExtResource("33_sjqnv")
+[node name="Trunk3" type="Sprite2D" parent="World2D/Platforms & Barriers/TreeMaze"]
+position = Vector2(37672, -5535)
+scale = Vector2(6.16004, 6.16004)
+texture = ExtResource("32_mopj3")
 
 [node name="TreeTop" type="Sprite2D" parent="World2D/Platforms & Barriers/TreeMaze"]
-position = Vector2(37392.9, -6522.82)
+position = Vector2(37676.9, -8722)
 scale = Vector2(9.36006, 9.36006)
 texture = ExtResource("34_g6862")
 
@@ -523,33 +500,56 @@ position = Vector2(33174, -6513)
 scale = Vector2(9.36006, 9.36006)
 texture = ExtResource("34_g6862")
 
-[node name="SwivelBranch5" parent="World2D/Platforms & Barriers/TreeMaze" instance=ExtResource("35_v3v4h")]
-position = Vector2(199, -3662)
+[node name="BranchWithBall" parent="World2D/Platforms & Barriers/TreeMaze" instance=ExtResource("35_v3v4h")]
+position = Vector2(435, -3655)
+script = null
 
-[node name="SwivelBranch4" parent="World2D/Platforms & Barriers/TreeMaze" instance=ExtResource("35_v3v4h")]
-position = Vector2(217, -2427)
+[node name="BranchL1" parent="World2D/Platforms & Barriers/TreeMaze" instance=ExtResource("35_v3v4h")]
+position = Vector2(-2987, -650)
+rotation = -0.00141127
+initial_rotation_degrees = 270.0
+swivel_rotation_degrees = -90.0
+is_disabled_on_swivel = false
 
-[node name="SwivelBranch2" parent="World2D/Platforms & Barriers/TreeMaze" instance=ExtResource("35_v3v4h")]
-position = Vector2(-2038, -58)
+[node name="BranchL2" parent="World2D/Platforms & Barriers/TreeMaze" instance=ExtResource("35_v3v4h")]
+position = Vector2(-2038, -2427)
 rotation = -0.00141127
 initial_rotation_degrees = 180.0
 swivel_rotation_degrees = 80.0
 anchor_point_offset = -1.0
 
-[node name="SwivelBranch6" parent="World2D/Platforms & Barriers/TreeMaze" instance=ExtResource("35_v3v4h")]
-position = Vector2(-2038, -1769)
-rotation = -0.00141127
-initial_rotation_degrees = 180.0
-swivel_rotation_degrees = 80.0
+[node name="BranchR1" parent="World2D/Platforms & Barriers/TreeMaze" instance=ExtResource("35_v3v4h")]
+position = Vector2(383, -264)
+rotation = 0.00709713
+
+[node name="BranchR2" parent="World2D/Platforms & Barriers/TreeMaze" instance=ExtResource("35_v3v4h")]
+position = Vector2(1374, -2255)
+rotation = 0.00709713
+initial_rotation_degrees = 270.0
+swivel_rotation_degrees = 90.0
 anchor_point_offset = -1.0
+is_disabled_on_swivel = false
 
-[node name="SwivelBranch" parent="World2D/Platforms & Barriers/TreeMaze" instance=ExtResource("35_v3v4h")]
-position = Vector2(99, 37)
-rotation = 0.00709713
+[node name="Volleyball" type="RigidBody2D" parent="World2D/Platforms & Barriers/TreeMaze"]
+unique_name_in_owner = true
+z_index = 3
+position = Vector2(36664, -5612)
+scale = Vector2(0.821508, 0.821508)
+collision_layer = 6
+collision_mask = 13
+mass = 0.5
+physics_material_override = SubResource("PhysicsMaterial_6xmqk")
+gravity_scale = 3.0
 
-[node name="SwivelBranch3" parent="World2D/Platforms & Barriers/TreeMaze" instance=ExtResource("35_v3v4h")]
-position = Vector2(99, -2688)
-rotation = 0.00709713
+[node name="Sprite2D" type="Sprite2D" parent="World2D/Platforms & Barriers/TreeMaze/Volleyball"]
+position = Vector2(13.9922, -25.1375)
+scale = Vector2(0.980154, 0.992939)
+texture = ExtResource("36_v3v4h")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/Platforms & Barriers/TreeMaze/Volleyball"]
+position = Vector2(9.99121, -17.137)
+scale = Vector2(1.48002, 1.48002)
+shape = SubResource("CircleShape2D_hvrd6")
 
 [node name="Collectibles" type="Node2D" parent="World2D"]
 
@@ -575,31 +575,12 @@ collectible_name = "pottery3"
 audio = ExtResource("34_onmav")
 
 [node name="GrownUpChonki" parent="." instance=ExtResource("1_6i0tl")]
-position = Vector2(44144, -508)
+position = Vector2(44428, -508)
 speed_multiplier = 0.75
-initial_camera_zoom = Vector2(0.2, 0.2)
+initial_camera_zoom = Vector2(0.1, 0.1)
+win_zoom_intensity = 0.1
 
 [node name="HUD" parent="." instance=ExtResource("20_g3dfk")]
-
-[node name="HayBall" type="RigidBody2D" parent="."]
-unique_name_in_owner = true
-z_index = 3
-position = Vector2(69774, -497)
-collision_layer = 6
-collision_mask = 13
-mass = 0.5
-physics_material_override = SubResource("PhysicsMaterial_6xmqk")
-gravity_scale = 3.0
-
-[node name="Sprite2D" type="Sprite2D" parent="HayBall"]
-position = Vector2(13.9922, -25.1375)
-scale = Vector2(2.71997, 2.75545)
-texture = ExtResource("35_6lx4c")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HayBall"]
-position = Vector2(9.99121, -17.137)
-scale = Vector2(1.48002, 1.48002)
-shape = SubResource("CircleShape2D_hvrd6")
 
 [node name="Leaves" type="GPUParticles2D" parent="."]
 position = Vector2(11553, -1133)

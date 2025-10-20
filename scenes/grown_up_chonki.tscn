@@ -616,7 +616,7 @@ shape = SubResource("RectangleShape2D_jwat3")
 position = Vector2(-9, -518)
 scale = Vector2(486.93, -118.765)
 offset = Vector2(0, -250)
-zoom = Vector2(0.25, 0.25)
+zoom = Vector2(0.2, 0.2)
 script = ExtResource("138_1hqnw")
 target = NodePath("..")
 duration = 10.0
@@ -627,6 +627,7 @@ stream = ExtResource("139_t2k6g")
 [node name="BackgroundAudio" type="AudioStreamPlayer2D" parent="ChonkiCharacter"]
 stream = ExtResource("140_h7loo")
 volume_db = -10.0
+autoplay = true
 
 [node name="AudioWon" type="AudioStreamPlayer2D" parent="ChonkiCharacter"]
 stream = ExtResource("141_luj0f")

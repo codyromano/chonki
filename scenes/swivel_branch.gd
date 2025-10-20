@@ -16,6 +16,11 @@ extends Node2D
 # 1.0 = right edge, -1.0 = left edge, 0.0 = center
 @export var anchor_point_offset: float = 1.0
 
+# Should the branch collisions be disabled initially
+# @export var is_collision_disabled: bool = false
+
+@export var is_disabled_on_swivel: bool = true
+
 @onready var collision_shape: StaticBody2D = find_child('CollisionShape2D')
 @onready var sprite: Sprite2D = find_child('SwivelBranchSprite')
 @onready var collision_shape_rect: CollisionShape2D = find_child('BranchCollisionShape')
@@ -26,6 +31,10 @@ var swivel_tween: Tween
 var debug_timer: float = 0.0
 var debug_toggle_interval: float = 4.0
 
+func _process(_delta) -> void:
+	pass
+	# collision_shape_rect.disabled = (is_disabled_on_swivel && is_swiveled) || (!is_disabled_on_swivel && !is_swiveled)
+		
 func _ready() -> void:	
 	initial_position = collision_shape.position
 	
@@ -44,15 +53,6 @@ func _on_lever_status_changed(lever_name, _is_on) -> void:
 	
 # Swivel the branch to the swiveled position
 func swivel() -> void:
-	if is_animating or is_swiveled:
-		return
-	
-	is_animating = true
-	
-	# Cancel any existing tween
-	if swivel_tween:
-		swivel_tween.kill()
-	
 	swivel_tween = create_tween()
 	swivel_tween.set_parallel(true)
 	
@@ -78,19 +78,10 @@ func swivel() -> void:
 	is_swiveled = true
 	is_animating = false
 	
-	collision_shape_rect.disabled = true
+	# collision_shape_rect.disabled = true
 
 # Un-swivel the branch back to initial position
 func unswivel() -> void:
-	if is_animating or !is_swiveled:
-		return
-	
-	is_animating = true
-	
-	# Cancel any existing tween
-	if swivel_tween:
-		swivel_tween.kill()
-	
 	swivel_tween = create_tween()
 	swivel_tween.set_parallel(true)
 	
@@ -104,8 +95,12 @@ func unswivel() -> void:
 
 # Toggle between swiveled and unswiveled
 func toggle_swivel() -> void:
+	# Cancel any existing tween
+	if swivel_tween:
+		swivel_tween.kill()
+		
 	# Disable collisions while swivel animation is in progress
-	collision_shape_rect.disabled = false
+	# collision_shape_rect.disabled = false
 	if is_swiveled:
 		unswivel()
 	else:
@@ -129,4 +124,5 @@ func _set_swiveled_state_instant(swiveled: bool) -> void:
 
 
 func _on_timer_timeout() -> void:
-	toggle_swivel()
+	pass
+	# toggle_swivel()
