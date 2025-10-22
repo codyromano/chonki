@@ -15,6 +15,7 @@ position = Vector2(36183.9, -1552.33)
 [node name="BranchCollisionShape" type="CollisionShape2D" parent="CollisionShape2D"]
 position = Vector2(-75.5234, 115.83)
 shape = SubResource("RectangleShape2D_branch")
+one_way_collision = true
 
 [node name="SwivelBranchSprite" type="Sprite2D" parent="CollisionShape2D"]
 position = Vector2(-94.8984, 58.33)

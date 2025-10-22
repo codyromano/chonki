@@ -764,7 +764,7 @@ z_index = 1
 position = Vector2(7280, -2245)
 collision_layer = 32
 collision_mask = 65
-timer_duration = 1.5
+timer_duration = 3.0
 lever_name = "fork_lift_lever"
 
 [node name="Lever2" parent="Items/Levers" instance=ExtResource("13_50tjc")]

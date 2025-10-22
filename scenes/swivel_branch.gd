@@ -16,6 +16,9 @@ extends Node2D
 # 1.0 = right edge, -1.0 = left edge, 0.0 = center
 @export var anchor_point_offset: float = 1.0
 
+# Rotation of the collision shape rectangle (for controlling one-way collision direction)
+@export var collision_shape_rectangle_rotation: float = 0.0
+
 # Should the branch collisions be disabled initially
 # @export var is_collision_disabled: bool = false
 
@@ -32,7 +35,8 @@ var debug_timer: float = 0.0
 var debug_toggle_interval: float = 4.0
 
 func _process(_delta) -> void:
-	pass
+	# Apply the collision shape rectangle rotation from the export variable
+	collision_shape_rect.rotation_degrees = collision_shape_rectangle_rotation
 	# collision_shape_rect.disabled = (is_disabled_on_swivel && is_swiveled) || (!is_disabled_on_swivel && !is_swiveled)
 		
 func _ready() -> void:	
@@ -53,6 +57,9 @@ func _on_lever_status_changed(lever_name, _is_on) -> void:
 	
 # Swivel the branch to the swiveled position
 func swivel() -> void:
+	# Disable one-way collision during swivel so player can collide normally
+	collision_shape_rect.one_way_collision = false
+	
 	swivel_tween = create_tween()
 	swivel_tween.set_parallel(true)
 	
@@ -78,10 +85,16 @@ func swivel() -> void:
 	is_swiveled = true
 	is_animating = false
 	
+	# Re-enable one-way collision after swivel completes
+	collision_shape_rect.one_way_collision = true
+	
 	# collision_shape_rect.disabled = true
 
 # Un-swivel the branch back to initial position
 func unswivel() -> void:
+	# Disable one-way collision during unswivel so player can collide normally
+	collision_shape_rect.one_way_collision = false
+	
 	swivel_tween = create_tween()
 	swivel_tween.set_parallel(true)
 	
@@ -92,6 +105,9 @@ func unswivel() -> void:
 	await swivel_tween.finished
 	is_swiveled = false
 	is_animating = false
+	
+	# Re-enable one-way collision after unswivel completes
+	collision_shape_rect.one_way_collision = true
 
 # Toggle between swiveled and unswiveled
 func toggle_swivel() -> void:
