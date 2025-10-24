@@ -162,5 +162,7 @@ func get_avatar_texture(avatar_name: String) -> CompressedTexture2D:
 		# Add more avatar mappings here as needed
 		"momo":
 			return load("res://assets/avatar/avatar-momo.png")
+		"ruby":
+			return load("res://assets/avatar/avatar-ruby.png")
 		_:
 			return null

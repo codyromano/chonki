@@ -38,25 +38,30 @@ func _process(_delta) -> void:
 		_initiate_dialogue()
 
 func _on_dialogue_dismissed(_instruction_trigger_id: String) -> void:
-	# Mark that we're waiting for the read key to be released before allowing re-trigger
-	waiting_for_key_release = true
-	is_in_dialogue = false
+	# Only mark as not in dialogue if we're actually ending the conversation
+	# (not just transitioning between dialogue nodes)
+	if is_in_dialogue and current_dialogue_node and current_dialogue_node.choices.size() == 0:
+		is_in_dialogue = false
+		waiting_for_key_release = true
 
 func _on_dialogue_option_selected(option_id: String, _option_text: String) -> void:
 	# Only handle this if we're currently in dialogue with this quest giver
 	if !is_in_dialogue:
 		return
 	
-	# Dismiss the current dialogue first
-	GlobalSignals.dismiss_active_main_dialogue.emit("")
-	
 	# Find the next node based on the selected option
 	var next_node = get_next_dialogue_node_custom(current_dialogue_node, option_id)
 	if next_node:
 		current_dialogue_node = next_node
+		# Dismiss the current dialogue first
+		GlobalSignals.dismiss_active_main_dialogue.emit("")
 		# Wait a frame before displaying the next node to ensure the current dialogue is dismissed
 		await get_tree().process_frame
 		_display_current_node()
+	else:
+		# No next node, end the dialogue
+		GlobalSignals.dismiss_active_main_dialogue.emit("")
+		is_in_dialogue = false
 	# Warnings are already handled in get_next_dialogue_node()
 
 func _initiate_dialogue() -> void:

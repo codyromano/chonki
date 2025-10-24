@@ -75,8 +75,6 @@ func _create_dialogue_options(choices: Array) -> void:
 		first_option.grab_focus()
 
 func _unhandled_input(event: InputEvent) -> void:
-	print("[MainDialogueDisplay] _unhandled_input called, is_dismissing=", is_dismissing, " can_dismiss=", can_dismiss_dialogue)
-	
 	# Don't handle input if we're already dismissing or can't dismiss
 	if is_dismissing or !can_dismiss_dialogue:
 		return
