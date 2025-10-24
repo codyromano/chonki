@@ -1,4 +1,4 @@
-[gd_scene load_steps=67 format=3 uid="uid://br8ftak73gmww"]
+[gd_scene load_steps=69 format=3 uid="uid://br8ftak73gmww"]
 
 [ext_resource type="PackedScene" uid="uid://bk3oytbasgs5w" path="res://scenes/grown_up_chonki.tscn" id="1_6i0tl"]
 [ext_resource type="Script" uid="uid://b2cncqbuotdcl" path="res://scenes/level_1.gd" id="1_hvrd6"]
@@ -34,6 +34,7 @@
 [ext_resource type="Script" uid="uid://b5gtgqwpligv2" path="res://scenes/composable/bicyclist_patrol_loop.gd" id="26_b2buy"]
 [ext_resource type="Texture2D" uid="uid://c1jvgsj8ygn4l" path="res://assets/enemies/bike/bike2.png" id="26_x6hvv"]
 [ext_resource type="Texture2D" uid="uid://dvr6b70gg7k47" path="res://assets/enemies/bike/bike_concerned.png" id="27_abcde"]
+[ext_resource type="Texture2D" uid="uid://3nvx2tg0goeu" path="res://assets/friends/volleyball/volleyball_concerned.png" id="31_vutef"]
 [ext_resource type="PackedScene" uid="uid://bm55n82sfyn37" path="res://scenes/collectible.tscn" id="32_5ipuv"]
 [ext_resource type="Texture2D" uid="uid://c1pegd4l1nkvx" path="res://assets/environment/level1/trunk.png" id="32_mopj3"]
 [ext_resource type="Texture2D" uid="uid://crqhusuex0bur" path="res://assets/collectibles/pottery_1.png" id="33_onmav"]
@@ -179,6 +180,28 @@ animations = [{
 "speed": 1.0
 }]
 
+[sub_resource type="SpriteFrames" id="SpriteFrames_y3pui"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("34_6lx4c")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tjdkg"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("31_vutef")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_3owu1"]
 size = Vector2(3413.88, 20748.8)
 
@@ -224,17 +247,6 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_y3pui"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("34_6lx4c")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
-
 [node name="Level1" type="Node2D"]
 position = Vector2(-5159, -12)
 script = ExtResource("1_hvrd6")
@@ -243,6 +255,7 @@ script = ExtResource("1_hvrd6")
 position = Vector2(38842, -154)
 scale = Vector2(0.560019, 0.560019)
 lever_name = "tree_maze_lever"
+touchable_while_timer_is_active = false
 
 [node name="World2D" type="Node2D" parent="." groups=["world"]]
 unique_name_in_owner = true
@@ -405,6 +418,16 @@ position = Vector2(61439, 5170)
 script = ExtResource("26_b2buy")
 body = NodePath("../Bicyclist")
 move_duration = 6.0
+
+[node name="MomoQuestGiver" parent="World2D/NPCs" instance=ExtResource("37_hvrd6")]
+position = Vector2(58892, -486)
+script = ExtResource("38_y3pui")
+frames = SubResource("SpriteFrames_y3pui")
+
+[node name="VolleyballQuestGiver" parent="World2D/NPCs" instance=ExtResource("37_hvrd6")]
+position = Vector2(41352, -886)
+frames = SubResource("SpriteFrames_tjdkg")
+sprite_scale = Vector2(4, 4)
 
 [node name="Platforms & Barriers" type="Node2D" parent="World2D"]
 
@@ -602,11 +625,6 @@ leaf_texture = ExtResource("38_1vjko")
 scale_range = Vector2(0.75, 1.25)
 color_variation = false
 enable_wind_zones = false
-
-[node name="MomoQuestGiver" parent="." instance=ExtResource("37_hvrd6")]
-position = Vector2(64051, -474)
-script = ExtResource("38_y3pui")
-frames = SubResource("SpriteFrames_y3pui")
 
 [node name="TitleLayers" type="Node2D" parent="."]
 

@@ -51,14 +51,18 @@ func _ready() -> void:
 	if is_swiveled:
 		_set_swiveled_state_instant(true)
 
-func _on_lever_status_changed(lever_name, _is_on) -> void:
+func _on_lever_status_changed(lever_name, is_on) -> void:
 	if lever_name == "tree_maze_lever":
-		toggle_swivel()
+		# Set swivel state based on lever state
+		if is_on && !is_swiveled:
+			swivel()
+		elif !is_on && is_swiveled:
+			unswivel()
 	
 # Swivel the branch to the swiveled position
 func swivel() -> void:
 	# Disable one-way collision during swivel so player can collide normally
-	collision_shape_rect.one_way_collision = false
+	collision_shape_rect.set_deferred("one_way_collision", false)
 	
 	swivel_tween = create_tween()
 	swivel_tween.set_parallel(true)
@@ -86,14 +90,14 @@ func swivel() -> void:
 	is_animating = false
 	
 	# Re-enable one-way collision after swivel completes
-	collision_shape_rect.one_way_collision = true
+	collision_shape_rect.set_deferred("one_way_collision", true)
 	
 	# collision_shape_rect.disabled = true
 
 # Un-swivel the branch back to initial position
 func unswivel() -> void:
 	# Disable one-way collision during unswivel so player can collide normally
-	collision_shape_rect.one_way_collision = false
+	collision_shape_rect.set_deferred("one_way_collision", false)
 	
 	swivel_tween = create_tween()
 	swivel_tween.set_parallel(true)
@@ -107,7 +111,7 @@ func unswivel() -> void:
 	is_animating = false
 	
 	# Re-enable one-way collision after unswivel completes
-	collision_shape_rect.one_way_collision = true
+	collision_shape_rect.set_deferred("one_way_collision", true)
 
 # Toggle between swiveled and unswiveled
 func toggle_swivel() -> void:
