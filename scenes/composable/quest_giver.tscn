@@ -31,6 +31,8 @@ position = Vector2(0, 43)
 sprite_frames = SubResource("SpriteFrames_6lx4c")
 
 [node name="Area2D" type="Area2D" parent="."]
+collision_layer = 64
+collision_mask = 5
 
 [node name="QuestGiverCollisionShape" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(34, 26)
@@ -39,9 +41,9 @@ shape = SubResource("RectangleShape2D_6lx4c")
 [node name="Instructions" type="Label" parent="."]
 modulate = Color(1, 1, 1, 0)
 offset_left = -496.0
-offset_top = -755.0
-offset_right = 613.0
-offset_bottom = -598.0
+offset_top = -1135.0
+offset_right = 648.0
+offset_bottom = -978.0
 theme = ExtResource("4_s3tby")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)

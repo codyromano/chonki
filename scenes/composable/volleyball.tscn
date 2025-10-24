@@ -19,7 +19,7 @@ movement_speed_seconds = 3.0
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 position = Vector2(13021.2, -2451.75)
-scale = Vector2(0.666504, 0.666504)
+scale = Vector2(1.2265, 1.2265)
 texture = ExtResource("2_23g3a")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]

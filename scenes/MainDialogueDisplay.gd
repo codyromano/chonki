@@ -75,14 +75,11 @@ func _create_dialogue_options(choices: Array) -> void:
 		first_option.grab_focus()
 
 func _unhandled_input(event: InputEvent) -> void:
-	print("[MainDialogueDisplay] _unhandled_input called, is_dismissing=", is_dismissing, " can_dismiss=", can_dismiss_dialogue)
-	
 	# Don't handle input if we're already dismissing or can't dismiss
 	if is_dismissing or !can_dismiss_dialogue:
 		return
 		
 	if event.is_action_pressed("read") or event.is_action_pressed("jump"):
-		print("[MainDialogueDisplay] Emitting dismiss signal")
 		is_dismissing = true
 		GlobalSignals.dismiss_active_main_dialogue.emit("")
 		# Stop the event from propagating further and prevent multiple dismissals.

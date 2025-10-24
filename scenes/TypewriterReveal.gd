@@ -2,7 +2,7 @@ extends Label
 
 signal animation_complete
 
-@export var animation_duration: float = 3.0
+@export var seconds_per_character: float = 0.02
 
 # This is hacky :(
 @onready var pen_sound: AudioStreamPlayer = get_parent().get_parent().get_parent().find_child('PenWritingSound')
@@ -11,15 +11,18 @@ signal animation_complete
 var characters_revealed: int = 0
 var start_time: float
 var animation_finished: bool = false
+var total_animation_duration: float = 0.0
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
 	if !start_time:
 		pen_sound.play()
 		start_time = Time.get_unix_time_from_system()
+		# Calculate total duration based on text length
+		total_animation_duration = text_after_reveal.length() * seconds_per_character
 	
-	var time_elapsed = min(Time.get_unix_time_from_system() - start_time, animation_duration)
-	var progress_ratio = time_elapsed / animation_duration
+	var time_elapsed = min(Time.get_unix_time_from_system() - start_time, total_animation_duration)
+	var progress_ratio = time_elapsed / total_animation_duration if total_animation_duration > 0 else 1.0
 	# Update the characters revealed count
 	characters_revealed = ceil(text_after_reveal.length() * progress_ratio)
 	
