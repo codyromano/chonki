@@ -27,6 +27,7 @@ FloatingHeartsManager="*res://FloatingHeartsManager.gd"
 AnimationConstantsFile="*res://scripts/AnimationConstants.gd"
 PlayerMovementController="*res://scenes/PlayerMovementController.gd"
 MainDialogueController="*res://scenes/MainDialogueController.gd"
+PlayerInventory="*res://scripts/PlayerInventory.gd"
 
 [display]
 

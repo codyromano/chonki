@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dmvfy4x1ini0v"]
+
+[ext_resource type="Texture2D" uid="uid://b0c3m5cubs7sq" path="res://assets/environment/bench.png" id="1_gpgcu"]
+
+[node name="Bench" type="Sprite2D"]
+z_index = 2
+scale = Vector2(4.28, 4.28)
+texture = ExtResource("1_gpgcu")

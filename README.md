@@ -113,6 +113,30 @@ Handles fade transitions and library access. **IMPORTANT**: This controller exis
 
 **Input Handling**: Responds to "read" action (`Input.is_action_just_pressed("read")`) only when player is standing at library AND hasn't already entered.
 
+## PlayerInventory System
+
+**Location**: `res://scripts/PlayerInventory.gd`
+
+A strongly-typed inventory system for tracking quest items and collectibles across scenes. Items are defined as an enum for compile-time safety.
+
+**Key Features**:
+- Enum-based item types (e.g., `PlayerInventory.Item.POTTERY_1`, `PlayerInventory.Item.MOMO_QUEST`)
+- Persistent across scene transitions (singleton)
+- Methods: `add_item()`, `remove_item()`, `has_item()`, `get_items()`, `clear_inventory()`
+
+### SpawnLocation System
+
+**Location**: `res://scenes/spawn_location.tscn`
+
+Marker2D nodes that control conditional spawning of collectibles based on quest progression or game events.
+
+**How It Works**:
+- Add a SpawnLocation node with a Node2D as its child
+- Set `item_name` export variable to match a `PlayerInventory.Item` enum value
+- Child is invisible and has disabled collisions until triggered
+- Emit `GlobalSignals.spawn_item_in_location.emit(PlayerInventory.Item)` to reveal the collectible
+- Set `auto_spawn = true` to show the item immediately without waiting for signal
+
 ## Coding Conventions
 
 - Don't add comments
