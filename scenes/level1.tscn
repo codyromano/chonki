@@ -1,4 +1,4 @@
-[gd_scene load_steps=71 format=3 uid="uid://br8ftak73gmww"]
+[gd_scene load_steps=73 format=3 uid="uid://br8ftak73gmww"]
 
 [ext_resource type="PackedScene" uid="uid://bk3oytbasgs5w" path="res://scenes/grown_up_chonki.tscn" id="1_6i0tl"]
 [ext_resource type="Script" uid="uid://b2cncqbuotdcl" path="res://scenes/level_1.gd" id="1_hvrd6"]
@@ -55,6 +55,8 @@
 [ext_resource type="Script" uid="uid://bohb45sc7o600" path="res://scenes/MoveLeftOrRightText.gd" id="42_5ipuv"]
 [ext_resource type="Script" uid="uid://4mx2cyi0i3oy" path="res://scenes/composable/jump_text.gd" id="43_onmav"]
 [ext_resource type="Theme" uid="uid://dte5an7k6hog1" path="res://themes/base.tres" id="44_y4ufg"]
+[ext_resource type="PackedScene" uid="uid://divvcbosmeqxn" path="res://scenes/SecretLetter.tscn" id="56_yqdyt"]
+[ext_resource type="Script" uid="uid://dcemo5f7jvunp" path="res://scenes/SecretLetterAMarker.gd" id="57_4yyev"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_1ju1f"]
 vertices = PackedVector2Array(18088, 3, 13139, 8, 13188, -2378, 18259, -2419)
@@ -438,7 +440,7 @@ frames = SubResource("SpriteFrames_y3pui")
 position = Vector2(41352, -886)
 script = ExtResource("31_vutef")
 frames = SubResource("SpriteFrames_uledv")
-sprite_scale = Vector2(4, 4)
+sprite_scale = Vector2(1, 1)
 avatar_name = "ruby"
 
 [node name="Platforms & Barriers" type="Node2D" parent="World2D"]
@@ -728,6 +730,20 @@ theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
 theme_override_constants/outline_size = 20
 theme_override_font_sizes/font_size = 30
 text = "Mystery letters discovered"
+
+[node name="Letters" type="Node" parent="."]
+
+[node name="SecretLetterA" parent="Letters" instance=ExtResource("56_yqdyt")]
+visible = false
+offset_left = 38924.0
+offset_top = -2604.0
+offset_right = 38988.0
+offset_bottom = -2540.0
+scale = Vector2(10.8, 10.8)
+
+[node name="SecretLetterAMarker" type="Marker2D" parent="Letters"]
+position = Vector2(38964, -2586)
+script = ExtResource("57_4yyev")
 
 [connection signal="timeout" from="World2D/NPCs/GooseRegion2D/Goose/Timer" to="World2D/NPCs/GooseRegion2D/Goose" method="_on_hop_timer_timeout"]
 [connection signal="body_entered" from="World2D/NPCs/Bicyclist" to="World2D/NPCs/Bicyclist" method="_on_body_entered"]

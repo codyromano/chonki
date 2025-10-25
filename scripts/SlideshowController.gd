@@ -59,7 +59,16 @@ func _start_slideshow() -> void:
 		image.modulate.a = 1.0
 		
 		# --- Wait for Display Duration ---
-		var current_display_duration = 3.0 if (i == images.size() - 1) else display_duration
+		var current_display_duration: float
+		if i == 0:
+			# First image displays twice as long
+			current_display_duration = display_duration * 2.0
+		elif i == images.size() - 1:
+			# Last image displays for 3 seconds
+			current_display_duration = 3.0
+		else:
+			# Other images use normal duration
+			current_display_duration = display_duration
 		print("Displaying ", image.name, " for ", current_display_duration, " seconds")
 		await get_tree().create_timer(current_display_duration).timeout
 		print("Display time complete for ", image.name)
@@ -81,25 +90,9 @@ func _start_slideshow() -> void:
 	
 	print("Slideshow finished. Starting final fade...")
 	
-	# Check if we're in the after_intro_animation_sequence scene (which has AfterCutsceneTextLayer)
+	# Check if we're in the after_intro_animation_sequence scene
 	var current_scene_name = get_tree().current_scene.name
 	var is_after_intro_scene = current_scene_name == "after_intro_animation_sequence"
-	
-	# Get reference to the AfterCutsceneTextLayer and its control node (only for after_intro scene)
-	var after_text_layer = null
-	var after_text_control = null
-	if is_after_intro_scene:
-		after_text_layer = get_tree().current_scene.get_node_or_null("AfterCutsceneTextLayer")
-		if after_text_layer:
-			after_text_control = after_text_layer.get_node_or_null("AfterCutsceneTextControl")
-			if after_text_control:
-				# Initially hide the text control
-				after_text_control.modulate.a = 0.0
-				after_text_layer.visible = true
-			else:
-				print("Warning: AfterCutsceneTextControl not found")
-		else:
-			print("Warning: AfterCutsceneTextLayer not found in after_intro scene")
 	
 	# Create a black overlay for fade effect
 	var black_overlay = ColorRect.new()
@@ -129,13 +122,10 @@ func _start_slideshow() -> void:
 	black_overlay.queue_free()
 	
 	# Handle different scenes differently
-	if is_after_intro_scene and after_text_control:
-		# For after_intro_animation_sequence: fade in the text control and stay
-		print("Showing final text for after_intro scene...")
-		var text_fade_tween = create_tween()
-		text_fade_tween.tween_property(after_text_control, "modulate:a", 1.0, 0.5)
-		await text_fade_tween.finished
-		print("Text layer fade-in complete. Scene will remain on final text.")
+	if is_after_intro_scene:
+		# For after_intro_animation_sequence: transition to level1.tscn
+		print("Transitioning to level1.tscn...")
+		FadeTransition.fade_out_and_change_scene("res://scenes/level1.tscn")
 	else:
 		# For other opening animation sequences: transition to intro.tscn
 		print("Transitioning to intro.tscn...")
