@@ -53,26 +53,30 @@ size_flags_horizontal = 0
 size_flags_vertical = 4
 
 [node name="Heart1" type="TextureRect" parent="HUDControl/VBoxContainer/TopMenuHBoxContainer/HeartsHBoxContainer"]
+custom_minimum_size = Vector2(50, 25)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
 texture = ExtResource("2")
+expand_mode = 3
 stretch_mode = 2
 
 [node name="Heart2" type="TextureRect" parent="HUDControl/VBoxContainer/TopMenuHBoxContainer/HeartsHBoxContainer"]
-custom_minimum_size = Vector2(50, 50)
+custom_minimum_size = Vector2(50, 25)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
 texture = ExtResource("2")
+expand_mode = 3
 stretch_mode = 2
 
 [node name="Heart3" type="TextureRect" parent="HUDControl/VBoxContainer/TopMenuHBoxContainer/HeartsHBoxContainer"]
-custom_minimum_size = Vector2(50, 50)
+custom_minimum_size = Vector2(50, 25)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
 texture = ExtResource("2")
+expand_mode = 3
 stretch_mode = 2
 
 [node name="Label" type="Label" parent="HUDControl/VBoxContainer/TopMenuHBoxContainer/HeartsHBoxContainer"]
