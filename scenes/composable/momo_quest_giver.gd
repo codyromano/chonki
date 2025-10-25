@@ -10,10 +10,26 @@ func _get_dialogue_tree() -> DialogueTree:
 	
 	# If player has collected all 3 pieces, show completion message
 	if pottery_count == 3:
-		var momo_complete = DialogueNode.new()
-		momo_complete.text = "Thanks for your help! Here...take this reward!"
-		momo_complete.choices = []
-		momo_tree.root_node = momo_complete
+		# Completion dialogue - Part 3
+		var momo_complete_part3 = DialogueNode.new()
+		momo_complete_part3.text = "In the meantime, take this reward!"
+		momo_complete_part3.choices = []
+		
+		# Completion dialogue - Part 2
+		var momo_complete_part2 = DialogueNode.new()
+		momo_complete_part2.text = "Maybe we should set up our owners on a playdate sometime. That'd be good for them."
+		momo_complete_part2.choices = [
+			{"id": "momo-complete-continue-2", "text": "Continue", "next_node": momo_complete_part3}
+		]
+		
+		# Completion dialogue - Part 1
+		var momo_complete_part1 = DialogueNode.new()
+		momo_complete_part1.text = "You found them! Thanks, Gus!"
+		momo_complete_part1.choices = [
+			{"id": "momo-complete-continue-1", "text": "Continue", "next_node": momo_complete_part2}
+		]
+		
+		momo_tree.root_node = momo_complete_part1
 		return momo_tree
 	
 	# If player has collected some but not all pieces, show progress message
@@ -33,14 +49,22 @@ func _get_dialogue_tree() -> DialogueTree:
 	momo_decline.text = "Oh, that's too bad. Let me know if you change your mind."
 	momo_decline.choices = []
 
-	var momo_offer = DialogueNode.new()
-	momo_offer.text = "Hello! I lost some pieces of pottery. Can you help me find them?"
-	momo_offer.choices = [
+	# Initial offer - Part 2
+	var momo_offer_part2 = DialogueNode.new()
+	momo_offer_part2.text = "Sadly, she lost 3 of her favorite pieces around Green Lake... Will you help me find them?"
+	momo_offer_part2.choices = [
 		{"id": "momo-accept", "text": "Yes, I'll help!", "next_node": momo_accept},
 		{"id": "momo-decline", "text": "No, sorry.", "next_node": momo_decline}
 	]
 
-	momo_tree.root_node = momo_offer
+	# Initial offer - Part 1
+	var momo_offer_part1 = DialogueNode.new()
+	momo_offer_part1.text = "Did your owner pick up any hobbies during quarantine? Mine got *obsessed* with pottery."
+	momo_offer_part1.choices = [
+		{"id": "momo-continue-1", "text": "Continue", "next_node": momo_offer_part2}
+	]
+
+	momo_tree.root_node = momo_offer_part1
 	return momo_tree
 
 func _count_pottery_pieces() -> int:

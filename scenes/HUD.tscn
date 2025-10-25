@@ -28,8 +28,6 @@ layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = 19.0
-offset_right = 330.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 3
@@ -40,25 +38,21 @@ layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -387.0
-offset_right = 395.0
 grow_horizontal = 2
 grow_vertical = 2
 
 [node name="TopMenuHBoxContainer" type="HBoxContainer" parent="HUDControl/VBoxContainer"]
 layout_mode = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 0
 size_flags_vertical = 0
 
 [node name="HeartsHBoxContainer" type="HBoxContainer" parent="HUDControl/VBoxContainer/TopMenuHBoxContainer"]
-custom_minimum_size = Vector2(400, 0)
+custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
 
 [node name="Heart1" type="TextureRect" parent="HUDControl/VBoxContainer/TopMenuHBoxContainer/HeartsHBoxContainer"]
-visible = false
-custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
@@ -66,7 +60,6 @@ texture = ExtResource("2")
 stretch_mode = 2
 
 [node name="Heart2" type="TextureRect" parent="HUDControl/VBoxContainer/TopMenuHBoxContainer/HeartsHBoxContainer"]
-visible = false
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -75,7 +68,6 @@ texture = ExtResource("2")
 stretch_mode = 2
 
 [node name="Heart3" type="TextureRect" parent="HUDControl/VBoxContainer/TopMenuHBoxContainer/HeartsHBoxContainer"]
-visible = false
 custom_minimum_size = Vector2(50, 50)
 layout_mode = 2
 size_flags_horizontal = 0
@@ -121,11 +113,13 @@ theme_override_constants/separation = 50
 alignment = 2
 
 [node name="StarIcon" type="TextureRect" parent="HUDControl/VBoxContainer/TopMenuHBoxContainer/BooksHBoxContainer"]
+visible = false
 layout_mode = 2
 texture = ExtResource("6_rxnsk")
 stretch_mode = 2
 
 [node name="StarLabel" type="Label" parent="HUDControl/VBoxContainer/TopMenuHBoxContainer/BooksHBoxContainer"]
+visible = false
 custom_minimum_size = Vector2(50, 0)
 layout_mode = 2
 theme = ExtResource("4_a3yto")
