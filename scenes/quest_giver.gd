@@ -49,6 +49,8 @@ func _on_dialogue_dismissed(_instruction_trigger_id: String) -> void:
 	if is_in_dialogue and current_dialogue_node and current_dialogue_node.choices.size() == 0:
 		is_in_dialogue = false
 		waiting_for_key_release = true
+		# Call the on_dialogue_finished callback before resetting
+		on_dialogue_finished()
 		# Reset to start from root on next interaction
 		current_dialogue_node = null
 
@@ -99,6 +101,10 @@ func _display_current_node() -> void:
 	var text: String = current_dialogue_node.text
 	var choices = current_dialogue_node.choices if (current_dialogue_node.choices != null and current_dialogue_node.choices.size() > 0) else []
 	GlobalSignals.queue_main_dialogue.emit(text, "", avatar_name, choices)
+
+# Override this method in child classes to handle when all dialogue is finished
+func on_dialogue_finished() -> void:
+	pass
 
 # Reset dialogue state (e.g., when quest completes)
 func reset_dialogue() -> void:

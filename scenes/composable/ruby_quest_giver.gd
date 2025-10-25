@@ -62,10 +62,6 @@ func get_next_dialogue_node_custom(current_node: DialogueNode, selected_option_i
 func _on_body_entered_override(body: Node2D) -> void:
 	# Check if the body is the volleyball
 	if body.name == "Volleyball":
-		# Emit signal to unlock the reward if not already returned
-		if not volleyball_returned:
-			GlobalSignals.unlock_ruby_quest_reward.emit()
-		
 		# Mark that volleyball has been returned
 		volleyball_returned = true
 		# Reset dialogue to show the thank you dialogue
@@ -79,3 +75,8 @@ func _on_body_entered_override(body: Node2D) -> void:
 		body.queue_free()
 		
 		sprite.play('happy')
+
+func on_dialogue_finished() -> void:
+	# Only emit signal if volleyball has been returned (completion dialogue was shown)
+	if volleyball_returned:
+		GlobalSignals.unlock_ruby_quest_reward.emit()
