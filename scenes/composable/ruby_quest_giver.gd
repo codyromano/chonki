@@ -6,10 +6,17 @@ func _get_dialogue_tree() -> DialogueTree:
 	ruby_thanks.text = "Whoa, you found it! You are officially promoted to Captain Corgi of the Sky-Serve Squad.\n\nYou know, I think I forgot how to talk to people. My first full sentence this week was to a vending machine. It did not respond well to feedback.\n\nStill… maybe this is how it starts again. A lost ball, a found friend, a reminder that the city's still full of bounce.\n\nThanks, Gus. If you ever need a sub for beach volleyball—or emotional support—I'm your girl."
 	ruby_thanks.choices = []
 	
+	# Dialogue 1 - First encounter (quest offer) - Part 4
+	var ruby_intro_part4 = DialogueNode.new()
+	ruby_intro_part4.text = "It's weird—I used to hate crowds. Now I miss strangers. Anyway! Ball first, therapy later."
+	ruby_intro_part4.choices = []
+	
 	# Dialogue 1 - First encounter (quest offer) - Part 3
 	var ruby_intro_part3 = DialogueNode.new()
-	ruby_intro_part3.text = "I've been coming here every weekend since… well, since the city started breathing again. It's weird—I used to hate crowds. Now I miss strangers. Anyway! Ball first, therapy later."
-	ruby_intro_part3.choices = []
+	ruby_intro_part3.text = "I've been coming here every weekend since… well, since the city started breathing again."
+	ruby_intro_part3.choices = [
+		{"id": "ruby-continue-3", "text": "Continue", "next_node": ruby_intro_part4}
+	]
 	
 	# Dialogue 1 - First encounter (quest offer) - Part 2
 	var ruby_intro_part2 = DialogueNode.new()
@@ -32,5 +39,14 @@ func _get_dialogue_tree() -> DialogueTree:
 func get_next_dialogue_node_custom(current_node: DialogueNode, selected_option_id: String) -> DialogueNode:
 	return get_next_dialogue_node(current_node, selected_option_id)
 
-func _on_body_entered_override(_body: Node2D) -> void:
-	pass
+func _on_body_entered_override(body: Node2D) -> void:
+	# Check if the body is the volleyball
+	if body.name == "Volleyball":
+		# Create a tween to fade out the volleyball
+		var tween = create_tween()
+		tween.tween_property(body, "modulate:a", 0.0, 1.0)
+		await tween.finished
+		# Queue free deferred after fade completes
+		body.queue_free()
+		
+		sprite.play('happy')

@@ -1,4 +1,4 @@
-[gd_scene load_steps=70 format=3 uid="uid://br8ftak73gmww"]
+[gd_scene load_steps=71 format=3 uid="uid://br8ftak73gmww"]
 
 [ext_resource type="PackedScene" uid="uid://bk3oytbasgs5w" path="res://scenes/grown_up_chonki.tscn" id="1_6i0tl"]
 [ext_resource type="Script" uid="uid://b2cncqbuotdcl" path="res://scenes/level_1.gd" id="1_hvrd6"]
@@ -39,6 +39,7 @@
 [ext_resource type="Texture2D" uid="uid://c1pegd4l1nkvx" path="res://assets/environment/level1/trunk.png" id="32_mopj3"]
 [ext_resource type="Texture2D" uid="uid://3nvx2tg0goeu" path="res://assets/friends/volleyball/volleyball_concerned.png" id="32_tjdkg"]
 [ext_resource type="Texture2D" uid="uid://crqhusuex0bur" path="res://assets/collectibles/pottery_1.png" id="33_onmav"]
+[ext_resource type="Texture2D" uid="uid://bgh1g2nyfpojr" path="res://assets/friends/volleyball/ruby_happy.png" id="33_uledv"]
 [ext_resource type="Texture2D" uid="uid://dkductyaildvy" path="res://assets/friends/momo/momo.png" id="34_6lx4c"]
 [ext_resource type="Texture2D" uid="uid://isjdue6t5l6t" path="res://assets/environment/level1/trunk_top.png" id="34_g6862"]
 [ext_resource type="AudioStream" uid="uid://fe6cpw1jxqka" path="res://assets/sound/wind_whoosh.mp3" id="34_onmav"]
@@ -200,6 +201,14 @@ animations = [{
 }],
 "loop": true,
 "name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("33_uledv")
+}],
+"loop": true,
+"name": &"happy",
 "speed": 5.0
 }]
 
@@ -565,7 +574,7 @@ is_disabled_on_swivel = false
 [node name="Volleyball" type="RigidBody2D" parent="World2D/Platforms & Barriers/TreeMaze"]
 unique_name_in_owner = true
 z_index = 3
-position = Vector2(40682, -408)
+position = Vector2(36675, -5647)
 scale = Vector2(0.821508, 0.821508)
 collision_layer = 4
 collision_mask = 65
