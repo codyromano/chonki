@@ -366,7 +366,7 @@ volume_db = 10.0
 
 [node name="CrowBody" type="CharacterBody2D" parent="World2D/NPCs"]
 z_index = 1
-position = Vector2(39118, -4553)
+position = Vector2(50154, -4553)
 rotation = 0.797312
 script = ExtResource("15_4leuf")
 
@@ -560,7 +560,7 @@ is_disabled_on_swivel = false
 [node name="BranchR1" parent="World2D/Platforms & Barriers/TreeMaze" instance=ExtResource("35_v3v4h")]
 position = Vector2(383, -264)
 rotation = 0.00709713
-swivel_animation_duration = 3.0
+swivel_animation_duration = 2.0
 is_disabled_on_swivel = false
 
 [node name="BranchR2" parent="World2D/Platforms & Barriers/TreeMaze" instance=ExtResource("35_v3v4h")]

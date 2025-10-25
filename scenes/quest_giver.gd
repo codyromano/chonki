@@ -15,6 +15,7 @@ var can_trigger_dialogue: bool = true
 var waiting_for_key_release: bool = false
 var current_dialogue_node: DialogueNode = null
 var is_in_dialogue: bool = false
+var is_transitioning_dialogue: bool = false
 
 func _ready() -> void:
 	sprite.sprite_frames = frames
@@ -38,11 +39,18 @@ func _process(_delta) -> void:
 		_initiate_dialogue()
 
 func _on_dialogue_dismissed(_instruction_trigger_id: String) -> void:
+	# If we're transitioning between dialogue nodes, don't end the dialogue
+	if is_transitioning_dialogue:
+		is_transitioning_dialogue = false
+		return
+	
 	# Only mark as not in dialogue if we're actually ending the conversation
 	# (not just transitioning between dialogue nodes)
 	if is_in_dialogue and current_dialogue_node and current_dialogue_node.choices.size() == 0:
 		is_in_dialogue = false
 		waiting_for_key_release = true
+		# Reset to start from root on next interaction
+		current_dialogue_node = null
 
 func _on_dialogue_option_selected(option_id: String, _option_text: String) -> void:
 	# Only handle this if we're currently in dialogue with this quest giver
@@ -53,6 +61,8 @@ func _on_dialogue_option_selected(option_id: String, _option_text: String) -> vo
 	var next_node = get_next_dialogue_node_custom(current_dialogue_node, option_id)
 	if next_node:
 		current_dialogue_node = next_node
+		# Mark that we're transitioning so _on_dialogue_dismissed doesn't end dialogue
+		is_transitioning_dialogue = true
 		# Dismiss the current dialogue first
 		GlobalSignals.dismiss_active_main_dialogue.emit("")
 		# Wait a frame before displaying the next node to ensure the current dialogue is dismissed
