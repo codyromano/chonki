@@ -151,7 +151,6 @@ func wait_for_chonki_to_land() -> void:
 		await get_tree().process_frame
 
 func on_player_hit() -> void:
-	GlobalSignals.heart_lost.emit()
 	$ChonkiCharacter/AudioOuch.play()
 	hit_time = Time.get_unix_time_from_system()
 	

@@ -11,9 +11,24 @@ enum Item {
 }
 
 var items: Array[Item] = []
+var total_hearts: int = 3
 
 func _ready() -> void:
-	pass
+	GlobalSignals.player_hit.connect(_on_player_hit)
+
+func _on_player_hit() -> void:
+	remove_heart()
+
+func get_total_hearts() -> int:
+	return total_hearts
+
+func remove_heart() -> void:
+	if total_hearts > 0:
+		total_hearts -= 1
+		GlobalSignals.heart_lost.emit()
+		
+		if total_hearts == 0:
+			GlobalSignals.player_out_of_hearts.emit()
 
 # Add an item to the inventory
 func add_item(item: Item) -> void:

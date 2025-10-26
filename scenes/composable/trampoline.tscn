@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://6q16boewrg0o"]
+
+[ext_resource type="Script" uid="uid://tf5ynkbvaaj" path="res://scenes/Trampoline.gd" id="1_qncib"]
+[ext_resource type="Texture2D" uid="uid://cmy2rubmjq6un" path="res://assets/interactables/trampoline.png" id="2_ry604"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_vph7a"]
+size = Vector2(3422, 1944.5)
+
+[node name="Trampoline" type="Area2D"]
+script = ExtResource("1_qncib")
+jump_intensity = 1.75
+trampoline_id = "horse_buck"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(1240, 2613.25)
+shape = SubResource("RectangleShape2D_vph7a")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+position = Vector2(1202, 2381)
+scale = Vector2(8.76, 8.76)
+texture = ExtResource("2_ry604")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

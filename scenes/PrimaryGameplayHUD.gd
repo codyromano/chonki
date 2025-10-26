@@ -17,6 +17,7 @@ var books_collected: int = 0
 
 func _ready():
 	GlobalSignals.star_collected.connect(_on_star_collected)
+	GlobalSignals.heart_lost.connect(_on_heart_lost)
 	
 	if !is_health_visible:
 		_hide_health()
@@ -27,6 +28,12 @@ func _ready():
 func _on_star_collected() -> void:
 	books_collected += 1
 	GameState.stars_collected = books_collected
+
+func _on_heart_lost() -> void:
+	var current_hearts = PlayerInventory.get_total_hearts()
+	var heart_node = find_child("Heart" + str(current_hearts + 1))
+	if heart_node:
+		heart_node.queue_free()
 
 func _hide_health() -> void:
 	# Find all nodes that start with "Heart" using glob pattern

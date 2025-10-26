@@ -1,4 +1,4 @@
-[gd_scene load_steps=62 format=3 uid="uid://0jybnryjbe51"]
+[gd_scene load_steps=63 format=3 uid="uid://0jybnryjbe51"]
 
 [ext_resource type="Texture2D" uid="uid://cue46gcr7x6qj" path="res://assets/environment/barn/barn_wall.jpg" id="1_553eq"]
 [ext_resource type="Script" uid="uid://c03hlmhkiab4v" path="res://scenes/intro.gd" id="1_gdkj6"]
@@ -17,6 +17,7 @@
 [ext_resource type="Texture2D" uid="uid://bfxtrf11y4w6e" path="res://assets/environment/barn/forklift_fork.png" id="10_lykgv"]
 [ext_resource type="PackedScene" uid="uid://dshggbjhf1bpj" path="res://scenes/composable/instruction_trigger.tscn" id="12_hq858"]
 [ext_resource type="PackedScene" uid="uid://cs71vpxi4b22q" path="res://scenes/composable/lever.tscn" id="13_50tjc"]
+[ext_resource type="PackedScene" uid="uid://6q16boewrg0o" path="res://scenes/composable/trampoline.tscn" id="13_127wd"]
 [ext_resource type="Script" uid="uid://co7rreaxlvfv3" path="res://scenes/ForkLiftForks.gd" id="13_xew14"]
 [ext_resource type="PackedScene" uid="uid://bm55n82sfyn37" path="res://scenes/collectible.tscn" id="16_2ntw1"]
 [ext_resource type="Texture2D" uid="uid://cmy2rubmjq6un" path="res://assets/interactables/trampoline.png" id="16_rdahe"]
@@ -599,20 +600,8 @@ position = Vector2(10349.6, -6272.22)
 scale = Vector2(119.454, 119.454)
 shape = SubResource("RectangleShape2D_ih5xv")
 
-[node name="Trampoline" type="Area2D" parent="Items"]
+[node name="Trampoline" parent="Items" instance=ExtResource("13_127wd")]
 position = Vector2(27683, -4963)
-script = ExtResource("16_u2n1w")
-jump_intensity = 1.75
-trampoline_id = "horse_buck"
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Items/Trampoline"]
-position = Vector2(1240, 2613.25)
-shape = SubResource("RectangleShape2D_vph7a")
-
-[node name="Sprite2D" type="Sprite2D" parent="Items/Trampoline"]
-position = Vector2(1202, 2381)
-scale = Vector2(8.76, 8.76)
-texture = ExtResource("16_rdahe")
 
 [node name="Trampoline2" type="Area2D" parent="Items"]
 position = Vector2(33247, -4963)
@@ -969,7 +958,6 @@ theme_override_constants/outline_size = 20
 theme_override_font_sizes/font_size = 30
 text = "Mystery letters discovered"
 
-[connection signal="body_entered" from="Items/Trampoline" to="Items/Trampoline" method="_on_body_entered"]
 [connection signal="body_entered" from="Items/Trampoline2" to="Items/Trampoline2" method="_on_body_entered"]
 [connection signal="body_entered" from="Items/LittleFreeLibrary" to="Items/LittleFreeLibrary" method="_on_body_entered"]
 [connection signal="body_exited" from="Items/LittleFreeLibrary" to="Items/LittleFreeLibrary" method="_on_body_exited"]
