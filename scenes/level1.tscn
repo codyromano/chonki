@@ -1,4 +1,4 @@
-[gd_scene load_steps=78 format=3 uid="uid://br8ftak73gmww"]
+[gd_scene load_steps=77 format=3 uid="uid://br8ftak73gmww"]
 
 [ext_resource type="PackedScene" uid="uid://bk3oytbasgs5w" path="res://scenes/grown_up_chonki.tscn" id="1_6i0tl"]
 [ext_resource type="Script" uid="uid://b2cncqbuotdcl" path="res://scenes/level_1.gd" id="1_hvrd6"]
@@ -15,7 +15,6 @@
 [ext_resource type="Texture2D" uid="uid://4l0wnaj430u" path="res://assets/environment/boats.png" id="15_42slk"]
 [ext_resource type="Texture2D" uid="uid://deplee65wfhnh" path="res://assets/environment/cherry_tree.png" id="15_gqhdx"]
 [ext_resource type="Script" uid="uid://cit0qihns762m" path="res://scenes/CherryTreeBody.gd" id="15_iid5p"]
-[ext_resource type="PackedScene" uid="uid://bhxw5nu7tpc6u" path="res://scenes/composable/volleyball.tscn" id="16_q08mg"]
 [ext_resource type="Script" uid="uid://ccnpmu1ybyith" path="res://scenes/GooseNavigation.gd" id="16_vuaih"]
 [ext_resource type="PackedScene" uid="uid://bffjk8vm2vkp5" path="res://scenes/characters/dave.tscn" id="16_ytk5w"]
 [ext_resource type="Texture2D" uid="uid://vvx8340f7nlj" path="res://assets/enemies/goose/goose-defeated.png" id="17_0mpyo"]
@@ -65,9 +64,9 @@
 [ext_resource type="PackedScene" uid="uid://dpwcrkl2e2ro4" path="res://scenes/composable/adjust_zoom_on_player_enter.tscn" id="62_4w6xv"]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_1ju1f"]
-vertices = PackedVector2Array(19902.1, -2654.1, 19924.9, -0.210938, 17971.7, -40.7969, 17902.3, -2675.88)
+vertices = PackedVector2Array(20286.1, -5.99219, 9406.88, -5, 9375.11, -2825.06, 20318.9, -2895.93)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(17962, -31, 17892, -2686, 19912, -2664, 19935, 10)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(9397, 5, 9365, -2835, 20329, -2906, 20296, 4)])
 source_geometry_group_name = &"navigation_polygon_source_group"
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_8w215"]
@@ -464,11 +463,11 @@ stream = ExtResource("20_f7bbt")
 volume_db = 10.0
 
 [node name="GooseRegion2D3" type="NavigationRegion2D" parent="World2D/NPCs"]
-position = Vector2(72978, -4518)
+position = Vector2(79192, -4335)
 navigation_polygon = SubResource("NavigationPolygon_1ju1f")
 
 [node name="Goose2" type="CharacterBody2D" parent="World2D/NPCs/GooseRegion2D3"]
-position = Vector2(19291, -488)
+position = Vector2(12080, -691)
 collision_layer = 2
 collision_mask = 9
 script = ExtResource("13_rdfy5")
@@ -571,7 +570,7 @@ script = ExtResource("38_y3pui")
 frames = SubResource("SpriteFrames_y3pui")
 
 [node name="RubyQuestGiver" parent="World2D/NPCs" instance=ExtResource("37_hvrd6")]
-position = Vector2(41352, -886)
+position = Vector2(46318, -744)
 script = ExtResource("31_vutef")
 frames = SubResource("SpriteFrames_uledv")
 sprite_scale = Vector2(1, 1)
@@ -614,21 +613,29 @@ texture = ExtResource("15_gqhdx")
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="World2D/Platforms & Barriers/CherryTreeBody"]
 polygon = PackedVector2Array(10704, 13, 10569, -510, 10518, -846, 10430, -1006, 10387, -1281, 10375, -1572, 10587, -1893, 10871, -2149, 11101, -2190, 11470, -1940, 11577, -1618, 11719, -1493, 11780, -1010, 11567, -666, 11321, -310, 11163, 23)
 
+[node name="CherryTreeBody2" type="StaticBody2D" parent="World2D/Platforms & Barriers"]
+position = Vector2(44462, 0)
+collision_layer = 8
+collision_mask = 21
+script = ExtResource("15_iid5p")
+
+[node name="Sprite2D" type="Sprite2D" parent="World2D/Platforms & Barriers/CherryTreeBody2"]
+position = Vector2(11067.5, -1078.75)
+scale = Vector2(1.51269, 1.51269)
+texture = ExtResource("15_gqhdx")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="World2D/Platforms & Barriers/CherryTreeBody2"]
+polygon = PackedVector2Array(10704, 13, 10569, -510, 10518, -846, 10430, -1006, 10387, -1281, 10375, -1572, 10587, -1893, 10871, -2149, 11101, -2190, 11470, -1940, 11577, -1618, 11719, -1493, 11780, -1010, 11567, -666, 11321, -310, 11163, 23)
+
 [node name="Volleyballs" type="Node2D" parent="World2D/Platforms & Barriers"]
 z_index = 1
 
-[node name="Volleyball3" parent="World2D/Platforms & Barriers/Volleyballs" instance=ExtResource("16_q08mg")]
-position = Vector2(13468, -2519)
-movement_distance_x = 0.0
-movement_speed_seconds = 2.0
-
-[node name="Volleyball" parent="World2D/Platforms & Barriers/Volleyballs" instance=ExtResource("16_q08mg")]
-position = Vector2(24920, 901)
-movement_distance_y = 1000.0
-movement_speed_seconds = 2.0
-
 [node name="VolleyballNet" parent="World2D/Platforms & Barriers/Volleyballs" instance=ExtResource("17_nrtx7")]
 position = Vector2(91049, -529)
+leg_height = 55.0
+
+[node name="VolleyballNet7" parent="World2D/Platforms & Barriers/Volleyballs" instance=ExtResource("17_nrtx7")]
+position = Vector2(53423, -529)
 leg_height = 55.0
 
 [node name="VolleyballNet4" parent="World2D/Platforms & Barriers/Volleyballs" instance=ExtResource("17_nrtx7")]
@@ -790,6 +797,13 @@ position = Vector2(101656, -1093)
 scale = Vector2(0.360039, 0.360039)
 jump_intensity = 2.5
 
+[node name="Trampoline2" parent="World2D" instance=ExtResource("53_7hmix")]
+z_index = 2
+position = Vector2(56894, -1093)
+scale = Vector2(0.360039, 0.360039)
+jump_intensity = 1.5
+trampoline_id = "near_ruby"
+
 [node name="GrownUpChonki" parent="." instance=ExtResource("1_6i0tl")]
 z_index = 2
 position = Vector2(71058, -470)
@@ -800,7 +814,49 @@ win_zoom_intensity = 0.1
 [node name="HUD" parent="." instance=ExtResource("20_g3dfk")]
 
 [node name="Leaves" type="GPUParticles2D" parent="."]
-position = Vector2(11553, -1133)
+position = Vector2(71566, -1212)
+script = ExtResource("36_6xmqk")
+leaf_lifetime = 4.0
+upward_force = 1000.0
+wind_strength = Vector2(5000, 0)
+initial_velocity_range = Vector2(1000, 500)
+gravity_strength = 500.0
+angular_velocity_range = Vector2(5000, 90)
+leaf_texture = ExtResource("38_1vjko")
+scale_range = Vector2(0.75, 1.25)
+color_variation = false
+enable_wind_zones = false
+
+[node name="Leaves2" type="GPUParticles2D" parent="."]
+position = Vector2(42396, -1392)
+script = ExtResource("36_6xmqk")
+leaf_lifetime = 4.0
+upward_force = 1000.0
+wind_strength = Vector2(5000, 0)
+initial_velocity_range = Vector2(1000, 500)
+gravity_strength = 500.0
+angular_velocity_range = Vector2(5000, 90)
+leaf_texture = ExtResource("38_1vjko")
+scale_range = Vector2(0.75, 1.25)
+color_variation = false
+enable_wind_zones = false
+
+[node name="Leaves3" type="GPUParticles2D" parent="."]
+position = Vector2(38870, -3918)
+script = ExtResource("36_6xmqk")
+leaf_lifetime = 4.0
+upward_force = 1000.0
+wind_strength = Vector2(5000, 0)
+initial_velocity_range = Vector2(1000, 500)
+gravity_strength = 500.0
+angular_velocity_range = Vector2(5000, 90)
+leaf_texture = ExtResource("38_1vjko")
+scale_range = Vector2(0.75, 1.25)
+color_variation = false
+enable_wind_zones = false
+
+[node name="Leaves4" type="GPUParticles2D" parent="."]
+position = Vector2(42288, -5070)
 script = ExtResource("36_6xmqk")
 leaf_lifetime = 4.0
 upward_force = 1000.0
@@ -922,15 +978,15 @@ script = ExtResource("57_4yyev")
 [node name="ZoomAdjustmentZones" type="Node" parent="."]
 
 [node name="AdjustZoomOnPlayerEnter3" parent="ZoomAdjustmentZones" instance=ExtResource("62_4w6xv")]
-position = Vector2(75128, -1602)
-zoom_on_enter = 0.11
+position = Vector2(83845, -1587)
+zoom_on_enter = 0.15
 
 [node name="AdjustZoomOnPlayerEnter" parent="ZoomAdjustmentZones" instance=ExtResource("62_4w6xv")]
-position = Vector2(61629, -1602)
-zoom_on_enter = 0.11
+position = Vector2(39713, -1602)
+zoom_on_enter = 0.15
 
 [node name="AdjustZoomOnPlayerEnter2" parent="ZoomAdjustmentZones" instance=ExtResource("62_4w6xv")]
-position = Vector2(61861, -1602)
+position = Vector2(39945, -1602)
 zoom_on_enter = 0.22
 
 [node name="AdjustZoomOnPlayerEnter4" parent="ZoomAdjustmentZones" instance=ExtResource("62_4w6xv")]
@@ -943,3 +999,4 @@ zoom_on_enter = 0.22
 [connection signal="timeout" from="World2D/NPCs/GooseRegion2D3/Goose2/Timer" to="World2D/NPCs/GooseRegion2D3/Goose2" method="_on_hop_timer_timeout"]
 [connection signal="body_entered" from="World2D/NPCs/Bicyclist" to="World2D/NPCs/Bicyclist" method="_on_body_entered"]
 [connection signal="input_event" from="World2D/Platforms & Barriers/CherryTreeBody" to="World2D/Platforms & Barriers/CherryTreeBody" method="_on_input_event"]
+[connection signal="input_event" from="World2D/Platforms & Barriers/CherryTreeBody2" to="World2D/Platforms & Barriers/CherryTreeBody2" method="_on_input_event"]
