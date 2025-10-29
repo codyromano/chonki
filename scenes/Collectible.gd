@@ -71,7 +71,8 @@ func _on_static_body_2d_2_body_entered(body):
 		# collected in the HUD menu
 		if !collectible_name.to_lower().contains('hint'):
 			body.on_item_collected(collectible_name)
-			sprite.play("opened")
+			if sprite.sprite_frames and sprite.sprite_frames.has_animation("opened"):
+				sprite.play("opened")
 
 		# Play sound (non-blocking)
 		if audio:
@@ -95,4 +96,4 @@ func _on_static_body_2d_2_body_entered(body):
 		$ChillBark.play()
 
 		await tween.finished
-		queue_free()
+		queue_free.call_deferred()

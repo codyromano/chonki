@@ -275,7 +275,8 @@ touchable_while_timer_is_active = false
 unique_name_in_owner = true
 
 [node name="Dave" parent="World2D" instance=ExtResource("16_ytk5w")]
-position = Vector2(118336, -1442)
+position = Vector2(118336, -676)
+scale = Vector2(0.4, 0.4)
 
 [node name="Environment" type="Node2D" parent="World2D"]
 z_index = -1
@@ -346,6 +347,56 @@ scale = Vector2(1.46235, 1.60449)
 texture = ExtResource("1_vplxb")
 texture_offset = Vector2(0, 400)
 polygon = PackedVector2Array(-1100.97, 128.39, 73316.2, 137.115, 73294.4, 627.614, -1059.25, 630.106)
+
+[node name="Ocean4" type="Polygon2D" parent="World2D/Environment"]
+z_index = 3
+texture_repeat = 2
+use_parent_material = true
+position = Vector2(108588, -211)
+scale = Vector2(1.46235, 1.60449)
+texture = ExtResource("1_vplxb")
+texture_offset = Vector2(0, 400)
+polygon = PackedVector2Array(-1100.97, 128.39, 73316.2, 137.115, 73294.4, 627.614, -1059.25, 630.106)
+
+[node name="Ocean5" type="Polygon2D" parent="World2D/Environment"]
+z_index = 3
+texture_repeat = 2
+use_parent_material = true
+position = Vector2(108588, 556)
+scale = Vector2(1.46235, 1.60449)
+texture = ExtResource("1_vplxb")
+texture_offset = Vector2(0, 400)
+polygon = PackedVector2Array(-1031.22, 135.869, 73316.2, 137.115, 73294.4, 627.614, -1038.74, 617.642)
+
+[node name="Ocean6" type="Polygon2D" parent="World2D/Environment"]
+z_index = 3
+texture_repeat = 2
+use_parent_material = true
+position = Vector2(108588, 1261)
+scale = Vector2(1.46235, 1.60449)
+texture = ExtResource("1_vplxb")
+texture_offset = Vector2(0, 400)
+polygon = PackedVector2Array(-1031.22, 135.869, 73316.2, 137.115, 73294.4, 627.614, -1038.74, 617.642)
+
+[node name="Ocean7" type="Polygon2D" parent="World2D/Environment"]
+z_index = 3
+texture_repeat = 2
+use_parent_material = true
+position = Vector2(108588, 1981)
+scale = Vector2(1.46235, 1.60449)
+texture = ExtResource("1_vplxb")
+texture_offset = Vector2(0, 400)
+polygon = PackedVector2Array(-1031.22, 135.869, 73316.2, 137.115, 73294.4, 627.614, -1038.74, 617.642)
+
+[node name="Ocean8" type="Polygon2D" parent="World2D/Environment"]
+z_index = 3
+texture_repeat = 2
+use_parent_material = true
+position = Vector2(108588, 2673)
+scale = Vector2(1.46235, 1.60449)
+texture = ExtResource("1_vplxb")
+texture_offset = Vector2(0, 400)
+polygon = PackedVector2Array(-1031.22, 135.869, 73316.2, 137.115, 73294.4, 627.614, -1038.74, 617.642)
 
 [node name="FloatingHearts" parent="World2D/Environment" instance=ExtResource("7_7xcao")]
 script = ExtResource("8_8hmqo")
@@ -790,6 +841,7 @@ item_name = 3
 [node name="SecretLetter" parent="World2D/Collectibles/SpawnLetterX/Node2D" instance=ExtResource("56_yqdyt")]
 letter = "X"
 font_size = 50
+metadata/_edit_use_anchors_ = true
 
 [node name="Trampoline" parent="World2D" instance=ExtResource("53_7hmix")]
 z_index = 2
