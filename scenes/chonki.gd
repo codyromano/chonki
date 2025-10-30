@@ -64,6 +64,10 @@ func _ready() -> void:
 	GlobalSignals.connect("backflip_triggered", _on_backflip_triggered)
 	# Always reset GameState at the start of the level
 	GameState.reset()
+	# Reset player hearts when scene loads/reloads
+	PlayerInventory.reset_hearts()
+	# Reset game over flag
+	is_game_over = false
 	# Cache and set total_stars for this level by scene path, using CollectibleStar group
 	var level_path = get_tree().current_scene.scene_file_path
 	var total_stars = GameState.get_total_stars_for_level(level_path)

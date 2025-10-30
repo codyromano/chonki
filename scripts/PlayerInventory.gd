@@ -10,8 +10,10 @@ enum Item {
 	MOMO_QUEST
 }
 
+const INITIAL_HEARTS: int = 3
+
 var items: Array[Item] = []
-var total_hearts: int = 3
+var total_hearts: int = INITIAL_HEARTS
 
 func _ready() -> void:
 	GlobalSignals.player_hit.connect(_on_player_hit)
@@ -29,6 +31,10 @@ func remove_heart() -> void:
 		
 		if total_hearts == 0:
 			GlobalSignals.player_out_of_hearts.emit()
+
+# Reset hearts to full (called on scene reload/respawn)
+func reset_hearts() -> void:
+	total_hearts = INITIAL_HEARTS
 
 # Add an item to the inventory
 func add_item(item: Item) -> void:

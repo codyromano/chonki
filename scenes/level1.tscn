@@ -670,7 +670,7 @@ position = Vector2(0, -29.7)
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/Platforms & Barriers/OceanFloor/OceanFloorDamageArea"]
-position = Vector2(11242.7, 131.2)
+position = Vector2(11242.7, 102.5)
 shape = SubResource("RectangleShape2D_7hmix")
 
 [node name="CherryTreeBody" type="StaticBody2D" parent="World2D/Platforms & Barriers"]
