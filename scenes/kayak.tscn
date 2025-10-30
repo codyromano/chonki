@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://df2uyl06uhygw"]
+
+[ext_resource type="Script" uid="uid://7b8674g5g5yv" path="res://scenes/kayak_float.gd" id="1_2ffar"]
+[ext_resource type="Texture2D" uid="uid://diwbufww7k2yg" path="res://assets/interactables/kayak.png" id="2_v71or"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n3wcc"]
+size = Vector2(2018, 518)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_aahfp"]
+size = Vector2(716, 285)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qrjs1"]
+size = Vector2(638, 285)
+
+[node name="Kayak" type="StaticBody2D"]
+collision_layer = 8
+script = ExtResource("1_2ffar")
+float_amplitude = 50.0
+
+[node name="KayakSprite" type="Sprite2D" parent="."]
+z_index = 5
+scale = Vector2(5.03992, 5.03992)
+texture = ExtResource("2_v71or")
+
+[node name="Polygon2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_n3wcc")
+
+[node name="TipAreaLeft" type="Area2D" parent="."]
+position = Vector2(-748, -67)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TipAreaLeft"]
+position = Vector2(-112, -165)
+shape = SubResource("RectangleShape2D_aahfp")
+
+[node name="TipAreaRight" type="Area2D" parent="."]
+position = Vector2(1037, -67)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TipAreaRight"]
+position = Vector2(-103, -162)
+shape = SubResource("RectangleShape2D_qrjs1")

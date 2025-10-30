@@ -1,4 +1,4 @@
-[gd_scene load_steps=79 format=3 uid="uid://br8ftak73gmww"]
+[gd_scene load_steps=80 format=3 uid="uid://br8ftak73gmww"]
 
 [ext_resource type="PackedScene" uid="uid://bk3oytbasgs5w" path="res://scenes/grown_up_chonki.tscn" id="1_6i0tl"]
 [ext_resource type="Script" uid="uid://b2cncqbuotdcl" path="res://scenes/level_1.gd" id="1_hvrd6"]
@@ -53,6 +53,7 @@
 [ext_resource type="Script" uid="uid://bohb45sc7o600" path="res://scenes/MoveLeftOrRightText.gd" id="42_5ipuv"]
 [ext_resource type="Script" uid="uid://4mx2cyi0i3oy" path="res://scenes/composable/jump_text.gd" id="43_onmav"]
 [ext_resource type="Script" uid="uid://bko0cd72n347f" path="res://scenes/pottery_1.gd" id="44_eedbu"]
+[ext_resource type="PackedScene" uid="uid://df2uyl06uhygw" path="res://scenes/kayak.tscn" id="44_n3wcc"]
 [ext_resource type="Theme" uid="uid://dte5an7k6hog1" path="res://themes/base.tres" id="44_y4ufg"]
 [ext_resource type="Script" uid="uid://chnhtm6mvs5h" path="res://scenes/pottery_2.gd" id="45_eedbu"]
 [ext_resource type="Script" uid="uid://bfcdimts6npaa" path="res://scenes/pottery_3.gd" id="46_4yyev"]
@@ -373,20 +374,20 @@ texture_offset = Vector2(0, 400)
 polygon = PackedVector2Array(-1031.22, 135.869, 73316.2, 137.115, 73294.4, 627.614, -1038.74, 617.642)
 
 [node name="Ocean6" type="Polygon2D" parent="World2D/Environment"]
-z_index = 3
+z_index = 6
 texture_repeat = 2
 use_parent_material = true
-position = Vector2(108588, 1261)
+position = Vector2(108316, 1261)
 scale = Vector2(1.46235, 1.60449)
 texture = ExtResource("1_vplxb")
 texture_offset = Vector2(0, 400)
 polygon = PackedVector2Array(-1031.22, 135.869, 73316.2, 137.115, 73294.4, 627.614, -1038.74, 617.642)
 
 [node name="Ocean7" type="Polygon2D" parent="World2D/Environment"]
-z_index = 3
+z_index = 6
 texture_repeat = 2
 use_parent_material = true
-position = Vector2(108588, 1981)
+position = Vector2(108308, 1981)
 scale = Vector2(1.46235, 1.60449)
 texture = ExtResource("1_vplxb")
 texture_offset = Vector2(0, 400)
@@ -654,19 +655,20 @@ shape = SubResource("RectangleShape2D_4w6xv")
 debug_color = Color(0.307035, 0.494072, 1, 0.42)
 
 [node name="OceanFloor" type="StaticBody2D" parent="World2D/Platforms & Barriers"]
+position = Vector2(0, 1128)
 scale = Vector2(10, 10)
-collision_layer = 15
-collision_mask = 255
+collision_layer = 7
+collision_mask = 247
 script = ExtResource("47_ocean")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/Platforms & Barriers/OceanFloor"]
 z_index = 100
-position = Vector2(11242.7, 131.2)
+position = Vector2(11242.7, 165.4)
 shape = SubResource("RectangleShape2D_7hmix")
 debug_color = Color(0.307035, 0.494072, 1, 0.42)
 
 [node name="OceanFloorDamageArea" type="Area2D" parent="World2D/Platforms & Barriers/OceanFloor"]
-position = Vector2(0, -29.7)
+position = Vector2(0, 4.5)
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/Platforms & Barriers/OceanFloor/OceanFloorDamageArea"]
@@ -815,6 +817,16 @@ texture = ExtResource("36_v3v4h")
 position = Vector2(9.99121, -17.137)
 scale = Vector2(1.13918, 1.13918)
 shape = SubResource("CircleShape2D_hvrd6")
+
+[node name="Kayaks" type="Node" parent="World2D/Platforms & Barriers"]
+
+[node name="Kayak" parent="World2D/Platforms & Barriers/Kayaks" instance=ExtResource("44_n3wcc")]
+position = Vector2(104221, 176)
+float_amplitude = 75.0
+
+[node name="Kayak2" parent="World2D/Platforms & Barriers/Kayaks" instance=ExtResource("44_n3wcc")]
+position = Vector2(108772, 176)
+float_amplitude = 75.0
 
 [node name="Collectibles" type="Node2D" parent="World2D"]
 
