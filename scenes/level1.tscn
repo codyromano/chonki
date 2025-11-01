@@ -1,4 +1,4 @@
-[gd_scene load_steps=80 format=3 uid="uid://br8ftak73gmww"]
+[gd_scene load_steps=88 format=3 uid="uid://br8ftak73gmww"]
 
 [ext_resource type="PackedScene" uid="uid://bk3oytbasgs5w" path="res://scenes/grown_up_chonki.tscn" id="1_6i0tl"]
 [ext_resource type="Script" uid="uid://b2cncqbuotdcl" path="res://scenes/level_1.gd" id="1_hvrd6"]
@@ -46,11 +46,17 @@
 [ext_resource type="Script" uid="uid://dli13y3iqt0uo" path="res://scenes/gpu_particles_2d.gd" id="36_6xmqk"]
 [ext_resource type="Texture2D" uid="uid://c8gmllsoee5gj" path="res://assets/collectibles/pottery_3.png" id="36_mopj3"]
 [ext_resource type="Texture2D" uid="uid://do40vx10g03uc" path="res://assets/environment/volleyball.png" id="36_v3v4h"]
+[ext_resource type="Texture2D" uid="uid://b05ylqdbp1qq8" path="res://assets/enemies/otter/otter_hands.png" id="37_dkkmk"]
 [ext_resource type="PackedScene" uid="uid://db4eojj42lfw7" path="res://scenes/composable/quest_giver.tscn" id="37_hvrd6"]
 [ext_resource type="Texture2D" uid="uid://cff1qabpfn1hq" path="res://assets/environment/cherry_leaf.png" id="38_1vjko"]
+[ext_resource type="Texture2D" uid="uid://dtlt7hqgskntu" path="res://assets/enemies/otter/otter_kneel.png" id="38_sejw4"]
 [ext_resource type="Script" uid="uid://d0vo8jsubn4m1" path="res://scenes/composable/momo_quest_giver.gd" id="38_y3pui"]
+[ext_resource type="Texture2D" uid="uid://bbjhffq3vk8l" path="res://assets/enemies/otter/otter_raise_hands.png" id="39_qfp7r"]
+[ext_resource type="Texture2D" uid="uid://edh1gldrfbus" path="res://assets/enemies/otter/otter_raise_hands_eyes_closed.png" id="40_x80p0"]
 [ext_resource type="PackedScene" uid="uid://ft24k8s13tpc" path="res://scenes/composable/instructional_text.tscn" id="41_0xdic"]
+[ext_resource type="Texture2D" uid="uid://btet14ijapd25" path="res://assets/enemies/otter/otter_rise.png" id="41_6b8u6"]
 [ext_resource type="Script" uid="uid://bohb45sc7o600" path="res://scenes/MoveLeftOrRightText.gd" id="42_5ipuv"]
+[ext_resource type="Texture2D" uid="uid://bu1gkhk5myacr" path="res://assets/enemies/otter/otter_stand_smile.png" id="42_6qhw2"]
 [ext_resource type="Script" uid="uid://4mx2cyi0i3oy" path="res://scenes/composable/jump_text.gd" id="43_onmav"]
 [ext_resource type="Script" uid="uid://bko0cd72n347f" path="res://scenes/pottery_1.gd" id="44_eedbu"]
 [ext_resource type="PackedScene" uid="uid://df2uyl06uhygw" path="res://scenes/kayak.tscn" id="44_n3wcc"]
@@ -64,46 +70,6 @@
 [ext_resource type="PackedScene" uid="uid://dmvfy4x1ini0v" path="res://scenes/composable/bench.tscn" id="58_eedbu"]
 [ext_resource type="PackedScene" path="res://scenes/spawn_location.tscn" id="59_x7a8r"]
 [ext_resource type="PackedScene" uid="uid://dpwcrkl2e2ro4" path="res://scenes/composable/adjust_zoom_on_player_enter.tscn" id="62_4w6xv"]
-
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_1ju1f"]
-vertices = PackedVector2Array(20286.1, -5.99219, 9406.88, -5, 9375.11, -2825.06, 20318.9, -2895.93)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(9397, 5, 9365, -2835, 20329, -2906, 20296, 4)])
-source_geometry_group_name = &"navigation_polygon_source_group"
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_8w215"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("14_apft5")
-}],
-"loop": true,
-"name": &"attack",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("13_7b16e")
-}, {
-"duration": 1.0,
-"texture": ExtResource("14_648ic")
-}],
-"loop": true,
-"name": &"default",
-"speed": 2.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("17_0mpyo")
-}],
-"loop": true,
-"name": &"hurt",
-"speed": 5.0
-}]
-
-[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nwbuc"]
-radius = 218.555
-height = 437.11
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_adkmy"]
 size = Vector2(763.363, 472.117)
@@ -221,6 +187,78 @@ animations = [{
 "speed": 5.0
 }]
 
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_1ju1f"]
+vertices = PackedVector2Array(20286.1, -5.99219, 9406.88, -5, 9375.11, -2825.06, 20318.9, -2895.93)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(9397, 5, 9365, -2835, 20329, -2906, 20296, 4)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8w215"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("14_apft5")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("13_7b16e")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_648ic")
+}],
+"loop": true,
+"name": &"default",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("17_0mpyo")
+}],
+"loop": true,
+"name": &"hurt",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nwbuc"]
+radius = 218.555
+height = 437.11
+
+[sub_resource type="Curve2D" id="Curve2D_dkkmk"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 363, 469, 0, 0, 0, 0, -2333, 1098, 0, 0, 0, 0, -4898, 189, 0, 0, 0, 0, -4580, -2274, 0, 0, 0, 0, -2325, -3089, 0, 0, 0, 0, 210, -2040, 0, 0, 0, 0, 363, 461)
+}
+point_count = 7
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_4xi8u"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("37_dkkmk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("38_sejw4")
+}, {
+"duration": 1.0,
+"texture": ExtResource("39_qfp7r")
+}, {
+"duration": 8.0,
+"texture": ExtResource("40_x80p0")
+}, {
+"duration": 1.0,
+"texture": ExtResource("41_6b8u6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("42_6qhw2")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4w6xv"]
 size = Vector2(10804.6, 79)
 
@@ -271,6 +309,7 @@ position = Vector2(-5159, -12)
 script = ExtResource("1_hvrd6")
 
 [node name="TreeMazeLever" parent="." instance=ExtResource("2_vutef")]
+z_index = 1
 position = Vector2(38842, -154)
 scale = Vector2(0.560019, 0.560019)
 lever_name = "tree_maze_lever"
@@ -286,33 +325,6 @@ scale = Vector2(0.4, 0.4)
 [node name="Environment" type="Node2D" parent="World2D"]
 z_index = -1
 
-[node name="CloudsBG" type="Polygon2D" parent="World2D/Environment"]
-texture_repeat = 2
-position = Vector2(91.6675, -1.36397)
-scale = Vector2(1.10874, 1.11339)
-texture = ExtResource("2_gc4xo")
-texture_offset = Vector2(0, 3750)
-texture_scale = Vector2(0.25, 0.25)
-polygon = PackedVector2Array(-1009, 5, 108067, 12.0026, 108211, -2983.64, 108266, -4310.83, 53481.7, -4381.79, -995.425, -4447.35)
-
-[node name="CloudsBG3" type="Polygon2D" parent="World2D/Environment"]
-texture_repeat = 2
-position = Vector2(203, -4499)
-scale = Vector2(1.2293, 1.23964)
-texture = ExtResource("2_gc4xo")
-texture_offset = Vector2(0, 3750)
-texture_scale = Vector2(0.25, 0.25)
-polygon = PackedVector2Array(-1009, 5, 108067, 12.0026, 108211, -2983.64, 108251, -5474.98, 53511.8, -5527.41, -1031.48, -5495.14)
-
-[node name="CloudsBG4" type="Polygon2D" parent="World2D/Environment"]
-texture_repeat = 2
-position = Vector2(203, -11162)
-scale = Vector2(1.2293, 1.23964)
-texture = ExtResource("2_gc4xo")
-texture_offset = Vector2(0, 3750)
-texture_scale = Vector2(0.25, 0.25)
-polygon = PackedVector2Array(-1009, 5, 108067, 12.0026, 108211, -2983.64, 108251, -5474.98, 53511.8, -5527.41, -1031.48, -5495.14)
-
 [node name="GroundSprite" type="Polygon2D" parent="World2D/Environment"]
 z_index = 3
 texture_repeat = 2
@@ -323,86 +335,6 @@ texture = ExtResource("1_vplxb")
 texture_offset = Vector2(0, 400)
 polygon = PackedVector2Array(-966.253, -382.053, 73308.7, -382.053, 73294.4, 627.614, -964.201, 621.381)
 
-[node name="Ocean" type="Polygon2D" parent="World2D/Environment"]
-z_index = 3
-texture_repeat = 2
-use_parent_material = true
-position = Vector2(397, 1906)
-scale = Vector2(1.46235, 1.60449)
-texture = ExtResource("1_vplxb")
-texture_offset = Vector2(0, 400)
-polygon = PackedVector2Array(-1100.97, 128.39, 73316.2, 137.115, 73294.4, 627.614, -1059.25, 630.106)
-
-[node name="Ocean2" type="Polygon2D" parent="World2D/Environment"]
-z_index = 3
-texture_repeat = 2
-use_parent_material = true
-position = Vector2(397, 1239)
-scale = Vector2(1.46235, 1.60449)
-texture = ExtResource("1_vplxb")
-texture_offset = Vector2(0, 400)
-polygon = PackedVector2Array(-1100.97, 128.39, 73316.2, 137.115, 73294.4, 627.614, -1059.25, 630.106)
-
-[node name="Ocean3" type="Polygon2D" parent="World2D/Environment"]
-z_index = 3
-texture_repeat = 2
-use_parent_material = true
-position = Vector2(397, 2652)
-scale = Vector2(1.46235, 1.60449)
-texture = ExtResource("1_vplxb")
-texture_offset = Vector2(0, 400)
-polygon = PackedVector2Array(-1100.97, 128.39, 73316.2, 137.115, 73294.4, 627.614, -1059.25, 630.106)
-
-[node name="Ocean4" type="Polygon2D" parent="World2D/Environment"]
-z_index = 6
-texture_repeat = 2
-use_parent_material = true
-position = Vector2(108588, -211)
-scale = Vector2(1.46235, 1.60449)
-texture = ExtResource("1_vplxb")
-texture_offset = Vector2(0, 400)
-polygon = PackedVector2Array(-1100.97, 128.39, 73316.2, 137.115, 73294.4, 627.614, -1059.25, 630.106)
-
-[node name="Ocean5" type="Polygon2D" parent="World2D/Environment"]
-z_index = 6
-texture_repeat = 2
-use_parent_material = true
-position = Vector2(108588, 556)
-scale = Vector2(1.46235, 1.60449)
-texture = ExtResource("1_vplxb")
-texture_offset = Vector2(0, 400)
-polygon = PackedVector2Array(-1031.22, 135.869, 73316.2, 137.115, 73294.4, 627.614, -1038.74, 617.642)
-
-[node name="Ocean6" type="Polygon2D" parent="World2D/Environment"]
-z_index = 6
-texture_repeat = 2
-use_parent_material = true
-position = Vector2(108316, 1261)
-scale = Vector2(1.46235, 1.60449)
-texture = ExtResource("1_vplxb")
-texture_offset = Vector2(0, 400)
-polygon = PackedVector2Array(-1031.22, 135.869, 73316.2, 137.115, 73294.4, 627.614, -1038.74, 617.642)
-
-[node name="Ocean7" type="Polygon2D" parent="World2D/Environment"]
-z_index = 6
-texture_repeat = 2
-use_parent_material = true
-position = Vector2(108308, 1981)
-scale = Vector2(1.46235, 1.60449)
-texture = ExtResource("1_vplxb")
-texture_offset = Vector2(0, 400)
-polygon = PackedVector2Array(-1031.22, 135.869, 73316.2, 137.115, 73294.4, 627.614, -1038.74, 617.642)
-
-[node name="Ocean8" type="Polygon2D" parent="World2D/Environment"]
-z_index = 3
-texture_repeat = 2
-use_parent_material = true
-position = Vector2(108588, 2673)
-scale = Vector2(1.46235, 1.60449)
-texture = ExtResource("1_vplxb")
-texture_offset = Vector2(0, 400)
-polygon = PackedVector2Array(-1031.22, 135.869, 73316.2, 137.115, 73294.4, 627.614, -1038.74, 617.642)
-
 [node name="FloatingHearts" parent="World2D/Environment" instance=ExtResource("7_7xcao")]
 script = ExtResource("8_8hmqo")
 
@@ -412,147 +344,174 @@ position = Vector2(77608, -343)
 [node name="Bench2" parent="World2D/Environment" instance=ExtResource("58_eedbu")]
 position = Vector2(68272, -343)
 
+[node name="ParticleEffects" type="Node" parent="World2D/Environment"]
+
+[node name="Leaves" type="GPUParticles2D" parent="World2D/Environment/ParticleEffects"]
+position = Vector2(66407, -1224)
+script = ExtResource("36_6xmqk")
+leaf_lifetime = 4.0
+upward_force = 1000.0
+wind_strength = Vector2(5000, 0)
+initial_velocity_range = Vector2(1000, 500)
+gravity_strength = 500.0
+angular_velocity_range = Vector2(5000, 90)
+leaf_texture = ExtResource("38_1vjko")
+scale_range = Vector2(0.75, 1.25)
+color_variation = false
+enable_wind_zones = false
+
+[node name="Leaves2" type="GPUParticles2D" parent="World2D/Environment/ParticleEffects"]
+position = Vector2(37237, -1404)
+script = ExtResource("36_6xmqk")
+leaf_lifetime = 4.0
+upward_force = 1000.0
+wind_strength = Vector2(5000, 0)
+initial_velocity_range = Vector2(1000, 500)
+gravity_strength = 500.0
+angular_velocity_range = Vector2(5000, 90)
+leaf_texture = ExtResource("38_1vjko")
+scale_range = Vector2(0.75, 1.25)
+color_variation = false
+enable_wind_zones = false
+
+[node name="Leaves3" type="GPUParticles2D" parent="World2D/Environment/ParticleEffects"]
+position = Vector2(33711, -3930)
+script = ExtResource("36_6xmqk")
+leaf_lifetime = 4.0
+upward_force = 1000.0
+wind_strength = Vector2(5000, 0)
+initial_velocity_range = Vector2(1000, 500)
+gravity_strength = 500.0
+angular_velocity_range = Vector2(5000, 90)
+leaf_texture = ExtResource("38_1vjko")
+scale_range = Vector2(0.75, 1.25)
+color_variation = false
+enable_wind_zones = false
+
+[node name="Leaves4" type="GPUParticles2D" parent="World2D/Environment/ParticleEffects"]
+position = Vector2(37129, -5082)
+script = ExtResource("36_6xmqk")
+leaf_lifetime = 4.0
+upward_force = 1000.0
+wind_strength = Vector2(5000, 0)
+initial_velocity_range = Vector2(1000, 500)
+gravity_strength = 500.0
+angular_velocity_range = Vector2(5000, 90)
+leaf_texture = ExtResource("38_1vjko")
+scale_range = Vector2(0.75, 1.25)
+color_variation = false
+enable_wind_zones = false
+
+[node name="CloudsAndOceans" type="Node" parent="World2D/Environment"]
+
+[node name="Ocean" type="Polygon2D" parent="World2D/Environment/CloudsAndOceans"]
+z_index = 3
+texture_repeat = 2
+use_parent_material = true
+position = Vector2(-4762, 1894)
+scale = Vector2(1.46235, 1.60449)
+texture = ExtResource("1_vplxb")
+texture_offset = Vector2(0, 400)
+polygon = PackedVector2Array(-1100.97, 128.39, 73316.2, 137.115, 73294.4, 627.614, -1059.25, 630.106)
+
+[node name="Ocean2" type="Polygon2D" parent="World2D/Environment/CloudsAndOceans"]
+z_index = 3
+texture_repeat = 2
+use_parent_material = true
+position = Vector2(-4762, 1227)
+scale = Vector2(1.46235, 1.60449)
+texture = ExtResource("1_vplxb")
+texture_offset = Vector2(0, 400)
+polygon = PackedVector2Array(-1100.97, 128.39, 73316.2, 137.115, 73294.4, 627.614, -1059.25, 630.106)
+
+[node name="Ocean3" type="Polygon2D" parent="World2D/Environment/CloudsAndOceans"]
+z_index = 3
+texture_repeat = 2
+use_parent_material = true
+position = Vector2(-4762, 2640)
+scale = Vector2(1.46235, 1.60449)
+texture = ExtResource("1_vplxb")
+texture_offset = Vector2(0, 400)
+polygon = PackedVector2Array(-1100.97, 128.39, 73316.2, 137.115, 73294.4, 627.614, -1059.25, 630.106)
+
+[node name="Ocean4" type="Polygon2D" parent="World2D/Environment/CloudsAndOceans"]
+z_index = 6
+texture_repeat = 2
+use_parent_material = true
+position = Vector2(103429, -223)
+scale = Vector2(1.46235, 1.60449)
+texture = ExtResource("1_vplxb")
+texture_offset = Vector2(0, 400)
+polygon = PackedVector2Array(-1100.97, 128.39, 73316.2, 137.115, 73294.4, 627.614, -1059.25, 630.106)
+
+[node name="Ocean5" type="Polygon2D" parent="World2D/Environment/CloudsAndOceans"]
+z_index = 6
+texture_repeat = 2
+use_parent_material = true
+position = Vector2(103429, 544)
+scale = Vector2(1.46235, 1.60449)
+texture = ExtResource("1_vplxb")
+texture_offset = Vector2(0, 400)
+polygon = PackedVector2Array(-1031.22, 135.869, 73316.2, 137.115, 73294.4, 627.614, -1038.74, 617.642)
+
+[node name="Ocean6" type="Polygon2D" parent="World2D/Environment/CloudsAndOceans"]
+z_index = 6
+texture_repeat = 2
+use_parent_material = true
+position = Vector2(103157, 1249)
+scale = Vector2(1.46235, 1.60449)
+texture = ExtResource("1_vplxb")
+texture_offset = Vector2(0, 400)
+polygon = PackedVector2Array(-1031.22, 135.869, 73316.2, 137.115, 73294.4, 627.614, -1038.74, 617.642)
+
+[node name="Ocean7" type="Polygon2D" parent="World2D/Environment/CloudsAndOceans"]
+z_index = 6
+texture_repeat = 2
+use_parent_material = true
+position = Vector2(103149, 1969)
+scale = Vector2(1.46235, 1.60449)
+texture = ExtResource("1_vplxb")
+texture_offset = Vector2(0, 400)
+polygon = PackedVector2Array(-1031.22, 135.869, 73316.2, 137.115, 73294.4, 627.614, -1038.74, 617.642)
+
+[node name="Ocean8" type="Polygon2D" parent="World2D/Environment/CloudsAndOceans"]
+z_index = 3
+texture_repeat = 2
+use_parent_material = true
+position = Vector2(103429, 2661)
+scale = Vector2(1.46235, 1.60449)
+texture = ExtResource("1_vplxb")
+texture_offset = Vector2(0, 400)
+polygon = PackedVector2Array(-1031.22, 135.869, 73316.2, 137.115, 73294.4, 627.614, -1038.74, 617.642)
+
+[node name="CloudsBG" type="Polygon2D" parent="World2D/Environment/CloudsAndOceans"]
+texture_repeat = 2
+position = Vector2(-5067.33, -13.364)
+scale = Vector2(1.10874, 1.11339)
+texture = ExtResource("2_gc4xo")
+texture_offset = Vector2(0, 3750)
+texture_scale = Vector2(0.25, 0.25)
+polygon = PackedVector2Array(-1009, 5, 108067, 12.0026, 108211, -2983.64, 108266, -4310.83, 53481.7, -4381.79, -995.425, -4447.35)
+
+[node name="CloudsBG3" type="Polygon2D" parent="World2D/Environment/CloudsAndOceans"]
+texture_repeat = 2
+position = Vector2(-4956, -4511)
+scale = Vector2(1.2293, 1.23964)
+texture = ExtResource("2_gc4xo")
+texture_offset = Vector2(0, 3750)
+texture_scale = Vector2(0.25, 0.25)
+polygon = PackedVector2Array(-1009, 5, 108067, 12.0026, 108211, -2983.64, 108251, -5474.98, 53511.8, -5527.41, -1031.48, -5495.14)
+
+[node name="CloudsBG4" type="Polygon2D" parent="World2D/Environment/CloudsAndOceans"]
+texture_repeat = 2
+position = Vector2(-4956, -11174)
+scale = Vector2(1.2293, 1.23964)
+texture = ExtResource("2_gc4xo")
+texture_offset = Vector2(0, 3750)
+texture_scale = Vector2(0.25, 0.25)
+polygon = PackedVector2Array(-1009, 5, 108067, 12.0026, 108211, -2983.64, 108251, -5474.98, 53511.8, -5527.41, -1031.48, -5495.14)
+
 [node name="NPCs" type="Node" parent="World2D"]
-
-[node name="GooseRegion2D" type="NavigationRegion2D" parent="World2D/NPCs"]
-position = Vector2(65022, -12)
-navigation_polygon = SubResource("NavigationPolygon_1ju1f")
-
-[node name="Goose" type="CharacterBody2D" parent="World2D/NPCs/GooseRegion2D"]
-position = Vector2(14456, -488)
-collision_layer = 2
-collision_mask = 9
-script = ExtResource("13_rdfy5")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World2D/NPCs/GooseRegion2D/Goose"]
-position = Vector2(31.0001, 266)
-scale = Vector2(0.570312, 0.570312)
-sprite_frames = SubResource("SpriteFrames_8w215")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/NPCs/GooseRegion2D/Goose"]
-position = Vector2(24, 259)
-rotation = 0.948541
-shape = SubResource("CapsuleShape2D_nwbuc")
-
-[node name="GooseNavigation" type="NavigationAgent2D" parent="World2D/NPCs/GooseRegion2D/Goose" node_paths=PackedStringArray("target")]
-script = ExtResource("16_vuaih")
-target = NodePath("../../../../../GrownUpChonki")
-
-[node name="Timer" type="Timer" parent="World2D/NPCs/GooseRegion2D/Goose"]
-wait_time = 2.5
-autostart = true
-
-[node name="FlapAudio" type="AudioStreamPlayer2D" parent="World2D/NPCs/GooseRegion2D/Goose"]
-stream = ExtResource("18_60djy")
-volume_db = 10.0
-
-[node name="GooseDefeated" type="AudioStreamPlayer2D" parent="World2D/NPCs/GooseRegion2D/Goose"]
-stream = ExtResource("20_f7bbt")
-volume_db = 10.0
-
-[node name="GooseRegion2D2" type="NavigationRegion2D" parent="World2D/NPCs"]
-position = Vector2(75708, -32)
-navigation_polygon = SubResource("NavigationPolygon_1ju1f")
-
-[node name="Goose" type="CharacterBody2D" parent="World2D/NPCs/GooseRegion2D2"]
-position = Vector2(14456, -488)
-collision_layer = 2
-collision_mask = 9
-script = ExtResource("13_rdfy5")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World2D/NPCs/GooseRegion2D2/Goose"]
-position = Vector2(31.0001, 266)
-scale = Vector2(0.570312, 0.570312)
-sprite_frames = SubResource("SpriteFrames_8w215")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/NPCs/GooseRegion2D2/Goose"]
-position = Vector2(24, 259)
-rotation = 0.948541
-shape = SubResource("CapsuleShape2D_nwbuc")
-
-[node name="GooseNavigation" type="NavigationAgent2D" parent="World2D/NPCs/GooseRegion2D2/Goose" node_paths=PackedStringArray("target")]
-script = ExtResource("16_vuaih")
-target = NodePath("../../../../../GrownUpChonki")
-
-[node name="Timer" type="Timer" parent="World2D/NPCs/GooseRegion2D2/Goose"]
-wait_time = 2.5
-autostart = true
-
-[node name="FlapAudio" type="AudioStreamPlayer2D" parent="World2D/NPCs/GooseRegion2D2/Goose"]
-stream = ExtResource("18_60djy")
-volume_db = 10.0
-
-[node name="GooseDefeated" type="AudioStreamPlayer2D" parent="World2D/NPCs/GooseRegion2D2/Goose"]
-stream = ExtResource("20_f7bbt")
-volume_db = 10.0
-
-[node name="Goose2" type="CharacterBody2D" parent="World2D/NPCs/GooseRegion2D2"]
-position = Vector2(19291, -488)
-collision_layer = 2
-collision_mask = 9
-script = ExtResource("13_rdfy5")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World2D/NPCs/GooseRegion2D2/Goose2"]
-position = Vector2(31.0001, 266)
-scale = Vector2(0.570312, 0.570312)
-sprite_frames = SubResource("SpriteFrames_8w215")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/NPCs/GooseRegion2D2/Goose2"]
-position = Vector2(24, 259)
-rotation = 0.948541
-shape = SubResource("CapsuleShape2D_nwbuc")
-
-[node name="GooseNavigation" type="NavigationAgent2D" parent="World2D/NPCs/GooseRegion2D2/Goose2" node_paths=PackedStringArray("target")]
-script = ExtResource("16_vuaih")
-target = NodePath("../../../../../GrownUpChonki")
-
-[node name="Timer" type="Timer" parent="World2D/NPCs/GooseRegion2D2/Goose2"]
-wait_time = 2.5
-autostart = true
-
-[node name="FlapAudio" type="AudioStreamPlayer2D" parent="World2D/NPCs/GooseRegion2D2/Goose2"]
-stream = ExtResource("18_60djy")
-volume_db = 10.0
-
-[node name="GooseDefeated" type="AudioStreamPlayer2D" parent="World2D/NPCs/GooseRegion2D2/Goose2"]
-stream = ExtResource("20_f7bbt")
-volume_db = 10.0
-
-[node name="GooseRegion2D3" type="NavigationRegion2D" parent="World2D/NPCs"]
-position = Vector2(79192, -4335)
-navigation_polygon = SubResource("NavigationPolygon_1ju1f")
-
-[node name="Goose2" type="CharacterBody2D" parent="World2D/NPCs/GooseRegion2D3"]
-position = Vector2(12080, -691)
-collision_layer = 2
-collision_mask = 9
-script = ExtResource("13_rdfy5")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World2D/NPCs/GooseRegion2D3/Goose2"]
-position = Vector2(31.0001, 266)
-scale = Vector2(0.570312, 0.570312)
-sprite_frames = SubResource("SpriteFrames_8w215")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/NPCs/GooseRegion2D3/Goose2"]
-position = Vector2(24, 259)
-rotation = 0.948541
-shape = SubResource("CapsuleShape2D_nwbuc")
-
-[node name="GooseNavigation" type="NavigationAgent2D" parent="World2D/NPCs/GooseRegion2D3/Goose2" node_paths=PackedStringArray("target")]
-script = ExtResource("16_vuaih")
-target = NodePath("../../../../../GrownUpChonki")
-
-[node name="Timer" type="Timer" parent="World2D/NPCs/GooseRegion2D3/Goose2"]
-wait_time = 2.5
-autostart = true
-
-[node name="FlapAudio" type="AudioStreamPlayer2D" parent="World2D/NPCs/GooseRegion2D3/Goose2"]
-stream = ExtResource("18_60djy")
-volume_db = 10.0
-
-[node name="GooseDefeated" type="AudioStreamPlayer2D" parent="World2D/NPCs/GooseRegion2D3/Goose2"]
-stream = ExtResource("20_f7bbt")
-volume_db = 10.0
 
 [node name="CrowBody" type="CharacterBody2D" parent="World2D/NPCs"]
 z_index = 1
@@ -632,6 +591,172 @@ frames = SubResource("SpriteFrames_uledv")
 sprite_scale = Vector2(1, 1)
 avatar_name = "ruby"
 
+[node name="Enemies" type="Node" parent="World2D/NPCs"]
+
+[node name="GooseRegion2D" type="NavigationRegion2D" parent="World2D/NPCs/Enemies"]
+position = Vector2(65022, -12)
+navigation_polygon = SubResource("NavigationPolygon_1ju1f")
+
+[node name="Goose" type="CharacterBody2D" parent="World2D/NPCs/Enemies/GooseRegion2D"]
+position = Vector2(14456, -488)
+collision_layer = 2
+collision_mask = 9
+script = ExtResource("13_rdfy5")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World2D/NPCs/Enemies/GooseRegion2D/Goose"]
+position = Vector2(31.0001, 266)
+scale = Vector2(0.570312, 0.570312)
+sprite_frames = SubResource("SpriteFrames_8w215")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/NPCs/Enemies/GooseRegion2D/Goose"]
+position = Vector2(24, 259)
+rotation = 0.948541
+shape = SubResource("CapsuleShape2D_nwbuc")
+
+[node name="GooseNavigation" type="NavigationAgent2D" parent="World2D/NPCs/Enemies/GooseRegion2D/Goose" node_paths=PackedStringArray("target")]
+script = ExtResource("16_vuaih")
+target = NodePath("../../../../../../GrownUpChonki")
+
+[node name="Timer" type="Timer" parent="World2D/NPCs/Enemies/GooseRegion2D/Goose"]
+wait_time = 2.5
+autostart = true
+
+[node name="FlapAudio" type="AudioStreamPlayer2D" parent="World2D/NPCs/Enemies/GooseRegion2D/Goose"]
+stream = ExtResource("18_60djy")
+volume_db = 10.0
+
+[node name="GooseDefeated" type="AudioStreamPlayer2D" parent="World2D/NPCs/Enemies/GooseRegion2D/Goose"]
+stream = ExtResource("20_f7bbt")
+volume_db = 10.0
+
+[node name="GooseRegion2D2" type="NavigationRegion2D" parent="World2D/NPCs/Enemies"]
+position = Vector2(75708, -32)
+navigation_polygon = SubResource("NavigationPolygon_1ju1f")
+
+[node name="Goose" type="CharacterBody2D" parent="World2D/NPCs/Enemies/GooseRegion2D2"]
+position = Vector2(14456, -488)
+collision_layer = 2
+collision_mask = 9
+script = ExtResource("13_rdfy5")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World2D/NPCs/Enemies/GooseRegion2D2/Goose"]
+position = Vector2(31.0001, 266)
+scale = Vector2(0.570312, 0.570312)
+sprite_frames = SubResource("SpriteFrames_8w215")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/NPCs/Enemies/GooseRegion2D2/Goose"]
+position = Vector2(24, 259)
+rotation = 0.948541
+shape = SubResource("CapsuleShape2D_nwbuc")
+
+[node name="GooseNavigation" type="NavigationAgent2D" parent="World2D/NPCs/Enemies/GooseRegion2D2/Goose" node_paths=PackedStringArray("target")]
+script = ExtResource("16_vuaih")
+target = NodePath("../../../../../../GrownUpChonki")
+
+[node name="Timer" type="Timer" parent="World2D/NPCs/Enemies/GooseRegion2D2/Goose"]
+wait_time = 2.5
+autostart = true
+
+[node name="FlapAudio" type="AudioStreamPlayer2D" parent="World2D/NPCs/Enemies/GooseRegion2D2/Goose"]
+stream = ExtResource("18_60djy")
+volume_db = 10.0
+
+[node name="GooseDefeated" type="AudioStreamPlayer2D" parent="World2D/NPCs/Enemies/GooseRegion2D2/Goose"]
+stream = ExtResource("20_f7bbt")
+volume_db = 10.0
+
+[node name="Goose2" type="CharacterBody2D" parent="World2D/NPCs/Enemies/GooseRegion2D2"]
+position = Vector2(19291, -488)
+collision_layer = 2
+collision_mask = 9
+script = ExtResource("13_rdfy5")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World2D/NPCs/Enemies/GooseRegion2D2/Goose2"]
+position = Vector2(31.0001, 266)
+scale = Vector2(0.570312, 0.570312)
+sprite_frames = SubResource("SpriteFrames_8w215")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/NPCs/Enemies/GooseRegion2D2/Goose2"]
+position = Vector2(24, 259)
+rotation = 0.948541
+shape = SubResource("CapsuleShape2D_nwbuc")
+
+[node name="GooseNavigation" type="NavigationAgent2D" parent="World2D/NPCs/Enemies/GooseRegion2D2/Goose2" node_paths=PackedStringArray("target")]
+script = ExtResource("16_vuaih")
+target = NodePath("../../../../../../GrownUpChonki")
+
+[node name="Timer" type="Timer" parent="World2D/NPCs/Enemies/GooseRegion2D2/Goose2"]
+wait_time = 2.5
+autostart = true
+
+[node name="FlapAudio" type="AudioStreamPlayer2D" parent="World2D/NPCs/Enemies/GooseRegion2D2/Goose2"]
+stream = ExtResource("18_60djy")
+volume_db = 10.0
+
+[node name="GooseDefeated" type="AudioStreamPlayer2D" parent="World2D/NPCs/Enemies/GooseRegion2D2/Goose2"]
+stream = ExtResource("20_f7bbt")
+volume_db = 10.0
+
+[node name="GooseRegion2D3" type="NavigationRegion2D" parent="World2D/NPCs/Enemies"]
+position = Vector2(79192, -4335)
+navigation_polygon = SubResource("NavigationPolygon_1ju1f")
+
+[node name="Goose2" type="CharacterBody2D" parent="World2D/NPCs/Enemies/GooseRegion2D3"]
+position = Vector2(12080, -691)
+collision_layer = 2
+collision_mask = 9
+script = ExtResource("13_rdfy5")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World2D/NPCs/Enemies/GooseRegion2D3/Goose2"]
+position = Vector2(31.0001, 266)
+scale = Vector2(0.570312, 0.570312)
+sprite_frames = SubResource("SpriteFrames_8w215")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/NPCs/Enemies/GooseRegion2D3/Goose2"]
+position = Vector2(24, 259)
+rotation = 0.948541
+shape = SubResource("CapsuleShape2D_nwbuc")
+
+[node name="GooseNavigation" type="NavigationAgent2D" parent="World2D/NPCs/Enemies/GooseRegion2D3/Goose2" node_paths=PackedStringArray("target")]
+script = ExtResource("16_vuaih")
+target = NodePath("../../../../../../GrownUpChonki")
+
+[node name="Timer" type="Timer" parent="World2D/NPCs/Enemies/GooseRegion2D3/Goose2"]
+wait_time = 2.5
+autostart = true
+
+[node name="FlapAudio" type="AudioStreamPlayer2D" parent="World2D/NPCs/Enemies/GooseRegion2D3/Goose2"]
+stream = ExtResource("18_60djy")
+volume_db = 10.0
+
+[node name="GooseDefeated" type="AudioStreamPlayer2D" parent="World2D/NPCs/Enemies/GooseRegion2D3/Goose2"]
+stream = ExtResource("20_f7bbt")
+volume_db = 10.0
+
+[node name="OtterPath2D" type="Path2D" parent="World2D/NPCs/Enemies"]
+position = Vector2(111049, 526)
+curve = SubResource("Curve2D_dkkmk")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="World2D/NPCs/Enemies/OtterPath2D"]
+position = Vector2(363, 469)
+rotation = 2.91238
+scale = Vector2(1, 1)
+
+[node name="OtterArea2D" type="Area2D" parent="World2D/NPCs/Enemies/OtterPath2D/PathFollow2D"]
+rotation = 3.49066
+scale = Vector2(1, 1)
+
+[node name="CollisionShape2D" type="Polygon2D" parent="World2D/NPCs/Enemies/OtterPath2D/PathFollow2D/OtterArea2D"]
+position = Vector2(-207, -179)
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World2D/NPCs/Enemies/OtterPath2D/PathFollow2D/OtterArea2D"]
+z_index = 5
+scale = Vector2(3.04, 3.04)
+sprite_frames = SubResource("SpriteFrames_4xi8u")
+autoplay = "default"
+frame_progress = 0.135845
+flip_h = true
+
 [node name="Platforms & Barriers" type="Node2D" parent="World2D"]
 
 [node name="BoatBarrier" type="StaticBody2D" parent="World2D/Platforms & Barriers"]
@@ -676,6 +801,7 @@ position = Vector2(11242.7, 102.5)
 shape = SubResource("RectangleShape2D_7hmix")
 
 [node name="CherryTreeBody" type="StaticBody2D" parent="World2D/Platforms & Barriers"]
+z_index = 1
 position = Vector2(77882, 0)
 collision_layer = 8
 collision_mask = 21
@@ -690,6 +816,7 @@ texture = ExtResource("15_gqhdx")
 polygon = PackedVector2Array(10704, 13, 10569, -510, 10518, -846, 10430, -1006, 10387, -1281, 10375, -1572, 10587, -1893, 10871, -2149, 11101, -2190, 11470, -1940, 11577, -1618, 11719, -1493, 11780, -1010, 11567, -666, 11321, -310, 11163, 23)
 
 [node name="CherryTreeBody2" type="StaticBody2D" parent="World2D/Platforms & Barriers"]
+z_index = 1
 position = Vector2(44462, 0)
 collision_layer = 8
 collision_mask = 21
@@ -821,10 +948,12 @@ shape = SubResource("CircleShape2D_hvrd6")
 [node name="Kayaks" type="Node" parent="World2D/Platforms & Barriers"]
 
 [node name="Kayak" parent="World2D/Platforms & Barriers/Kayaks" instance=ExtResource("44_n3wcc")]
+z_index = 1
 position = Vector2(104221, 176)
 float_amplitude = 75.0
 
 [node name="Kayak2" parent="World2D/Platforms & Barriers/Kayaks" instance=ExtResource("44_n3wcc")]
+z_index = 1
 position = Vector2(108772, 176)
 float_amplitude = 75.0
 
@@ -900,62 +1029,6 @@ initial_camera_zoom = Vector2(0.22, 0.22)
 win_zoom_intensity = 0.1
 
 [node name="HUD" parent="." instance=ExtResource("20_g3dfk")]
-
-[node name="Leaves" type="GPUParticles2D" parent="."]
-position = Vector2(71566, -1212)
-script = ExtResource("36_6xmqk")
-leaf_lifetime = 4.0
-upward_force = 1000.0
-wind_strength = Vector2(5000, 0)
-initial_velocity_range = Vector2(1000, 500)
-gravity_strength = 500.0
-angular_velocity_range = Vector2(5000, 90)
-leaf_texture = ExtResource("38_1vjko")
-scale_range = Vector2(0.75, 1.25)
-color_variation = false
-enable_wind_zones = false
-
-[node name="Leaves2" type="GPUParticles2D" parent="."]
-position = Vector2(42396, -1392)
-script = ExtResource("36_6xmqk")
-leaf_lifetime = 4.0
-upward_force = 1000.0
-wind_strength = Vector2(5000, 0)
-initial_velocity_range = Vector2(1000, 500)
-gravity_strength = 500.0
-angular_velocity_range = Vector2(5000, 90)
-leaf_texture = ExtResource("38_1vjko")
-scale_range = Vector2(0.75, 1.25)
-color_variation = false
-enable_wind_zones = false
-
-[node name="Leaves3" type="GPUParticles2D" parent="."]
-position = Vector2(38870, -3918)
-script = ExtResource("36_6xmqk")
-leaf_lifetime = 4.0
-upward_force = 1000.0
-wind_strength = Vector2(5000, 0)
-initial_velocity_range = Vector2(1000, 500)
-gravity_strength = 500.0
-angular_velocity_range = Vector2(5000, 90)
-leaf_texture = ExtResource("38_1vjko")
-scale_range = Vector2(0.75, 1.25)
-color_variation = false
-enable_wind_zones = false
-
-[node name="Leaves4" type="GPUParticles2D" parent="."]
-position = Vector2(42288, -5070)
-script = ExtResource("36_6xmqk")
-leaf_lifetime = 4.0
-upward_force = 1000.0
-wind_strength = Vector2(5000, 0)
-initial_velocity_range = Vector2(1000, 500)
-gravity_strength = 500.0
-angular_velocity_range = Vector2(5000, 90)
-leaf_texture = ExtResource("38_1vjko")
-scale_range = Vector2(0.75, 1.25)
-color_variation = false
-enable_wind_zones = false
 
 [node name="TitleLayers" type="Node2D" parent="."]
 
@@ -1084,10 +1157,10 @@ zoom_on_enter = 0.22
 [node name="GusDebugStartMarker" type="Marker2D" parent="."]
 position = Vector2(104928, -1004)
 
-[connection signal="timeout" from="World2D/NPCs/GooseRegion2D/Goose/Timer" to="World2D/NPCs/GooseRegion2D/Goose" method="_on_hop_timer_timeout"]
-[connection signal="timeout" from="World2D/NPCs/GooseRegion2D2/Goose/Timer" to="World2D/NPCs/GooseRegion2D2/Goose" method="_on_hop_timer_timeout"]
-[connection signal="timeout" from="World2D/NPCs/GooseRegion2D2/Goose2/Timer" to="World2D/NPCs/GooseRegion2D2/Goose2" method="_on_hop_timer_timeout"]
-[connection signal="timeout" from="World2D/NPCs/GooseRegion2D3/Goose2/Timer" to="World2D/NPCs/GooseRegion2D3/Goose2" method="_on_hop_timer_timeout"]
 [connection signal="body_entered" from="World2D/NPCs/Bicyclist" to="World2D/NPCs/Bicyclist" method="_on_body_entered"]
+[connection signal="timeout" from="World2D/NPCs/Enemies/GooseRegion2D/Goose/Timer" to="World2D/NPCs/Enemies/GooseRegion2D/Goose" method="_on_hop_timer_timeout"]
+[connection signal="timeout" from="World2D/NPCs/Enemies/GooseRegion2D2/Goose/Timer" to="World2D/NPCs/Enemies/GooseRegion2D2/Goose" method="_on_hop_timer_timeout"]
+[connection signal="timeout" from="World2D/NPCs/Enemies/GooseRegion2D2/Goose2/Timer" to="World2D/NPCs/Enemies/GooseRegion2D2/Goose2" method="_on_hop_timer_timeout"]
+[connection signal="timeout" from="World2D/NPCs/Enemies/GooseRegion2D3/Goose2/Timer" to="World2D/NPCs/Enemies/GooseRegion2D3/Goose2" method="_on_hop_timer_timeout"]
 [connection signal="input_event" from="World2D/Platforms & Barriers/CherryTreeBody" to="World2D/Platforms & Barriers/CherryTreeBody" method="_on_input_event"]
 [connection signal="input_event" from="World2D/Platforms & Barriers/CherryTreeBody2" to="World2D/Platforms & Barriers/CherryTreeBody2" method="_on_input_event"]
