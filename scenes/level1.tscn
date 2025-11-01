@@ -1,4 +1,4 @@
-[gd_scene load_steps=88 format=3 uid="uid://br8ftak73gmww"]
+[gd_scene load_steps=90 format=3 uid="uid://br8ftak73gmww"]
 
 [ext_resource type="PackedScene" uid="uid://bk3oytbasgs5w" path="res://scenes/grown_up_chonki.tscn" id="1_6i0tl"]
 [ext_resource type="Script" uid="uid://b2cncqbuotdcl" path="res://scenes/level_1.gd" id="1_hvrd6"]
@@ -63,6 +63,7 @@
 [ext_resource type="Theme" uid="uid://dte5an7k6hog1" path="res://themes/base.tres" id="44_y4ufg"]
 [ext_resource type="Script" uid="uid://chnhtm6mvs5h" path="res://scenes/pottery_2.gd" id="45_eedbu"]
 [ext_resource type="Script" uid="uid://bfcdimts6npaa" path="res://scenes/pottery_3.gd" id="46_4yyev"]
+[ext_resource type="Script" uid="uid://b7x75jyph32sm" path="res://scenes/OtterPath2D.gd" id="46_otter"]
 [ext_resource type="Script" uid="uid://d4kk2iudy17ia" path="res://scenes/OceanFloor.gd" id="47_ocean"]
 [ext_resource type="PackedScene" uid="uid://6q16boewrg0o" path="res://scenes/composable/trampoline.tscn" id="53_7hmix"]
 [ext_resource type="PackedScene" uid="uid://divvcbosmeqxn" path="res://scenes/SecretLetter.tscn" id="56_yqdyt"]
@@ -236,7 +237,7 @@ point_count = 7
 [sub_resource type="SpriteFrames" id="SpriteFrames_4xi8u"]
 animations = [{
 "frames": [{
-"duration": 1.0,
+"duration": 8.0,
 "texture": ExtResource("37_dkkmk")
 }, {
 "duration": 1.0,
@@ -258,6 +259,9 @@ animations = [{
 "name": &"default",
 "speed": 5.0
 }]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sejw4"]
+size = Vector2(1018.78, 960.916)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4w6xv"]
 size = Vector2(10804.6, 79)
@@ -736,18 +740,17 @@ volume_db = 10.0
 [node name="OtterPath2D" type="Path2D" parent="World2D/NPCs/Enemies"]
 position = Vector2(111049, 526)
 curve = SubResource("Curve2D_dkkmk")
+script = ExtResource("46_otter")
+loop_duration = 5.0
 
 [node name="PathFollow2D" type="PathFollow2D" parent="World2D/NPCs/Enemies/OtterPath2D"]
-position = Vector2(363, 469)
-rotation = 2.91238
-scale = Vector2(1, 1)
+position = Vector2(-2955.92, -2860.97)
+rotation = -0.346811
+progress = 9700.05
 
 [node name="OtterArea2D" type="Area2D" parent="World2D/NPCs/Enemies/OtterPath2D/PathFollow2D"]
-rotation = 3.49066
-scale = Vector2(1, 1)
-
-[node name="CollisionShape2D" type="Polygon2D" parent="World2D/NPCs/Enemies/OtterPath2D/PathFollow2D/OtterArea2D"]
-position = Vector2(-207, -179)
+rotation = 0.401426
+collision_layer = 2
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World2D/NPCs/Enemies/OtterPath2D/PathFollow2D/OtterArea2D"]
 z_index = 5
@@ -756,6 +759,10 @@ sprite_frames = SubResource("SpriteFrames_4xi8u")
 autoplay = "default"
 frame_progress = 0.135845
 flip_h = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/NPCs/Enemies/OtterPath2D/PathFollow2D/OtterArea2D"]
+position = Vector2(9.21094, 18.9561)
+shape = SubResource("RectangleShape2D_sejw4")
 
 [node name="Platforms & Barriers" type="Node2D" parent="World2D"]
 
@@ -828,6 +835,21 @@ scale = Vector2(1.51269, 1.51269)
 texture = ExtResource("15_gqhdx")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="World2D/Platforms & Barriers/CherryTreeBody2"]
+polygon = PackedVector2Array(10704, 13, 10569, -510, 10518, -846, 10430, -1006, 10387, -1281, 10375, -1572, 10587, -1893, 10871, -2149, 11101, -2190, 11470, -1940, 11577, -1618, 11719, -1493, 11780, -1010, 11567, -666, 11321, -310, 11163, 23)
+
+[node name="CherryTreeBody3" type="StaticBody2D" parent="World2D/Platforms & Barriers"]
+z_index = 1
+position = Vector2(20464, 0)
+collision_layer = 8
+collision_mask = 21
+script = ExtResource("15_iid5p")
+
+[node name="Sprite2D" type="Sprite2D" parent="World2D/Platforms & Barriers/CherryTreeBody3"]
+position = Vector2(11067.5, -1078.75)
+scale = Vector2(1.51269, 1.51269)
+texture = ExtResource("15_gqhdx")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="World2D/Platforms & Barriers/CherryTreeBody3"]
 polygon = PackedVector2Array(10704, 13, 10569, -510, 10518, -846, 10430, -1006, 10387, -1281, 10375, -1572, 10587, -1893, 10871, -2149, 11101, -2190, 11470, -1940, 11577, -1618, 11719, -1493, 11780, -1010, 11567, -666, 11321, -310, 11163, 23)
 
 [node name="Volleyballs" type="Node2D" parent="World2D/Platforms & Barriers"]
@@ -1164,3 +1186,4 @@ position = Vector2(104928, -1004)
 [connection signal="timeout" from="World2D/NPCs/Enemies/GooseRegion2D3/Goose2/Timer" to="World2D/NPCs/Enemies/GooseRegion2D3/Goose2" method="_on_hop_timer_timeout"]
 [connection signal="input_event" from="World2D/Platforms & Barriers/CherryTreeBody" to="World2D/Platforms & Barriers/CherryTreeBody" method="_on_input_event"]
 [connection signal="input_event" from="World2D/Platforms & Barriers/CherryTreeBody2" to="World2D/Platforms & Barriers/CherryTreeBody2" method="_on_input_event"]
+[connection signal="input_event" from="World2D/Platforms & Barriers/CherryTreeBody3" to="World2D/Platforms & Barriers/CherryTreeBody3" method="_on_input_event"]
