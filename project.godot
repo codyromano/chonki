@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="Chonki"
-config/description="Help a lost Corgi find his owner"
+config/description="A dog and his owner adjust to post-pandemic life"
 run/main_scene="res://scenes/opening_animation_sequence.tscn"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
@@ -35,6 +35,10 @@ window/size/viewport_width=375
 window/size/viewport_height=812
 window/size/mode=2
 window/stretch/scale=2.05
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/gut/plugin.cfg")
 
 [input]
 

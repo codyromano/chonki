@@ -26,14 +26,18 @@ func _ready():
 	tip_area_left = $TipAreaLeft
 	tip_area_right = $TipAreaRight
 	
-	# Connect to the collision signals
+	# Connect to the collision signals (check if not already connected)
 	if tip_area_left:
-		tip_area_left.body_entered.connect(_on_tip_area_left_body_entered)
-		tip_area_left.body_exited.connect(_on_tip_area_left_body_exited)
+		if not tip_area_left.body_entered.is_connected(_on_tip_area_left_body_entered):
+			tip_area_left.body_entered.connect(_on_tip_area_left_body_entered)
+		if not tip_area_left.body_exited.is_connected(_on_tip_area_left_body_exited):
+			tip_area_left.body_exited.connect(_on_tip_area_left_body_exited)
 	
 	if tip_area_right:
-		tip_area_right.body_entered.connect(_on_tip_area_right_body_entered)
-		tip_area_right.body_exited.connect(_on_tip_area_right_body_exited)
+		if not tip_area_right.body_entered.is_connected(_on_tip_area_right_body_entered):
+			tip_area_right.body_entered.connect(_on_tip_area_right_body_entered)
+		if not tip_area_right.body_exited.is_connected(_on_tip_area_right_body_exited):
+			tip_area_right.body_exited.connect(_on_tip_area_right_body_exited)
 
 func _process(delta):
 	# Increment time
