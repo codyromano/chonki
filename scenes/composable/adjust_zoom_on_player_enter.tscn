@@ -3,14 +3,14 @@
 [ext_resource type="Script" uid="uid://dqtdd3c6vflve" path="res://scenes/adjust_zoom_on_player_enter.gd" id="1_md88a"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_x7a8r"]
-size = Vector2(197, 3002)
+size = Vector2(314, 5950)
 
 [node name="AdjustZoomOnPlayerEnter" type="Area2D"]
 script = ExtResource("1_md88a")
 zoom_on_enter = 0.25
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(90.5, 212)
+position = Vector2(149, -1262)
 shape = SubResource("RectangleShape2D_x7a8r")
 
 [connection signal="body_entered" from="." to="." method="_on_body_entered"]

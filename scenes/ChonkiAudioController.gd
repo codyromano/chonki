@@ -4,6 +4,7 @@ extends Node
 var run_sound: AudioStreamPlayer2D
 var rest_sound: AudioStreamPlayer2D
 var jump_sound: AudioStreamPlayer2D
+var midair_jump_sound: AudioStreamPlayer2D
 var ouch_sound: AudioStreamPlayer2D
 var chill_bark_sound: AudioStreamPlayer2D
 
@@ -21,6 +22,7 @@ func _on_player_registered(player: Node2D) -> void:
 	run_sound = player.find_child("AudioRun", true, false)
 	rest_sound = player.find_child("RestRun", true, false)
 	jump_sound = player.find_child("AudioJump", true, false)
+	midair_jump_sound = player.find_child("AudioMidairJump", true, false)
 	ouch_sound = player.find_child("AudioOuch", true, false)
 	chill_bark_sound = player.find_child("ChillBark", true, false)
 
@@ -29,6 +31,7 @@ func _on_player_unregistered() -> void:
 	run_sound = null
 	rest_sound = null
 	jump_sound = null
+	midair_jump_sound = null
 	ouch_sound = null
 	chill_bark_sound = null
 
@@ -37,6 +40,8 @@ func _on_play_sfx(sound_name: String) -> void:
 	match sound_name:
 		"jump":
 			sound_player = jump_sound
+		"midair_jump":
+			sound_player = midair_jump_sound
 		"run":
 			sound_player = run_sound
 		"rest":

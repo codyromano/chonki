@@ -823,7 +823,7 @@ texture = ExtResource("15_gqhdx")
 polygon = PackedVector2Array(10704, 13, 10569, -510, 10518, -846, 10430, -1006, 10387, -1281, 10375, -1572, 10587, -1893, 10871, -2149, 11101, -2190, 11470, -1940, 11577, -1618, 11719, -1493, 11780, -1010, 11567, -666, 11321, -310, 11163, 23)
 
 [node name="CherryTreeBody2" type="StaticBody2D" parent="World2D/Platforms & Barriers"]
-z_index = 1
+z_index = 5
 position = Vector2(44462, 0)
 collision_layer = 8
 collision_mask = 21
@@ -1042,11 +1042,11 @@ scale = Vector2(0.360039, 0.360039)
 jump_intensity = 1.5
 trampoline_id = "near_ruby"
 
-[node name="GrownUpChonki" parent="." node_paths=PackedStringArray("debug_start_marker") instance=ExtResource("1_6i0tl")]
+[node name="GrownUpChonki" parent="." instance=ExtResource("1_6i0tl")]
 z_index = 2
 position = Vector2(71058, -470)
-debug_start_marker = NodePath("../GusDebugStartMarker")
 jump_multiplier = 1.5
+midair_jumps = 3
 speed_multiplier = 1.0
 initial_camera_zoom = Vector2(0.22, 0.22)
 win_zoom_intensity = 0.1
@@ -1175,7 +1175,7 @@ zoom_on_enter = 0.22
 
 [node name="AdjustZoomOnPlayerEnter4" parent="ZoomAdjustmentZones" instance=ExtResource("62_4w6xv")]
 position = Vector2(74889, -1602)
-zoom_on_enter = 0.22
+zoom_on_enter = 0.2
 
 [node name="GusDebugStartMarker" type="Marker2D" parent="."]
 position = Vector2(104928, -1004)

@@ -7,6 +7,7 @@ extends Node2D
 
 @export var heart_texture: Texture2D
 @export var jump_multiplier: float = 1.0
+@export var midair_jumps: int = 0
 @export var speed_multiplier: float = 0.375
 
 @export var initial_camera_zoom: Vector2 = Vector2(0.2, 0.2)
@@ -47,6 +48,8 @@ var can_slide_on_release: bool = false
 var is_running_sound_playing: bool = false
 var is_backflipping: bool = false
 var is_frozen: bool = false
+var remaining_midair_jumps: int = 0
+var is_midair_jumping: bool = false
 
 # Signal to indicate Chonki has landed and hearts have spawned
 signal chonki_landed_and_hearts_spawned(zoom_intensity: float)
@@ -360,9 +363,34 @@ func _on_player_out_of_hearts():
 func _on_player_jump(intensity: float, entity_applying_force: String):
 	# Allow objects such as trampolines to apply jump force to the player even
 	# when the player is not on the ground.
-	if not is_game_win and (body.is_on_floor() || entity_applying_force != "player"):
+	var can_jump = false
+	var is_midair_jump = false
+	
+	if body.is_on_floor():
+		# Always allow jumping when on floor
+		can_jump = true
+		# Reset midair jump counter when landing
+		remaining_midair_jumps = midair_jumps
+		# Reset midair jumping flag when landing
+		is_midair_jumping = false
+	elif entity_applying_force != "player":
+		# External forces (trampolines, etc.) always work
+		can_jump = true
+	elif remaining_midair_jumps > 0 and not is_midair_jumping:
+		# Allow midair jump if we have jumps remaining and not currently performing one
+		can_jump = true
+		is_midair_jump = true
+		remaining_midair_jumps -= 1
+	
+	if not is_game_win and can_jump:
 		velocity.y = PhysicsConstants.JUMP_FORCE * jump_multiplier * intensity
-		GlobalSignals.play_sfx.emit("jump")
+		# Play different sound for midair jumps
+		if is_midair_jump:
+			GlobalSignals.play_sfx.emit("midair_jump")
+			# Trigger backflip animation for midair jumps
+			_perform_midair_backflip()
+		else:
+			GlobalSignals.play_sfx.emit("jump")
 
 func _on_backflip_triggered():
 	# Prevent multiple simultaneous backflips
@@ -388,6 +416,27 @@ func _on_backflip_triggered():
 	sprite.rotation_degrees = 0
 	
 	is_backflipping = false
+
+func _perform_midair_backflip():
+	# Perform a quick backflip during midair jump
+	# Prevent other midair jumps while this animation is in progress
+	is_midair_jumping = true
+	
+	# Perform 360 degree rotation on sprite only over 0.5 seconds
+	var start_rotation = sprite.rotation_degrees
+	var tween = create_tween()
+	tween.tween_property(sprite, "rotation_degrees", start_rotation + 360, 0.5)
+	tween.set_ease(Tween.EASE_IN_OUT)
+	tween.set_trans(Tween.TRANS_SINE)
+	
+	# Reset sprite rotation when animation completes
+	await tween.finished
+	
+	# Always reset to 0 to ensure Gus lands on his feet
+	sprite.rotation_degrees = 0
+	
+	# Allow next midair jump
+	is_midair_jumping = false
 
 func _exit_tree() -> void:
 	GlobalSignals.player_unregistered.emit()

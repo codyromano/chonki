@@ -43,6 +43,10 @@ The player has three lives for each scene, which are displayed as heart icons wi
 
 After losing three lives, the Chonki character (Chonki.gd) plays a "sleep" animation for its child AnimatedSprite2D. Meanwhile, the rest of the screen freezes. After 4 seconds, the screen fades to black, then the level restarts with its state reset.
 
+## Midair Jumps
+
+The grown-up Chonki character supports configurable midair jumps via the `midair_jumps` export variable (default: 0). When enabled, the player can perform additional jumps while airborne. Each midair jump triggers a 0.5-second backflip animation with a unique sound effect (midair-jump.mp3). The player cannot initiate a new midair jump while a backflip is in progress. Midair jump counters reset upon landing.
+
 ## Scene Transition System
 
 The game implements a stateful scene caching system to preserve complete runtime state when transitioning between scenes (e.g., intro ↔ library).

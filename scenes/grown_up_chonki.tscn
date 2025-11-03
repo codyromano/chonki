@@ -1,4 +1,4 @@
-[gd_scene load_steps=145 format=3 uid="uid://bk3oytbasgs5w"]
+[gd_scene load_steps=146 format=3 uid="uid://bk3oytbasgs5w"]
 
 [ext_resource type="Script" uid="uid://cu46jqmyvfpbt" path="res://scenes/grown_up_chonki.gd" id="1_h7loo"]
 [ext_resource type="Script" uid="uid://ghyqnuev2ipa" path="res://scenes/ChonkiBody.gd" id="2_myqjb"]
@@ -9,6 +9,7 @@
 [ext_resource type="AudioStream" uid="uid://culiqfeaauxt7" path="res://assets/sound/push.mp3" id="7_t3k4e"]
 [ext_resource type="AudioStream" uid="uid://bxokgwf35y540" path="res://assets/sound/jump.mp3" id="8_j1fkq"]
 [ext_resource type="Texture2D" uid="uid://batkaluf3jygl" path="res://assets/corgi/01_idle/skeleton-0b_idle_00.png" id="9_kwba2"]
+[ext_resource type="AudioStream" uid="uid://7bqkx5ddtnqv" path="res://assets/sound/midair-jump.mp3" id="9_midair"]
 [ext_resource type="Texture2D" uid="uid://dyi1618ew4mac" path="res://assets/corgi/01_idle/skeleton-0b_idle_01.png" id="10_vwl0t"]
 [ext_resource type="Texture2D" uid="uid://cn4gyafnt00v5" path="res://assets/corgi/01_idle/skeleton-0b_idle_02.png" id="11_4mv4h"]
 [ext_resource type="Texture2D" uid="uid://12daaqh7ebhs" path="res://assets/corgi/01_idle/skeleton-0b_idle_03.png" id="12_cqnt8"]
@@ -601,6 +602,9 @@ volume_db = -10.0
 
 [node name="AudioJump" type="AudioStreamPlayer2D" parent="ChonkiCharacter"]
 stream = ExtResource("8_j1fkq")
+
+[node name="AudioMidairJump" type="AudioStreamPlayer2D" parent="ChonkiCharacter"]
+stream = ExtResource("9_midair")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="ChonkiCharacter"]
 position = Vector2(2, 0)
