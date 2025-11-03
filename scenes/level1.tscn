@@ -1046,6 +1046,7 @@ trampoline_id = "near_ruby"
 z_index = 2
 position = Vector2(71058, -470)
 debug_start_marker = NodePath("../GusDebugStartMarker")
+jump_multiplier = 1.5
 speed_multiplier = 1.0
 initial_camera_zoom = Vector2(0.22, 0.22)
 win_zoom_intensity = 0.1

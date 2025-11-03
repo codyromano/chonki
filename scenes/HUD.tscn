@@ -109,6 +109,25 @@ visible = false
 layout_mode = 2
 texture = ExtResource("5_sva7s")
 
+[node name="LettersVBoxContainer" type="VBoxContainer" parent="HUDControl/VBoxContainer/TopMenuHBoxContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 4
+theme_override_constants/separation = 2
+
+[node name="LettersLabel" type="Label" parent="HUDControl/VBoxContainer/TopMenuHBoxContainer/LettersVBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 20
+text = "Letters collected:"
+
+[node name="LettersHBoxContainer" type="HBoxContainer" parent="HUDControl/VBoxContainer/TopMenuHBoxContainer/LettersVBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+theme_override_constants/separation = 5
+
 [node name="BooksHBoxContainer" type="HBoxContainer" parent="HUDControl/VBoxContainer/TopMenuHBoxContainer"]
 custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
