@@ -57,6 +57,7 @@ signal chonki_landed_and_hearts_spawned(zoom_intensity: float)
 func _ready() -> void:
 	GlobalSignals.player_registered.emit(self)
 	GlobalSignals.set_chonki_frozen.connect(_on_chonki_frozen)
+	GlobalSignals.secret_letter_collected.connect(_on_secret_letter_collected)
 	
 	if debug_start_marker:
 		global_position = debug_start_marker.global_position
@@ -437,6 +438,9 @@ func _perform_midair_backflip():
 	
 	# Allow next midair jump
 	is_midair_jumping = false
+
+func _on_secret_letter_collected(_letter: String):
+	midair_jumps += 1
 
 func _exit_tree() -> void:
 	GlobalSignals.player_unregistered.emit()
