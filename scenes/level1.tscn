@@ -343,10 +343,10 @@ polygon = PackedVector2Array(-966.253, -382.053, 73308.7, -382.053, 73294.4, 627
 script = ExtResource("8_8hmqo")
 
 [node name="Bench" parent="World2D/Environment" instance=ExtResource("58_eedbu")]
-position = Vector2(77608, -343)
+position = Vector2(78517, -343)
 
 [node name="Bench2" parent="World2D/Environment" instance=ExtResource("58_eedbu")]
-position = Vector2(68272, -343)
+position = Vector2(68516, -343)
 
 [node name="ParticleEffects" type="Node" parent="World2D/Environment"]
 
@@ -584,7 +584,7 @@ move_duration = 6.0
 
 [node name="MomoQuestGiver" parent="World2D/NPCs" instance=ExtResource("37_hvrd6")]
 z_index = 2
-position = Vector2(72530, -669)
+position = Vector2(73287, -669)
 script = ExtResource("38_y3pui")
 frames = SubResource("SpriteFrames_y3pui")
 
@@ -852,6 +852,23 @@ texture = ExtResource("15_gqhdx")
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="World2D/Platforms & Barriers/CherryTreeBody3"]
 polygon = PackedVector2Array(10704, 13, 10569, -510, 10518, -846, 10430, -1006, 10387, -1281, 10375, -1572, 10587, -1893, 10871, -2149, 11101, -2190, 11470, -1940, 11577, -1618, 11719, -1493, 11780, -1010, 11567, -666, 11321, -310, 11163, 23)
 
+[node name="CherryTreeBody4" type="StaticBody2D" parent="World2D/Platforms & Barriers"]
+z_index = 1
+position = Vector2(64969, 0)
+collision_layer = 8
+collision_mask = 21
+script = ExtResource("15_iid5p")
+
+[node name="Sprite2D" type="Sprite2D" parent="World2D/Platforms & Barriers/CherryTreeBody4"]
+position = Vector2(11067.5, -1860)
+scale = Vector2(2.63317, 2.63317)
+texture = ExtResource("15_gqhdx")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="World2D/Platforms & Barriers/CherryTreeBody4"]
+position = Vector2(61, -1526)
+scale = Vector2(0.993193, 0.993193)
+polygon = PackedVector2Array(10778.4, 1532.43, 10863.9, 413.817, 10167.2, 24.1646, 9978.93, -496.379, 10121.9, -1086.39, 10375, -1572, 10699.8, -2061.03, 11101, -2190, 11470, -1940, 11577, -1618, 12073.2, -1163.92, 12298.7, -245.672, 11778.2, 217.48, 11142.8, 433.954, 11179.1, 1508.27)
+
 [node name="Volleyballs" type="Node2D" parent="World2D/Platforms & Barriers"]
 z_index = 1
 
@@ -886,35 +903,42 @@ scale = Vector2(2.4066, 2.4066)
 [node name="TreeMaze" type="Node" parent="World2D/Platforms & Barriers"]
 
 [node name="Trunk1" type="Sprite2D" parent="World2D/Platforms & Barriers/TreeMaze"]
+z_index = 1
 position = Vector2(33161.6, -1871)
 scale = Vector2(6.16004, 6.16004)
 texture = ExtResource("32_mopj3")
 
 [node name="Trunk2" type="Sprite2D" parent="World2D/Platforms & Barriers/TreeMaze"]
+z_index = 1
 position = Vector2(37666.9, -1798.85)
 scale = Vector2(6.16004, 6.16004)
 texture = ExtResource("32_mopj3")
 
 [node name="Trunk3" type="Sprite2D" parent="World2D/Platforms & Barriers/TreeMaze"]
+z_index = 1
 position = Vector2(37672, -5535)
 scale = Vector2(6.16004, 6.16004)
 texture = ExtResource("32_mopj3")
 
 [node name="TreeTop" type="Sprite2D" parent="World2D/Platforms & Barriers/TreeMaze"]
+z_index = 1
 position = Vector2(37676.9, -8722)
 scale = Vector2(9.36006, 9.36006)
 texture = ExtResource("34_g6862")
 
 [node name="TreeTop2" type="Sprite2D" parent="World2D/Platforms & Barriers/TreeMaze"]
+z_index = 1
 position = Vector2(33174, -6513)
 scale = Vector2(9.36006, 9.36006)
 texture = ExtResource("34_g6862")
 
 [node name="BranchWithBall" parent="World2D/Platforms & Barriers/TreeMaze" instance=ExtResource("35_v3v4h")]
+z_index = 1
 position = Vector2(435, -3655)
 script = null
 
 [node name="BranchL1" parent="World2D/Platforms & Barriers/TreeMaze" instance=ExtResource("35_v3v4h")]
+z_index = 1
 position = Vector2(-2987, -650)
 rotation = -0.00141127
 initial_rotation_degrees = 270.0
@@ -923,6 +947,7 @@ collision_shape_rectangle_rotation = 180.0
 is_disabled_on_swivel = false
 
 [node name="BranchL2" parent="World2D/Platforms & Barriers/TreeMaze" instance=ExtResource("35_v3v4h")]
+z_index = 1
 position = Vector2(-2038, -2427)
 rotation = -0.00141127
 initial_rotation_degrees = 180.0
@@ -933,12 +958,14 @@ collision_shape_rectangle_rotation = 180.0
 is_disabled_on_swivel = false
 
 [node name="BranchR1" parent="World2D/Platforms & Barriers/TreeMaze" instance=ExtResource("35_v3v4h")]
+z_index = 1
 position = Vector2(383, -264)
 rotation = 0.00709713
 swivel_animation_duration = 2.0
 is_disabled_on_swivel = false
 
 [node name="BranchR2" parent="World2D/Platforms & Barriers/TreeMaze" instance=ExtResource("35_v3v4h")]
+z_index = 1
 position = Vector2(1374, -2256)
 rotation = 0.00709713
 initial_rotation_degrees = 270.0
@@ -1025,6 +1052,7 @@ item_name = 3
 [node name="Node2D" type="Node2D" parent="World2D/Collectibles/SpawnLetterX"]
 
 [node name="SecretLetter" parent="World2D/Collectibles/SpawnLetterX/Node2D" instance=ExtResource("56_yqdyt")]
+z_index = 1
 letter = "X"
 font_size = 50
 metadata/_edit_use_anchors_ = true
@@ -1046,6 +1074,7 @@ trampoline_id = "near_ruby"
 z_index = 2
 position = Vector2(71058, -470)
 jump_multiplier = 1.25
+midair_jumps = 5
 speed_multiplier = 1.0
 initial_camera_zoom = Vector2(0.22, 0.22)
 win_zoom_intensity = 0.1
@@ -1146,14 +1175,6 @@ text = "Mystery letters discovered"
 
 [node name="Letters" type="Node" parent="."]
 
-[node name="SecretLetterA" parent="Letters" instance=ExtResource("56_yqdyt")]
-visible = false
-offset_left = 38924.0
-offset_top = -2604.0
-offset_right = 38988.0
-offset_bottom = -2540.0
-scale = Vector2(10.8, 10.8)
-
 [node name="SecretLetterAMarker" type="Marker2D" parent="Letters"]
 position = Vector2(38964, -2586)
 script = ExtResource("57_4yyev")
@@ -1187,3 +1208,4 @@ position = Vector2(104928, -1004)
 [connection signal="input_event" from="World2D/Platforms & Barriers/CherryTreeBody" to="World2D/Platforms & Barriers/CherryTreeBody" method="_on_input_event"]
 [connection signal="input_event" from="World2D/Platforms & Barriers/CherryTreeBody2" to="World2D/Platforms & Barriers/CherryTreeBody2" method="_on_input_event"]
 [connection signal="input_event" from="World2D/Platforms & Barriers/CherryTreeBody3" to="World2D/Platforms & Barriers/CherryTreeBody3" method="_on_input_event"]
+[connection signal="input_event" from="World2D/Platforms & Barriers/CherryTreeBody4" to="World2D/Platforms & Barriers/CherryTreeBody4" method="_on_input_event"]
