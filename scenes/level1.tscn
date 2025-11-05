@@ -1,4 +1,4 @@
-[gd_scene load_steps=91 format=3 uid="uid://br8ftak73gmww"]
+[gd_scene load_steps=93 format=3 uid="uid://br8ftak73gmww"]
 
 [ext_resource type="PackedScene" uid="uid://bk3oytbasgs5w" path="res://scenes/grown_up_chonki.tscn" id="1_6i0tl"]
 [ext_resource type="Script" uid="uid://b2cncqbuotdcl" path="res://scenes/level_1.gd" id="1_hvrd6"]
@@ -67,6 +67,7 @@
 [ext_resource type="Script" uid="uid://b7x75jyph32sm" path="res://scenes/OtterPath2D.gd" id="46_otter"]
 [ext_resource type="Script" uid="uid://d4kk2iudy17ia" path="res://scenes/OceanFloor.gd" id="47_ocean"]
 [ext_resource type="PackedScene" uid="uid://6q16boewrg0o" path="res://scenes/composable/trampoline.tscn" id="53_7hmix"]
+[ext_resource type="Texture2D" uid="uid://c3pm3xtc8kwbg" path="res://assets/environment/level1/cloud_barrier.png" id="55_x80p0"]
 [ext_resource type="PackedScene" uid="uid://divvcbosmeqxn" path="res://scenes/SecretLetter.tscn" id="56_yqdyt"]
 [ext_resource type="Script" uid="uid://dcemo5f7jvunp" path="res://scenes/SecretLetterAMarker.gd" id="57_4yyev"]
 [ext_resource type="PackedScene" uid="uid://dmvfy4x1ini0v" path="res://scenes/composable/bench.tscn" id="58_eedbu"]
@@ -275,6 +276,9 @@ bounce = 0.5
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_hvrd6"]
 radius = 310.04
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_x80p0"]
+size = Vector2(214.95, 619.221)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_eedbu"]
 animations = [{
@@ -496,16 +500,16 @@ scale = Vector2(1.10874, 1.11339)
 texture = ExtResource("2_gc4xo")
 texture_offset = Vector2(0, 3750)
 texture_scale = Vector2(0.25, 0.25)
-polygon = PackedVector2Array(-1009, 5, 123354, 50.6238, 123292, -2080.71, 122906, -4195.87, 53481.7, -4381.79, -995.425, -4447.35)
+polygon = PackedVector2Array(-1009, 5, 140829, 229.357, 140619, -2352.85, 140480, -4254.25, 53481.7, -4381.79, -995.425, -4447.35)
 
 [node name="CloudsBG3" type="Polygon2D" parent="World2D/Environment/CloudsAndOceans"]
 texture_repeat = 2
-position = Vector2(-4956, -4511)
-scale = Vector2(1.2293, 1.23964)
+position = Vector2(-4955.07, -4511)
+scale = Vector2(1.2302, 1.23964)
 texture = ExtResource("2_gc4xo")
 texture_offset = Vector2(0, 3750)
 texture_scale = Vector2(0.25, 0.25)
-polygon = PackedVector2Array(-1009, 5, 111311, 50.0146, 111051, -3041.21, 111188, -6104.19, 53511.8, -5527.41, -1031.48, -5495.14)
+polygon = PackedVector2Array(-1009, 5, 126294, 369.462, 126356, -6070.31, 111188, -6104.19, 53511.8, -5527.41, -1031.48, -5495.14)
 
 [node name="CloudsBG4" type="Polygon2D" parent="World2D/Environment/CloudsAndOceans"]
 texture_repeat = 2
@@ -514,7 +518,7 @@ scale = Vector2(1.2293, 1.23964)
 texture = ExtResource("2_gc4xo")
 texture_offset = Vector2(0, 3750)
 texture_scale = Vector2(0.25, 0.25)
-polygon = PackedVector2Array(-1009, 5, 108067, 12.0026, 108211, -2983.64, 108251, -5474.98, 53511.8, -5527.41, -1031.48, -5495.14)
+polygon = PackedVector2Array(-1009, 5, 126762, -66.9541, 126845, -2952.47, 126762, -5445.94, 53511.8, -5527.41, -1031.48, -5495.14)
 
 [node name="TreasureSign" type="Sprite2D" parent="World2D/Environment"]
 modulate = Color(1, 1, 1, 0.588235)
@@ -1047,7 +1051,24 @@ z_index = 1
 position = Vector2(125768, 176)
 float_amplitude = 75.0
 
+[node name="CloudMaze" type="Node" parent="World2D/Platforms & Barriers"]
+
+[node name="CloudBarrier" type="StaticBody2D" parent="World2D/Platforms & Barriers/CloudMaze"]
+position = Vector2(128348, -5411)
+scale = Vector2(7.96, 7.96)
+collision_layer = 8
+
+[node name="Sprite2D" type="Sprite2D" parent="World2D/Platforms & Barriers/CloudMaze/CloudBarrier"]
+position = Vector2(-49.7497, 113.819)
+scale = Vector2(0.755702, 0.897529)
+texture = ExtResource("55_x80p0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/Platforms & Barriers/CloudMaze/CloudBarrier"]
+position = Vector2(-47.6768, 110.239)
+shape = SubResource("RectangleShape2D_x80p0")
+
 [node name="Collectibles" type="Node2D" parent="World2D"]
+position = Vector2(53, 0)
 
 [node name="Pottery" type="Node" parent="World2D/Collectibles"]
 
@@ -1245,7 +1266,7 @@ zoom_on_enter = 0.2
 [node name="Debug" type="Node" parent="."]
 
 [node name="GusDebugStartMarker" type="Marker2D" parent="Debug"]
-position = Vector2(75090, -709)
+position = Vector2(125882, -1312)
 
 [node name="JumpRuler" type="ColorRect" parent="Debug"]
 visible = false
