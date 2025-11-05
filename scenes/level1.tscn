@@ -1,4 +1,4 @@
-[gd_scene load_steps=90 format=3 uid="uid://br8ftak73gmww"]
+[gd_scene load_steps=91 format=3 uid="uid://br8ftak73gmww"]
 
 [ext_resource type="PackedScene" uid="uid://bk3oytbasgs5w" path="res://scenes/grown_up_chonki.tscn" id="1_6i0tl"]
 [ext_resource type="Script" uid="uid://b2cncqbuotdcl" path="res://scenes/level_1.gd" id="1_hvrd6"]
@@ -7,6 +7,7 @@
 [ext_resource type="PackedScene" uid="uid://cs71vpxi4b22q" path="res://scenes/composable/lever.tscn" id="2_vutef"]
 [ext_resource type="PackedScene" uid="uid://bwsqagx4t8jlw" path="res://FloatingHearts.tscn" id="7_7xcao"]
 [ext_resource type="Script" uid="uid://7hgh2bfs1wl" path="res://FloatingHeartsManager.gd" id="8_8hmqo"]
+[ext_resource type="Texture2D" uid="uid://btr0vv1rmqkda" path="res://assets/environment/level1/treasure_sign.png" id="11_qfp7r"]
 [ext_resource type="Texture2D" uid="uid://4bko6gewu3m1" path="res://assets/enemies/goose/goose1.png" id="13_7b16e"]
 [ext_resource type="Script" uid="uid://dsxhgama4gv0a" path="res://scenes/Goose.gd" id="13_rdfy5"]
 [ext_resource type="Texture2D" uid="uid://d4ibiy0oh2hpb" path="res://assets/enemies/goose/goose2.png" id="14_648ic"]
@@ -267,7 +268,7 @@ size = Vector2(1018.78, 960.916)
 size = Vector2(10804.6, 79)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7hmix"]
-size = Vector2(1128.2, 79)
+size = Vector2(2996.2, 79)
 
 [sub_resource type="PhysicsMaterial" id="PhysicsMaterial_6xmqk"]
 bounce = 0.5
@@ -323,7 +324,7 @@ touchable_while_timer_is_active = false
 unique_name_in_owner = true
 
 [node name="Dave" parent="World2D" instance=ExtResource("16_ytk5w")]
-position = Vector2(118336, -676)
+position = Vector2(160031, -676)
 scale = Vector2(0.4, 0.4)
 
 [node name="Environment" type="Node2D" parent="World2D"]
@@ -495,7 +496,7 @@ scale = Vector2(1.10874, 1.11339)
 texture = ExtResource("2_gc4xo")
 texture_offset = Vector2(0, 3750)
 texture_scale = Vector2(0.25, 0.25)
-polygon = PackedVector2Array(-1009, 5, 108067, 12.0026, 108211, -2983.64, 108266, -4310.83, 53481.7, -4381.79, -995.425, -4447.35)
+polygon = PackedVector2Array(-1009, 5, 123354, 50.6238, 123292, -2080.71, 122906, -4195.87, 53481.7, -4381.79, -995.425, -4447.35)
 
 [node name="CloudsBG3" type="Polygon2D" parent="World2D/Environment/CloudsAndOceans"]
 texture_repeat = 2
@@ -504,7 +505,7 @@ scale = Vector2(1.2293, 1.23964)
 texture = ExtResource("2_gc4xo")
 texture_offset = Vector2(0, 3750)
 texture_scale = Vector2(0.25, 0.25)
-polygon = PackedVector2Array(-1009, 5, 108067, 12.0026, 108211, -2983.64, 108251, -5474.98, 53511.8, -5527.41, -1031.48, -5495.14)
+polygon = PackedVector2Array(-1009, 5, 111311, 50.0146, 111051, -3041.21, 111188, -6104.19, 53511.8, -5527.41, -1031.48, -5495.14)
 
 [node name="CloudsBG4" type="Polygon2D" parent="World2D/Environment/CloudsAndOceans"]
 texture_repeat = 2
@@ -514,6 +515,13 @@ texture = ExtResource("2_gc4xo")
 texture_offset = Vector2(0, 3750)
 texture_scale = Vector2(0.25, 0.25)
 polygon = PackedVector2Array(-1009, 5, 108067, 12.0026, 108211, -2983.64, 108251, -5474.98, 53511.8, -5527.41, -1031.48, -5495.14)
+
+[node name="TreasureSign" type="Sprite2D" parent="World2D/Environment"]
+modulate = Color(1, 1, 1, 0.588235)
+z_index = 2
+position = Vector2(117626, -597)
+scale = Vector2(4.24871, 4.24871)
+texture = ExtResource("11_qfp7r")
 
 [node name="NPCs" type="Node" parent="World2D"]
 
@@ -764,6 +772,33 @@ flip_h = true
 position = Vector2(9.21094, 18.9561)
 shape = SubResource("RectangleShape2D_sejw4")
 
+[node name="OtterPath2D2" type="Path2D" parent="World2D/NPCs/Enemies"]
+position = Vector2(118775, 526)
+curve = SubResource("Curve2D_dkkmk")
+script = ExtResource("46_otter")
+loop_duration = 5.0
+
+[node name="PathFollow2D" type="PathFollow2D" parent="World2D/NPCs/Enemies/OtterPath2D2"]
+position = Vector2(-2955.92, -2860.97)
+rotation = -0.346811
+progress = 9700.05
+
+[node name="OtterArea2D" type="Area2D" parent="World2D/NPCs/Enemies/OtterPath2D2/PathFollow2D"]
+rotation = 0.401426
+collision_layer = 2
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World2D/NPCs/Enemies/OtterPath2D2/PathFollow2D/OtterArea2D"]
+z_index = 5
+scale = Vector2(3.04, 3.04)
+sprite_frames = SubResource("SpriteFrames_4xi8u")
+autoplay = "default"
+frame_progress = 0.135845
+flip_h = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/NPCs/Enemies/OtterPath2D2/PathFollow2D/OtterArea2D"]
+position = Vector2(9.21094, 18.9561)
+shape = SubResource("RectangleShape2D_sejw4")
+
 [node name="Platforms & Barriers" type="Node2D" parent="World2D"]
 
 [node name="BoatBarrier" type="StaticBody2D" parent="World2D/Platforms & Barriers"]
@@ -795,7 +830,8 @@ script = ExtResource("47_ocean")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/Platforms & Barriers/OceanFloor"]
 z_index = 100
-position = Vector2(11242.7, 165.4)
+position = Vector2(12176.7, 165.4)
+scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_7hmix")
 debug_color = Color(0.307035, 0.494072, 1, 0.42)
 
@@ -1006,6 +1042,11 @@ z_index = 1
 position = Vector2(108772, 176)
 float_amplitude = 75.0
 
+[node name="Kayak3" parent="World2D/Platforms & Barriers/Kayaks" instance=ExtResource("44_n3wcc")]
+z_index = 1
+position = Vector2(125768, 176)
+float_amplitude = 75.0
+
 [node name="Collectibles" type="Node2D" parent="World2D"]
 
 [node name="Pottery" type="Node" parent="World2D/Collectibles"]
@@ -1074,10 +1115,9 @@ scale = Vector2(0.360039, 0.360039)
 jump_intensity = 1.5
 trampoline_id = "near_ruby"
 
-[node name="GrownUpChonki" parent="." node_paths=PackedStringArray("debug_start_marker") instance=ExtResource("1_6i0tl")]
+[node name="GrownUpChonki" parent="." instance=ExtResource("1_6i0tl")]
 z_index = 2
 position = Vector2(71058, -470)
-debug_start_marker = NodePath("../GusDebugStartMarker")
 jump_multiplier = 1.25
 midair_jumps = 5
 speed_multiplier = 1.0
@@ -1202,8 +1242,26 @@ zoom_on_enter = 0.22
 position = Vector2(74889, -1602)
 zoom_on_enter = 0.2
 
-[node name="GusDebugStartMarker" type="Marker2D" parent="."]
-position = Vector2(80249, -697)
+[node name="Debug" type="Node" parent="."]
+
+[node name="GusDebugStartMarker" type="Marker2D" parent="Debug"]
+position = Vector2(75090, -709)
+
+[node name="JumpRuler" type="ColorRect" parent="Debug"]
+visible = false
+offset_left = 101813.0
+offset_top = -3053.0
+offset_right = 102077.0
+offset_bottom = -41.0
+color = Color(1, 1, 0.0784314, 1)
+
+[node name="SecretLetter" parent="." instance=ExtResource("56_yqdyt")]
+z_index = 1
+offset_left = 129580.0
+offset_top = -2535.0
+offset_right = 129644.0
+offset_bottom = -2471.0
+letter = "E"
 
 [connection signal="body_entered" from="World2D/NPCs/Bicyclist" to="World2D/NPCs/Bicyclist" method="_on_body_entered"]
 [connection signal="timeout" from="World2D/NPCs/Enemies/GooseRegion2D/Goose/Timer" to="World2D/NPCs/Enemies/GooseRegion2D/Goose" method="_on_hop_timer_timeout"]

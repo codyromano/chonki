@@ -51,7 +51,6 @@ var is_frozen: bool = false
 var remaining_midair_jumps: int = 0
 var is_midair_jumping: bool = false
 
-# Signal to indicate Chonki has landed and hearts have spawned
 signal chonki_landed_and_hearts_spawned(zoom_intensity: float)
 
 func _ready() -> void:

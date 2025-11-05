@@ -12,6 +12,16 @@ func _ready():
 	
 	_count_total_secret_letters()
 	_create_letters_display()
+	_create_jump_height_indicator()
+
+func _create_jump_height_indicator():
+	var indicator = ColorRect.new()
+	indicator.name = "JumpHeightIndicator"
+	indicator.color = Color.YELLOW
+	var jump_height = 2500.0
+	indicator.size = Vector2(20, jump_height)
+	indicator.position = Vector2(1000, 1000 - jump_height)
+	add_child(indicator)
 	
 func _count_total_secret_letters():
 	total_secret_letters = 0
