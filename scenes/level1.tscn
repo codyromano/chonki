@@ -1014,7 +1014,7 @@ float_amplitude = 75.0
 position = Vector2(83729, -2708)
 
 [node name="Pottery1" parent="World2D/Collectibles/Pottery/SpawnLocation" instance=ExtResource("32_5ipuv")]
-position = Vector2(-7, 24)
+position = Vector2(-4353, -1420)
 scale = Vector2(2.24, 2.24)
 script = ExtResource("44_eedbu")
 frames = SubResource("SpriteFrames_eedbu")
@@ -1026,7 +1026,7 @@ position = Vector2(85724, -1301)
 item_name = 1
 
 [node name="Pottery2" parent="World2D/Collectibles/Pottery/SpawnLocation2" instance=ExtResource("32_5ipuv")]
-position = Vector2(6151, -211)
+position = Vector2(11584, -7008)
 scale = Vector2(2.24, 2.24)
 script = ExtResource("45_eedbu")
 frames = SubResource("SpriteFrames_7r63v")
@@ -1053,15 +1053,19 @@ item_name = 3
 
 [node name="SecretLetter" parent="World2D/Collectibles/SpawnLetterX/Node2D" instance=ExtResource("56_yqdyt")]
 z_index = 1
+offset_left = -442.0
+offset_top = 452.0
+offset_right = -378.0
+offset_bottom = 516.0
 letter = "X"
-font_size = 50
+font_size = 40
 metadata/_edit_use_anchors_ = true
 
 [node name="Trampoline" parent="World2D" instance=ExtResource("53_7hmix")]
 z_index = 2
 position = Vector2(101656, -1093)
 scale = Vector2(0.360039, 0.360039)
-jump_intensity = 2.5
+jump_intensity = 1.5
 
 [node name="Trampoline2" parent="World2D" instance=ExtResource("53_7hmix")]
 z_index = 2
@@ -1070,9 +1074,10 @@ scale = Vector2(0.360039, 0.360039)
 jump_intensity = 1.5
 trampoline_id = "near_ruby"
 
-[node name="GrownUpChonki" parent="." instance=ExtResource("1_6i0tl")]
+[node name="GrownUpChonki" parent="." node_paths=PackedStringArray("debug_start_marker") instance=ExtResource("1_6i0tl")]
 z_index = 2
 position = Vector2(71058, -470)
+debug_start_marker = NodePath("../GusDebugStartMarker")
 jump_multiplier = 1.25
 midair_jumps = 5
 speed_multiplier = 1.0
@@ -1176,7 +1181,7 @@ text = "Mystery letters discovered"
 [node name="Letters" type="Node" parent="."]
 
 [node name="SecretLetterAMarker" type="Marker2D" parent="Letters"]
-position = Vector2(38964, -2586)
+position = Vector2(39714, -1382)
 script = ExtResource("57_4yyev")
 
 [node name="ZoomAdjustmentZones" type="Node" parent="."]
@@ -1198,7 +1203,7 @@ position = Vector2(74889, -1602)
 zoom_on_enter = 0.2
 
 [node name="GusDebugStartMarker" type="Marker2D" parent="."]
-position = Vector2(104928, -1004)
+position = Vector2(80249, -697)
 
 [connection signal="body_entered" from="World2D/NPCs/Bicyclist" to="World2D/NPCs/Bicyclist" method="_on_body_entered"]
 [connection signal="timeout" from="World2D/NPCs/Enemies/GooseRegion2D/Goose/Timer" to="World2D/NPCs/Enemies/GooseRegion2D/Goose" method="_on_hop_timer_timeout"]
