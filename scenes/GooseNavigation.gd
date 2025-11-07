@@ -9,6 +9,13 @@ var enemy: CharacterBody2D
 var is_navigation_ready = false
 
 func _ready():
+	if !target:
+		push_error("GooseNavigationRegion expects target Node2D")
+		
+	if !target.find_child('ChonkiCharacter'):
+		# TODO: This is weird and hacky
+		push_error('Expected target to contain a ChonkiCharacter')
+		
 	# This script must be a child of the enemy
 	enemy = get_parent() as CharacterBody2D
 	if not enemy:

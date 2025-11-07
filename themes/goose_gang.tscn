@@ -1,0 +1,214 @@
+[gd_scene load_steps=12 format=3 uid="uid://b83a108lrg6l5"]
+
+[ext_resource type="Script" uid="uid://dsxhgama4gv0a" path="res://scenes/Goose.gd" id="1_qi7hy"]
+[ext_resource type="Texture2D" uid="uid://b281ntpbdihii" path="res://assets/enemies/goose/goose3.png" id="2_oo2gj"]
+[ext_resource type="Texture2D" uid="uid://4bko6gewu3m1" path="res://assets/enemies/goose/goose1.png" id="3_on6a2"]
+[ext_resource type="Texture2D" uid="uid://d4ibiy0oh2hpb" path="res://assets/enemies/goose/goose2.png" id="4_gr700"]
+[ext_resource type="Texture2D" uid="uid://vvx8340f7nlj" path="res://assets/enemies/goose/goose-defeated.png" id="5_nieid"]
+[ext_resource type="Script" uid="uid://ccnpmu1ybyith" path="res://scenes/GooseNavigation.gd" id="6_fqhet"]
+[ext_resource type="AudioStream" uid="uid://dtbn6tc13x30h" path="res://assets/sound/bird-flap.mp3" id="7_rvhl3"]
+[ext_resource type="AudioStream" uid="uid://me3nrqvd2xhg" path="res://assets/sound/goose-defeated.mp3" id="8_1inld"]
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_1ju1f"]
+vertices = PackedVector2Array(15213.5, -1, 9406.35, -4.99219, 9361.69, -670.023, 15251.4, -685.969)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(9397, 5, 9351, -680, 15262, -696, 15223, 9)])
+source_geometry_group_name = &"navigation_polygon_source_group"
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_8w215"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_oo2gj")
+}],
+"loop": true,
+"name": &"attack",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_on6a2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_gr700")
+}],
+"loop": true,
+"name": &"default",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("5_nieid")
+}],
+"loop": true,
+"name": &"hurt",
+"speed": 5.0
+}]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nwbuc"]
+radius = 218.555
+height = 437.11
+
+[node name="GooseRegionCloudL" type="NavigationRegion2D"]
+navigation_polygon = SubResource("NavigationPolygon_1ju1f")
+
+[node name="Goose2" type="CharacterBody2D" parent="."]
+position = Vector2(12080, -691)
+collision_layer = 2
+collision_mask = 9
+script = ExtResource("1_qi7hy")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Goose2"]
+position = Vector2(31.0001, 266)
+scale = Vector2(0.570312, 0.570312)
+sprite_frames = SubResource("SpriteFrames_8w215")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Goose2"]
+position = Vector2(24, 259)
+rotation = 0.948541
+shape = SubResource("CapsuleShape2D_nwbuc")
+
+[node name="GooseNavigation" type="NavigationAgent2D" parent="Goose2"]
+script = ExtResource("6_fqhet")
+
+[node name="Timer" type="Timer" parent="Goose2"]
+wait_time = 2.5
+autostart = true
+
+[node name="FlapAudio" type="AudioStreamPlayer2D" parent="Goose2"]
+stream = ExtResource("7_rvhl3")
+volume_db = 10.0
+
+[node name="GooseDefeated" type="AudioStreamPlayer2D" parent="Goose2"]
+stream = ExtResource("8_1inld")
+volume_db = 10.0
+
+[node name="Goose3" type="CharacterBody2D" parent="."]
+position = Vector2(10016, -691)
+collision_layer = 2
+collision_mask = 9
+script = ExtResource("1_qi7hy")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Goose3"]
+position = Vector2(31.0001, 266)
+scale = Vector2(0.570312, 0.570312)
+sprite_frames = SubResource("SpriteFrames_8w215")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Goose3"]
+position = Vector2(24, 259)
+rotation = 0.948541
+shape = SubResource("CapsuleShape2D_nwbuc")
+
+[node name="GooseNavigation" type="NavigationAgent2D" parent="Goose3"]
+script = ExtResource("6_fqhet")
+
+[node name="Timer" type="Timer" parent="Goose3"]
+wait_time = 2.5
+autostart = true
+
+[node name="FlapAudio" type="AudioStreamPlayer2D" parent="Goose3"]
+stream = ExtResource("7_rvhl3")
+volume_db = 10.0
+
+[node name="GooseDefeated" type="AudioStreamPlayer2D" parent="Goose3"]
+stream = ExtResource("8_1inld")
+volume_db = 10.0
+
+[node name="Goose4" type="CharacterBody2D" parent="."]
+position = Vector2(14682, -691)
+collision_layer = 2
+collision_mask = 9
+script = ExtResource("1_qi7hy")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Goose4"]
+position = Vector2(31.0001, 266)
+scale = Vector2(0.570312, 0.570312)
+sprite_frames = SubResource("SpriteFrames_8w215")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Goose4"]
+position = Vector2(24, 259)
+rotation = 0.948541
+shape = SubResource("CapsuleShape2D_nwbuc")
+
+[node name="GooseNavigation" type="NavigationAgent2D" parent="Goose4"]
+script = ExtResource("6_fqhet")
+
+[node name="Timer" type="Timer" parent="Goose4"]
+wait_time = 2.5
+autostart = true
+
+[node name="FlapAudio" type="AudioStreamPlayer2D" parent="Goose4"]
+stream = ExtResource("7_rvhl3")
+volume_db = 10.0
+
+[node name="GooseDefeated" type="AudioStreamPlayer2D" parent="Goose4"]
+stream = ExtResource("8_1inld")
+volume_db = 10.0
+
+[node name="Goose5" type="CharacterBody2D" parent="."]
+position = Vector2(13391, -661)
+collision_layer = 2
+collision_mask = 9
+script = ExtResource("1_qi7hy")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Goose5"]
+position = Vector2(31.0001, 266)
+scale = Vector2(0.570312, 0.570312)
+sprite_frames = SubResource("SpriteFrames_8w215")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Goose5"]
+position = Vector2(24, 259)
+rotation = 0.948541
+shape = SubResource("CapsuleShape2D_nwbuc")
+
+[node name="GooseNavigation" type="NavigationAgent2D" parent="Goose5"]
+script = ExtResource("6_fqhet")
+
+[node name="Timer" type="Timer" parent="Goose5"]
+wait_time = 2.5
+autostart = true
+
+[node name="FlapAudio" type="AudioStreamPlayer2D" parent="Goose5"]
+stream = ExtResource("7_rvhl3")
+volume_db = 10.0
+
+[node name="GooseDefeated" type="AudioStreamPlayer2D" parent="Goose5"]
+stream = ExtResource("8_1inld")
+volume_db = 10.0
+
+[node name="Goose6" type="CharacterBody2D" parent="."]
+position = Vector2(11053, -621)
+collision_layer = 2
+collision_mask = 9
+script = ExtResource("1_qi7hy")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Goose6"]
+position = Vector2(31.0001, 266)
+scale = Vector2(0.570312, 0.570312)
+sprite_frames = SubResource("SpriteFrames_8w215")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Goose6"]
+position = Vector2(24, 259)
+rotation = 0.948541
+shape = SubResource("CapsuleShape2D_nwbuc")
+
+[node name="GooseNavigation" type="NavigationAgent2D" parent="Goose6"]
+script = ExtResource("6_fqhet")
+
+[node name="Timer" type="Timer" parent="Goose6"]
+wait_time = 2.5
+autostart = true
+
+[node name="FlapAudio" type="AudioStreamPlayer2D" parent="Goose6"]
+stream = ExtResource("7_rvhl3")
+volume_db = 10.0
+
+[node name="GooseDefeated" type="AudioStreamPlayer2D" parent="Goose6"]
+stream = ExtResource("8_1inld")
+volume_db = 10.0
+
+[connection signal="timeout" from="Goose2/Timer" to="Goose2" method="_on_hop_timer_timeout"]
+[connection signal="timeout" from="Goose3/Timer" to="Goose3" method="_on_hop_timer_timeout"]
+[connection signal="timeout" from="Goose4/Timer" to="Goose4" method="_on_hop_timer_timeout"]
+[connection signal="timeout" from="Goose5/Timer" to="Goose5" method="_on_hop_timer_timeout"]
+[connection signal="timeout" from="Goose6/Timer" to="Goose6" method="_on_hop_timer_timeout"]
