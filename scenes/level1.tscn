@@ -1,4 +1,4 @@
-[gd_scene load_steps=96 format=3 uid="uid://br8ftak73gmww"]
+[gd_scene load_steps=98 format=3 uid="uid://br8ftak73gmww"]
 
 [ext_resource type="PackedScene" uid="uid://bk3oytbasgs5w" path="res://scenes/grown_up_chonki.tscn" id="1_6i0tl"]
 [ext_resource type="Script" uid="uid://b2cncqbuotdcl" path="res://scenes/level_1.gd" id="1_hvrd6"]
@@ -64,6 +64,7 @@
 [ext_resource type="PackedScene" uid="uid://df2uyl06uhygw" path="res://scenes/kayak.tscn" id="44_n3wcc"]
 [ext_resource type="Theme" uid="uid://dte5an7k6hog1" path="res://themes/base.tres" id="44_y4ufg"]
 [ext_resource type="Script" uid="uid://chnhtm6mvs5h" path="res://scenes/pottery_2.gd" id="45_eedbu"]
+[ext_resource type="Texture2D" uid="uid://dnr005l5x0slj" path="res://assets/friends/eagle/eagle_dad_sad.png" id="46_4xi8u"]
 [ext_resource type="Script" uid="uid://bfcdimts6npaa" path="res://scenes/pottery_3.gd" id="46_4yyev"]
 [ext_resource type="Script" uid="uid://b7x75jyph32sm" path="res://scenes/OtterPath2D.gd" id="46_otter"]
 [ext_resource type="Script" uid="uid://d4kk2iudy17ia" path="res://scenes/OceanFloor.gd" id="47_ocean"]
@@ -263,6 +264,17 @@ animations = [{
 }],
 "loop": true,
 "name": &"happy",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6qhw2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("46_4xi8u")
+}],
+"loop": true,
+"name": &"default",
 "speed": 5.0
 }]
 
@@ -815,9 +827,9 @@ sprite_scale = Vector2(1, 1)
 avatar_name = "ruby"
 
 [node name="IsaacQuestGiver" parent="World2D/NPCs/QuestGivers" instance=ExtResource("37_hvrd6")]
-position = Vector2(130577, -4081)
+position = Vector2(130577, -3743)
 script = ExtResource("43_6b8u6")
-frames = null
+frames = SubResource("SpriteFrames_6qhw2")
 sprite_scale = Vector2(1, 1)
 avatar_name = ""
 
@@ -1404,6 +1416,22 @@ zoom_on_enter = 0.2
 [node name="AdjustZoomOnPlayerEnter5" parent="ZoomAdjustmentZones" instance=ExtResource("62_4w6xv")]
 position = Vector2(108860, -1864)
 zoom_on_enter = 0.08
+
+[node name="AdjustZoomOnPlayerEnter6" parent="ZoomAdjustmentZones" instance=ExtResource("62_4w6xv")]
+position = Vector2(128375, -4649)
+zoom_on_enter = 0.08
+
+[node name="AdjustZoomOnPlayerEnter7" parent="ZoomAdjustmentZones" instance=ExtResource("62_4w6xv")]
+position = Vector2(128818, -4649)
+zoom_on_enter = 0.22
+
+[node name="AdjustZoomOnPlayerEnter8" parent="ZoomAdjustmentZones" instance=ExtResource("62_4w6xv")]
+position = Vector2(132492, -4649)
+zoom_on_enter = 0.08
+
+[node name="AdjustZoomOnPlayerEnter9" parent="ZoomAdjustmentZones" instance=ExtResource("62_4w6xv")]
+position = Vector2(132935, -4649)
+zoom_on_enter = 0.22
 
 [node name="Debug" type="Node" parent="."]
 
