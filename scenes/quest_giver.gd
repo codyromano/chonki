@@ -149,12 +149,14 @@ func _get_dialogue_tree() -> DialogueTree:
 	return dialogue_tree
 
 func _prepare_collisions() -> void:
-		# Overlay the collision shape onto the sprite
 		collision_shape.position = sprite.position
 		collision_shape.scale = sprite.scale
 
-		# Update the shape property to match the sprite's size
-		var tex = sprite.get_sprite_frames().get_frame_texture(sprite.animation, 0)
+		var sprite_frames = sprite.get_sprite_frames()
+		if not sprite_frames or not sprite.animation:
+			push_error("Expected quest giver to have sprite frames")
+			
+		var tex = sprite_frames.get_frame_texture(sprite.animation, 0)
 		if tex and collision_shape.shape is RectangleShape2D:
 			var rect_shape = collision_shape.shape
 			rect_shape.size = tex.get_size() * sprite.scale

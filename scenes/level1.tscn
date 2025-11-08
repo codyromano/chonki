@@ -34,7 +34,6 @@
 [ext_resource type="Script" uid="uid://b5gtgqwpligv2" path="res://scenes/composable/bicyclist_patrol_loop.gd" id="26_b2buy"]
 [ext_resource type="Texture2D" uid="uid://c1jvgsj8ygn4l" path="res://assets/enemies/bike/bike2.png" id="26_x6hvv"]
 [ext_resource type="Texture2D" uid="uid://dvr6b70gg7k47" path="res://assets/enemies/bike/bike_concerned.png" id="27_abcde"]
-[ext_resource type="Script" uid="uid://cbnnv41ak8lae" path="res://scenes/composable/ruby_quest_giver.gd" id="31_vutef"]
 [ext_resource type="PackedScene" uid="uid://bm55n82sfyn37" path="res://scenes/collectible.tscn" id="32_5ipuv"]
 [ext_resource type="Texture2D" uid="uid://c1pegd4l1nkvx" path="res://assets/environment/level1/trunk.png" id="32_mopj3"]
 [ext_resource type="Texture2D" uid="uid://3nvx2tg0goeu" path="res://assets/friends/volleyball/volleyball_concerned.png" id="32_tjdkg"]
@@ -59,6 +58,7 @@
 [ext_resource type="Texture2D" uid="uid://btet14ijapd25" path="res://assets/enemies/otter/otter_rise.png" id="41_6b8u6"]
 [ext_resource type="Script" uid="uid://bohb45sc7o600" path="res://scenes/MoveLeftOrRightText.gd" id="42_5ipuv"]
 [ext_resource type="Texture2D" uid="uid://bu1gkhk5myacr" path="res://assets/enemies/otter/otter_stand_smile.png" id="42_6qhw2"]
+[ext_resource type="Script" uid="uid://bllcs5ppc1ul7" path="res://scenes/composable/isaac_quest_giver.gd" id="43_6b8u6"]
 [ext_resource type="Script" uid="uid://4mx2cyi0i3oy" path="res://scenes/composable/jump_text.gd" id="43_onmav"]
 [ext_resource type="Script" uid="uid://bko0cd72n347f" path="res://scenes/pottery_1.gd" id="44_eedbu"]
 [ext_resource type="PackedScene" uid="uid://df2uyl06uhygw" path="res://scenes/kayak.tscn" id="44_n3wcc"]
@@ -125,70 +125,6 @@ animations = [{
 "loop": true,
 "name": &"default",
 "speed": 3.0
-}]
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_6cvlo"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("27_abcde")
-}, {
-"duration": 1.0,
-"texture": ExtResource("27_abcde")
-}, {
-"duration": 1.0,
-"texture": ExtResource("25_magxr")
-}, {
-"duration": 1.0,
-"texture": ExtResource("25_magxr")
-}],
-"loop": false,
-"name": &"concerned",
-"speed": 1.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("24_4omld")
-}, {
-"duration": 1.0,
-"texture": ExtResource("26_x6hvv")
-}, {
-"duration": 1.0,
-"texture": ExtResource("24_4omld")
-}],
-"loop": true,
-"name": &"default",
-"speed": 1.0
-}]
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_y3pui"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("34_6lx4c")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_uledv"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("32_tjdkg")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("33_uledv")
-}],
-"loop": true,
-"name": &"happy",
-"speed": 5.0
 }]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_1ju1f"]
@@ -265,6 +201,70 @@ animations = [{
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_sejw4"]
 size = Vector2(1018.78, 960.916)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_6cvlo"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("27_abcde")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_abcde")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_magxr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_magxr")
+}],
+"loop": false,
+"name": &"concerned",
+"speed": 1.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("24_4omld")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_x6hvv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_4omld")
+}],
+"loop": true,
+"name": &"default",
+"speed": 1.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_y3pui"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("34_6lx4c")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_uledv"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("32_tjdkg")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("33_uledv")
+}],
+"loop": true,
+"name": &"happy",
+"speed": 5.0
+}]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4w6xv"]
 size = Vector2(10804.6, 79)
@@ -572,48 +572,6 @@ script = ExtResource("23_a4ecq")
 body = NodePath("../CrowBody")
 move_duration = 7.0
 
-[node name="Bicyclist" type="Area2D" parent="World2D/NPCs"]
-z_index = 2
-position = Vector2(60816, 5056)
-script = ExtResource("24_ndwrk")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World2D/NPCs/Bicyclist"]
-position = Vector2(105.401, -212.698)
-scale = Vector2(4.10639, 4.10639)
-sprite_frames = SubResource("SpriteFrames_6cvlo")
-animation = &"concerned"
-autoplay = "default"
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="World2D/NPCs/Bicyclist"]
-position = Vector2(-705.338, 443.38)
-scale = Vector2(1.08111, 1.08111)
-polygon = PackedVector2Array(628.369, -1585.75, 1346, 38, -20, 3)
-
-[node name="EndMarker" type="Marker2D" parent="World2D/NPCs/Bicyclist"]
-position = Vector2(23805, -14)
-
-[node name="StartMarker" type="Marker2D" parent="World2D/NPCs/Bicyclist"]
-position = Vector2(-1280, 21)
-
-[node name="BicyclistPatrolLoop" parent="World2D/NPCs" node_paths=PackedStringArray("body") instance=ExtResource("26_67tjq")]
-position = Vector2(61439, 5170)
-script = ExtResource("26_b2buy")
-body = NodePath("../Bicyclist")
-move_duration = 6.0
-
-[node name="MomoQuestGiver" parent="World2D/NPCs" instance=ExtResource("37_hvrd6")]
-z_index = 2
-position = Vector2(73287, -669)
-script = ExtResource("38_y3pui")
-frames = SubResource("SpriteFrames_y3pui")
-
-[node name="RubyQuestGiver" parent="World2D/NPCs" instance=ExtResource("37_hvrd6")]
-position = Vector2(46318, -744)
-script = ExtResource("31_vutef")
-frames = SubResource("SpriteFrames_uledv")
-sprite_scale = Vector2(1, 1)
-avatar_name = "ruby"
-
 [node name="Enemies" type="Node" parent="World2D/NPCs"]
 
 [node name="GooseRegion2D" type="NavigationRegion2D" parent="World2D/NPCs/Enemies"]
@@ -636,9 +594,8 @@ position = Vector2(24, 259)
 rotation = 0.948541
 shape = SubResource("CapsuleShape2D_nwbuc")
 
-[node name="GooseNavigation" type="NavigationAgent2D" parent="World2D/NPCs/Enemies/GooseRegion2D/Goose" node_paths=PackedStringArray("target")]
+[node name="GooseNavigation" type="NavigationAgent2D" parent="World2D/NPCs/Enemies/GooseRegion2D/Goose"]
 script = ExtResource("16_vuaih")
-target = NodePath("../../../../../../GrownUpChonki")
 
 [node name="Timer" type="Timer" parent="World2D/NPCs/Enemies/GooseRegion2D/Goose"]
 wait_time = 2.5
@@ -672,9 +629,8 @@ position = Vector2(24, 259)
 rotation = 0.948541
 shape = SubResource("CapsuleShape2D_nwbuc")
 
-[node name="GooseNavigation" type="NavigationAgent2D" parent="World2D/NPCs/Enemies/GooseRegion2D2/Goose" node_paths=PackedStringArray("target")]
+[node name="GooseNavigation" type="NavigationAgent2D" parent="World2D/NPCs/Enemies/GooseRegion2D2/Goose"]
 script = ExtResource("16_vuaih")
-target = NodePath("../../../../../../GrownUpChonki")
 
 [node name="Timer" type="Timer" parent="World2D/NPCs/Enemies/GooseRegion2D2/Goose"]
 wait_time = 2.5
@@ -704,9 +660,8 @@ position = Vector2(24, 259)
 rotation = 0.948541
 shape = SubResource("CapsuleShape2D_nwbuc")
 
-[node name="GooseNavigation" type="NavigationAgent2D" parent="World2D/NPCs/Enemies/GooseRegion2D2/Goose2" node_paths=PackedStringArray("target")]
+[node name="GooseNavigation" type="NavigationAgent2D" parent="World2D/NPCs/Enemies/GooseRegion2D2/Goose2"]
 script = ExtResource("16_vuaih")
-target = NodePath("../../../../../../GrownUpChonki")
 
 [node name="Timer" type="Timer" parent="World2D/NPCs/Enemies/GooseRegion2D2/Goose2"]
 wait_time = 2.5
@@ -740,9 +695,8 @@ position = Vector2(24, 259)
 rotation = 0.948541
 shape = SubResource("CapsuleShape2D_nwbuc")
 
-[node name="GooseNavigation" type="NavigationAgent2D" parent="World2D/NPCs/Enemies/GooseRegion2D3/Goose2" node_paths=PackedStringArray("target")]
+[node name="GooseNavigation" type="NavigationAgent2D" parent="World2D/NPCs/Enemies/GooseRegion2D3/Goose2"]
 script = ExtResource("16_vuaih")
-target = NodePath("../../../../../../GrownUpChonki")
 
 [node name="Timer" type="Timer" parent="World2D/NPCs/Enemies/GooseRegion2D3/Goose2"]
 wait_time = 2.5
@@ -816,6 +770,57 @@ flip_h = true
 position = Vector2(9.21094, 18.9561)
 shape = SubResource("RectangleShape2D_sejw4")
 
+[node name="Bicyclist" type="Area2D" parent="World2D/NPCs/Enemies"]
+z_index = 2
+position = Vector2(60816, 5056)
+script = ExtResource("24_ndwrk")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World2D/NPCs/Enemies/Bicyclist"]
+position = Vector2(105.401, -212.698)
+scale = Vector2(4.10639, 4.10639)
+sprite_frames = SubResource("SpriteFrames_6cvlo")
+animation = &"concerned"
+autoplay = "default"
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="World2D/NPCs/Enemies/Bicyclist"]
+position = Vector2(-705.338, 443.38)
+scale = Vector2(1.08111, 1.08111)
+polygon = PackedVector2Array(628.369, -1585.75, 1346, 38, -20, 3)
+
+[node name="EndMarker" type="Marker2D" parent="World2D/NPCs/Enemies/Bicyclist"]
+position = Vector2(23805, -14)
+
+[node name="StartMarker" type="Marker2D" parent="World2D/NPCs/Enemies/Bicyclist"]
+position = Vector2(-1280, 21)
+
+[node name="BicyclistPatrolLoop" parent="World2D/NPCs/Enemies" node_paths=PackedStringArray("body") instance=ExtResource("26_67tjq")]
+position = Vector2(61439, 5170)
+script = ExtResource("26_b2buy")
+body = NodePath("../Bicyclist")
+move_duration = 6.0
+
+[node name="QuestGivers" type="Node" parent="World2D/NPCs"]
+
+[node name="MomoQuestGiver" parent="World2D/NPCs/QuestGivers" instance=ExtResource("37_hvrd6")]
+z_index = 2
+position = Vector2(73287, -669)
+script = ExtResource("38_y3pui")
+frames = SubResource("SpriteFrames_y3pui")
+
+[node name="RubyQuestGiver" parent="World2D/NPCs/QuestGivers" instance=ExtResource("37_hvrd6")]
+position = Vector2(46318, -744)
+script = ExtResource("43_6b8u6")
+frames = SubResource("SpriteFrames_uledv")
+sprite_scale = Vector2(1, 1)
+avatar_name = "ruby"
+
+[node name="IsaacQuestGiver" parent="World2D/NPCs/QuestGivers" instance=ExtResource("37_hvrd6")]
+position = Vector2(130577, -4081)
+script = ExtResource("43_6b8u6")
+frames = null
+sprite_scale = Vector2(1, 1)
+avatar_name = ""
+
 [node name="Platforms & Barriers" type="Node2D" parent="World2D"]
 
 [node name="BoatBarrier" type="StaticBody2D" parent="World2D/Platforms & Barriers"]
@@ -848,7 +853,6 @@ script = ExtResource("47_ocean")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/Platforms & Barriers/OceanFloor"]
 z_index = 100
 position = Vector2(12176.7, 165.4)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_7hmix")
 debug_color = Color(0.307035, 0.494072, 1, 0.42)
 
@@ -1404,7 +1408,7 @@ zoom_on_enter = 0.08
 [node name="Debug" type="Node" parent="."]
 
 [node name="GusDebugStartMarker" type="Marker2D" parent="Debug"]
-position = Vector2(108748, -1312)
+position = Vector2(132406, -4126)
 
 [node name="JumpRuler" type="ColorRect" parent="Debug"]
 visible = false
@@ -1422,11 +1426,11 @@ offset_right = 129644.0
 offset_bottom = -2471.0
 letter = "E"
 
-[connection signal="body_entered" from="World2D/NPCs/Bicyclist" to="World2D/NPCs/Bicyclist" method="_on_body_entered"]
 [connection signal="timeout" from="World2D/NPCs/Enemies/GooseRegion2D/Goose/Timer" to="World2D/NPCs/Enemies/GooseRegion2D/Goose" method="_on_hop_timer_timeout"]
 [connection signal="timeout" from="World2D/NPCs/Enemies/GooseRegion2D2/Goose/Timer" to="World2D/NPCs/Enemies/GooseRegion2D2/Goose" method="_on_hop_timer_timeout"]
 [connection signal="timeout" from="World2D/NPCs/Enemies/GooseRegion2D2/Goose2/Timer" to="World2D/NPCs/Enemies/GooseRegion2D2/Goose2" method="_on_hop_timer_timeout"]
 [connection signal="timeout" from="World2D/NPCs/Enemies/GooseRegion2D3/Goose2/Timer" to="World2D/NPCs/Enemies/GooseRegion2D3/Goose2" method="_on_hop_timer_timeout"]
+[connection signal="body_entered" from="World2D/NPCs/Enemies/Bicyclist" to="World2D/NPCs/Enemies/Bicyclist" method="_on_body_entered"]
 [connection signal="input_event" from="World2D/Platforms & Barriers/CherryTreeBody" to="World2D/Platforms & Barriers/CherryTreeBody" method="_on_input_event"]
 [connection signal="input_event" from="World2D/Platforms & Barriers/CherryTreeBody2" to="World2D/Platforms & Barriers/CherryTreeBody2" method="_on_input_event"]
 [connection signal="input_event" from="World2D/Platforms & Barriers/CherryTreeBody3" to="World2D/Platforms & Barriers/CherryTreeBody3" method="_on_input_event"]
