@@ -68,24 +68,40 @@ func _get_dialogue_tree() -> DialogueTree:
 func get_next_dialogue_node_custom(current_node: DialogueNode, selected_option_id: String) -> DialogueNode:
 	return get_next_dialogue_node(current_node, selected_option_id)
 
-func _on_body_entered_override(body: Node2D) -> void:
+func get_gus(body: Node2D) -> Gus:
+	if body.name == 'ChonkiCharacter':
+		return body.get_parent()
+	
+	return null
+	
+func is_carrying_rodrigo(body: Node2D) -> bool:
+	var gus: Gus = get_gus(body)
+	return gus != null && gus.carried_entity != null && gus.carried_entity.name == 'Rodrigo'
+		
+func _on_body_entered_override(body: Node2D) -> void:	
 	# Check if the body is the baby eagle
-	if body.name == "BabyEagle":
+	if is_carrying_rodrigo(body):
 		# Mark that eagle has been returned
 		eagle_returned = true
 		# Reset dialogue to show the thank you dialogue
 		current_dialogue_node = null
 		
-		# Create a tween to fade out the eagle
-		var tween = create_tween()
-		tween.tween_property(body, "modulate:a", 0.0, 1.0)
-		await tween.finished
-		# Queue free deferred after fade completes
-		body.queue_free()
+		# Move Rodrigo from Gus to Isaac
+		var gus = get_gus(body)
+		var rodrigo_entity = gus.carried_entity
+		gus.carried_entity = null
+		rodrigo = rodrigo_entity
 		
-		sprite.play('happy')
+		# Create a tween to fade out the eagle
+		# var tween = create_tween()
+		# tween.tween_property(body, "modulate:a", 0.0, 1.0)
+		# await tween.finished
+		# Queue free deferred after fade completes
+		# body.queue_free()
+		
+		# sprite.play('happy')
 
 func on_dialogue_finished() -> void:
-	# Only emit signal if eagle has been returned (completion dialogue was shown)
 	if eagle_returned:
-		GlobalSignals.unlock_isaac_quest_reward.emit()
+		print('[DEBUG] Spawn signal for secret letter L')
+		GlobalSignals.spawn_item_in_location.emit(PlayerInventory.Item.SECRET_LETTER_L)

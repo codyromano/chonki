@@ -85,3 +85,5 @@ signal set_chonki_frozen(is_frozen: bool)
 signal unlock_ruby_quest_reward()
 @warning_ignore("unused_signal")
 signal spawn_item_in_location(item_name: PlayerInventory.Item)
+@warning_ignore("unused_signal")
+signal unlock_isaac_quest_reward

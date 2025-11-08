@@ -4,9 +4,14 @@ extends Node2D
 @export var sprite_scale: Vector2 = Vector2(1.0, 1.0)
 @export var avatar_name: String
 
+# TODO: The quest_giver.gd should not have character-specific logic. This should be refactored
+# and maybe put into an extension of quest_giver.gd. 
+@export var rodrigo: Area2D
+
 @onready var sprite: AnimatedSprite2D = find_child('QuestGiverSprite2D')
 @onready var collision_shape: CollisionShape2D = find_child('QuestGiverCollisionShape')
 @onready var instructions: Label = find_child('Instructions')
+@onready var rodrigo_marker: Marker2D = find_child('RodrigoReturnedToIsaacMarker2D')
 
 var tween_instructions: Tween
 
@@ -26,6 +31,11 @@ func _ready() -> void:
 	GlobalSignals.dismiss_active_main_dialogue.connect(_on_dialogue_dismissed)
 	# Listen for dialogue option selection to progress through our dialogue tree
 	GlobalSignals.dialogue_option_selected.connect(_on_dialogue_option_selected)
+	update_rodrigo_position()
+	
+func update_rodrigo_position() -> void:
+	if rodrigo:
+		rodrigo.global_position = rodrigo_marker.global_position
 
 func _process(_delta) -> void:  
 	# Check if we're waiting for key release and the key is now released
@@ -37,6 +47,8 @@ func _process(_delta) -> void:
 	if Input.is_action_just_pressed("read") && is_player_nearby && can_trigger_dialogue && !waiting_for_key_release:
 		can_trigger_dialogue = false
 		_initiate_dialogue()
+	
+	update_rodrigo_position()
 
 func _on_dialogue_dismissed(_instruction_trigger_id: String) -> void:
 	# If we're transitioning between dialogue nodes, don't end the dialogue
@@ -155,6 +167,7 @@ func _prepare_collisions() -> void:
 		var sprite_frames = sprite.get_sprite_frames()
 		if not sprite_frames or not sprite.animation:
 			push_error("Expected quest giver to have sprite frames")
+			return
 			
 		var tex = sprite_frames.get_frame_texture(sprite.animation, 0)
 		if tex and collision_shape.shape is RectangleShape2D:

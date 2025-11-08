@@ -1,5 +1,6 @@
 # Use centralized physics constants: PhysicsConstants.*
 extends Node2D
+class_name Gus
 
 @export var debug_start_marker: Marker2D
 @onready var body         : CharacterBody2D    = $ChonkiCharacter
@@ -9,6 +10,10 @@ extends Node2D
 @export var jump_multiplier: float = 1.0
 @export var midair_jumps: int = 0
 @export var speed_multiplier: float = 0.375
+
+# An item or character carried on Gus's back
+@export var carried_entity: Node2D
+@onready var carried_entity_marker: Marker2D = find_child('CarriedEntityMarker')
 
 @export var initial_camera_zoom: Vector2 = Vector2(0.2, 0.2)
 
@@ -95,9 +100,15 @@ func _ready() -> void:
 	fade_rect.z_index = 1000
 	add_child(fade_rect)
 	fade_rect.visible = false
+	
+	position_carried_entity_on_back()
 
 func _on_chonki_frozen(frozen: bool) -> void:
 	is_frozen = frozen
+	
+func position_carried_entity_on_back() -> void:
+	if carried_entity:
+		carried_entity.global_position = carried_entity_marker.global_position
 
 func _on_game_zoom_level(zoom_level: float, zoom_duration: float = 2.0) -> void:
 	if camera2d.has_method("_on_animate_camera_zoom_level"):
@@ -108,7 +119,7 @@ func _on_game_zoom_level(zoom_level: float, zoom_duration: float = 2.0) -> void:
 var kite_rotate_tween
 
 #func _on_chonki_slide_status(is_sliding: bool) -> void:
-#	is_chonki_sliding = is_sliding
+#	is_chonki_sliding = is_sliding	
 	
 func _rotate_on_kite(initial_degrees: int) -> void:
 	if kite_rotate_tween == null:
@@ -417,6 +428,9 @@ func _on_backflip_triggered():
 	
 	is_backflipping = false
 
+func _process(_delta) -> void:
+	position_carried_entity_on_back() 
+	
 func _perform_midair_backflip():
 	# Perform a quick backflip during midair jump
 	# Prevent other midair jumps while this animation is in progress

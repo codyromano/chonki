@@ -1,4 +1,4 @@
-[gd_scene load_steps=100 format=3 uid="uid://br8ftak73gmww"]
+[gd_scene load_steps=102 format=3 uid="uid://br8ftak73gmww"]
 
 [ext_resource type="PackedScene" uid="uid://bk3oytbasgs5w" path="res://scenes/grown_up_chonki.tscn" id="1_6i0tl"]
 [ext_resource type="Script" uid="uid://b2cncqbuotdcl" path="res://scenes/level_1.gd" id="1_hvrd6"]
@@ -38,7 +38,6 @@
 [ext_resource type="Texture2D" uid="uid://c1pegd4l1nkvx" path="res://assets/environment/level1/trunk.png" id="32_mopj3"]
 [ext_resource type="Texture2D" uid="uid://3nvx2tg0goeu" path="res://assets/friends/volleyball/volleyball_concerned.png" id="32_tjdkg"]
 [ext_resource type="Texture2D" uid="uid://crqhusuex0bur" path="res://assets/collectibles/pottery_1.png" id="33_onmav"]
-[ext_resource type="Texture2D" uid="uid://bgh1g2nyfpojr" path="res://assets/friends/volleyball/ruby_happy.png" id="33_uledv"]
 [ext_resource type="Texture2D" uid="uid://dkductyaildvy" path="res://assets/friends/momo/momo.png" id="34_6lx4c"]
 [ext_resource type="Texture2D" uid="uid://isjdue6t5l6t" path="res://assets/environment/level1/trunk_top.png" id="34_g6862"]
 [ext_resource type="PackedScene" uid="uid://bdhyongrfrh2w" path="res://scenes/composable/swivel_branch.tscn" id="35_v3v4h"]
@@ -58,6 +57,7 @@
 [ext_resource type="Texture2D" uid="uid://btet14ijapd25" path="res://assets/enemies/otter/otter_rise.png" id="41_6b8u6"]
 [ext_resource type="Script" uid="uid://bohb45sc7o600" path="res://scenes/MoveLeftOrRightText.gd" id="42_5ipuv"]
 [ext_resource type="Texture2D" uid="uid://bu1gkhk5myacr" path="res://assets/enemies/otter/otter_stand_smile.png" id="42_6qhw2"]
+[ext_resource type="Script" uid="uid://cbnnv41ak8lae" path="res://scenes/composable/ruby_quest_giver.gd" id="43_4xi8u"]
 [ext_resource type="Script" uid="uid://bllcs5ppc1ul7" path="res://scenes/composable/isaac_quest_giver.gd" id="43_6b8u6"]
 [ext_resource type="Script" uid="uid://4mx2cyi0i3oy" path="res://scenes/composable/jump_text.gd" id="43_onmav"]
 [ext_resource type="Script" uid="uid://bko0cd72n347f" path="res://scenes/pottery_1.gd" id="44_eedbu"]
@@ -68,6 +68,7 @@
 [ext_resource type="Script" uid="uid://bfcdimts6npaa" path="res://scenes/pottery_3.gd" id="46_4yyev"]
 [ext_resource type="Script" uid="uid://b7x75jyph32sm" path="res://scenes/OtterPath2D.gd" id="46_otter"]
 [ext_resource type="Texture2D" uid="uid://d3vj71ug2rs00" path="res://assets/friends/eagle/eagle_baby_concerned.png" id="47_4xi8u"]
+[ext_resource type="Script" uid="uid://dtdi4lk7jh4ii" path="res://scenes/rodrigo.gd" id="47_o55ux"]
 [ext_resource type="Script" uid="uid://d4kk2iudy17ia" path="res://scenes/OceanFloor.gd" id="47_ocean"]
 [ext_resource type="PackedScene" uid="uid://6q16boewrg0o" path="res://scenes/composable/trampoline.tscn" id="53_7hmix"]
 [ext_resource type="Texture2D" uid="uid://c3pm3xtc8kwbg" path="res://assets/environment/level1/cloud_barrier.png" id="55_x80p0"]
@@ -76,6 +77,7 @@
 [ext_resource type="PackedScene" uid="uid://dmvfy4x1ini0v" path="res://scenes/composable/bench.tscn" id="58_eedbu"]
 [ext_resource type="PackedScene" path="res://scenes/spawn_location.tscn" id="59_x7a8r"]
 [ext_resource type="PackedScene" uid="uid://dpwcrkl2e2ro4" path="res://scenes/composable/adjust_zoom_on_player_enter.tscn" id="62_4w6xv"]
+[ext_resource type="Script" uid="uid://bj8qjm1gsuny4" path="res://scenes/spawn_location.gd" id="78_5674x"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_adkmy"]
 size = Vector2(763.363, 472.117)
@@ -249,7 +251,7 @@ animations = [{
 "speed": 5.0
 }]
 
-[sub_resource type="SpriteFrames" id="SpriteFrames_uledv"]
+[sub_resource type="SpriteFrames" id="SpriteFrames_5674x"]
 animations = [{
 "frames": [{
 "duration": 1.0,
@@ -257,14 +259,6 @@ animations = [{
 }],
 "loop": true,
 "name": &"default",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": ExtResource("33_uledv")
-}],
-"loop": true,
-"name": &"happy",
 "speed": 5.0
 }]
 
@@ -833,10 +827,10 @@ frames = SubResource("SpriteFrames_y3pui")
 
 [node name="RubyQuestGiver" parent="World2D/NPCs/QuestGivers" instance=ExtResource("37_hvrd6")]
 position = Vector2(46318, -744)
-script = ExtResource("43_6b8u6")
-frames = SubResource("SpriteFrames_uledv")
+script = ExtResource("43_4xi8u")
+frames = SubResource("SpriteFrames_5674x")
 sprite_scale = Vector2(1, 1)
-avatar_name = "ruby"
+avatar_name = ""
 
 [node name="IsaacQuestGiver" parent="World2D/NPCs/QuestGivers" instance=ExtResource("37_hvrd6")]
 position = Vector2(130577, -3743)
@@ -845,15 +839,18 @@ frames = SubResource("SpriteFrames_6qhw2")
 sprite_scale = Vector2(1, 1)
 avatar_name = ""
 
-[node name="Rodrigo" type="CharacterBody2D" parent="World2D/NPCs"]
+[node name="Rodrigo" type="Area2D" parent="World2D/NPCs"]
 position = Vector2(128624, -17199)
-collision_layer = 64
-collision_mask = 8
+collision_layer = 2
+collision_mask = 9
+script = ExtResource("47_o55ux")
 
 [node name="RodrigoSprite" type="AnimatedSprite2D" parent="World2D/NPCs/Rodrigo"]
+scale = Vector2(0.560156, 0.560156)
 sprite_frames = SubResource("SpriteFrames_o55ux")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="World2D/NPCs/Rodrigo"]
+scale = Vector2(0.560156, 0.560156)
 polygon = PackedVector2Array(-219, -49, -146, -298, 91, -314, 224, -35, 264, 312, 179, 425, -126, 404)
 
 [node name="Platforms & Barriers" type="Node2D" parent="World2D"]
@@ -1465,7 +1462,7 @@ zoom_on_enter = 0.22
 [node name="Debug" type="Node" parent="."]
 
 [node name="GusDebugStartMarker" type="Marker2D" parent="Debug"]
-position = Vector2(132406, -4126)
+position = Vector2(122962, -17001)
 
 [node name="JumpRuler" type="ColorRect" parent="Debug"]
 visible = false
@@ -1476,18 +1473,36 @@ offset_bottom = -41.0
 color = Color(1, 1, 0.0784314, 1)
 
 [node name="SecretLetter" parent="." instance=ExtResource("56_yqdyt")]
-z_index = 1
+z_index = 10
 offset_left = 129580.0
 offset_top = -2535.0
 offset_right = 129644.0
 offset_bottom = -2471.0
 letter = "E"
 
+[node name="IsaacSecretLetterSpawnPoint" type="Marker2D" parent="."]
+position = Vector2(134824, -7186)
+script = ExtResource("78_5674x")
+item_name = 7
+
+[node name="Node2D" type="Node2D" parent="IsaacSecretLetterSpawnPoint"]
+
+[node name="SecretLetter" parent="IsaacSecretLetterSpawnPoint/Node2D" instance=ExtResource("56_yqdyt")]
+z_index = 1
+offset_left = -442.0
+offset_top = 452.0
+offset_right = -378.0
+offset_bottom = 516.0
+letter = "L"
+font_size = 40
+metadata/_edit_use_anchors_ = true
+
 [connection signal="timeout" from="World2D/NPCs/Enemies/GooseRegion2D/Goose/Timer" to="World2D/NPCs/Enemies/GooseRegion2D/Goose" method="_on_hop_timer_timeout"]
 [connection signal="timeout" from="World2D/NPCs/Enemies/GooseRegion2D2/Goose/Timer" to="World2D/NPCs/Enemies/GooseRegion2D2/Goose" method="_on_hop_timer_timeout"]
 [connection signal="timeout" from="World2D/NPCs/Enemies/GooseRegion2D2/Goose2/Timer" to="World2D/NPCs/Enemies/GooseRegion2D2/Goose2" method="_on_hop_timer_timeout"]
 [connection signal="timeout" from="World2D/NPCs/Enemies/GooseRegion2D3/Goose2/Timer" to="World2D/NPCs/Enemies/GooseRegion2D3/Goose2" method="_on_hop_timer_timeout"]
 [connection signal="body_entered" from="World2D/NPCs/Enemies/Bicyclist" to="World2D/NPCs/Enemies/Bicyclist" method="_on_body_entered"]
+[connection signal="body_entered" from="World2D/NPCs/Rodrigo" to="World2D/NPCs/Rodrigo" method="_on_body_entered"]
 [connection signal="input_event" from="World2D/Platforms & Barriers/CherryTreeBody" to="World2D/Platforms & Barriers/CherryTreeBody" method="_on_input_event"]
 [connection signal="input_event" from="World2D/Platforms & Barriers/CherryTreeBody2" to="World2D/Platforms & Barriers/CherryTreeBody2" method="_on_input_event"]
 [connection signal="input_event" from="World2D/Platforms & Barriers/CherryTreeBody3" to="World2D/Platforms & Barriers/CherryTreeBody3" method="_on_input_event"]

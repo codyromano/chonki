@@ -640,4 +640,7 @@ volume_db = 5.0
 [node name="AudioController" type="Node2D" parent="ChonkiCharacter"]
 script = ExtResource("142_uym33")
 
+[node name="CarriedEntityMarker" type="Marker2D" parent="ChonkiCharacter"]
+position = Vector2(-245, -34)
+
 [connection signal="animation_finished" from="ChonkiCharacter/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
