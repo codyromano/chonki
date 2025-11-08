@@ -1,4 +1,4 @@
-[gd_scene load_steps=98 format=3 uid="uid://br8ftak73gmww"]
+[gd_scene load_steps=100 format=3 uid="uid://br8ftak73gmww"]
 
 [ext_resource type="PackedScene" uid="uid://bk3oytbasgs5w" path="res://scenes/grown_up_chonki.tscn" id="1_6i0tl"]
 [ext_resource type="Script" uid="uid://b2cncqbuotdcl" path="res://scenes/level_1.gd" id="1_hvrd6"]
@@ -67,6 +67,7 @@
 [ext_resource type="Texture2D" uid="uid://dnr005l5x0slj" path="res://assets/friends/eagle/eagle_dad_sad.png" id="46_4xi8u"]
 [ext_resource type="Script" uid="uid://bfcdimts6npaa" path="res://scenes/pottery_3.gd" id="46_4yyev"]
 [ext_resource type="Script" uid="uid://b7x75jyph32sm" path="res://scenes/OtterPath2D.gd" id="46_otter"]
+[ext_resource type="Texture2D" uid="uid://d3vj71ug2rs00" path="res://assets/friends/eagle/eagle_baby_concerned.png" id="47_4xi8u"]
 [ext_resource type="Script" uid="uid://d4kk2iudy17ia" path="res://scenes/OceanFloor.gd" id="47_ocean"]
 [ext_resource type="PackedScene" uid="uid://6q16boewrg0o" path="res://scenes/composable/trampoline.tscn" id="53_7hmix"]
 [ext_resource type="Texture2D" uid="uid://c3pm3xtc8kwbg" path="res://assets/environment/level1/cloud_barrier.png" id="55_x80p0"]
@@ -272,6 +273,17 @@ animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("46_4xi8u")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_o55ux"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("47_4xi8u")
 }],
 "loop": true,
 "name": &"default",
@@ -832,6 +844,17 @@ script = ExtResource("43_6b8u6")
 frames = SubResource("SpriteFrames_6qhw2")
 sprite_scale = Vector2(1, 1)
 avatar_name = ""
+
+[node name="Rodrigo" type="CharacterBody2D" parent="World2D/NPCs"]
+position = Vector2(128624, -15823)
+collision_layer = 64
+collision_mask = 8
+
+[node name="RodrigoSprite" type="AnimatedSprite2D" parent="World2D/NPCs/Rodrigo"]
+sprite_frames = SubResource("SpriteFrames_o55ux")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="World2D/NPCs/Rodrigo"]
+polygon = PackedVector2Array(-219, -49, -146, -298, 91, -314, 224, -35, 264, 312, 179, 425, -126, 404)
 
 [node name="Platforms & Barriers" type="Node2D" parent="World2D"]
 
