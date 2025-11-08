@@ -306,7 +306,7 @@ radius = 310.04
 size = Vector2(214.95, 619.221)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6qhw2"]
-size = Vector2(214.95, 195.98)
+size = Vector2(214.95, 68.3419)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6b8u6"]
 size = Vector2(121.484, 744.729)
@@ -846,7 +846,7 @@ sprite_scale = Vector2(1, 1)
 avatar_name = ""
 
 [node name="Rodrigo" type="CharacterBody2D" parent="World2D/NPCs"]
-position = Vector2(128624, -15823)
+position = Vector2(128624, -17199)
 collision_layer = 64
 collision_mask = 8
 
@@ -1133,18 +1133,18 @@ texture = ExtResource("55_x80p0")
 position = Vector2(-47.6768, -101.382)
 shape = SubResource("RectangleShape2D_6qhw2")
 
-[node name="CloudBarrierVerticalShortR" type="StaticBody2D" parent="World2D/Platforms & Barriers/CloudMaze"]
+[node name="CloudBarrierElevator" type="StaticBody2D" parent="World2D/Platforms & Barriers/CloudMaze"]
 position = Vector2(135741, -11296)
 scale = Vector2(7.96, 7.96)
 collision_layer = 8
 
-[node name="Sprite2D" type="Sprite2D" parent="World2D/Platforms & Barriers/CloudMaze/CloudBarrierVerticalShortR"]
-position = Vector2(-49.7497, -108.929)
-scale = Vector2(0.755702, 0.330018)
+[node name="Sprite2D" type="Sprite2D" parent="World2D/Platforms & Barriers/CloudMaze/CloudBarrierElevator"]
+position = Vector2(-49.7497, -171.231)
+scale = Vector2(0.755702, 0.0944211)
 texture = ExtResource("55_x80p0")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/Platforms & Barriers/CloudMaze/CloudBarrierVerticalShortR"]
-position = Vector2(-47.6768, -101.382)
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/Platforms & Barriers/CloudMaze/CloudBarrierElevator"]
+position = Vector2(-47.6758, -165.201)
 shape = SubResource("RectangleShape2D_6qhw2")
 
 [node name="CloudBarrierVerticalR" type="StaticBody2D" parent="World2D/Platforms & Barriers/CloudMaze"]
@@ -1192,7 +1192,7 @@ position = Vector2(-94.4102, 47.4922)
 shape = SubResource("RectangleShape2D_6b8u6")
 
 [node name="CloudBarrierHorizontalR2" type="StaticBody2D" parent="World2D/Platforms & Barriers/CloudMaze"]
-position = Vector2(130437, -14016)
+position = Vector2(130437, -15146)
 rotation = 1.5708
 scale = Vector2(7.96, 7.96)
 collision_layer = 8
@@ -1206,18 +1206,18 @@ texture = ExtResource("55_x80p0")
 position = Vector2(-94.4102, 47.4922)
 shape = SubResource("RectangleShape2D_6b8u6")
 
-[node name="CloudBarrierHorizontalR3" type="StaticBody2D" parent="World2D/Platforms & Barriers/CloudMaze"]
-position = Vector2(122182, -13938)
+[node name="CloudBarrierHorizontalL2" type="StaticBody2D" parent="World2D/Platforms & Barriers/CloudMaze"]
+position = Vector2(122182, -15068)
 rotation = 1.5708
 scale = Vector2(7.96, 7.96)
 collision_layer = 8
 
-[node name="Sprite2D" type="Sprite2D" parent="World2D/Platforms & Barriers/CloudMaze/CloudBarrierHorizontalR3"]
+[node name="Sprite2D" type="Sprite2D" parent="World2D/Platforms & Barriers/CloudMaze/CloudBarrierHorizontalL2"]
 position = Vector2(-100.771, 46.316)
 scale = Vector2(0.477654, 1.06951)
 texture = ExtResource("55_x80p0")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/Platforms & Barriers/CloudMaze/CloudBarrierHorizontalR3"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/Platforms & Barriers/CloudMaze/CloudBarrierHorizontalL2"]
 position = Vector2(-94.4102, 47.4922)
 shape = SubResource("RectangleShape2D_6b8u6")
 
@@ -1236,8 +1236,14 @@ texture = ExtResource("55_x80p0")
 position = Vector2(-94.4102, 47.4922)
 shape = SubResource("RectangleShape2D_6b8u6")
 
-[node name="CloudMazeLever" parent="World2D/Platforms & Barriers/CloudMaze" instance=ExtResource("2_vutef")]
+[node name="CloudLeverLeftOrRight" parent="World2D/Platforms & Barriers/CloudMaze" instance=ExtResource("2_vutef")]
 position = Vector2(116607, -13349)
+
+[node name="CloudLeverUpOrDown" parent="World2D/Platforms & Barriers/CloudMaze" instance=ExtResource("2_vutef")]
+position = Vector2(123901, -10268)
+
+[node name="CloudLeverPower" parent="World2D/Platforms & Barriers/CloudMaze" instance=ExtResource("2_vutef")]
+position = Vector2(128013, -10268)
 
 [node name="Collectibles" type="Node2D" parent="World2D"]
 position = Vector2(53, 0)
