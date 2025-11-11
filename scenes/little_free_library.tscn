@@ -56,7 +56,6 @@ grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 script = ExtResource("1_axak0")
-win_word = "adopt"
 
 [node name="WinAudio" type="AudioStreamPlayer" parent="."]
 process_mode = 3

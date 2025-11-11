@@ -1,4 +1,4 @@
-[gd_scene load_steps=107 format=3 uid="uid://br8ftak73gmww"]
+[gd_scene load_steps=108 format=3 uid="uid://br8ftak73gmww"]
 
 [ext_resource type="PackedScene" uid="uid://bk3oytbasgs5w" path="res://scenes/grown_up_chonki.tscn" id="1_6i0tl"]
 [ext_resource type="Script" uid="uid://b2cncqbuotdcl" path="res://scenes/level_1.gd" id="1_hvrd6"]
@@ -82,6 +82,7 @@
 [ext_resource type="Texture2D" uid="uid://4su6gdoiqxsm" path="res://assets/interactables/library.png" id="80_gbdr3"]
 [ext_resource type="Texture2D" uid="uid://d3kktwx4c1h8h" path="res://assets/interactables/library_open.png" id="81_juw6p"]
 [ext_resource type="AudioStream" uid="uid://c4pq71yiir21k" path="res://assets/sound/library_open.mp3" id="82_ix5rl"]
+[ext_resource type="Script" uid="uid://djn0u7mqiiuj" path="res://scripts/scene_transition_controller.gd" id="83_scene_transition"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_adkmy"]
 size = Vector2(763.363, 472.117)
@@ -364,6 +365,9 @@ animations = [{
 [node name="Level1" type="Node2D"]
 position = Vector2(-5159, -12)
 script = ExtResource("1_hvrd6")
+
+[node name="SceneTransitionController" type="Node2D" parent="."]
+script = ExtResource("83_scene_transition")
 
 [node name="TreeMazeLever" parent="." instance=ExtResource("2_vutef")]
 z_index = 1
@@ -917,7 +921,6 @@ collision_mask = 255
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/Platforms & Barriers/Ground2"]
 z_index = 100
 position = Vector2(1516.3, 40)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_4w6xv")
 debug_color = Color(0.307035, 0.494072, 1, 0.42)
 
@@ -931,7 +934,6 @@ script = ExtResource("47_ocean")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/Platforms & Barriers/OceanFloor"]
 z_index = 100
 position = Vector2(12468.5, 165.4)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_7hmix")
 debug_color = Color(0.307035, 0.494072, 1, 0.42)
 
@@ -1509,7 +1511,7 @@ zoom_on_enter = 0.22
 [node name="Debug" type="Node" parent="."]
 
 [node name="GusDebugStartMarker" type="Marker2D" parent="Debug"]
-position = Vector2(125843, -2319)
+position = Vector2(125730, -1850)
 
 [node name="JumpRuler" type="ColorRect" parent="Debug"]
 visible = false

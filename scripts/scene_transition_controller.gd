@@ -90,9 +90,12 @@ func _on_fade_complete():
 	print("time to save scene")
 	
 	var library_scene = load("res://scenes/little_free_library.tscn")
-	print("About to call SceneStack.push_scene")
-	SceneStack.push_scene(library_scene)
-	print("SceneStack.push_scene completed")
+	var library_instance = library_scene.instantiate()
+	library_instance.win_word = GameState.get_current_level_puzzle_solution()
+	
+	print("About to call SceneStack.push_existing")
+	SceneStack.push_existing(library_instance)
+	print("SceneStack.push_existing completed")
 	
 	# Reset the transition flag
 	is_transitioning = false

@@ -7,10 +7,12 @@ var stars_collected: int = 0
 var total_stars: int = 0
 var time_elapsed: float = 0.0
 var puzzle_solution_by_scene: Dictionary = {
-	1: "adopt"
+	1: "adopt",
+	2: "relax"
 }
 var letters_collected_by_scene: Dictionary = {
   1: [],
+  2: [],
 }
 
 # Cache for total stars per level (by scene path)

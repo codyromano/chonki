@@ -8,6 +8,7 @@ var letters_display_label: Label
 var letters_display_control: Control
 
 func _ready():
+	GameState.current_level = 2
 	GlobalSignals.secret_letter_collected.connect(_on_secret_letter_collected)
 	
 	_count_total_secret_letters()
