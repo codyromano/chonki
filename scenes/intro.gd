@@ -11,6 +11,8 @@ var collected_secret_letters: int = 0
 func _ready():
 	GlobalSignals.game_zoom_level.emit(0.2)
 	
+	GameState.letters_collected_by_scene[1] = ["a", "d", "o", "p", "t"]
+	
 	# Connect to secret letter collection signal
 	GlobalSignals.secret_letter_collected.connect(_on_secret_letter_collected)
 	
@@ -37,8 +39,10 @@ func _count_total_secret_letters():
 	
 	# Fallback: search by group
 	if total_secret_letters == 0:
-		var secret_letters = get_tree().get_nodes_in_group("secret_letters")
-		total_secret_letters = secret_letters.size()
+		var tree = get_tree()
+		if tree:
+			var secret_letters = tree.get_nodes_in_group("secret_letters")
+			total_secret_letters = secret_letters.size()
 	
 	# Final fallback: recursive search
 	if total_secret_letters == 0:

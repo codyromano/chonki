@@ -30,20 +30,26 @@ func clear_fade():
 	GlobalSignals.set_chonki_frozen.emit(false)
 	
 	# Re-register the player for audio when scene is restored
-	for child in get_tree().current_scene.get_children():
-		if child.name.begins_with("Chonki") or child.has_method("_on_player_jump"):
-			GlobalSignals.player_registered.emit(child)
-			break
+	var tree = get_tree()
+	if tree and tree.current_scene:
+		for child in tree.current_scene.get_children():
+			if child.name.begins_with("Chonki") or child.has_method("_on_player_jump"):
+				GlobalSignals.player_registered.emit(child)
+				break
 
 func create_fade_overlay():
 	# Don't create if overlay already exists
 	if fade_overlay:
 		return
+	
+	var tree = get_tree()
+	if not tree or not tree.current_scene:
+		return
 		
 	# Create a CanvasLayer to ensure the overlay is on top of everything
 	canvas_layer = CanvasLayer.new()
 	canvas_layer.layer = 100  # High layer value to be on top
-	get_tree().current_scene.call_deferred("add_child", canvas_layer)
+	tree.current_scene.call_deferred("add_child", canvas_layer)
 	
 	# Create the ColorRect for fading
 	fade_overlay = ColorRect.new()
@@ -86,16 +92,25 @@ func fade_to_black():
 	tween.tween_callback(_on_fade_complete)
 
 func _on_fade_complete():
-	print("Fade to black complete - loading little free library scene")
-	print("time to save scene")
+	print("[SceneTransition] Fade to black complete - loading little free library scene")
+	print("[SceneTransition] Current level: ", GameState.current_level)
+	print("[SceneTransition] Puzzle solution: '", GameState.get_current_level_puzzle_solution(), "'")
 	
 	var library_scene = load("res://scenes/little_free_library.tscn")
 	var library_instance = library_scene.instantiate()
 	library_instance.win_word = GameState.get_current_level_puzzle_solution()
 	
-	print("About to call SceneStack.push_existing")
+	# Get tree reference BEFORE pushing scene (which removes us from tree)
+	var tree = get_tree()
+	
+	print("[SceneTransition] About to call SceneStack.push_existing")
 	SceneStack.push_existing(library_instance)
-	print("SceneStack.push_existing completed")
+	print("[SceneTransition] SceneStack.push_existing completed")
+	
+	if tree and tree.current_scene:
+		print("[SceneTransition] Current scene is now: ", tree.current_scene.name)
+	else:
+		print("[SceneTransition] WARNING: Could not access current scene")
 	
 	# Reset the transition flag
 	is_transitioning = false

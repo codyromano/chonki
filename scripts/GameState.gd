@@ -55,10 +55,15 @@ func get_total_stars_for_level(level_path: String) -> int:
 	return 0
 
 func add_collected_letter(letter: String) -> void:
+	print("[GameState] Adding letter '", letter, "' to level ", current_level)
 	letters_collected_by_scene[current_level].append(letter)
+	print("[GameState] Total letters collected for level ", current_level, ": ", letters_collected_by_scene[current_level])
 
 func get_collected_letters() -> Array:
+	print("[GameState] Getting collected letters for level ", current_level, ": ", letters_collected_by_scene[current_level])
 	return letters_collected_by_scene[current_level]
 
 func get_current_level_puzzle_solution() -> String:
-	return puzzle_solution_by_scene[current_level]
+	var solution = puzzle_solution_by_scene[current_level]
+	print("[GameState] Puzzle solution for level ", current_level, ": '", solution, "'")
+	return solution
