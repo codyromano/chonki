@@ -33,9 +33,15 @@ func _on_win() -> void:
 	tween.tween_property(overall_game_container, 'modulate:a', 0, WIN_FADEOUT_DURATION)
 	await tween.finished
 	
+	var dialogue_text: String
+	if GameState.current_level == 2:
+		dialogue_text = "Gus and Dave experience fresh air for the first time in ages"
+	else:
+		dialogue_text = "Gus, the Corgi, was born in a barn in Olympia, Washington. His future owner drove from Seattle to pick him up."
+	
 	print("[LittleFreeLibrary] Fadeout complete, emitting queue_main_dialogue signal")
 	GlobalSignals.queue_main_dialogue.emit(
-		'Gus, the Corgi, was born in a barn in Olympia, Washington. His future owner drove from Seattle to pick him up.',
+		dialogue_text,
 		"",
 		"gus"
 	)

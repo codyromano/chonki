@@ -11,6 +11,8 @@ func _ready():
 	GameState.current_level = 2
 	GlobalSignals.secret_letter_collected.connect(_on_secret_letter_collected)
 	
+	GameState.letters_collected_by_scene[2] = ["f", "r", "e", "s", "h"]
+	
 	_count_total_secret_letters()
 	_create_letters_display()
 	_create_jump_height_indicator()
