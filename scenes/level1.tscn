@@ -380,7 +380,7 @@ touchable_while_timer_is_active = false
 unique_name_in_owner = true
 
 [node name="Dave" parent="World2D" instance=ExtResource("16_ytk5w")]
-position = Vector2(160031, -676)
+position = Vector2(152611, -676)
 scale = Vector2(0.4, 0.4)
 
 [node name="Environment" type="Node2D" parent="World2D"]
@@ -562,7 +562,7 @@ scale = Vector2(1.10874, 1.11339)
 texture = ExtResource("2_gc4xo")
 texture_offset = Vector2(0, 3750)
 texture_scale = Vector2(0.25, 0.25)
-polygon = PackedVector2Array(-1009, 5, 140829, 229.357, 140619, -2352.85, 140480, -4254.25, 53481.7, -4381.79, -995.425, -4447.35)
+polygon = PackedVector2Array(-1009, 5, 149906, 267.978, 149633, -1460.98, 149732, -4453.64, 53481.7, -4381.79, -995.425, -4447.35)
 
 [node name="CloudsBG3" type="Polygon2D" parent="World2D/Environment/CloudsAndOceans"]
 texture_repeat = 2
@@ -571,7 +571,7 @@ scale = Vector2(1.2302, 1.23964)
 texture = ExtResource("2_gc4xo")
 texture_offset = Vector2(0, 3750)
 texture_scale = Vector2(0.25, 0.25)
-polygon = PackedVector2Array(-1009, 5, 126294, 369.462, 126356, -6070.31, 111188, -6104.19, 53511.8, -5527.41, -1031.48, -5495.14)
+polygon = PackedVector2Array(-1009, 5, 135542, -4.84009, 135001, -5889.61, 111188, -6104.19, 53511.8, -5527.41, -1031.48, -5495.14)
 
 [node name="CloudsBG4" type="Polygon2D" parent="World2D/Environment/CloudsAndOceans"]
 texture_repeat = 2
@@ -909,7 +909,6 @@ collision_mask = 255
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/Platforms & Barriers/Ground"]
 z_index = 100
 position = Vector2(7193.25, 40)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_4w6xv")
 debug_color = Color(0.307035, 0.494072, 1, 0.42)
 
@@ -1511,7 +1510,7 @@ zoom_on_enter = 0.22
 [node name="Debug" type="Node" parent="."]
 
 [node name="GusDebugStartMarker" type="Marker2D" parent="Debug"]
-position = Vector2(125870, -3936)
+position = Vector2(143172, -1084)
 
 [node name="JumpRuler" type="ColorRect" parent="Debug"]
 visible = false

@@ -1,0 +1,117 @@
+[gd_scene load_steps=10 format=3 uid="uid://bwlbha7tll5ic"]
+
+[ext_resource type="Script" uid="uid://x8w1g2c80t4e" path="res://scripts/SlideshowController.gd" id="1_0pilm"]
+[ext_resource type="Texture2D" uid="uid://ctggbs5t4ffym" path="res://assets/animations/final_scene/final_01.png" id="2_npc3b"]
+[ext_resource type="Texture2D" uid="uid://bo4ax4pu1uh6" path="res://scenes/final_02.png" id="3_lfhsi"]
+[ext_resource type="Texture2D" uid="uid://drsdofflhe63o" path="res://assets/animations/final_scene/final_03.png" id="4_kebro"]
+[ext_resource type="Texture2D" uid="uid://ccs31h25bum7a" path="res://assets/animations/final_scene/final_04.png" id="5_eguaf"]
+[ext_resource type="Texture2D" uid="uid://55welxf4oxq2" path="res://assets/animations/final_scene/final_05.png" id="6_3gx8p"]
+[ext_resource type="Texture2D" uid="uid://crh2q4ftnw78v" path="res://assets/animations/final_scene/final_06.png" id="7_y1kg5"]
+[ext_resource type="AudioStream" uid="uid://oawbbgam1iw3" path="res://assets/sound/piano-trimmed.mp3" id="10_tmxdy"]
+[ext_resource type="Theme" uid="uid://dte5an7k6hog1" path="res://themes/base.tres" id="12_xk76i"]
+
+[node name="final_animation_sequence" type="Node2D"]
+position = Vector2(527, 495)
+
+[node name="AnimationSequence" type="Node2D" parent="."]
+
+[node name="Control" type="Control" parent="AnimationSequence"]
+layout_mode = 3
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+metadata/_edit_use_anchors_ = true
+
+[node name="VBoxContainer" type="VBoxContainer" parent="AnimationSequence/Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -528.0
+offset_top = -496.0
+offset_right = 1059.0
+offset_bottom = 496.0
+grow_horizontal = 2
+grow_vertical = 2
+metadata/_edit_use_anchors_ = true
+
+[node name="AnimationContainer" type="HBoxContainer" parent="AnimationSequence/Control/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+alignment = 1
+script = ExtResource("1_0pilm")
+fade_in_duration = 0.0
+display_duration = 2.5
+fade_out_duration = 0.0
+
+[node name="Image1" type="TextureRect" parent="AnimationSequence/Control/VBoxContainer/AnimationContainer"]
+layout_mode = 2
+texture = ExtResource("2_npc3b")
+
+[node name="Image2" type="TextureRect" parent="AnimationSequence/Control/VBoxContainer/AnimationContainer"]
+layout_mode = 2
+texture = ExtResource("3_lfhsi")
+
+[node name="Image3" type="TextureRect" parent="AnimationSequence/Control/VBoxContainer/AnimationContainer"]
+layout_mode = 2
+texture = ExtResource("4_kebro")
+
+[node name="Image4" type="TextureRect" parent="AnimationSequence/Control/VBoxContainer/AnimationContainer"]
+layout_mode = 2
+texture = ExtResource("5_eguaf")
+
+[node name="Image5" type="TextureRect" parent="AnimationSequence/Control/VBoxContainer/AnimationContainer"]
+layout_mode = 2
+texture = ExtResource("6_3gx8p")
+
+[node name="Image6" type="TextureRect" parent="AnimationSequence/Control/VBoxContainer/AnimationContainer"]
+layout_mode = 2
+texture = ExtResource("7_y1kg5")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="AnimationSequence"]
+stream = ExtResource("10_tmxdy")
+autoplay = true
+
+[node name="AfterCutsceneTextLayer" type="CanvasLayer" parent="."]
+visible = false
+
+[node name="AfterCutsceneTextControl" type="Control" parent="AfterCutsceneTextLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="AfterCutsceneTextLayer/AfterCutsceneTextControl"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="AfterCutsceneTextLayer/AfterCutsceneTextControl/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="AfterCutsceneTextLayer/AfterCutsceneTextControl/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(800, 0)
+layout_mode = 2
+theme = ExtResource("12_xk76i")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "Thank you so much for playing! I'm working to add more content. I welcome your feedback in the meantime. 
+
+- SideQuestsOnly"
+vertical_alignment = 1
+autowrap_mode = 2

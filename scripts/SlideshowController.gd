@@ -93,6 +93,7 @@ func _start_slideshow() -> void:
 	# Check if we're in the after_intro_animation_sequence scene
 	var current_scene_name = get_tree().current_scene.name
 	var is_after_intro_scene = current_scene_name == "after_intro_animation_sequence"
+	var is_final_animation_scene = current_scene_name == "final_animation_sequence"
 	
 	# Create a black overlay for fade effect
 	var black_overlay = ColorRect.new()
@@ -126,6 +127,10 @@ func _start_slideshow() -> void:
 		# For after_intro_animation_sequence: transition to level1.tscn
 		print("Transitioning to level1.tscn...")
 		FadeTransition.fade_out_and_change_scene("res://scenes/level1.tscn")
+	elif is_final_animation_scene:
+		# For final_animation_sequence: transition to bonus level
+		print("Game complete! Transitioning to bonus level...")
+		FadeTransition.fade_out_and_change_scene("res://scenes/bonus.tscn")
 	else:
 		# For other opening animation sequences: transition to intro.tscn
 		print("Transitioning to intro.tscn...")

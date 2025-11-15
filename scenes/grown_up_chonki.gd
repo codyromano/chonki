@@ -165,7 +165,7 @@ func on_win_game(zoom_intensity: float = 0.5) -> void:
 	# spawn_floating_hearts()
 	emit_signal("chonki_landed_and_hearts_spawned", zoom_intensity)
 	# Start fade out and scene transition after 5 seconds using the autoload
-	FadeTransition.fade_out_and_change_scene("res://scenes/after_intro_animation_sequence.tscn", 5.0, 3.0)
+	FadeTransition.fade_out_and_change_scene("res://scenes/final_animation_sequence.tscn", 5.0, 3.0)
 
 func wait_for_chonki_to_land() -> void:
 	while not body.is_on_floor():
