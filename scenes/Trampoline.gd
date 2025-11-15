@@ -16,7 +16,7 @@ func _on_body_entered(body):
 	if body.name == 'ChonkiCharacter':
 		# Always apply jump force regardless of backflip state
 		GlobalSignals.player_jump.emit(jump_intensity, "trampoline")
-		w
+
 		# Only trigger backflip if not already triggered
 		if not backflip_triggered:
 			backflip_triggered = true
