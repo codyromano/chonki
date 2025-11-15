@@ -1,5 +1,7 @@
 extends CanvasLayer
 
+@export var debug_mode: bool = false
+
 # Hide/show menu functionality
 @export var is_health_visible: bool = false
 @export var is_timer_visible: bool = false
@@ -17,6 +19,7 @@ extends CanvasLayer
 
 var books_collected: int = 0
 var letter_labels: Array[Label] = []
+var debug_menu: VBoxContainer
 
 func _ready():
 	GlobalSignals.star_collected.connect(_on_star_collected)
@@ -25,6 +28,9 @@ func _ready():
 	
 	_initialize_letter_display()
 	_load_existing_letters()
+	
+	if debug_mode:
+		_initialize_debug_menu()
 	
 	if !is_health_visible:
 		_hide_health()
@@ -61,6 +67,45 @@ func _update_letter_at_index(index: int, letter: String) -> void:
 		var uppercase_letter = letter.to_upper()
 		letter_labels[index].text = uppercase_letter
 		letter_labels[index].add_theme_color_override("font_color", Color(1.0, 0.84, 0.0))
+
+func _initialize_debug_menu() -> void:
+	debug_menu = VBoxContainer.new()
+	debug_menu.name = "DebugMenu"
+	debug_menu.position = Vector2(300, 100)
+	
+	var debug_title = Label.new()
+	debug_title.text = "DEBUG: Spawn Letters"
+	debug_title.add_theme_font_size_override("font_size", 20)
+	debug_title.add_theme_color_override("font_color", Color(1.0, 0.0, 0.0))
+	debug_menu.add_child(debug_title)
+	
+	var available_letters = ["F", "R", "E", "S", "H"]
+	
+	for letter in available_letters:
+		var button = Button.new()
+		button.text = "Spawn " + letter
+		button.custom_minimum_size = Vector2(100, 30)
+		button.pressed.connect(_on_debug_letter_toggled.bind(letter))
+		debug_menu.add_child(button)
+	
+	var hud_control = find_child("HUDControl")
+	if hud_control:
+		hud_control.add_child(debug_menu)
+	else:
+		add_child(debug_menu)
+
+func _on_debug_letter_toggled(letter: String) -> void:
+	match letter:
+		"F":
+			GlobalSignals.unlock_ruby_quest_reward.emit()
+		"R":
+			GlobalSignals.spawn_item_in_location.emit(PlayerInventory.Item.SECRET_LETTER_R)
+		"E":
+			GlobalSignals.spawn_item_in_location.emit(PlayerInventory.Item.SECRET_LETTER_E)
+		"S":
+			GlobalSignals.spawn_item_in_location.emit(PlayerInventory.Item.SECRET_LETTER_S)
+		"H":
+			GlobalSignals.spawn_item_in_location.emit(PlayerInventory.Item.SECRET_LETTER_H)
 
 func _on_star_collected() -> void:
 	books_collected += 1

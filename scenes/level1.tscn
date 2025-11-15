@@ -1355,7 +1355,7 @@ offset_left = -442.0
 offset_top = 452.0
 offset_right = -378.0
 offset_bottom = 516.0
-letter = "X"
+letter = "R"
 font_size = 40
 metadata/_edit_use_anchors_ = true
 
@@ -1383,6 +1383,7 @@ initial_camera_zoom = Vector2(0.22, 0.22)
 win_zoom_intensity = 0.1
 
 [node name="HUD" parent="." instance=ExtResource("20_g3dfk")]
+debug_mode = true
 
 [node name="TitleLayers" type="Node2D" parent="."]
 
@@ -1541,6 +1542,14 @@ offset_right = 129644.0
 offset_bottom = -2471.0
 letter = "E"
 
+[node name="SecretLetter2" parent="." instance=ExtResource("56_yqdyt")]
+z_index = 10
+offset_left = 123432.0
+offset_top = -2535.0
+offset_right = 123496.0
+offset_bottom = -2471.0
+letter = "S"
+
 [node name="IsaacSecretLetterSpawnPoint" type="Marker2D" parent="."]
 position = Vector2(134824, -7186)
 script = ExtResource("78_5674x")
@@ -1554,7 +1563,7 @@ offset_left = -442.0
 offset_top = 452.0
 offset_right = -378.0
 offset_bottom = 516.0
-letter = "L"
+letter = "H"
 font_size = 40
 metadata/_edit_use_anchors_ = true
 

@@ -88,11 +88,9 @@ func get_next_dialogue_node_custom(current_node: DialogueNode, selected_option_i
 		GlobalSignals.spawn_item_in_location.emit(PlayerInventory.Item.POTTERY_2)
 		GlobalSignals.spawn_item_in_location.emit(PlayerInventory.Item.POTTERY_3)
 	
-	# Proceed with normal dialogue flow
+	# Proceed with normal dialogue flow 
 	return get_next_dialogue_node(current_node, selected_option_id)
 
 func on_dialogue_finished() -> void:
-	# Check if all pottery pieces have been collected
 	if _count_pottery_pieces() == 3:
-		# Spawn secret letter X as a reward
-		GlobalSignals.spawn_item_in_location.emit(PlayerInventory.Item.SECRET_LETTER_X)
+		GlobalSignals.spawn_item_in_location.emit(PlayerInventory.Item.SECRET_LETTER_R)

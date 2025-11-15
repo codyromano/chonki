@@ -8,7 +8,7 @@ func _on_unlock_ruby_quest_reward() -> void:
 	var secret_letter_scene = preload("res://scenes/SecretLetter.tscn")
 	var secret_letter = secret_letter_scene.instantiate()
 	
-	secret_letter.letter = "a"
+	secret_letter.letter = "F"
 	secret_letter.global_position = global_position
 	
 	if get_parent():
