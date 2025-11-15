@@ -8,7 +8,7 @@ var total_stars: int = 0
 var time_elapsed: float = 0.0
 var puzzle_solution_by_scene: Dictionary = {
 	1: "adopt",
-	2: "relax"
+	2: "fresh"
 }
 var letters_collected_by_scene: Dictionary = {
   1: [],
