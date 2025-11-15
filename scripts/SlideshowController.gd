@@ -4,43 +4,64 @@ extends Node
 @export var display_duration: float = 2.0
 @export var fade_out_duration: float = 1.0
 @export var crop_bottom_pixels: int = 25  # Pixels to crop from bottom of each image
+@export var title_fade_duration: float = 0.25
+@export var title_display_duration: float = 5.0
 
 var images: Array[TextureRect]
+var slides: Array[Control]  # Holds both images and title cards in order
 
 func _ready() -> void:
 	print("SlideshowController _ready() called")
 	
-	# Get all TextureRect children
+	# Get all TextureRect and Control children (title cards)
 	for child in get_children():
 		print("Found child: ", child.name, " (type: ", child.get_class(), ")")
 		if child is TextureRect:
 			images.append(child)
+			slides.append(child)
 			print("Added TextureRect: ", child.name)
+		elif child is Control and child.name.begins_with("Title"):
+			slides.append(child)
+			print("Added TitleCard: ", child.name)
 	
-	print("Total TextureRects found: ", images.size())
+	print("Total slides found: ", slides.size(), " (TextureRects: ", images.size(), ")")
 	
-	if images.is_empty():
-		print("SlideshowController: No TextureRect children found. Aborting.")
+	if slides.is_empty():
+		print("SlideshowController: No slides found. Aborting.")
 		return
 
 	# Apply cropping to all images before starting slideshow
 	if crop_bottom_pixels > 0:
 		_apply_cropping_to_images()
 
-	# Sort children by name numerically to ensure correct order
-	images.sort_custom(func(a, b): 
-		var a_num = a.name.to_int() if a.name.is_valid_int() else 0
-		var b_num = b.name.to_int() if b.name.is_valid_int() else 0
+	# Sort slides by name numerically to ensure correct order
+	slides.sort_custom(func(a, b): 
+		# Extract number from name (e.g., "Title1" -> 1, "Image2" -> 2)
+		var a_name = str(a.name)
+		var b_name = str(b.name)
+		var a_num = 0
+		var b_num = 0
+		
+		# Extract numbers from names like "Title1", "Image2", etc.
+		for i in range(a_name.length()):
+			if a_name[i].is_valid_int():
+				a_num = a_name.substr(i).to_int()
+				break
+		for i in range(b_name.length()):
+			if b_name[i].is_valid_int():
+				b_num = b_name.substr(i).to_int()
+				break
+		
 		return a_num < b_num
 	)
 
-	print("Images after sorting: ", images)
+	print("Slides after sorting: ", slides.map(func(s): return s.name))
 
-	# Hide all images initially
-	for image in images:
-		image.modulate.a = 0.0
-		image.visible = false
-		print("Set ", image.name, " alpha to 0 and visible to false")
+	# Hide all slides initially
+	for slide in slides:
+		slide.modulate.a = 0.0
+		slide.visible = false
+		print("Set ", slide.name, " alpha to 0 and visible to false")
 	
 	# Start the slideshow
 	print("Starting slideshow...")
@@ -48,45 +69,63 @@ func _ready() -> void:
 
 # Use an async function for clean, sequential animations
 func _start_slideshow() -> void:
-	print("_start_slideshow() called with ", images.size(), " images")
+	print("_start_slideshow() called with ", slides.size(), " slides")
 	
-	for i in range(images.size()):
-		var image = images[i]
-		print("Displaying image ", i + 1, ": ", image.name)
+	for i in range(slides.size()):
+		var slide = slides[i]
+		var is_title_card = slide.name.begins_with("Title")
+		print("Displaying slide ", i + 1, ": ", slide.name, " (is_title: ", is_title_card, ")")
 		
-		# Show the image immediately
-		image.visible = true
-		image.modulate.a = 1.0
+		# Determine fade and display durations based on slide type
+		var fade_in: float
+		var display_time: float
+		var fade_out: float
 		
-		# --- Wait for Display Duration ---
-		var current_display_duration: float
-		if i == 0:
-			# First image displays twice as long
-			current_display_duration = display_duration * 2.0
-		elif i == images.size() - 1:
-			# Last image displays for 3 seconds
-			current_display_duration = 3.0
+		if is_title_card:
+			# Title cards: 0.25s fade in/out, 5s display
+			fade_in = title_fade_duration
+			display_time = title_display_duration
+			fade_out = title_fade_duration
 		else:
-			# Other images use normal duration
-			current_display_duration = display_duration
-		print("Displaying ", image.name, " for ", current_display_duration, " seconds")
-		await get_tree().create_timer(current_display_duration).timeout
-		print("Display time complete for ", image.name)
+			# Images: use export variables
+			fade_in = fade_in_duration
+			fade_out = fade_out_duration
+			
+			# Adjust display duration for special images
+			if i == 0:
+				display_time = display_duration * 2.0
+			elif i == slides.size() - 1:
+				display_time = 3.0
+			else:
+				display_time = display_duration
 		
-		# If this is the final image, fade out the image first
-		if i == images.size() - 1:
-			# Add 1-second fade out for the final image
-			print("Final image - fading out image over 1 second...")
-			var image_fade_tween = create_tween()
-			image_fade_tween.tween_property(image, "modulate:a", 0.0, 1.0)
-			await image_fade_tween.finished
-			print("Final image fade out complete")
+		# Fade in
+		slide.visible = true
+		if fade_in > 0:
+			print("Fading in ", slide.name, " over ", fade_in, " seconds")
+			var fade_in_tween = create_tween()
+			fade_in_tween.tween_property(slide, "modulate:a", 1.0, fade_in)
+			await fade_in_tween.finished
+		else:
+			slide.modulate.a = 1.0
 		
-		# Hide the image immediately (except final image which already faded out)
-		if i < images.size() - 1:
-			image.visible = false
-			image.modulate.a = 0.0
-			print("Hidden ", image.name)
+		# Display
+		print("Displaying ", slide.name, " for ", display_time, " seconds")
+		await get_tree().create_timer(display_time).timeout
+		print("Display time complete for ", slide.name)
+		
+		# Fade out
+		if fade_out > 0:
+			print("Fading out ", slide.name, " over ", fade_out, " seconds")
+			var fade_out_tween = create_tween()
+			fade_out_tween.tween_property(slide, "modulate:a", 0.0, fade_out)
+			await fade_out_tween.finished
+		else:
+			slide.modulate.a = 0.0
+		
+		# Hide the slide
+		slide.visible = false
+		print("Hidden ", slide.name)
 	
 	print("Slideshow finished. Starting final fade...")
 	
