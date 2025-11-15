@@ -1342,10 +1342,12 @@ collectible_name = "pottery3"
 audio = null
 
 [node name="SpawnLetterX" parent="World2D/Collectibles" instance=ExtResource("59_x7a8r")]
-position = Vector2(75943, -2434)
-item_name = 3
+z_index = 10
+position = Vector2(77493, -3954)
+item_name = 4
 
 [node name="Node2D" type="Node2D" parent="World2D/Collectibles/SpawnLetterX"]
+z_index = 10
 
 [node name="SecretLetter" parent="World2D/Collectibles/SpawnLetterX/Node2D" instance=ExtResource("56_yqdyt")]
 z_index = 1
