@@ -164,6 +164,9 @@ func _start_slideshow() -> void:
 	# Handle different scenes differently
 	if is_after_intro_scene:
 		# For after_intro_animation_sequence: transition to level1.tscn
+		# Clear collected letters from intro before starting level 1
+		GameState.letters_collected_by_scene[1] = []
+		GameState.letters_collected_by_scene[2] = []
 		print("Transitioning to level1.tscn...")
 		FadeTransition.fade_out_and_change_scene("res://scenes/level1.tscn")
 	elif is_final_animation_scene:

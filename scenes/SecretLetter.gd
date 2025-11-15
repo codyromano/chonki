@@ -132,9 +132,12 @@ func _on_body_entered(body: Node2D):
 
 ## Start the collection animation sequence
 func _start_collection_sequence():
+	print("[SecretLetter] Starting collection sequence for letter: '", letter, "'")
+	GameState.add_collected_letter(letter)
+	print("[SecretLetter] Added letter to GameState")
 	# Emit global signal that a secret letter was collected
 	GlobalSignals.secret_letter_collected.emit(letter)
-	GameState.add_collected_letter(letter)
+	print("[SecretLetter] Emitted secret_letter_collected signal with letter: '", letter, "'")
 	
 	# Play the secret letter collection sound
 	if audio_player:

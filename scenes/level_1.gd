@@ -11,7 +11,7 @@ func _ready():
 	GameState.current_level = 2
 	GlobalSignals.secret_letter_collected.connect(_on_secret_letter_collected)
 	
-	GameState.letters_collected_by_scene[2] = ["f", "r", "e", "s", "h"]
+	GameState.letters_collected_by_scene[2] = []
 	
 	_count_total_secret_letters()
 	_create_letters_display()
@@ -99,7 +99,14 @@ func _on_secret_letter_collected(_letter: String):
 		return
 	
 	collected_secret_letters += 1
-	letters_display_label.text = "Level %d/%d" % [collected_secret_letters, total_secret_letters]
+	
+	# Show count and collected letters
+	var collected_letters_str = ""
+	var collected_letters_array = GameState.get_collected_letters()
+	for letter in collected_letters_array:
+		collected_letters_str += letter.to_upper() + " "
+	
+	letters_display_label.text = "Level %d/%d\n%s" % [collected_secret_letters, total_secret_letters, collected_letters_str.strip_edges()]
 	
 	var tween = create_tween()
 	

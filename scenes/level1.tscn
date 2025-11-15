@@ -1,4 +1,4 @@
-[gd_scene load_steps=108 format=3 uid="uid://br8ftak73gmww"]
+[gd_scene load_steps=109 format=3 uid="uid://br8ftak73gmww"]
 
 [ext_resource type="PackedScene" uid="uid://bk3oytbasgs5w" path="res://scenes/grown_up_chonki.tscn" id="1_6i0tl"]
 [ext_resource type="Script" uid="uid://b2cncqbuotdcl" path="res://scenes/level_1.gd" id="1_hvrd6"]
@@ -66,6 +66,7 @@
 [ext_resource type="Script" uid="uid://chnhtm6mvs5h" path="res://scenes/pottery_2.gd" id="45_eedbu"]
 [ext_resource type="Texture2D" uid="uid://dnr005l5x0slj" path="res://assets/friends/eagle/eagle_dad_sad.png" id="46_4xi8u"]
 [ext_resource type="Script" uid="uid://bfcdimts6npaa" path="res://scenes/pottery_3.gd" id="46_4yyev"]
+[ext_resource type="Texture2D" uid="uid://bgh1g2nyfpojr" path="res://assets/friends/volleyball/ruby_happy.png" id="46_juw6p"]
 [ext_resource type="Script" uid="uid://b7x75jyph32sm" path="res://scenes/OtterPath2D.gd" id="46_otter"]
 [ext_resource type="Texture2D" uid="uid://d3vj71ug2rs00" path="res://assets/friends/eagle/eagle_baby_concerned.png" id="47_4xi8u"]
 [ext_resource type="Script" uid="uid://dtdi4lk7jh4ii" path="res://scenes/rodrigo.gd" id="47_o55ux"]
@@ -264,6 +265,14 @@ animations = [{
 }],
 "loop": true,
 "name": &"default",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("46_juw6p")
+}],
+"loop": true,
+"name": &"happy",
 "speed": 5.0
 }]
 
@@ -868,7 +877,7 @@ position = Vector2(46318, -744)
 script = ExtResource("43_4xi8u")
 frames = SubResource("SpriteFrames_5674x")
 sprite_scale = Vector2(1, 1)
-avatar_name = ""
+avatar_name = "ruby"
 
 [node name="IsaacQuestGiver" parent="World2D/NPCs/QuestGivers" instance=ExtResource("37_hvrd6")]
 position = Vector2(130577, -3743)
@@ -1512,7 +1521,7 @@ zoom_on_enter = 0.22
 [node name="Debug" type="Node" parent="."]
 
 [node name="GusDebugStartMarker" type="Marker2D" parent="Debug"]
-position = Vector2(143172, -1084)
+position = Vector2(43496, -782)
 
 [node name="JumpRuler" type="ColorRect" parent="Debug"]
 visible = false

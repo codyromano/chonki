@@ -778,7 +778,7 @@ id = "little_free_library_intro"
 dialogue = "Visit little free libraries to learn more about Gus's story"
 
 [node name="DebugPlayerStartMarker" type="Marker2D" parent="."]
-position = Vector2(55771, -3678)
+position = Vector2(84358, -3678)
 
 [node name="ScriptedAnimationScenarios" type="Node2D" parent="."]
 
