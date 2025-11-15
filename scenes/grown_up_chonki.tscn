@@ -1,6 +1,6 @@
 [gd_scene load_steps=146 format=3 uid="uid://bk3oytbasgs5w"]
 
-[ext_resource type="Script" uid="uid://cu46jqmyvfpbt" path="res://scenes/grown_up_chonki.gd" id="1_h7loo"]
+[ext_resource type="Script" uid="uid://ddxti58p7tpj6" path="res://scenes/bonus_chonki.gd" id="1_myqjb"]
 [ext_resource type="Script" uid="uid://ghyqnuev2ipa" path="res://scenes/ChonkiBody.gd" id="2_myqjb"]
 [ext_resource type="AudioStream" uid="uid://bjtjafg1tdccb" path="res://assets/sound/run.mp3" id="3_bjoor"]
 [ext_resource type="AudioStream" uid="uid://c3pbjptmy75xk" path="res://assets/sound/ouch.mp3" id="4_sopwg"]
@@ -575,7 +575,7 @@ animations = [{
 size = Vector2(835, 823)
 
 [node name="GrownUpChonki" type="Node2D"]
-script = ExtResource("1_h7loo")
+script = ExtResource("1_myqjb")
 
 [node name="ChonkiCharacter" type="CharacterBody2D" parent="."]
 z_index = 1

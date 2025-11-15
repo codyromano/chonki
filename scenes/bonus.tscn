@@ -1,12 +1,173 @@
-[gd_scene load_steps=2 format=3 uid="uid://c8vx7k2m4qabn"]
+[gd_scene load_steps=15 format=3 uid="uid://clf1h56slh0fv"]
 
-[ext_resource type="PackedScene" uid="uid://bk3oytbasgs5w" path="res://scenes/grown_up_chonki.tscn" id="1_bonus"]
+[ext_resource type="Texture2D" uid="uid://3tbiiq22wvjd" path="res://assets/dave/standing.png" id="2_y4odb"]
+[ext_resource type="PackedScene" uid="uid://bgshjng2ky6hg" path="res://scenes/bonus_chonki.tscn" id="3_k1xfh"]
+[ext_resource type="Texture2D" uid="uid://bgauqhedbva6m" path="res://assets/friends/joycie.png" id="3_y4odb"]
+[ext_resource type="Texture2D" uid="uid://dkkcuts87y084" path="res://assets/interactables/dog_bowl.png" id="4_hfuap"]
+[ext_resource type="PackedScene" uid="uid://6q16boewrg0o" path="res://scenes/composable/trampoline.tscn" id="5_k1xfh"]
+[ext_resource type="PackedScene" uid="uid://divvcbosmeqxn" path="res://scenes/SecretLetter.tscn" id="6_h0d21"]
+[ext_resource type="Theme" uid="uid://dte5an7k6hog1" path="res://themes/base.tres" id="7_ik1mb"]
+[ext_resource type="Texture2D" uid="uid://bytsxlqncfgi8" path="res://assets/environment/sky.png" id="8_3hbtu"]
+[ext_resource type="Texture2D" uid="uid://bpqdlmvtkr1i5" path="res://assets/environment/lake.png" id="8_monau"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_k1xfh"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_y4odb")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_piybw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("3_y4odb")
+}],
+"loop": false,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_3no7k"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_3hbtu"]
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_4p7jk"]
 
 [node name="bonus" type="Node2D"]
 
-[node name="GrownUpChonki" parent="." instance=ExtResource("1_bonus")]
-position = Vector2(500, 300)
+[node name="Characters" type="Node" parent="."]
 
-[node name="Camera2D" type="Camera2D" parent="."]
-position = Vector2(500, 300)
-zoom = Vector2(0.5, 0.5)
+[node name="DaveSprite" type="AnimatedSprite2D" parent="Characters"]
+z_index = 4
+position = Vector2(15717.7, -370)
+scale = Vector2(5.82152, 5.82152)
+sprite_frames = SubResource("SpriteFrames_k1xfh")
+
+[node name="JoycieSprite" type="AnimatedSprite2D" parent="Characters"]
+z_index = 4
+position = Vector2(10105.7, -370)
+scale = Vector2(2.90152, 2.90152)
+sprite_frames = SubResource("SpriteFrames_piybw")
+
+[node name="BonusChonki" parent="Characters" instance=ExtResource("3_k1xfh")]
+z_index = 3
+position = Vector2(11568.7, 300)
+jump_multiplier = 1.5
+midair_jumps = 10
+speed_multiplier = 2.0
+initial_camera_zoom = Vector2(0.15, 0.15)
+
+[node name="Items" type="Node" parent="."]
+
+[node name="MagicTrampoline" parent="Items" instance=ExtResource("5_k1xfh")]
+z_index = 4
+position = Vector2(12988.7, 116)
+scale = Vector2(0.27999, 0.27999)
+jump_intensity = 2.0
+trampoline_id = "magic_bowl"
+custom_texture = ExtResource("4_hfuap")
+
+[node name="SecretLetterT" parent="Items" instance=ExtResource("6_h0d21")]
+z_index = 1
+offset_left = 11990.0
+offset_top = -5593.0
+offset_right = 12054.0
+offset_bottom = -5529.0
+letter = "T"
+
+[node name="SecretLetterH" parent="Items" instance=ExtResource("6_h0d21")]
+z_index = 1
+offset_left = 14264.0
+offset_top = -12291.0
+offset_right = 14328.0
+offset_bottom = -12227.0
+letter = "H"
+
+[node name="SecretLetterA" parent="Items" instance=ExtResource("6_h0d21")]
+z_index = 1
+offset_left = 9443.0
+offset_top = -19395.0
+offset_right = 9507.0
+offset_bottom = -19331.0
+
+[node name="SecretLetterN" parent="Items" instance=ExtResource("6_h0d21")]
+z_index = 1
+offset_left = 14463.0
+offset_top = -26126.0
+offset_right = 14527.0
+offset_bottom = -26062.0
+letter = "N"
+
+[node name="SecretLetterK" parent="Items" instance=ExtResource("6_h0d21")]
+z_index = 1
+offset_left = 9529.0
+offset_top = -32921.0
+offset_right = 9593.0
+offset_bottom = -32857.0
+letter = "K"
+
+[node name="SecretLetterS" parent="Items" instance=ExtResource("6_h0d21")]
+z_index = 1
+offset_left = 14406.0
+offset_top = -40042.0
+offset_right = 14470.0
+offset_bottom = -39978.0
+letter = "S"
+
+[node name="Environment" type="Node" parent="."]
+
+[node name="Ground" type="StaticBody2D" parent="Environment"]
+position = Vector2(15339.7, 0)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Ground"]
+position = Vector2(0, 957)
+shape = SubResource("WorldBoundaryShape2D_3no7k")
+
+[node name="GroundSprite" type="Polygon2D" parent="Environment"]
+z_index = 3
+texture_repeat = 2
+use_parent_material = true
+position = Vector2(1520.72, 1330)
+scale = Vector2(1.46235, 1.60449)
+texture = ExtResource("8_monau")
+texture_offset = Vector2(0, 400)
+polygon = PackedVector2Array(-7785.22, -373.951, 21291.3, -241.821, 21338.4, 602.06, -7730.51, 576.507)
+
+[node name="CloudsBG" type="Polygon2D" parent="Environment"]
+texture_repeat = 2
+position = Vector2(1224.72, 1245)
+scale = Vector2(1.10874, 1.11339)
+texture = ExtResource("8_3hbtu")
+texture_offset = Vector2(0, 3750)
+texture_scale = Vector2(0.25, 0.25)
+polygon = PackedVector2Array(-9989.46, -275.734, 28357.7, -36.8244, 28537.2, -58931.7, -9027.11, -58333.6)
+
+[node name="LeftWorldBoundary" type="StaticBody2D" parent="Environment"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/LeftWorldBoundary"]
+rotation = 1.5708
+shape = SubResource("WorldBoundaryShape2D_3hbtu")
+
+[node name="RightWorldBoundary" type="StaticBody2D" parent="Environment"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/RightWorldBoundary"]
+position = Vector2(22740, 0)
+rotation = -1.5708
+shape = SubResource("WorldBoundaryShape2D_4p7jk")
+
+[node name="Titles" type="Node" parent="."]
+
+[node name="Label" type="Label" parent="Titles"]
+offset_left = 8304.72
+offset_top = -42819.0
+offset_right = 15674.7
+offset_bottom = -40951.0
+theme = ExtResource("7_ik1mb")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 1500
+text = "for playing!"
