@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Chonki"
 config/description="A dog and his owner adjust to post-pandemic life"
-run/main_scene="res://scenes/opening_animation_sequence.tscn"
+run/main_scene="uid://brk4ut33h3yen"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
