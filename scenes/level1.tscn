@@ -1,4 +1,4 @@
-[gd_scene load_steps=109 format=3 uid="uid://br8ftak73gmww"]
+[gd_scene load_steps=110 format=3 uid="uid://br8ftak73gmww"]
 
 [ext_resource type="PackedScene" uid="uid://bk3oytbasgs5w" path="res://scenes/grown_up_chonki.tscn" id="1_6i0tl"]
 [ext_resource type="Script" uid="uid://b2cncqbuotdcl" path="res://scenes/level_1.gd" id="1_hvrd6"]
@@ -78,6 +78,7 @@
 [ext_resource type="PackedScene" uid="uid://dmvfy4x1ini0v" path="res://scenes/composable/bench.tscn" id="58_eedbu"]
 [ext_resource type="PackedScene" path="res://scenes/spawn_location.tscn" id="59_x7a8r"]
 [ext_resource type="PackedScene" uid="uid://dpwcrkl2e2ro4" path="res://scenes/composable/adjust_zoom_on_player_enter.tscn" id="62_4w6xv"]
+[ext_resource type="Script" uid="uid://cu46jqmyvfpbt" path="res://scenes/grown_up_chonki.gd" id="73_ix5rl"]
 [ext_resource type="Script" uid="uid://bj8qjm1gsuny4" path="res://scenes/spawn_location.gd" id="78_5674x"]
 [ext_resource type="Script" uid="uid://cq7t1ryt217o7" path="res://scenes/LittleFreeLibrary.gd" id="79_u6iub"]
 [ext_resource type="Texture2D" uid="uid://4su6gdoiqxsm" path="res://assets/interactables/library.png" id="80_gbdr3"]
@@ -1375,6 +1376,7 @@ trampoline_id = "near_ruby"
 [node name="GrownUpChonki" parent="." instance=ExtResource("1_6i0tl")]
 z_index = 2
 position = Vector2(70890, -704)
+script = ExtResource("73_ix5rl")
 jump_multiplier = 1.25
 midair_jumps = 5
 speed_multiplier = 1.0
@@ -1382,6 +1384,7 @@ initial_camera_zoom = Vector2(0.22, 0.22)
 win_zoom_intensity = 0.1
 
 [node name="HUD" parent="." instance=ExtResource("20_g3dfk")]
+debug_mode = true
 
 [node name="TitleLayers" type="Node2D" parent="."]
 

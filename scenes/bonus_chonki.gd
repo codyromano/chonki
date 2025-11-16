@@ -1,6 +1,5 @@
 # Use centralized physics constants: PhysicsConstants.*
 extends Node2D
-class_name Gus
 
 # BONUS CHONKI
 
