@@ -4,8 +4,8 @@ extends Object
 class_name PhysicsConstants
 
 # Movement speeds
-const SPEED: float = 3500.0
-const MAX_SPEED: float = 7000.0
+const SPEED: float = 4375.0
+const MAX_SPEED: float = 8750.0
 const SLIDE_THRESHOLD: float = (SPEED + MAX_SPEED) / 2.0
 const TIME_UNTIL_MAX_SPEED: float = 1.0  # Reduced from 2.0 to 1.0 second
 const ACCEL_TIME: float = 0.15  # Time to reach full speed
