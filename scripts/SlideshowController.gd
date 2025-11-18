@@ -9,9 +9,14 @@ extends Node
 
 var images: Array[TextureRect]
 var slides: Array[Control]  # Holds both images and title cards in order
+var fade_controller: FadeController
+var is_skipping: bool = false
+var slideshow_running: bool = false
 
 func _ready() -> void:
 	print("SlideshowController _ready() called")
+	
+	fade_controller = FadeController.new(get_tree().current_scene)
 	
 	# Get all TextureRect and Control children (title cards)
 	for child in get_children():
@@ -59,19 +64,45 @@ func _ready() -> void:
 
 	# Hide all slides initially
 	for slide in slides:
-		slide.modulate.a = 0.0
+		slide.modulate.a = 1.0
 		slide.visible = false
-		print("Set ", slide.name, " alpha to 0 and visible to false")
+		print("Set ", slide.name, " visible to false")
 	
 	# Start the slideshow
 	print("Starting slideshow...")
+	slideshow_running = true
 	_start_slideshow()
 
-# Use an async function for clean, sequential animations
+func _process(_delta: float) -> void:
+	if slideshow_running and !is_skipping and Input.is_action_just_pressed("ui_accept"):
+		print("Skip requested - fading out and transitioning...")
+		is_skipping = true
+		_skip_to_end()
+
+func _skip_to_end() -> void:
+	var audio_players = _find_all_audio_players(get_tree().current_scene)
+	
+	var fade_tween = get_tree().create_tween()
+	fade_tween.set_parallel(true)
+	
+	for audio_player in audio_players:
+		if audio_player.playing:
+			fade_tween.tween_property(audio_player, "volume_db", -80.0, 1.0)
+	
+	await fade_controller.fade_to_black(1.0)
+	
+	for slide in slides:
+		slide.visible = false
+	
+	_transition_to_next_scene()
+
 func _start_slideshow() -> void:
 	print("_start_slideshow() called with ", slides.size(), " slides")
 	
 	for i in range(slides.size()):
+		if is_skipping:
+			return
+			
 		var slide = slides[i]
 		var is_title_card = slide.name.begins_with("Title")
 		print("Displaying slide ", i + 1, ": ", slide.name, " (is_title: ", is_title_card, ")")
@@ -79,89 +110,75 @@ func _start_slideshow() -> void:
 		# Determine fade and display durations based on slide type
 		var fade_in: float
 		var display_time: float
-		var fade_out: float
 		
 		if is_title_card:
 			# Title cards: 0.25s fade in/out, 5s display
 			fade_in = title_fade_duration
 			display_time = title_display_duration
-			fade_out = title_fade_duration
 		else:
 			# Images: use export variables
 			fade_in = fade_in_duration
-			fade_out = fade_out_duration
 			
 			# Adjust display duration for special images
-			if i == 0:
+			var current_scene_name = get_tree().current_scene.name
+			var is_after_intro_scene = current_scene_name == "after_intro_animation_sequence"
+			
+			if i == 0 and is_after_intro_scene:
 				display_time = display_duration * 2.0
 			elif i == slides.size() - 1:
 				display_time = 3.0
 			else:
 				display_time = display_duration
 		
-		# Fade in
+		# Show slide
 		slide.visible = true
-		if fade_in > 0:
-			print("Fading in ", slide.name, " over ", fade_in, " seconds")
-			var fade_in_tween = create_tween()
-			fade_in_tween.tween_property(slide, "modulate:a", 1.0, fade_in)
-			await fade_in_tween.finished
+		slide.modulate.a = 1.0
+		
+		# Fade in only for first slide
+		if i == 0:
+			if fade_in > 0:
+				print("Fading in first slide ", slide.name, " over ", fade_in, " seconds")
+				await fade_controller.fade_to_clear(fade_in)
+			else:
+				fade_controller.set_clear()
 		else:
-			slide.modulate.a = 1.0
+			fade_controller.set_clear()
+		
+		if is_skipping:
+			return
 		
 		# Display
 		print("Displaying ", slide.name, " for ", display_time, " seconds")
 		await get_tree().create_timer(display_time).timeout
-		print("Display time complete for ", slide.name)
 		
-		# Fade out
-		if fade_out > 0:
-			print("Fading out ", slide.name, " over ", fade_out, " seconds")
-			var fade_out_tween = create_tween()
-			fade_out_tween.tween_property(slide, "modulate:a", 0.0, fade_out)
-			await fade_out_tween.finished
-		else:
-			slide.modulate.a = 0.0
+		if is_skipping:
+			return
+			
+		print("Display time complete for ", slide.name)
 		
 		# Hide the slide
 		slide.visible = false
 		print("Hidden ", slide.name)
 	
+	if is_skipping:
+		return
+	
 	print("Slideshow finished. Starting final fade...")
 	
-	# Check if we're in the after_intro_animation_sequence scene
+	print("Music fading out over 3 seconds while scene fades to black...")
+	var audio_players = _find_all_audio_players(get_tree().current_scene)
+	await fade_controller.fade_to_black_with_audio(2.0, 3.0, audio_players)
+	print("Fade complete.")
+	
+	_transition_to_next_scene()
+
+func _transition_to_next_scene() -> void:
+	slideshow_running = false
+	
 	var current_scene_name = get_tree().current_scene.name
 	var is_after_intro_scene = current_scene_name == "after_intro_animation_sequence"
 	var is_final_animation_scene = current_scene_name == "final_animation_sequence"
 	
-	# Create a black overlay for fade effect
-	var black_overlay = ColorRect.new()
-	black_overlay.color = Color.BLACK
-	black_overlay.modulate.a = 0.0
-	black_overlay.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
-	get_tree().current_scene.add_child(black_overlay)
-	
-	# Start both music fade out and black overlay fade simultaneously
-	var fade_tween = create_tween()
-	fade_tween.set_parallel(true)  # Allow multiple tweens to run simultaneously
-	
-	# Fade to black over 2 seconds
-	fade_tween.tween_property(black_overlay, "modulate:a", 1.0, 2.0)
-	
-	# Fade out music over 3 seconds (overlapping with black fade)
-	print("Music fading out over 3 seconds while scene fades to black...")
-	var audio_players = _find_all_audio_players(get_tree().current_scene)
-	for audio_player in audio_players:
-		if audio_player.playing:
-			fade_tween.tween_property(audio_player, "volume_db", -80.0, 3.0)
-	
-	await fade_tween.finished
-	print("Fade complete.")
-	
-	# Remove the black overlay
-	black_overlay.queue_free()
-	
-	# Handle different scenes differently
 	if is_after_intro_scene:
 		# For after_intro_animation_sequence: transition to level1.tscn
 		# Clear collected letters from intro before starting level 1
