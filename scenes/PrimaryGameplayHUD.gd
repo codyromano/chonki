@@ -3,7 +3,7 @@ extends CanvasLayer
 @export var debug_mode: bool = false
 
 # Hide/show menu functionality
-@export var is_health_visible: bool = false
+@export var is_health_visible: bool = true
 @export var is_timer_visible: bool = false
 
 # Configure available resources in level

@@ -20,7 +20,6 @@ func _process(_delta):
 
 [node name="PrimaryGameplayHUD" type="CanvasLayer"]
 script = ExtResource("1_pehsw")
-is_health_visible = true
 is_timer_visible = true
 
 [node name="HUDControl" type="Control" parent="."]

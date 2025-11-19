@@ -870,7 +870,7 @@ script = ExtResource("26_3mjik")
 [node name="TitleLayers" type="Node2D" parent="."]
 
 [node name="HUD" parent="TitleLayers" instance=ExtResource("31_i8bqy")]
-visible = false
+is_health_visible = false
 
 [node name="TitleCanvasLayer" type="CanvasLayer" parent="TitleLayers"]
 layer = 10
