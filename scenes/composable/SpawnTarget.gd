@@ -30,9 +30,7 @@ func _process(_delta):
 	if !should_spawn:
 		return
 	
-	# Item is previously freed
 	if item == null:
-		print("item previously freed")
 		return
 	
 	if !item.visible:
@@ -42,8 +40,6 @@ func _process(_delta):
 		tween.tween_property(item, "modulate:a", 1, duration)
 		await tween.finished
 	
-	# print('pos.item: ', item.global_position)
-	# print('pos.origin: ', origin.global_position)
 	if item && origin:
 		var pos = origin.global_position
 		item.global_position = pos - Vector2(wtf_hack, -300)

@@ -21,11 +21,9 @@ func _process(_delta):
 	var next_sprite = get_sprite()
 	
 	if sprite.animation != next_sprite:
-		print("play ", next_sprite)
 		sprite.play(next_sprite)
 	
 func _on_body_entered(body):
 	if body.name == "ChonkiCharacter":
-		print("Dave collision detected! Zoom intensity: ", zoom_intensity)
 		GlobalSignals.win_game.emit(zoom_intensity)
 		state = State.HAPPY

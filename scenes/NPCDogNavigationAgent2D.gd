@@ -24,9 +24,6 @@ func setup() -> void:
 	max_speed = speed
 
 func _physics_process(_delta: float) -> void:
-	print("dog: ", npc_dog.global_position * npc_dog.global_transform, " ball: ", hay_ball.global_position * hay_ball.global_transform)
-	print("dog trans: ", npc_dog.global_transform, " ball trans: ", hay_ball.global_transform)
-		
 	if !is_navigation_ready:
 		return
 		

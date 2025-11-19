@@ -55,10 +55,8 @@ func _start_floating():
 func _process(_delta):
 	pass  # _delta intentionally unused
 
-func _on_static_body_2d_2_body_entered(body):	
-	# Only respond to the player character, not floors, walls, etc.
+func _on_static_body_2d_2_body_entered(body):
 	if body.name != "ChonkiCharacter":
-		print("  Ignoring collision - not Chonki")
 		return
 	
 	if is_collected:

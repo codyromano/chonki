@@ -36,8 +36,7 @@ func _gui_input(event: InputEvent) -> void:
 		_on_pressed()
 		var viewport = get_viewport()
 		if viewport:
-			viewport.set_input_as_handled()  # Prevent other buttons from handling this input
+			viewport.set_input_as_handled()
 
 func _on_pressed() -> void:
-	print("Back button pressed - calling SceneStack.pop_scene()")
 	SceneStack.pop_scene()

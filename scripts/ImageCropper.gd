@@ -46,17 +46,11 @@ static func apply_crop_to_texture_rect(texture_rect: TextureRect, crop_pixels: i
 	shader_material.shader = shader
 	shader_material.set_shader_parameter("crop_bottom", crop_ratio)
 	
-	# Apply the material to the TextureRect
 	texture_rect.material = shader_material
-	
-	print("ImageCropper: Applied %d pixel crop to %s (crop ratio: %.3f)" % [crop_pixels, texture_rect.name, crop_ratio])
 
-## Apply cropping to all TextureRect children of a given node
 static func apply_crop_to_all_children(parent_node: Node, crop_pixels: int = 50):
 	var texture_rects = []
 	_find_texture_rects_recursive(parent_node, texture_rects)
-	
-	print("ImageCropper: Found %d TextureRect nodes to crop" % texture_rects.size())
 	
 	for texture_rect in texture_rects:
 		apply_crop_to_texture_rect(texture_rect, crop_pixels)
@@ -69,13 +63,10 @@ static func _find_texture_rects_recursive(node: Node, texture_rects: Array):
 	for child in node.get_children():
 		_find_texture_rects_recursive(child, texture_rects)
 
-## Remove cropping from a TextureRect by clearing its material
 static func remove_crop_from_texture_rect(texture_rect: TextureRect):
 	if texture_rect:
 		texture_rect.material = null
-		print("ImageCropper: Removed crop from %s" % texture_rect.name)
 
-## Remove cropping from all TextureRect children
 static func remove_crop_from_all_children(parent_node: Node):
 	var texture_rects = []
 	_find_texture_rects_recursive(parent_node, texture_rects)

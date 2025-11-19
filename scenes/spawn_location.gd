@@ -48,18 +48,8 @@ func _enable_collisions(node: Node) -> void:
 		_enable_collisions(child)
 
 func _on_spawn_item_in_location(spawn_item_name: PlayerInventory.Item) -> void:
-	print("[DEBUG] Received spawn request for " + str(spawn_item_name))
-	print("[DEBUG] This spawn point expects: " + str(item_name))
-	print("[DEBUG] spawn_item_name == item_name: " + str(spawn_item_name == item_name))
-	print("[DEBUG] item_to_spawn exists: " + str(item_to_spawn != null))
-	
-	# Check if the signal's item_name matches this spawn location's item_name
 	if spawn_item_name == item_name and item_to_spawn:
-		# Make the item visible and enable processing
 		item_to_spawn.visible = true
 		item_to_spawn.process_mode = Node.PROCESS_MODE_INHERIT
 		
-		# Enable collisions
 		_enable_collisions(item_to_spawn)
-		
-		print("Spawned ", PlayerInventory.Item.keys()[item_name], " at position ", global_position)

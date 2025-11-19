@@ -13,14 +13,10 @@ func _ready():
 	
 	GameState.letters_collected_by_scene[1] = []
 	
-	# Connect to secret letter collection signal
 	GlobalSignals.secret_letter_collected.connect(_on_secret_letter_collected)
 	
-	# Count total secret letters in the scene
 	_count_total_secret_letters()
-	print("Found ", total_secret_letters, " secret letters in the scene")
 	
-	# Initialize the display
 	_update_letters_count_display()
 	
 	# Add fade-in effect when scene loads
@@ -107,19 +103,14 @@ func _process(_delta) -> void:
 func _on_little_free_library_body_entered(_body):
 	pass # Replace with function body.
 
-## Handle secret letter collection and animate the LettersDiscoveredLayer
 func _on_secret_letter_collected(_letter: String):
 	if not letters_discovered_control:
 		return
 	
-	# Increment collected count
 	collected_secret_letters += 1
-	print("Secret letter collected: ", _letter, " (", collected_secret_letters, "/", total_secret_letters, ")")
 	
-	# Update the display
 	_update_letters_count_display()
 	
-	# Create fade in/out animation
 	var tween = create_tween()
 	
 	# Fade in over 0.5 seconds

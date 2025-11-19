@@ -62,11 +62,9 @@ func _update_hearts():
 		var spacing = 400 * heart.scale.x
 		
 		# Position heart
-		# var x_pos = start_x + (i * (heart_size.x + heart_spacing)) + (heart_size.x / 2.0)
 		var x_pos = child_node.global_position.x + (i * spacing) - spacing * 1
 		var y_pos = child_pos.y
 		
-		# print("position heart " + str(i) + " at " + str(x_pos) + "," + str(y_pos))
 		heart.global_position = Vector2(x_pos, y_pos)
 
 func _create_heart() -> Sprite2D:

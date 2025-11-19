@@ -62,5 +62,4 @@ func get_collected_letters() -> Array:
 
 func get_current_level_puzzle_solution() -> String:
 	var solution = puzzle_solution_by_scene[current_level]
-	print("[GameState] Puzzle solution for level ", current_level, ": '", solution, "'")
 	return solution

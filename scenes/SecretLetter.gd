@@ -91,9 +91,6 @@ func set_letter_depth(new_depth: float):
 
 func _update_letter_text():
 	pass
-	#if text_mesh:
-		#print("updating letter to ", letter, " on text mesh RID ", text_mesh.get_rid())
-		#text_mesh.text = letter
 
 func _update_font_size():
 	if text_mesh:

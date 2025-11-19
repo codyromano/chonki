@@ -21,9 +21,6 @@ func _ready():
 	_start_movement()
 
 func _on_body_entered(body: Node2D):
-	print("name:" + body.name)
-	
-	# Check if the body that entered is the player
 	if body.name == "ChonkiCharacter":
 		GlobalSignals.player_hit.emit()
 

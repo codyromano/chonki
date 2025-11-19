@@ -130,10 +130,7 @@ func _physics_process(delta: float) -> void:
 		var collision = move_and_collide(velocity * delta)
 		if collision:
 			var collider: Node2D = collision.get_collider()
-			var _normal = collision.get_normal() # unused, prefixed
-			# Check if collision is from the side (not top/bottom)
-			# if abs(_normal.x) > abs(_normal.y):
-			#     print("Side collision detected!")
+			var _normal = collision.get_normal()
 			if "is_attacking" in collider:
 				jump_phase = "takeoff"
 				is_jumping = true
@@ -148,9 +145,6 @@ func _physics_process(delta: float) -> void:
 					Utils.throttle('player_hit', func():
 						GlobalSignals.player_hit.emit()
 					, 3)
-			else:
-				pass
-				# print("collided with non-player:  " + collider.name)
 	else:
 		# Move without collision detection when disabled
 		position += velocity * delta

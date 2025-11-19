@@ -138,14 +138,10 @@ func _on_chonki_touched_kite(kite_position: Vector2, kite_rotation_deg: int) -> 
 	hang_offset = Vector2(0, half_h)
 
 func on_win_game(zoom_intensity: float = 0.5) -> void:
-	print("Chonki on_win_game called with zoom_intensity: ", zoom_intensity)
 	is_game_win = true
 	win_zoom_intensity = zoom_intensity
-	print("Chonki win_zoom_intensity set to: ", win_zoom_intensity)
-	# Wait for Chonki to land on the floor before spawning hearts
 	await wait_for_chonki_to_land()
 	GlobalSignals.spawn_hearts_begin.emit()
-	# spawn_floating_hearts()
 	emit_signal("chonki_landed_and_hearts_spawned", zoom_intensity)
 	# Start fade out and scene transition after 5 seconds using the autoload
 	FadeTransition.fade_out_and_change_scene("res://scenes/after_intro_animation_sequence.tscn", 5.0, 3.0)

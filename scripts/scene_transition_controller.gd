@@ -92,27 +92,14 @@ func fade_to_black():
 	tween.tween_callback(_on_fade_complete)
 
 func _on_fade_complete():
-	print("[SceneTransition] Fade to black complete - loading little free library scene")
-	print("[SceneTransition] Current level: ", GameState.current_level)
-	print("[SceneTransition] Puzzle solution: '", GameState.get_current_level_puzzle_solution(), "'")
-	
 	var library_scene = load("res://scenes/little_free_library.tscn")
 	var library_instance = library_scene.instantiate()
 	library_instance.win_word = GameState.get_current_level_puzzle_solution()
 	
-	# Get tree reference BEFORE pushing scene (which removes us from tree)
 	var tree = get_tree()
 	
-	print("[SceneTransition] About to call SceneStack.push_existing")
 	SceneStack.push_existing(library_instance)
-	print("[SceneTransition] SceneStack.push_existing completed")
 	
-	if tree and tree.current_scene:
-		print("[SceneTransition] Current scene is now: ", tree.current_scene.name)
-	else:
-		print("[SceneTransition] WARNING: Could not access current scene")
-	
-	# Reset the transition flag
 	is_transitioning = false
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.

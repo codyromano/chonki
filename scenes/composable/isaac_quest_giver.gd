@@ -103,5 +103,4 @@ func _on_body_entered_override(body: Node2D) -> void:
 
 func on_dialogue_finished() -> void:
 	if eagle_returned:
-		print('[DEBUG] Spawn signal for secret letter H')
 		GlobalSignals.spawn_item_in_location.emit(PlayerInventory.Item.SECRET_LETTER_H)

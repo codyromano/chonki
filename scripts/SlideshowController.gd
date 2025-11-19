@@ -14,25 +14,16 @@ var is_skipping: bool = false
 var slideshow_running: bool = false
 
 func _ready() -> void:
-	print("SlideshowController _ready() called")
-	
 	fade_controller = FadeController.new(get_tree().current_scene)
 	
-	# Get all TextureRect and Control children (title cards)
 	for child in get_children():
-		print("Found child: ", child.name, " (type: ", child.get_class(), ")")
 		if child is TextureRect:
 			images.append(child)
 			slides.append(child)
-			print("Added TextureRect: ", child.name)
 		elif child is Control and child.name.begins_with("Title"):
 			slides.append(child)
-			print("Added TitleCard: ", child.name)
-	
-	print("Total slides found: ", slides.size(), " (TextureRects: ", images.size(), ")")
 	
 	if slides.is_empty():
-		print("SlideshowController: No slides found. Aborting.")
 		return
 
 	# Apply cropping to all images before starting slideshow
@@ -60,22 +51,15 @@ func _ready() -> void:
 		return a_num < b_num
 	)
 
-	print("Slides after sorting: ", slides.map(func(s): return s.name))
-
-	# Hide all slides initially
 	for slide in slides:
 		slide.modulate.a = 1.0
 		slide.visible = false
-		print("Set ", slide.name, " visible to false")
 	
-	# Start the slideshow
-	print("Starting slideshow...")
 	slideshow_running = true
 	_start_slideshow()
 
 func _process(_delta: float) -> void:
 	if slideshow_running and !is_skipping and Input.is_action_just_pressed("ui_accept"):
-		print("Skip requested - fading out and transitioning...")
 		is_skipping = true
 		_skip_to_end()
 
@@ -97,15 +81,12 @@ func _skip_to_end() -> void:
 	_transition_to_next_scene()
 
 func _start_slideshow() -> void:
-	print("_start_slideshow() called with ", slides.size(), " slides")
-	
 	for i in range(slides.size()):
 		if is_skipping:
 			return
 			
 		var slide = slides[i]
 		var is_title_card = slide.name.begins_with("Title")
-		print("Displaying slide ", i + 1, ": ", slide.name, " (is_title: ", is_title_card, ")")
 		
 		# Determine fade and display durations based on slide type
 		var fade_in: float
@@ -137,7 +118,6 @@ func _start_slideshow() -> void:
 		# Fade in only for first slide
 		if i == 0:
 			if fade_in > 0:
-				print("Fading in first slide ", slide.name, " over ", fade_in, " seconds")
 				await fade_controller.fade_to_clear(fade_in)
 			else:
 				fade_controller.set_clear()
@@ -147,28 +127,18 @@ func _start_slideshow() -> void:
 		if is_skipping:
 			return
 		
-		# Display
-		print("Displaying ", slide.name, " for ", display_time, " seconds")
 		await get_tree().create_timer(display_time).timeout
 		
 		if is_skipping:
 			return
 			
-		print("Display time complete for ", slide.name)
-		
-		# Hide the slide
 		slide.visible = false
-		print("Hidden ", slide.name)
 	
 	if is_skipping:
 		return
 	
-	print("Slideshow finished. Starting final fade...")
-	
-	print("Music fading out over 3 seconds while scene fades to black...")
 	var audio_players = _find_all_audio_players(get_tree().current_scene)
 	await fade_controller.fade_to_black_with_audio(2.0, 3.0, audio_players)
-	print("Fade complete.")
 	
 	_transition_to_next_scene()
 
@@ -180,19 +150,12 @@ func _transition_to_next_scene() -> void:
 	var is_final_animation_scene = current_scene_name == "final_animation_sequence"
 	
 	if is_after_intro_scene:
-		# For after_intro_animation_sequence: transition to level1.tscn
-		# Clear collected letters from intro before starting level 1
 		GameState.letters_collected_by_scene[1] = []
 		GameState.letters_collected_by_scene[2] = []
-		print("Transitioning to level1.tscn...")
 		FadeTransition.fade_out_and_change_scene("res://scenes/level1.tscn", 0.0, 1.0)
 	elif is_final_animation_scene:
-		# For final_animation_sequence: transition to bonus level
-		print("Game complete! Transitioning to bonus level...")
 		FadeTransition.fade_out_and_change_scene("res://scenes/bonus.tscn", 0.0, 1.0)
 	else:
-		# For other opening animation sequences: transition to intro.tscn
-		print("Transitioning to intro.tscn...")
 		get_tree().change_scene_to_file("res://scenes/intro.tscn")
 
 # Helper function to find all audio players in the scene
@@ -209,11 +172,7 @@ func _find_all_audio_players(node: Node) -> Array:
 	
 	return audio_players
 
-# Apply cropping shader to all images in the slideshow
 func _apply_cropping_to_images():
-	print("SlideshowController: Applying %d pixel crop to %d images" % [crop_bottom_pixels, images.size()])
-	
-	# Custom shader code for cropping bottom pixels
 	var crop_shader_code = """
 shader_type canvas_item;
 
@@ -237,7 +196,6 @@ void fragment() {
 	
 	for image in images:
 		if not image.texture:
-			print("SlideshowController: Skipping %s - no texture assigned" % image.name)
 			continue
 			
 		# Get the texture dimensions to calculate crop ratio
@@ -252,7 +210,4 @@ void fragment() {
 		shader_material.shader = shader
 		shader_material.set_shader_parameter("crop_bottom", crop_ratio)
 		
-		# Apply the material to the TextureRect
 		image.material = shader_material
-		
-		print("SlideshowController: Applied crop to %s (crop ratio: %.3f)" % [image.name, crop_ratio])

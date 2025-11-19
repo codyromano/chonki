@@ -9,4 +9,4 @@ func _on_body_entered(body):
 
 
 func _on_input_event(_viewport, _event, _shape_idx):
-	print("foobar")
+	pass

@@ -27,18 +27,13 @@ func _get_canvas_layer() -> CanvasLayer:
 	# Always refresh the canvas layer from the current scene to handle scene transitions
 	var tree = get_tree()
 	if not tree:
-		print("[MainDialogueController] ERROR: get_tree() returned null!")
 		return null
 	
 	var current_scene = tree.current_scene
-	print("[MainDialogueController] Looking for CanvasLayer in scene: ", current_scene.name if current_scene else "null")
 	if current_scene:
 		canvas_layer = _find_canvas_layer(current_scene)
 		if canvas_layer:
-			print("[MainDialogueController] Found CanvasLayer: ", canvas_layer.name)
 			canvas_layer.process_mode = Node.PROCESS_MODE_ALWAYS
-		else:
-			print("[MainDialogueController] WARNING: No CanvasLayer found in scene!")
 	return canvas_layer
 
 func _find_canvas_layer(node: Node) -> CanvasLayer:
@@ -91,8 +86,6 @@ func _process(_delta: float) -> void:
 
 
 func _create_dialogue(dialogue: String, trigger_id: String = "", avatar_name: String = "", choices: Array = []) -> PanelContainer:
-	print("[MainDialogueController] _create_dialogue() called with text: '", dialogue.substr(0, 50), "...'")
-	print("[MainDialogueController] Avatar: '", avatar_name, "', trigger_id: '", trigger_id, "'")
 	current_dialogue_choices = choices
 	
 	var target_canvas_layer = _get_canvas_layer()
@@ -100,16 +93,11 @@ func _create_dialogue(dialogue: String, trigger_id: String = "", avatar_name: St
 		push_error("[MainDialogueController] No CanvasLayer found to display dialogue!")
 		return null
 	
-	print("[MainDialogueController] Instantiating dialogue scene")
 	var scene = dialogue_scene.instantiate()
 	target_canvas_layer.call_deferred("add_child", scene)
-	# Set dialogue text using the method after scene is added to tree
 	scene.call_deferred("set_dialogue", dialogue)
-	print("[MainDialogueController] Dialogue text set (deferred)")
-	# Set avatar if provided
 	if avatar_name != "":
 		var avatar_texture = get_avatar_texture(avatar_name)
-		print("[MainDialogueController] Setting avatar texture (deferred)")
 		scene.call_deferred("set_avatar", avatar_texture)
 	
 	time_dialogue_created = Time.get_unix_time_from_system()
@@ -125,39 +113,29 @@ func _create_dialogue(dialogue: String, trigger_id: String = "", avatar_name: St
 
 
 func _process_queue() -> void:
-	print("[MainDialogueController] _process_queue() called")
 	if not is_inside_tree():
-		print("[MainDialogueController] Not in tree, aborting")
 		return
 	
 	var tree = get_tree()
 	if not tree:
-		print("[MainDialogueController] No tree, aborting")
 		return
 	
 	if rendered_dialogue:
-		print("[MainDialogueController] Cleaning up old dialogue")
 		rendered_dialogue.queue_free()
 		rendered_dialogue = null
 
 	if dialogue_queue.is_empty():
-		print("[MainDialogueController] Queue is empty")
 		current_instruction_trigger_id = ""
 		return
-
-	print("[MainDialogueController] Processing next dialogue from queue")
 	var next_dialogue_data = dialogue_queue.pop_front()
 	var dialogue_text = next_dialogue_data.dialogue if next_dialogue_data is Dictionary else next_dialogue_data
 	current_instruction_trigger_id = next_dialogue_data.trigger_id if next_dialogue_data is Dictionary else ""
 	var avatar_name = next_dialogue_data.avatar_name if next_dialogue_data.has("avatar_name") else ""
 	var choices = next_dialogue_data.choices if next_dialogue_data.has("choices") else []
 	rendered_dialogue = await _create_dialogue(dialogue_text, current_instruction_trigger_id, avatar_name, choices)
-	print("[MainDialogueController] Dialogue created and rendered")
 
 
 func _on_dialogue_queued(dialogue: String, instruction_trigger_id: String = "", avatar_name: String = "", choices: Array = []) -> void:
-	print("[MainDialogueController] _on_dialogue_queued() received dialogue signal")
-	print("[MainDialogueController] Text: '", dialogue.substr(0, 50), "...', Avatar: '", avatar_name, "'")
 	var dialogue_data = {
 		"dialogue": dialogue,
 		"trigger_id": instruction_trigger_id,
@@ -169,15 +147,11 @@ func _on_dialogue_queued(dialogue: String, instruction_trigger_id: String = "", 
 	# Check if rendered_dialogue is still valid (in the tree)
 	var has_valid_dialogue = rendered_dialogue != null and is_instance_valid(rendered_dialogue) and rendered_dialogue.is_inside_tree()
 	
-	print("[MainDialogueController] Queue size: ", dialogue_queue.size(), ", rendered_dialogue: ", has_valid_dialogue)
 	if not has_valid_dialogue:
-		print("[MainDialogueController] Processing queue immediately")
 		# Clear invalid reference if it exists
 		if rendered_dialogue != null and not is_instance_valid(rendered_dialogue):
 			rendered_dialogue = null
 		_process_queue()
-	else:
-		print("[MainDialogueController] Dialogue already showing, queued for later")
 
 
 func _on_dismiss_active_dialogue(_instruction_trigger_id: String) -> void:
