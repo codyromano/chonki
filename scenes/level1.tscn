@@ -1421,7 +1421,7 @@ offset_top = 5779.0
 offset_right = 52157.5
 offset_bottom = 5819.0
 script = ExtResource("43_onmav")
-content = "Press R to read"
+content = "Press Enter to read"
 id = "LittleFreeLibrary"
 delay_until_fade_in = 0.0
 

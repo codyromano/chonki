@@ -6,6 +6,12 @@
 
 Chonki is a 2D side-scroller game about a lost dog searching for his owner. It is written in GDScript for the Godot engine, version 4.2. The game will be deployed for desktop Web.
 
+## Controls
+
+- **Arrow Keys** (Left/Right): Move Chonki
+- **Up Arrow**: Jump
+- **Enter** or **Space**: Interact with objects, advance dialogue, confirm selections
+
 ## Goals
 
 1. Primary: Navigate the corgi through a series of obstacles to find his owner, avoiding hazards such as geese and bicyclists.
@@ -115,7 +121,7 @@ Handles fade transitions and library access. **IMPORTANT**: This controller exis
 
 **Signal Protection**: Uses `has_entered_library` boolean to prevent multiple signal emissions per visit. Flag resets when player exits library area.
 
-**Input Handling**: Responds to "read" action (`Input.is_action_just_pressed("read")`) only when player is standing at library AND hasn't already entered.
+**Input Handling**: Responds to "ui_accept" action (`Input.is_action_just_pressed("ui_accept")`) only when player is standing at library AND hasn't already entered.
 
 ## PlayerInventory System
 

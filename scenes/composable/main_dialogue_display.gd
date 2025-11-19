@@ -83,7 +83,7 @@ func _create_dialogue_options(choices: Array) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	# Only handle dismiss if there are no dialogue options showing
 	if dialogue_options_container.modulate.a < 1.0:
-		if event.is_action_pressed("read") or event.is_action_pressed("jump"):
+		if event.is_action_pressed("ui_accept") or event.is_action_pressed("ui_up"):
 			GlobalSignals.dismiss_active_main_dialogue.emit(instruction_trigger_id)
 			# Stop the event from propagating further and prevent multiple dismissals.
 			get_viewport().set_input_as_handled()

@@ -10,8 +10,8 @@ func _ready() -> void:
 	text = data
 	
 func _gui_input(event: InputEvent) -> void:
-	# Handle both "read" and "jump" actions to select the button
-	if has_focus() and (event.is_action_pressed("read") or event.is_action_pressed("jump")):
+	# Handle both "ui_accept" and "ui_up" actions to select the button
+	if has_focus() and (event.is_action_pressed("ui_accept") or event.is_action_pressed("ui_up")):
 		print("Button ", data, " handling action - has focus: ", has_focus())
 		_on_button_down()
 		var viewport = get_viewport()

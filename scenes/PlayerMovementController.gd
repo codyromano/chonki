@@ -14,8 +14,8 @@ func _ready():
 	pass
 
 func _process(_delta):
-	# Handle jump input - accept both ui_up (keyboard) and jump (controller) actions
-	if Input.is_action_just_pressed("ui_up") or Input.is_action_just_pressed("jump"):
+	# Handle jump input
+	if Input.is_action_just_pressed("ui_up"):
 		# Base jump intensity is 1.0, can be modified for different jump types
 		var jump_intensity = 1.0
 		GlobalSignals.player_jump.emit(jump_intensity, "player")

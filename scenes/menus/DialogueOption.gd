@@ -18,8 +18,8 @@ func _on_focus_entered() -> void:
 func _on_pressed() -> void:
 	GlobalSignals.dialogue_option_selected.emit(option_id, option_text)
 
-# Handle "read" action as if button was pressed
+# Handle "ui_accept" action as if button was pressed
 func _gui_input(event: InputEvent) -> void:
-	if event.is_action_pressed("read"):
+	if event.is_action_pressed("ui_accept"):
 		accept_event()
 		_on_pressed()

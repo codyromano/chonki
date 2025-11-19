@@ -86,7 +86,7 @@ func _find_all_audio_nodes(node: Node) -> Array:
 
 
 func _process(_delta: float) -> void:	
-	if is_ready and rendered_dialogue and can_dismiss_dialogue and (Input.is_action_just_pressed("read") or Input.is_action_just_pressed("jump")):
+	if is_ready and rendered_dialogue and can_dismiss_dialogue and (Input.is_action_just_pressed("ui_accept") or Input.is_action_just_pressed("ui_up")):
 		GlobalSignals.dismiss_active_main_dialogue.emit(current_instruction_trigger_id)
 
 

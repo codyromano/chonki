@@ -8,7 +8,7 @@ func _process(_delta):
 	$AnimatedSprite2D.play(
 		"open" if is_standing_at_library else "default"
 	)
-	if is_standing_at_library && Input.is_action_just_pressed("read") && !has_entered_library:
+	if is_standing_at_library && Input.is_action_just_pressed("ui_accept") && !has_entered_library:
 		has_entered_library = true
 		GlobalSignals.enter_little_free_library.emit()
 

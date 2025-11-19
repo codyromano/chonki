@@ -185,11 +185,11 @@ func _transition_to_next_scene() -> void:
 		GameState.letters_collected_by_scene[1] = []
 		GameState.letters_collected_by_scene[2] = []
 		print("Transitioning to level1.tscn...")
-		FadeTransition.fade_out_and_change_scene("res://scenes/level1.tscn")
+		FadeTransition.fade_out_and_change_scene("res://scenes/level1.tscn", 0.0, 1.0)
 	elif is_final_animation_scene:
 		# For final_animation_sequence: transition to bonus level
 		print("Game complete! Transitioning to bonus level...")
-		FadeTransition.fade_out_and_change_scene("res://scenes/bonus.tscn")
+		FadeTransition.fade_out_and_change_scene("res://scenes/bonus.tscn", 0.0, 1.0)
 	else:
 		# For other opening animation sequences: transition to intro.tscn
 		print("Transitioning to intro.tscn...")

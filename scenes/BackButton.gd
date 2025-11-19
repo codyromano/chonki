@@ -31,8 +31,8 @@ func _setup_letter_button_down_neighbors(letter_container: Node) -> void:
 			child.set("focus_neighbor_down", get_path())
 
 func _gui_input(event: InputEvent) -> void:
-	# Handle both "read" and "jump" actions to activate the back button
-	if has_focus() and (event.is_action_pressed("read") or event.is_action_pressed("jump")):
+	# Handle both "ui_accept" and "ui_up" actions to activate the back button
+	if has_focus() and (event.is_action_pressed("ui_accept") or event.is_action_pressed("ui_up")):
 		_on_pressed()
 		var viewport = get_viewport()
 		if viewport:

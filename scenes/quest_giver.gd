@@ -39,12 +39,12 @@ func update_rodrigo_position() -> void:
 
 func _process(_delta) -> void:  
 	# Check if we're waiting for key release and the key is now released
-	if waiting_for_key_release and !Input.is_action_pressed("read"):
+	if waiting_for_key_release and !Input.is_action_pressed("ui_accept"):
 		waiting_for_key_release = false
 		can_trigger_dialogue = true
 	
 	# Only allow initiating dialogue when we can trigger and not waiting for key release
-	if Input.is_action_just_pressed("read") && is_player_nearby && can_trigger_dialogue && !waiting_for_key_release:
+	if Input.is_action_just_pressed("ui_accept") && is_player_nearby && can_trigger_dialogue && !waiting_for_key_release:
 		can_trigger_dialogue = false
 		_initiate_dialogue()
 	
