@@ -1,10 +1,9 @@
-# Chonki
-
-*Instructions for LLMs:*
+# Gus
 
 ## Summary
 
-Chonki is a 2D side-scroller game about a lost dog searching for his owner. It is written in GDScript for the Godot engine, version 4.2. The game will be deployed for desktop Web.
+Gus is a story-driven platformer game about a man and his dog adjusting to life after the pandemic. The working title used to be Chonki.
+
 
 ## Controls
 
