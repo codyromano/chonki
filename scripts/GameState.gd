@@ -15,6 +15,8 @@ var letters_collected_by_scene: Dictionary = {
   2: [],
 }
 
+var triggered_instruction_triggers: Dictionary = {}
+
 # Cache for total stars per level (by scene path)
 var stars_per_level := {}
 
@@ -63,3 +65,9 @@ func get_collected_letters() -> Array:
 func get_current_level_puzzle_solution() -> String:
 	var solution = puzzle_solution_by_scene[current_level]
 	return solution
+
+func is_instruction_trigger_used(trigger_id: String) -> bool:
+	return triggered_instruction_triggers.get(trigger_id, false)
+
+func mark_instruction_trigger_used(trigger_id: String) -> void:
+	triggered_instruction_triggers[trigger_id] = true

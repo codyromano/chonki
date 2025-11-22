@@ -31,6 +31,11 @@ func _on_dialogue_dismissed(instruction_trigger_id: String) -> void:
 
 func _on_body_shape_entered(_body_rid, body, _body_shape_index, _local_shape_index):
 	if body.name == 'ChonkiCharacter':
+		if GameState.is_instruction_trigger_used(id):
+			return
+		
+		GameState.mark_instruction_trigger_used(id)
+		
 		GlobalSignals.queue_main_dialogue.emit(
 			dialogue,
 			id,
@@ -39,3 +44,5 @@ func _on_body_shape_entered(_body_rid, body, _body_shape_index, _local_shape_ind
 		
 		_times_triggered += 1
 		_on_triggered(_times_triggered)
+		
+		queue_free.call_deferred()

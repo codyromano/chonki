@@ -11,6 +11,8 @@ extends CanvasLayer
 @export var total_books_in_level: int = 5
 @export var total_letters_in_level: int = 5
 
+var sniglet_font: FontFile = preload("res://fonts/Sniglet-Regular.ttf")
+
 # Preload UI resources
 @onready var timer_label: Label = find_child('TimerText')
 @onready var timer_icon: TextureRect = find_child('ClockIcon')
@@ -29,6 +31,11 @@ func _ready():
 	_initialize_letter_display()
 	_load_existing_letters()
 	
+	GlobalSignals.secret_letter_collected.emit('A')
+	GlobalSignals.secret_letter_collected.emit('F')
+	GlobalSignals.secret_letter_collected.emit('D')
+	GlobalSignals.secret_letter_collected.emit('E')
+	
 	if debug_mode:
 		_initialize_debug_menu()
 	
@@ -43,6 +50,7 @@ func _initialize_letter_display() -> void:
 		for i in range(total_letters_in_level):
 			var letter_label = Label.new()
 			letter_label.text = "_"
+			letter_label.add_theme_font_override("font", sniglet_font)
 			letter_label.add_theme_font_size_override("font_size", 50)
 			letter_label.add_theme_color_override("font_color", Color(0.6, 0.6, 0.6))
 			letters_container.add_child(letter_label)
@@ -66,7 +74,7 @@ func _update_letter_at_index(index: int, letter: String) -> void:
 	if index < letter_labels.size():
 		var uppercase_letter = letter.to_upper()
 		letter_labels[index].text = uppercase_letter
-		letter_labels[index].add_theme_color_override("font_color", Color(1.0, 0.84, 0.0))
+		letter_labels[index].add_theme_color_override("font_color", Color(1.0, 1.0, 0.529412))
 
 func _initialize_debug_menu() -> void:
 	debug_menu = VBoxContainer.new()
@@ -129,6 +137,3 @@ func _hide_health() -> void:
 func _hide_timer() -> void:
 	timer_label.queue_free.call_deferred()
 	timer_icon.queue_free.call_deferred()
-	
-func _process(_delta):
-	star_label.text = str(books_collected) + "/" + str(total_books_in_level)
