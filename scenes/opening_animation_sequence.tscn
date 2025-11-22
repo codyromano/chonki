@@ -11,81 +11,80 @@
 [ext_resource type="Texture2D" uid="uid://dyk1puvhux186" path="res://assets/animations/intro_08_gus_title2.png" id="7_eafvx"]
 [ext_resource type="AudioStream" uid="uid://dwec1ue8yxuth" path="res://assets/sound/cat-dreams-kawaii-chill-future-house-259197.mp3" id="9_hr13r"]
 
-[node name="OpeningAnimationSequence" type="Node2D"]
-position = Vector2(527, 495)
+[node name="OpeningAnimationSequence" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+metadata/_edit_use_anchors_ = true
 
 [node name="AnimationSequence" type="Node2D" parent="."]
+position = Vector2(2902, 504)
 
-[node name="Control" type="Control" parent="AnimationSequence"]
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="AnimationSequence"]
+stream = ExtResource("9_hr13r")
+autoplay = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
 layout_mode = 3
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
-metadata/_edit_use_anchors_ = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="AnimationSequence/Control"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control"]
 layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -528.0
-offset_top = -496.0
-offset_right = 1059.0
-offset_bottom = 496.0
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-metadata/_edit_use_anchors_ = true
 
-[node name="AnimationContainer" type="HBoxContainer" parent="AnimationSequence/Control/VBoxContainer"]
+[node name="AnimationContainer" type="HBoxContainer" parent="CanvasLayer/Control/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
-size_flags_vertical = 4
+size_flags_vertical = 6
 alignment = 1
 script = ExtResource("1_0thiv")
 fade_in_duration = 0.0
 display_duration = 2.5
 fade_out_duration = 0.0
 
-[node name="Image1" type="TextureRect" parent="AnimationSequence/Control/VBoxContainer/AnimationContainer"]
+[node name="Image1" type="TextureRect" parent="CanvasLayer/Control/VBoxContainer/AnimationContainer"]
 layout_mode = 2
 texture = ExtResource("2_iwimn")
+stretch_mode = 4
 
-[node name="Image2" type="TextureRect" parent="AnimationSequence/Control/VBoxContainer/AnimationContainer"]
+[node name="Image2" type="TextureRect" parent="CanvasLayer/Control/VBoxContainer/AnimationContainer"]
 layout_mode = 2
 texture = ExtResource("3_rnui1")
 
-[node name="Image3" type="TextureRect" parent="AnimationSequence/Control/VBoxContainer/AnimationContainer"]
+[node name="Image3" type="TextureRect" parent="CanvasLayer/Control/VBoxContainer/AnimationContainer"]
 layout_mode = 2
 texture = ExtResource("2_eyrjb")
 
-[node name="Image4" type="TextureRect" parent="AnimationSequence/Control/VBoxContainer/AnimationContainer"]
+[node name="Image4" type="TextureRect" parent="CanvasLayer/Control/VBoxContainer/AnimationContainer"]
 layout_mode = 2
 texture = ExtResource("5_olsx0")
 
-[node name="Image5" type="TextureRect" parent="AnimationSequence/Control/VBoxContainer/AnimationContainer"]
+[node name="Image5" type="TextureRect" parent="CanvasLayer/Control/VBoxContainer/AnimationContainer"]
 layout_mode = 2
 texture = ExtResource("6_h31sv")
 
-[node name="Image6" type="TextureRect" parent="AnimationSequence/Control/VBoxContainer/AnimationContainer"]
+[node name="Image6" type="TextureRect" parent="CanvasLayer/Control/VBoxContainer/AnimationContainer"]
 layout_mode = 2
 texture = ExtResource("7_2dau1")
 
-[node name="Image7" type="TextureRect" parent="AnimationSequence/Control/VBoxContainer/AnimationContainer"]
+[node name="Image7" type="TextureRect" parent="CanvasLayer/Control/VBoxContainer/AnimationContainer"]
 layout_mode = 2
 texture = ExtResource("6_tmmyj")
 
-[node name="Image8" type="TextureRect" parent="AnimationSequence/Control/VBoxContainer/AnimationContainer"]
+[node name="Image8" type="TextureRect" parent="CanvasLayer/Control/VBoxContainer/AnimationContainer"]
 layout_mode = 2
 texture = ExtResource("7_eafvx")
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="AnimationSequence"]
-stream = ExtResource("9_hr13r")
-autoplay = true
+stretch_mode = 6

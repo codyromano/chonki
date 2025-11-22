@@ -34,6 +34,7 @@ PlayerInventory="*res://scripts/PlayerInventory.gd"
 window/size/viewport_width=375
 window/size/viewport_height=812
 window/size/mode=2
+window/size/resizable=false
 window/stretch/scale=2.05
 
 [editor_plugins]
