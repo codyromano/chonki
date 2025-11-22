@@ -55,6 +55,7 @@ var is_backflipping: bool = false
 var is_frozen: bool = false
 var remaining_midair_jumps: int = 0
 var is_midair_jumping: bool = false
+var was_on_floor_last_frame: bool = false
 
 signal chonki_landed_and_hearts_spawned(zoom_intensity: float)
 
@@ -177,6 +178,13 @@ func on_player_hit() -> void:
 	
 	
 func _physics_process(delta: float) -> void:
+	if body.is_on_floor() and not was_on_floor_last_frame:
+		remaining_midair_jumps = midair_jumps
+		print("setting remaining_midair_jumps to ", midair_jumps)
+		is_midair_jumping = false
+	
+	was_on_floor_last_frame = body.is_on_floor()
+	
 	handle_movement(delta)
 	GlobalSignals.chonki_state_updated.emit(velocity, body.is_on_floor(), is_chonki_sliding, can_slide_on_release, last_action_time, time_held, state)
 	
@@ -380,14 +388,11 @@ func _on_player_jump(intensity: float, entity_applying_force: String):
 	if body.is_on_floor():
 		# Always allow jumping when on floor
 		can_jump = true
-		# Reset midair jump counter when landing
-		remaining_midair_jumps = midair_jumps
-		# Reset midair jumping flag when landing
-		is_midair_jumping = false
 	elif entity_applying_force != "player":
 		# External forces (trampolines, etc.) always work
 		can_jump = true
 	elif remaining_midair_jumps > 0 and not is_midair_jumping:
+		print("remaining: ", remaining_midair_jumps)
 		# Allow midair jump if we have jumps remaining and not currently performing one
 		can_jump = true
 		is_midair_jump = true

@@ -31,11 +31,6 @@ func _ready():
 	_initialize_letter_display()
 	_load_existing_letters()
 	
-	GlobalSignals.secret_letter_collected.emit('A')
-	GlobalSignals.secret_letter_collected.emit('F')
-	GlobalSignals.secret_letter_collected.emit('D')
-	GlobalSignals.secret_letter_collected.emit('E')
-	
 	if debug_mode:
 		_initialize_debug_menu()
 	

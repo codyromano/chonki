@@ -1378,7 +1378,6 @@ z_index = 2
 position = Vector2(70890, -704)
 script = ExtResource("73_ix5rl")
 jump_multiplier = 1.25
-midair_jumps = 5
 speed_multiplier = 1.0
 initial_camera_zoom = Vector2(0.22, 0.22)
 win_zoom_intensity = 0.1
@@ -1480,8 +1479,8 @@ text = "Mystery letters discovered"
 
 [node name="Letters" type="Node" parent="."]
 
-[node name="SecretLetterAMarker" type="Marker2D" parent="Letters"]
-position = Vector2(39714, -1382)
+[node name="SecretLetterFMarker" type="Marker2D" parent="Letters"]
+position = Vector2(41332, -4104)
 script = ExtResource("57_4yyev")
 
 [node name="ZoomAdjustmentZones" type="Node" parent="."]
