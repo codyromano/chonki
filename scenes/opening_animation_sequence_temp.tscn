@@ -1,0 +1,56 @@
+[gd_scene load_steps=4 format=3 uid="uid://iwst2hrgmep1"]
+
+[ext_resource type="AudioStream" uid="uid://dwec1ue8yxuth" path="res://assets/sound/cat-dreams-kawaii-chill-future-house-259197.mp3" id="1_x66oi"]
+[ext_resource type="Script" uid="uid://x8w1g2c80t4e" path="res://scripts/SlideshowController.gd" id="2_my8tr"]
+[ext_resource type="Texture2D" uid="uid://dyk1puvhux186" path="res://assets/animations/intro_08_gus_title2.png" id="10_4h5vs"]
+
+[node name="OpeningAnimationSequence" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+metadata/_edit_use_anchors_ = true
+
+[node name="AnimationSequence" type="Node2D" parent="."]
+position = Vector2(2902, 504)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="AnimationSequence"]
+stream = ExtResource("1_x66oi")
+autoplay = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="CanvasLayer"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AnimationContainer" type="HBoxContainer" parent="CanvasLayer/Control/VBoxContainer"]
+custom_minimum_size = Vector2(500, 800)
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+script = ExtResource("2_my8tr")
+fade_in_duration = 0.0
+display_duration = 20.0
+fade_out_duration = 0.0
+crop_bottom_pixels = 0
+
+[node name="Image8" type="TextureRect" parent="CanvasLayer/Control/VBoxContainer/AnimationContainer"]
+layout_mode = 2
+texture = ExtResource("10_4h5vs")
+expand_mode = 3
+stretch_mode = 5

@@ -46,45 +46,60 @@ grow_horizontal = 2
 grow_vertical = 2
 
 [node name="AnimationContainer" type="HBoxContainer" parent="CanvasLayer/Control/VBoxContainer"]
+custom_minimum_size = Vector2(500, 500)
 layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 6
+size_flags_vertical = 3
 alignment = 1
 script = ExtResource("1_0thiv")
 fade_in_duration = 0.0
 display_duration = 2.5
 fade_out_duration = 0.0
+crop_bottom_pixels = 0
 
 [node name="Image1" type="TextureRect" parent="CanvasLayer/Control/VBoxContainer/AnimationContainer"]
 layout_mode = 2
 texture = ExtResource("2_iwimn")
-stretch_mode = 4
+expand_mode = 3
+stretch_mode = 5
 
 [node name="Image2" type="TextureRect" parent="CanvasLayer/Control/VBoxContainer/AnimationContainer"]
 layout_mode = 2
 texture = ExtResource("3_rnui1")
+expand_mode = 3
+stretch_mode = 5
 
 [node name="Image3" type="TextureRect" parent="CanvasLayer/Control/VBoxContainer/AnimationContainer"]
 layout_mode = 2
 texture = ExtResource("2_eyrjb")
+expand_mode = 3
+stretch_mode = 5
 
 [node name="Image4" type="TextureRect" parent="CanvasLayer/Control/VBoxContainer/AnimationContainer"]
 layout_mode = 2
 texture = ExtResource("5_olsx0")
+expand_mode = 3
+stretch_mode = 5
 
 [node name="Image5" type="TextureRect" parent="CanvasLayer/Control/VBoxContainer/AnimationContainer"]
 layout_mode = 2
 texture = ExtResource("6_h31sv")
+expand_mode = 3
+stretch_mode = 5
 
 [node name="Image6" type="TextureRect" parent="CanvasLayer/Control/VBoxContainer/AnimationContainer"]
 layout_mode = 2
 texture = ExtResource("7_2dau1")
+expand_mode = 3
+stretch_mode = 5
 
 [node name="Image7" type="TextureRect" parent="CanvasLayer/Control/VBoxContainer/AnimationContainer"]
 layout_mode = 2
 texture = ExtResource("6_tmmyj")
+expand_mode = 3
+stretch_mode = 5
 
 [node name="Image8" type="TextureRect" parent="CanvasLayer/Control/VBoxContainer/AnimationContainer"]
 layout_mode = 2
 texture = ExtResource("7_eafvx")
-stretch_mode = 6
+expand_mode = 3
+stretch_mode = 5
