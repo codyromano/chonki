@@ -1,4 +1,4 @@
-[gd_scene load_steps=110 format=3 uid="uid://br8ftak73gmww"]
+[gd_scene load_steps=111 format=3 uid="uid://br8ftak73gmww"]
 
 [ext_resource type="PackedScene" uid="uid://bk3oytbasgs5w" path="res://scenes/grown_up_chonki.tscn" id="1_6i0tl"]
 [ext_resource type="Script" uid="uid://b2cncqbuotdcl" path="res://scenes/level_1.gd" id="1_hvrd6"]
@@ -300,7 +300,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4w6xv"]
-size = Vector2(7023.31, 79)
+size = Vector2(7988.5, 79)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_7hmix"]
 size = Vector2(3579.9, 79)
@@ -319,6 +319,9 @@ size = Vector2(214.95, 68.3419)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6b8u6"]
 size = Vector2(121.484, 744.729)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ix5rl"]
+normal = Vector2(-0.806548, -0.591169)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_eedbu"]
 animations = [{
@@ -919,7 +922,8 @@ collision_mask = 255
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/Platforms & Barriers/Ground"]
 z_index = 100
-position = Vector2(7193.25, 40)
+position = Vector2(6710.65, 40)
+scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_4w6xv")
 debug_color = Color(0.307035, 0.494072, 1, 0.42)
 
@@ -1302,6 +1306,15 @@ position = Vector2(123901, -10268)
 [node name="CloudLeverPower" parent="World2D/Platforms & Barriers/CloudMaze" instance=ExtResource("2_vutef")]
 position = Vector2(128013, -10268)
 
+[node name="StaticBody2D" type="StaticBody2D" parent="World2D/Platforms & Barriers"]
+position = Vector2(30376, 9)
+rotation = 1.5708
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/Platforms & Barriers/StaticBody2D"]
+position = Vector2(3026, 2014)
+scale = Vector2(1, 23.0914)
+shape = SubResource("WorldBoundaryShape2D_ix5rl")
+
 [node name="Collectibles" type="Node2D" parent="World2D"]
 position = Vector2(53, 0)
 
@@ -1485,40 +1498,28 @@ script = ExtResource("57_4yyev")
 
 [node name="ZoomAdjustmentZones" type="Node" parent="."]
 
-[node name="AdjustZoomOnPlayerEnter3" parent="ZoomAdjustmentZones" instance=ExtResource("62_4w6xv")]
-position = Vector2(83845, -1587)
-zoom_on_enter = 0.15
+[node name="ZoomOut" parent="ZoomAdjustmentZones" instance=ExtResource("62_4w6xv")]
+position = Vector2(62579, -1602)
+zoom_on_enter = 0.125
 
-[node name="AdjustZoomOnPlayerEnter" parent="ZoomAdjustmentZones" instance=ExtResource("62_4w6xv")]
-position = Vector2(39713, -1602)
-zoom_on_enter = 0.15
-
-[node name="AdjustZoomOnPlayerEnter2" parent="ZoomAdjustmentZones" instance=ExtResource("62_4w6xv")]
-position = Vector2(39945, -1602)
+[node name="ZoomIn" parent="ZoomAdjustmentZones" instance=ExtResource("62_4w6xv")]
+position = Vector2(62900, -1602)
 zoom_on_enter = 0.22
 
-[node name="AdjustZoomOnPlayerEnter4" parent="ZoomAdjustmentZones" instance=ExtResource("62_4w6xv")]
-position = Vector2(74889, -1602)
-zoom_on_enter = 0.2
+[node name="ZoomOut2" parent="ZoomAdjustmentZones" instance=ExtResource("62_4w6xv")]
+position = Vector2(48862, -1602)
+zoom_on_enter = 0.125
 
-[node name="AdjustZoomOnPlayerEnter5" parent="ZoomAdjustmentZones" instance=ExtResource("62_4w6xv")]
-position = Vector2(108860, -1864)
-zoom_on_enter = 0.08
-
-[node name="AdjustZoomOnPlayerEnter6" parent="ZoomAdjustmentZones" instance=ExtResource("62_4w6xv")]
-position = Vector2(128375, -4649)
-zoom_on_enter = 0.08
-
-[node name="AdjustZoomOnPlayerEnter7" parent="ZoomAdjustmentZones" instance=ExtResource("62_4w6xv")]
-position = Vector2(128818, -4649)
+[node name="ZoomIn2" parent="ZoomAdjustmentZones" instance=ExtResource("62_4w6xv")]
+position = Vector2(48540, -1602)
 zoom_on_enter = 0.22
 
-[node name="AdjustZoomOnPlayerEnter8" parent="ZoomAdjustmentZones" instance=ExtResource("62_4w6xv")]
-position = Vector2(132492, -4649)
-zoom_on_enter = 0.08
+[node name="ZoomOut3" parent="ZoomAdjustmentZones" instance=ExtResource("62_4w6xv")]
+position = Vector2(44349, -1602)
+zoom_on_enter = 0.125
 
-[node name="AdjustZoomOnPlayerEnter9" parent="ZoomAdjustmentZones" instance=ExtResource("62_4w6xv")]
-position = Vector2(132935, -4649)
+[node name="ZoomIn3" parent="ZoomAdjustmentZones" instance=ExtResource("62_4w6xv")]
+position = Vector2(44671, -1602)
 zoom_on_enter = 0.22
 
 [node name="Debug" type="Node" parent="."]
