@@ -1,11 +1,14 @@
 extends Node2D
 
 @onready var leaf_system = find_child('Leaves')
+@onready var sniglet_font: Font = preload("res://fonts/Sniglet-Regular.ttf")
 
 var total_secret_letters: int = 0
 var collected_secret_letters: int = 0
 var letters_display_label: Label
 var letters_display_control: Control
+var title_label: Label
+var subtitle_label: Label
 
 func _ready():
 	GameState.current_level = 2
@@ -74,21 +77,34 @@ func _create_letters_display():
 	vbox.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	center_container.add_child(vbox)
 	
-	var title_label = Label.new()
-	title_label.text = "Double-jump unlocked"
-	title_label.add_theme_font_size_override("font_size", 120)
-	title_label.add_theme_color_override("font_color", Color(1.0, 0.84, 0.0))
-	title_label.add_theme_constant_override("outline_size", 8)
+	title_label = Label.new()
+	title_label.text = "Jump power: 0 / 5"
+	title_label.add_theme_font_override("font", sniglet_font)
+	title_label.add_theme_font_size_override("font_size", 125)
+	title_label.add_theme_color_override("font_color", Color(1, 1, 0.529412, 1))
+	title_label.add_theme_constant_override("outline_size", 20)
 	title_label.add_theme_color_override("font_outline_color", Color.BLACK)
 	title_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	title_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	vbox.add_child(title_label)
 	
+	subtitle_label = Label.new()
+	subtitle_label.text = "Each letter you collect lets you perform one extra mid-air jump"
+	subtitle_label.add_theme_font_override("font", sniglet_font)
+	subtitle_label.add_theme_font_size_override("font_size", 30)
+	subtitle_label.add_theme_color_override("font_color", Color(1, 1, 1, 1))
+	subtitle_label.add_theme_constant_override("outline_size", 20)
+	subtitle_label.add_theme_color_override("font_outline_color", Color.BLACK)
+	subtitle_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	subtitle_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	vbox.add_child(subtitle_label)
+	
 	letters_display_label = Label.new()
-	letters_display_label.text = "Level 0/%d" % total_secret_letters
+	letters_display_label.text = ""
+	letters_display_label.add_theme_font_override("font", sniglet_font)
 	letters_display_label.add_theme_font_size_override("font_size", 150)
-	letters_display_label.add_theme_color_override("font_color", Color.WHITE)
-	letters_display_label.add_theme_constant_override("outline_size", 8)
+	letters_display_label.add_theme_color_override("font_color", Color(1, 1, 0.529412, 1))
+	letters_display_label.add_theme_constant_override("outline_size", 20)
 	letters_display_label.add_theme_color_override("font_outline_color", Color.BLACK)
 	letters_display_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	letters_display_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
@@ -100,13 +116,9 @@ func _on_secret_letter_collected(_letter: String):
 	
 	collected_secret_letters += 1
 	
-	# Show count and collected letters
-	var collected_letters_str = ""
-	var collected_letters_array = GameState.get_collected_letters()
-	for letter in collected_letters_array:
-		collected_letters_str += letter.to_upper() + " "
-	
-	letters_display_label.text = "Level %d/%d\n%s" % [collected_secret_letters, total_secret_letters, collected_letters_str.strip_edges()]
+	# Update title with current jump power
+	if title_label:
+		title_label.text = "Jump power: %d / 5" % collected_secret_letters
 	
 	var tween = create_tween()
 	
