@@ -4,6 +4,10 @@ extends PanelContainer
 @onready var dialogue_options_container: VBoxContainer = $VBoxContainer/VBoxContainer/DialogueOptions
 @onready var typewriter: Label = $VBoxContainer/HBoxContainer/TypewriterReveal
 @onready var avatar: TextureRect = $VBoxContainer/HBoxContainer/Avatar
+@onready var press_enter_label: Label = find_child('PressEnterLabel')
+
+var dialogue_options_count: int = 0
+var is_typewriter_active: bool = true
 
 var can_dismiss_dialogue: bool = false
 var is_dismissing: bool = false
@@ -42,6 +46,8 @@ func set_avatar(texture: CompressedTexture2D) -> void:
 		push_error("[MainDialogueDisplay] Cannot set avatar, avatar node is null")
 
 func _on_typewriter_complete() -> void:
+	is_typewriter_active = false
+	
 	# Get choices from MainDialogueController singleton
 	var choices = MainDialogueController.get_dialogue_choices()
 	
@@ -73,6 +79,11 @@ func _create_dialogue_options(choices: Array) -> void:
 	if dialogue_options_container.get_child_count() > 0:
 		var first_option = dialogue_options_container.get_child(0)
 		first_option.grab_focus()
+	
+	dialogue_options_count = choices.size()
+
+func _process(_delta) -> void:
+	press_enter_label.visible = dialogue_options_count == 0 && !is_typewriter_active
 
 func _unhandled_input(event: InputEvent) -> void:
 	# Don't handle input if we're already dismissing or can't dismiss
