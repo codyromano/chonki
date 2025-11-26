@@ -1,4 +1,4 @@
-[gd_scene load_steps=111 format=3 uid="uid://br8ftak73gmww"]
+[gd_scene load_steps=112 format=3 uid="uid://br8ftak73gmww"]
 
 [ext_resource type="PackedScene" uid="uid://bk3oytbasgs5w" path="res://scenes/grown_up_chonki.tscn" id="1_6i0tl"]
 [ext_resource type="Script" uid="uid://b2cncqbuotdcl" path="res://scenes/level_1.gd" id="1_hvrd6"]
@@ -78,6 +78,7 @@
 [ext_resource type="PackedScene" uid="uid://dmvfy4x1ini0v" path="res://scenes/composable/bench.tscn" id="58_eedbu"]
 [ext_resource type="PackedScene" path="res://scenes/spawn_location.tscn" id="59_x7a8r"]
 [ext_resource type="PackedScene" uid="uid://dpwcrkl2e2ro4" path="res://scenes/composable/adjust_zoom_on_player_enter.tscn" id="62_4w6xv"]
+[ext_resource type="AudioStream" uid="uid://cy7y35exdndmr" path="res://assets/sound/secret_letter.mp3" id="66_574qs"]
 [ext_resource type="Script" uid="uid://cu46jqmyvfpbt" path="res://scenes/grown_up_chonki.gd" id="73_ix5rl"]
 [ext_resource type="Script" uid="uid://bj8qjm1gsuny4" path="res://scenes/spawn_location.gd" id="78_5674x"]
 [ext_resource type="Script" uid="uid://cq7t1ryt217o7" path="res://scenes/LittleFreeLibrary.gd" id="79_u6iub"]
@@ -1493,7 +1494,7 @@ scale = Vector2(2.24, 2.24)
 script = ExtResource("44_eedbu")
 frames = SubResource("SpriteFrames_eedbu")
 collectible_name = "pottery1"
-audio = null
+audio = ExtResource("66_574qs")
 
 [node name="SpawnLocation2" parent="World2D/Collectibles/Pottery" instance=ExtResource("59_x7a8r")]
 position = Vector2(85724, -1301)
@@ -1505,7 +1506,7 @@ scale = Vector2(2.24, 2.24)
 script = ExtResource("45_eedbu")
 frames = SubResource("SpriteFrames_7r63v")
 collectible_name = "pottery2"
-audio = null
+audio = ExtResource("66_574qs")
 
 [node name="SpawnLocation3" parent="World2D/Collectibles/Pottery" instance=ExtResource("59_x7a8r")]
 position = Vector2(82403, -5082)
@@ -1517,7 +1518,7 @@ scale = Vector2(2.24, 2.24)
 script = ExtResource("46_4yyev")
 frames = SubResource("SpriteFrames_rb3io")
 collectible_name = "pottery3"
-audio = null
+audio = ExtResource("66_574qs")
 
 [node name="SpawnLetterX" parent="World2D/Collectibles" instance=ExtResource("59_x7a8r")]
 z_index = 10
