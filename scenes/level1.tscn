@@ -489,36 +489,6 @@ enable_wind_zones = false
 
 [node name="CloudsAndOceans" type="Node" parent="World2D/Environment"]
 
-[node name="Ocean" type="Polygon2D" parent="World2D/Environment/CloudsAndOceans"]
-z_index = 3
-texture_repeat = 2
-use_parent_material = true
-position = Vector2(-4762, 1894)
-scale = Vector2(1.46235, 1.60449)
-texture = ExtResource("1_vplxb")
-texture_offset = Vector2(0, 400)
-polygon = PackedVector2Array(-1100.97, 128.39, 73316.2, 137.115, 73294.4, 627.614, -1059.25, 630.106)
-
-[node name="Ocean2" type="Polygon2D" parent="World2D/Environment/CloudsAndOceans"]
-z_index = 3
-texture_repeat = 2
-use_parent_material = true
-position = Vector2(-4762, 1227)
-scale = Vector2(1.46235, 1.60449)
-texture = ExtResource("1_vplxb")
-texture_offset = Vector2(0, 400)
-polygon = PackedVector2Array(-1100.97, 128.39, 73316.2, 137.115, 73294.4, 627.614, -1059.25, 630.106)
-
-[node name="Ocean3" type="Polygon2D" parent="World2D/Environment/CloudsAndOceans"]
-z_index = 3
-texture_repeat = 2
-use_parent_material = true
-position = Vector2(-4762, 2640)
-scale = Vector2(1.46235, 1.60449)
-texture = ExtResource("1_vplxb")
-texture_offset = Vector2(0, 400)
-polygon = PackedVector2Array(-1100.97, 128.39, 73316.2, 137.115, 73294.4, 627.614, -1059.25, 630.106)
-
 [node name="Ocean4" type="Polygon2D" parent="World2D/Environment/CloudsAndOceans"]
 z_index = 6
 texture_repeat = 2
@@ -553,7 +523,7 @@ polygon = PackedVector2Array(-1031.22, 135.869, 73316.2, 137.115, 73294.4, 627.6
 z_index = 6
 texture_repeat = 2
 use_parent_material = true
-position = Vector2(103149, 1969)
+position = Vector2(103153, 2080)
 scale = Vector2(1.46235, 1.60449)
 texture = ExtResource("1_vplxb")
 texture_offset = Vector2(0, 400)
@@ -595,6 +565,201 @@ texture = ExtResource("2_gc4xo")
 texture_offset = Vector2(0, 3750)
 texture_scale = Vector2(0.25, 0.25)
 polygon = PackedVector2Array(-1009, 5, 126762, -66.9541, 126845, -2952.47, 126762, -5445.94, 53511.8, -5527.41, -1031.48, -5495.14)
+
+[node name="OceanGroup" type="Node" parent="World2D/Environment/CloudsAndOceans"]
+
+[node name="Ocean" type="Polygon2D" parent="World2D/Environment/CloudsAndOceans/OceanGroup"]
+visible = false
+z_index = 3
+texture_repeat = 2
+use_parent_material = true
+position = Vector2(-4762, 547)
+scale = Vector2(1.46235, 1.60449)
+texture = ExtResource("1_vplxb")
+texture_offset = Vector2(0, 400)
+polygon = PackedVector2Array(-1100.97, 128.39, 73316.2, 137.115, 73294.4, 627.614, -1059.25, 630.106)
+
+[node name="Ocean2" type="Polygon2D" parent="World2D/Environment/CloudsAndOceans/OceanGroup"]
+z_index = 3
+texture_repeat = 2
+use_parent_material = true
+position = Vector2(-4762, 1253)
+scale = Vector2(1.46235, 1.60449)
+texture = ExtResource("1_vplxb")
+texture_offset = Vector2(0, 400)
+polygon = PackedVector2Array(-1100.97, 128.39, 73316.2, 137.115, 73294.4, 627.614, -1059.25, 630.106)
+
+[node name="Ocean3" type="Polygon2D" parent="World2D/Environment/CloudsAndOceans/OceanGroup"]
+z_index = 3
+texture_repeat = 2
+use_parent_material = true
+position = Vector2(-4762, 2666)
+scale = Vector2(1.46235, 1.60449)
+texture = ExtResource("1_vplxb")
+texture_offset = Vector2(0, 400)
+polygon = PackedVector2Array(-1100.97, 128.39, 73316.2, 137.115, 73294.4, 627.614, -1059.25, 630.106)
+
+[node name="Ocean4" type="Polygon2D" parent="World2D/Environment/CloudsAndOceans/OceanGroup"]
+z_index = 3
+texture_repeat = 2
+use_parent_material = true
+position = Vector2(-4762, 1978)
+scale = Vector2(1.46235, 1.60449)
+texture = ExtResource("1_vplxb")
+texture_offset = Vector2(0, 400)
+polygon = PackedVector2Array(-1100.97, 128.39, 73316.2, 137.115, 73294.4, 627.614, -1059.25, 630.106)
+
+[node name="Ocean9" type="Polygon2D" parent="World2D/Environment/CloudsAndOceans/OceanGroup"]
+z_index = 3
+texture_repeat = 2
+use_parent_material = true
+position = Vector2(-4762, 3415)
+scale = Vector2(1.46235, 1.60449)
+texture = ExtResource("1_vplxb")
+texture_offset = Vector2(0, 400)
+polygon = PackedVector2Array(-1100.97, 128.39, 73316.2, 137.115, 73294.4, 627.614, -1059.25, 630.106)
+
+[node name="Ocean10" type="Polygon2D" parent="World2D/Environment/CloudsAndOceans/OceanGroup"]
+z_index = 3
+texture_repeat = 2
+use_parent_material = true
+position = Vector2(-4762, 4149)
+scale = Vector2(1.46235, 1.60449)
+texture = ExtResource("1_vplxb")
+texture_offset = Vector2(0, 400)
+polygon = PackedVector2Array(-1100.97, 128.39, 73316.2, 137.115, 73294.4, 627.614, -1059.25, 630.106)
+
+[node name="Ocean11" type="Polygon2D" parent="World2D/Environment/CloudsAndOceans/OceanGroup"]
+z_index = 3
+texture_repeat = 2
+use_parent_material = true
+position = Vector2(-4762, 4920)
+scale = Vector2(1.46235, 1.60449)
+texture = ExtResource("1_vplxb")
+texture_offset = Vector2(0, 400)
+polygon = PackedVector2Array(-1100.97, 128.39, 73316.2, 137.115, 73294.4, 627.614, -1059.25, 630.106)
+
+[node name="Ocean12" type="Polygon2D" parent="World2D/Environment/CloudsAndOceans/OceanGroup"]
+z_index = 3
+texture_repeat = 2
+use_parent_material = true
+position = Vector2(-4762, 5638)
+scale = Vector2(1.46235, 1.60449)
+texture = ExtResource("1_vplxb")
+texture_offset = Vector2(0, 400)
+polygon = PackedVector2Array(-1100.97, 128.39, 73316.2, 137.115, 73294.4, 627.614, -1059.25, 630.106)
+
+[node name="Ocean13" type="Polygon2D" parent="World2D/Environment/CloudsAndOceans/OceanGroup"]
+z_index = 3
+texture_repeat = 2
+use_parent_material = true
+position = Vector2(-4762, 6271)
+scale = Vector2(1.46235, 1.60449)
+texture = ExtResource("1_vplxb")
+texture_offset = Vector2(0, 400)
+polygon = PackedVector2Array(-1100.97, 128.39, 73316.2, 137.115, 73294.4, 627.614, -1059.25, 630.106)
+
+[node name="Ocean14" type="Polygon2D" parent="World2D/Environment/CloudsAndOceans/OceanGroup"]
+z_index = 3
+texture_repeat = 2
+use_parent_material = true
+position = Vector2(-4762, 6936)
+scale = Vector2(1.46235, 1.60449)
+texture = ExtResource("1_vplxb")
+texture_offset = Vector2(0, 400)
+polygon = PackedVector2Array(-1100.97, 128.39, 73316.2, 137.115, 73294.4, 627.614, -1059.25, 630.106)
+
+[node name="OceanGroup2" type="Node" parent="World2D/Environment/CloudsAndOceans"]
+
+[node name="Ocean" type="Polygon2D" parent="World2D/Environment/CloudsAndOceans/OceanGroup2"]
+z_index = 3
+texture_repeat = 2
+use_parent_material = true
+position = Vector2(103954, 1895)
+scale = Vector2(1.46235, 1.60449)
+texture = ExtResource("1_vplxb")
+texture_offset = Vector2(0, 400)
+polygon = PackedVector2Array(-1100.97, 128.39, 73316.2, 137.115, 73294.4, 627.614, -1059.25, 630.106)
+
+[node name="Ocean2" type="Polygon2D" parent="World2D/Environment/CloudsAndOceans/OceanGroup2"]
+z_index = 3
+texture_repeat = 2
+use_parent_material = true
+position = Vector2(103954, 1228)
+scale = Vector2(1.46235, 1.60449)
+texture = ExtResource("1_vplxb")
+texture_offset = Vector2(0, 400)
+polygon = PackedVector2Array(-1100.97, 128.39, 73316.2, 137.115, 73294.4, 627.614, -1059.25, 630.106)
+
+[node name="Ocean3" type="Polygon2D" parent="World2D/Environment/CloudsAndOceans/OceanGroup2"]
+z_index = 3
+texture_repeat = 2
+use_parent_material = true
+position = Vector2(103954, 2641)
+scale = Vector2(1.46235, 1.60449)
+texture = ExtResource("1_vplxb")
+texture_offset = Vector2(0, 400)
+polygon = PackedVector2Array(-1100.97, 128.39, 73316.2, 137.115, 73294.4, 627.614, -1059.25, 630.106)
+
+[node name="Ocean9" type="Polygon2D" parent="World2D/Environment/CloudsAndOceans/OceanGroup2"]
+z_index = 3
+texture_repeat = 2
+use_parent_material = true
+position = Vector2(103954, 3390)
+scale = Vector2(1.46235, 1.60449)
+texture = ExtResource("1_vplxb")
+texture_offset = Vector2(0, 400)
+polygon = PackedVector2Array(-1100.97, 128.39, 73316.2, 137.115, 73294.4, 627.614, -1059.25, 630.106)
+
+[node name="Ocean10" type="Polygon2D" parent="World2D/Environment/CloudsAndOceans/OceanGroup2"]
+z_index = 3
+texture_repeat = 2
+use_parent_material = true
+position = Vector2(103954, 4150)
+scale = Vector2(1.46235, 1.60449)
+texture = ExtResource("1_vplxb")
+texture_offset = Vector2(0, 400)
+polygon = PackedVector2Array(-1100.97, 128.39, 73316.2, 137.115, 73294.4, 627.614, -1059.25, 630.106)
+
+[node name="Ocean11" type="Polygon2D" parent="World2D/Environment/CloudsAndOceans/OceanGroup2"]
+z_index = 3
+texture_repeat = 2
+use_parent_material = true
+position = Vector2(103954, 4921)
+scale = Vector2(1.46235, 1.60449)
+texture = ExtResource("1_vplxb")
+texture_offset = Vector2(0, 400)
+polygon = PackedVector2Array(-1100.97, 128.39, 73316.2, 137.115, 73294.4, 627.614, -1059.25, 630.106)
+
+[node name="Ocean12" type="Polygon2D" parent="World2D/Environment/CloudsAndOceans/OceanGroup2"]
+z_index = 3
+texture_repeat = 2
+use_parent_material = true
+position = Vector2(103954, 5639)
+scale = Vector2(1.46235, 1.60449)
+texture = ExtResource("1_vplxb")
+texture_offset = Vector2(0, 400)
+polygon = PackedVector2Array(-1100.97, 128.39, 73316.2, 137.115, 73294.4, 627.614, -1059.25, 630.106)
+
+[node name="Ocean13" type="Polygon2D" parent="World2D/Environment/CloudsAndOceans/OceanGroup2"]
+z_index = 3
+texture_repeat = 2
+use_parent_material = true
+position = Vector2(103954, 6272)
+scale = Vector2(1.46235, 1.60449)
+texture = ExtResource("1_vplxb")
+texture_offset = Vector2(0, 400)
+polygon = PackedVector2Array(-1100.97, 128.39, 73316.2, 137.115, 73294.4, 627.614, -1059.25, 630.106)
+
+[node name="Ocean14" type="Polygon2D" parent="World2D/Environment/CloudsAndOceans/OceanGroup2"]
+z_index = 3
+texture_repeat = 2
+use_parent_material = true
+position = Vector2(103954, 6937)
+scale = Vector2(1.46235, 1.60449)
+texture = ExtResource("1_vplxb")
+texture_offset = Vector2(0, 400)
+polygon = PackedVector2Array(-1100.97, 128.39, 73316.2, 137.115, 73294.4, 627.614, -1059.25, 630.106)
 
 [node name="TreasureSign" type="Sprite2D" parent="World2D/Environment"]
 modulate = Color(1, 1, 1, 0.588235)
