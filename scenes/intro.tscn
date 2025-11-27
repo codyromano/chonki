@@ -667,6 +667,7 @@ offset_left = 3412.0
 offset_top = -4397.0
 offset_right = 3476.0
 offset_bottom = -4333.0
+font_size = 240
 
 [node name="SecretLetter2" parent="Items/StoryLetters" instance=ExtResource("37_7ukfb")]
 offset_left = 27452.0
@@ -674,6 +675,7 @@ offset_top = -6020.0
 offset_right = 27516.0
 offset_bottom = -5956.0
 letter = "D"
+font_size = 240
 
 [node name="SecretLetter3" parent="Items/StoryLetters" instance=ExtResource("37_7ukfb")]
 offset_left = 24486.0
@@ -681,6 +683,7 @@ offset_top = -16095.0
 offset_right = 24550.0
 offset_bottom = -16031.0
 letter = "O"
+font_size = 240
 
 [node name="SecretLetter4" parent="Items/StoryLetters" instance=ExtResource("37_7ukfb")]
 offset_left = -3920.0
@@ -688,6 +691,7 @@ offset_top = -14780.0
 offset_right = -3856.0
 offset_bottom = -14716.0
 letter = "P"
+font_size = 240
 
 [node name="SecretLetter5" parent="Items/StoryLetters" instance=ExtResource("37_7ukfb")]
 offset_left = 32574.0
@@ -695,6 +699,7 @@ offset_top = -13548.0
 offset_right = 32638.0
 offset_bottom = -13484.0
 letter = "T"
+font_size = 240
 
 [node name="LittleFreeLibrary" type="Area2D" parent="Items"]
 position = Vector2(64396, -4620)

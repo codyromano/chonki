@@ -9,6 +9,7 @@ func _on_unlock_ruby_quest_reward() -> void:
 	var secret_letter = secret_letter_scene.instantiate()
 	
 	secret_letter.letter = "F"
+	secret_letter.font_size = 40
 	secret_letter.global_position = global_position
 	
 	if get_parent():

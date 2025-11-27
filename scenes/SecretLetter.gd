@@ -5,7 +5,7 @@ extends Control
 
 @export var letter: String = "A" : set = set_letter
 @export var rotation_speed: float = 90.0  # degrees per second
-@export var font_size: int = 240 : set = set_font_size
+@export var font_size: int = 40 : set = set_font_size
 @export var letter_depth: float = 1.0 : set = set_letter_depth
 
 @onready var subviewport: SubViewport = $SubViewport
