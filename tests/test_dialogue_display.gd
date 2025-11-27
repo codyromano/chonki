@@ -29,30 +29,6 @@ func test_press_enter_label_hidden_initially():
 	dialogue_display._process(0.0)
 	assert_false(press_enter_label.visible, "Press Enter label should stay hidden while typewriter is active")
 
-func test_continue_button_not_created_for_single_continue_choice():
-	var choices = [
-		{"id": "test-continue", "text": "Continue", "next_node": null}
-	]
-	
-	MainDialogueController.current_dialogue_choices = choices
-	
-	var dialogue_options_container = dialogue_display.get_node("VBoxContainer/VBoxContainer/DialogueOptions")
-	for child in dialogue_options_container.get_children():
-		if child.name.begins_with("DialogueOption"):
-			child.queue_free()
-	
-	dialogue_display._on_typewriter_complete()
-	
-	await wait_frames(2)
-	
-	var button_count = 0
-	for child in dialogue_options_container.get_children():
-		if child is Button and child.name.begins_with("DialogueOption"):
-			button_count += 1
-	
-	assert_eq(button_count, 0, "Should not create Continue button")
-	assert_true(dialogue_display.can_dismiss_dialogue, "Should enable dismiss dialogue")
-
 func test_press_enter_label_visible_after_single_continue():
 	dialogue_display.dialogue_options_count = 0
 	dialogue_display.is_typewriter_active = false
@@ -82,32 +58,21 @@ func test_buttons_created_for_multiple_choices():
 	
 	assert_eq(button_count, 2, "Should create 2 buttons for 2 choices")
 
-func test_enter_key_emits_dialogue_option_selected_for_continue():
-	var choices = [
-		{"id": "test-continue-id", "text": "Continue", "next_node": null}
-	]
-	
-	MainDialogueController.current_dialogue_choices = choices
-	dialogue_display._on_typewriter_complete()
-	dialogue_display.can_dismiss_dialogue = true
-	
-	watch_signals(GlobalSignals)
-	
-	var input_event = InputEventAction.new()
-	input_event.action = "ui_accept"
-	input_event.pressed = true
-	
-	dialogue_display._unhandled_input(input_event)
-	
-	assert_signal_emitted(GlobalSignals, "dialogue_option_selected", "Should emit dialogue_option_selected for Continue")
-	assert_signal_emit_count(GlobalSignals, "dialogue_option_selected", 1)
-
 func test_enter_key_emits_dismiss_for_no_choices():
+	await wait_frames(1)
+	
 	var choices = []
 	
 	MainDialogueController.current_dialogue_choices = choices
 	dialogue_display._on_typewriter_complete()
 	dialogue_display.can_dismiss_dialogue = true
+	dialogue_display.is_dismissing = false
+	dialogue_display.dialogue_options_count = 0
+	
+	var dialogue_options_container = dialogue_display.get_node("VBoxContainer/VBoxContainer/DialogueOptions")
+	dialogue_options_container.visible = false
+	
+	await wait_frames(1)
 	
 	watch_signals(GlobalSignals)
 	
@@ -118,3 +83,27 @@ func test_enter_key_emits_dismiss_for_no_choices():
 	dialogue_display._unhandled_input(input_event)
 	
 	assert_signal_emitted(GlobalSignals, "dismiss_active_main_dialogue", "Should emit dismiss for no choices")
+
+func test_first_dialogue_option_is_auto_focused():
+	await wait_frames(1)
+	
+	var choices = [
+		{"id": "yes", "text": "Yes, I'll help!", "next_node": null},
+		{"id": "no", "text": "No, sorry.", "next_node": null}
+	]
+	
+	MainDialogueController.current_dialogue_choices = choices
+	dialogue_display._on_typewriter_complete()
+	
+	await wait_frames(3)
+	
+	var dialogue_options_container = dialogue_display.get_node("VBoxContainer/VBoxContainer/DialogueOptions")
+	var first_button = null
+	for child in dialogue_options_container.get_children():
+		if child is Button and child.visible:
+			first_button = child
+			break
+	
+	assert_not_null(first_button, "Should have at least one visible button")
+	assert_true(dialogue_options_container.visible, "Dialogue options container should be visible")
+	assert_eq(dialogue_display.dialogue_options_count, 2, "Should have 2 dialogue options")

@@ -50,21 +50,18 @@ func _on_typewriter_complete() -> void:
 	
 	var choices = MainDialogueController.get_dialogue_choices()
 	
-	if choices.size() == 1 and choices[0].text == "Continue":
-		can_dismiss_dialogue = true
-	elif choices.size() > 0:
+	if choices.size() > 0:
 		_create_dialogue_options(choices)
 	else:
 		can_dismiss_dialogue = true
 
 func _create_dialogue_options(choices: Array) -> void:
-	# Clear any existing options
 	for child in dialogue_options_container.get_children():
 		if child.name.begins_with("DialogueOption"):
 			child.queue_free()
 	
-	# Create option buttons
 	var option_scene = preload("res://scenes/menus/dialogue_option.tscn")
+	var option_buttons: Array[Button] = []
 	
 	for i in range(choices.size()):
 		var choice = choices[i]
@@ -72,32 +69,48 @@ func _create_dialogue_options(choices: Array) -> void:
 		var option_instance = option_scene.instantiate()
 		dialogue_options_container.add_child(option_instance)
 		option_instance.setup(choice.id, choice.text)
+		option_instance.focus_mode = Control.FOCUS_ALL
+		option_buttons.append(option_instance)
 	
-	# Show the options container
+	for i in range(option_buttons.size()):
+		var current_button = option_buttons[i]
+		
+		if i > 0:
+			current_button.focus_neighbor_top = current_button.get_path_to(option_buttons[i - 1])
+		
+		if i < option_buttons.size() - 1:
+			current_button.focus_neighbor_bottom = current_button.get_path_to(option_buttons[i + 1])
+	
 	dialogue_options_container.visible = true
 	
-	# Focus the first option
-	if dialogue_options_container.get_child_count() > 0:
-		var first_option = dialogue_options_container.get_child(0)
-		first_option.grab_focus()
+	call_deferred("_focus_first_option")
 	
 	dialogue_options_count = choices.size()
+
+func _focus_first_option() -> void:
+	await get_tree().process_frame
+	
+	if dialogue_options_container.get_child_count() > 0:
+		for child in dialogue_options_container.get_children():
+			if child is Button and child.visible:
+				child.grab_focus()
+				break
 
 func _process(_delta) -> void:
 	press_enter_label.visible = dialogue_options_count == 0 && !is_typewriter_active
 
 func _unhandled_input(event: InputEvent) -> void:
+	if dialogue_options_container.visible and dialogue_options_count > 0:
+		if event.is_action_pressed("ui_up") or event.is_action_pressed("ui_down") or event.is_action_pressed("ui_accept"):
+			get_viewport().set_input_as_handled()
+			return
+	
 	if is_dismissing or !can_dismiss_dialogue:
 		return
 		
 	if event.is_action_pressed("ui_accept") or event.is_action_pressed("ui_up"):
 		is_dismissing = true
-		
-		var choices = MainDialogueController.get_dialogue_choices()
-		if choices.size() == 1 and choices[0].text == "Continue":
-			GlobalSignals.dialogue_option_selected.emit(choices[0].id, "Continue")
-		else:
-			GlobalSignals.dismiss_active_main_dialogue.emit("")
+		GlobalSignals.dismiss_active_main_dialogue.emit("")
 		
 		var viewport = get_viewport()
 		if viewport:

@@ -3,10 +3,10 @@
 [ext_resource type="FontFile" uid="uid://dlfbvpauldaco" path="res://fonts/Sniglet-Regular.ttf" id="1_vg6h3"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vg6h3"]
-bg_color = Color(0.975736, 0.975736, 0.975736, 1)
+bg_color = Color(0.976471, 0.976471, 0.976471, 1)
 
 [resource]
 default_font = ExtResource("1_vg6h3")
 default_font_size = 25
-Button/colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+Button/colors/font_focus_color = Color(0, 0, 0, 1)
 Button/styles/focus = SubResource("StyleBoxFlat_vg6h3")

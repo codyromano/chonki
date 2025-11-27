@@ -1563,6 +1563,7 @@ z_index = 2
 position = Vector2(70890, -704)
 script = ExtResource("73_ix5rl")
 jump_multiplier = 1.25
+midair_jumps = 10
 speed_multiplier = 1.0
 initial_camera_zoom = Vector2(0.22, 0.22)
 win_zoom_intensity = 0.1
