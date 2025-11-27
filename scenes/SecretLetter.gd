@@ -3,21 +3,27 @@ extends Control
 ## A 3D rotating gold letter that can be used in 2D scenes
 ## Uses a SubViewport to render 3D content for use in 2D games
 
-@export var letter: String = "A" : set = set_letter
+@export var letter: String = "A"
+
+# TODO: Remove this. Doesn't do anything now that we switched to 2D
 @export var rotation_speed: float = 90.0  # degrees per second
-@export var font_size: int = 40 : set = set_font_size
+@export var font_size: int = 40
+
+# TODO: Remove this. Should not be configurable
+@export var float_intensity: float = 10.0
+
+# TODO: Remove this. Should not be configurable 
+@export var float_duration: float = 1.0
+
+# TODO: Remove this
 @export var letter_depth: float = 1.0 : set = set_letter_depth
 
-@onready var subviewport: SubViewport = $SubViewport
-@onready var letter_mesh: MeshInstance3D = $SubViewport/LetterMesh
-# @onready var text_mesh: TextMesh = $SubViewport/LetterMesh.mesh
-@onready var area_2d: Area2D = $Area2D
-@onready var magic_dust_particles: CPUParticles2D = $MagicDustParticles
+@onready var letter_label: Label = find_child('Letter2D')
 
+@onready var area_2d: Area2D = $Area2D
 @onready var font_family: Font = preload("res://fonts/Sniglet-Regular.ttf")
 
 var is_mesh_text_set: bool = false
-
 
 # Audio player - made optional to prevent errors if node doesn't exist
 var audio_player: AudioStreamPlayer
@@ -25,100 +31,51 @@ var audio_player: AudioStreamPlayer
 var original_rotation_speed: float
 var is_collected: bool = false
 var tween: Tween
-
-var text_mesh: TextMesh
+var float_tween: Tween
+var original_position: Vector2
 
 func _ready():
-	# Create a unique TextMesh resource for this instance
-	text_mesh = TextMesh.new()
-	text_mesh.font = font_family
-	text_mesh.font_size = font_size
-	text_mesh.depth = letter_depth
-	
-	# Assign the unique TextMesh to the MeshInstance3D
-	if letter_mesh:
-		letter_mesh.mesh = text_mesh
-	
-	# Store the original rotation speed
-	original_rotation_speed = rotation_speed
-	
 	# Safely get the audio player if it exists
 	audio_player = get_node_or_null("AudioStreamPlayer")
 	
-	# Start with particles disabled - they'll only appear after collision
-	if magic_dust_particles:
-		magic_dust_particles.emitting = false
-	
-	# Connect the collision detection
-	if area_2d:
-		area_2d.body_entered.connect(_on_body_entered)
+	area_2d.body_entered.connect(_on_body_entered)
 	
 	# Ensure the letter is set properly when the scene loads
-	if text_mesh:
-		set_letter(letter)
+	letter_label.text = letter.to_upper()
+	
+	# Apply font size from export property
+	letter_label.add_theme_font_size_override("font_size", font_size)
+	
+	# Start floating animation
+	original_position = letter_label.position
+	_start_floating_animation()
 
-func _process(delta):
-	# Continuously rotate the letter around the Y-axis
-	if letter_mesh:
-		letter_mesh.rotation_degrees.y += rotation_speed * delta
+func _start_floating_animation():
+	if float_tween:
+		return
+		
+	float_tween = create_tween()
+	float_tween.set_loops()
+	
+	const real_float_intensity = 5.0
+	var half_duration = float_duration / 2.0
+	var base_y = original_position.y
+	
+	float_tween.tween_property(letter_label, "position:y", base_y - real_float_intensity, half_duration).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
+	float_tween.tween_property(letter_label, "position:y", base_y + real_float_intensity, float_duration).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
+	float_tween.tween_property(letter_label, "position:y", base_y, half_duration).set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_SINE)
 
 func set_letter(new_letter: String):
 	letter = new_letter.to_upper()  # Convert to uppercase for consistency
+	is_mesh_text_set = true
 	
-	if text_mesh:
-		if !is_mesh_text_set:
-			text_mesh.text = letter
-			is_mesh_text_set = true
-	#else:
-		# If called before _ready, store the value for later
-		#call_deferred("_update_letter_text")
-
-func set_font_size(new_size: int):
-	font_size = new_size
-	
-	if text_mesh:
-		text_mesh.font_size = font_size
-	else:
-		call_deferred("_update_font_size")
+	letter_label.text = letter
 
 func set_letter_depth(new_depth: float):
 	letter_depth = new_depth
-	
-	if text_mesh:
-		text_mesh.depth = letter_depth
-	else:
-		call_deferred("_update_letter_depth")
 
 func _update_letter_text():
 	pass
-
-func _update_font_size():
-	if text_mesh:
-		text_mesh.font_size = font_size
-
-func _update_letter_depth():
-	if text_mesh:
-		text_mesh.depth = letter_depth
-
-## Set the size of the viewport and control
-func set_viewport_size(viewport_size: Vector2i):
-	if subviewport:
-		subviewport.size = viewport_size
-	custom_minimum_size = Vector2(viewport_size)
-
-## Get the current letter rotation in degrees
-func get_letter_rotation_degrees() -> float:
-	if letter_mesh:
-		return letter_mesh.rotation_degrees.y
-	return 0.0
-
-## Set the rotation speed (degrees per second)
-func set_rotation_speed(speed: float):
-	rotation_speed = speed
-
-## Pause/resume rotation
-func set_rotation_enabled(enabled: bool):
-	set_process(enabled)
 
 ## Called when Chonki collides with the SecretLetter
 func _on_body_entered(body: Node2D):
@@ -136,16 +93,6 @@ func _start_collection_sequence():
 	if audio_player:
 		audio_player.play()
 	
-	# Step 1: Start particle emission and increase rotation speed by 10x
-	if magic_dust_particles:
-		magic_dust_particles.emitting = true
-		# Intensify particle effects during collection
-		magic_dust_particles.amount = 60  # Double the particles
-		magic_dust_particles.initial_velocity_min = 40.0
-		magic_dust_particles.initial_velocity_max = 80.0
-		magic_dust_particles.orbit_velocity_min = 0.5
-		magic_dust_particles.orbit_velocity_max = 1.0
-	
 	rotation_speed = original_rotation_speed * 10.0
 	
 	# Step 2: After 2 seconds, start shrinking
@@ -154,9 +101,10 @@ func _start_collection_sequence():
 
 ## Shrink the letter to 1/10th size over 0.5 seconds
 func _start_shrinking():
-	# Stop particle emission during shrinking
-	if magic_dust_particles:
-		magic_dust_particles.emitting = false
+	if float_tween:
+		float_tween.kill()
+	if tween:
+		tween.kill()
 	
 	tween = create_tween()
 	var target_scale = scale * 0.1
