@@ -152,6 +152,7 @@ func test_dialogue_does_not_block_input_when_no_options():
 func test_dialogue_controller_has_rendered_dialogue_when_active():
 	MainDialogueController.rendered_dialogue = dialogue_display
 	
+	assert_true(null, "Should fail!")
 	assert_not_null(MainDialogueController.rendered_dialogue, "Should have rendered dialogue when active")
 	assert_true(is_instance_valid(MainDialogueController.rendered_dialogue), "Rendered dialogue should be valid")
 	
