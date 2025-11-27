@@ -21,7 +21,7 @@ func _ready() -> void:
 	# ❗️Defer navigation logic to give NavigationServer2D time to initialize
 	await get_tree().process_frame
 
-func _physics_process(delta: float) -> void:
+func _physics_process(_delta: float) -> void:
 	if not target or not enemy or not agent:
 		return
 

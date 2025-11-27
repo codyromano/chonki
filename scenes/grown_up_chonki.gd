@@ -91,7 +91,7 @@ func _ready() -> void:
 	else:
 		GameState.total_stars = total_stars
 	# Set initial zoom level from signal or default
-	var initial_zoom = initial_camera_zoom
+	var _initial_zoom = initial_camera_zoom
 	camera2d.zoom = initial_camera_zoom
 	# Create a fullscreen ColorRect for fade effect
 	fade_rect = ColorRect.new()

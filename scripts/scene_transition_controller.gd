@@ -96,7 +96,7 @@ func _on_fade_complete():
 	var library_instance = library_scene.instantiate()
 	library_instance.win_word = GameState.get_current_level_puzzle_solution()
 	
-	var tree = get_tree()
+	var _tree = get_tree()
 	
 	SceneStack.push_existing(library_instance)
 	

@@ -85,7 +85,7 @@ func _process(_delta: float) -> void:
 		GlobalSignals.dismiss_active_main_dialogue.emit(current_instruction_trigger_id)
 
 
-func _create_dialogue(dialogue: String, trigger_id: String = "", avatar_name: String = "", choices: Array = []) -> PanelContainer:
+func _create_dialogue(dialogue: String, _trigger_id: String = "", avatar_name: String = "", choices: Array = []) -> PanelContainer:
 	current_dialogue_choices = choices
 	
 	var target_canvas_layer = _get_canvas_layer()

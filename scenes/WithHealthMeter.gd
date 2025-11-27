@@ -44,14 +44,14 @@ func _update_hearts():
 	var heart_size = Vector2(75, 75)
 	var heart_spacing = 200  # Gap between hearts
 	var total_width = (total_hearts * heart_size.x) + ((total_hearts - 1) * heart_spacing)
-	var start_x = -total_width / 2.0
+	var _start_x = -total_width / 2.0
 	
 	# Get child position for vertical offset
 	var child_pos = Vector2.ZERO
 	if child_node:
 		child_pos = child_node.global_position
 	
-	var heart_spacing_base = 200
+	var _heart_spacing_base = 200
 
 	
 	# Create hearts
