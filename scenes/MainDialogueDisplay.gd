@@ -48,10 +48,11 @@ func set_avatar(texture: CompressedTexture2D) -> void:
 func _on_typewriter_complete() -> void:
 	is_typewriter_active = false
 	
-	# Get choices from MainDialogueController singleton
 	var choices = MainDialogueController.get_dialogue_choices()
 	
-	if choices.size() > 0:
+	if choices.size() == 1 and choices[0].text == "Continue":
+		can_dismiss_dialogue = true
+	elif choices.size() > 0:
 		_create_dialogue_options(choices)
 	else:
 		can_dismiss_dialogue = true
@@ -86,14 +87,18 @@ func _process(_delta) -> void:
 	press_enter_label.visible = dialogue_options_count == 0 && !is_typewriter_active
 
 func _unhandled_input(event: InputEvent) -> void:
-	# Don't handle input if we're already dismissing or can't dismiss
 	if is_dismissing or !can_dismiss_dialogue:
 		return
 		
 	if event.is_action_pressed("ui_accept") or event.is_action_pressed("ui_up"):
 		is_dismissing = true
-		GlobalSignals.dismiss_active_main_dialogue.emit("")
-		# Stop the event from propagating further and prevent multiple dismissals.
+		
+		var choices = MainDialogueController.get_dialogue_choices()
+		if choices.size() == 1 and choices[0].text == "Continue":
+			GlobalSignals.dialogue_option_selected.emit(choices[0].id, "Continue")
+		else:
+			GlobalSignals.dismiss_active_main_dialogue.emit("")
+		
 		var viewport = get_viewport()
 		if viewport:
 			viewport.set_input_as_handled()
