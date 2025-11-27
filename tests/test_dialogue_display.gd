@@ -107,3 +107,54 @@ func test_first_dialogue_option_is_auto_focused():
 	assert_not_null(first_button, "Should have at least one visible button")
 	assert_true(dialogue_options_container.visible, "Dialogue options container should be visible")
 	assert_eq(dialogue_display.dialogue_options_count, 2, "Should have 2 dialogue options")
+
+func test_dialogue_blocks_ui_up_when_options_visible():
+	await wait_frames(1)
+	
+	var choices = [
+		{"id": "yes", "text": "Yes, I'll help!", "next_node": null},
+		{"id": "no", "text": "No, sorry.", "next_node": null}
+	]
+	
+	MainDialogueController.current_dialogue_choices = choices
+	dialogue_display._on_typewriter_complete()
+	
+	await wait_frames(2)
+	
+	var input_event = InputEventAction.new()
+	input_event.action = "ui_up"
+	input_event.pressed = true
+	
+	dialogue_display._unhandled_input(input_event)
+	
+	assert_true(get_viewport().is_input_handled(), "Should consume ui_up input when dialogue options are visible")
+
+func test_dialogue_does_not_block_input_when_no_options():
+	await wait_frames(1)
+	
+	dialogue_display.dialogue_options_count = 0
+	dialogue_display.can_dismiss_dialogue = true
+	dialogue_display.is_dismissing = false
+	
+	var dialogue_options_container = dialogue_display.get_node("VBoxContainer/VBoxContainer/DialogueOptions")
+	dialogue_options_container.visible = false
+	
+	watch_signals(GlobalSignals)
+	
+	var input_event = InputEventAction.new()
+	input_event.action = "ui_accept"
+	input_event.pressed = true
+	
+	dialogue_display._unhandled_input(input_event)
+	
+	assert_signal_emitted(GlobalSignals, "dismiss_active_main_dialogue", "Should dismiss dialogue when no options showing")
+
+func test_dialogue_controller_has_rendered_dialogue_when_active():
+	MainDialogueController.rendered_dialogue = dialogue_display
+	
+	assert_not_null(MainDialogueController.rendered_dialogue, "Should have rendered dialogue when active")
+	assert_true(is_instance_valid(MainDialogueController.rendered_dialogue), "Rendered dialogue should be valid")
+	
+	MainDialogueController.rendered_dialogue = null
+	
+	assert_null(MainDialogueController.rendered_dialogue, "Should clear rendered dialogue")
