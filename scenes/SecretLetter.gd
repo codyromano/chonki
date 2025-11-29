@@ -46,6 +46,9 @@ func _ready():
 	# Apply font size from export property
 	letter_label.add_theme_font_size_override("font_size", font_size)
 	
+	# Set pivot to center of the label for proper rotation
+	# letter_label.pivot_offset = letter_label.size / 2.0
+	
 	# Start floating animation
 	original_position = letter_label.position
 	_start_floating_animation()
@@ -93,9 +96,17 @@ func _start_collection_sequence():
 	if audio_player:
 		audio_player.play()
 	
-	rotation_speed = original_rotation_speed * 10.0
+	if float_tween:
+		float_tween.kill()
 	
-	# Step 2: After 2 seconds, start shrinking
+	var color_tween = create_tween()
+	color_tween.tween_property(letter_label, "modulate", Color(1, 1, 0, 1), 0.5).set_ease(Tween.EASE_OUT).set_trans(Tween.TRANS_CUBIC)
+	
+	var rotation_tween = create_tween()
+	rotation_tween.set_loops()
+	rotation_tween.tween_property(letter_label, "rotation", TAU, 0.5).set_trans(Tween.TRANS_LINEAR)
+	rotation_tween.tween_callback(func(): letter_label.rotation = 0)
+	
 	await get_tree().create_timer(2.0).timeout
 	_start_shrinking()
 
