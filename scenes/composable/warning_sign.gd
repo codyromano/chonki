@@ -12,13 +12,24 @@ func _ready() -> void:
 	if !sign_name:
 		push_error("Warning sign has unspecified name")
 
-func _process(_delta) -> void:
-	if Input.is_action_just_pressed("ui_accept"):
+func _unhandled_input(event: InputEvent) -> void:
+	if is_standing_by_sign and event.is_action_pressed("ui_accept"):
+		if MainDialogueController.rendered_dialogue != null:
+			return
+		
 		GlobalSignals.enter_warning_sign.emit(sign_name)
+		get_viewport().set_input_as_handled()
+		
+		var tween = create_tween()
+		tween.tween_property(label, "modulate:a", 0, FADE_SPEED)
+		await tween.finished
 
 func _on_body_entered(body: Node2D) -> void:
 	if body.name == 'ChonkiCharacter':
 		is_standing_by_sign = true
+		
+		if MainDialogueController.rendered_dialogue != null:
+			return
 		
 		# Fade in the instructional text 
 		var tween = create_tween()

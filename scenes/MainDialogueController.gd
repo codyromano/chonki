@@ -17,6 +17,7 @@ func _ready() -> void:
 	process_mode = Node.PROCESS_MODE_WHEN_PAUSED
 	GlobalSignals.queue_main_dialogue.connect(_on_dialogue_queued)
 	GlobalSignals.dismiss_active_main_dialogue.connect(_on_dismiss_active_dialogue)
+	GlobalSignals.enter_warning_sign.connect(_on_enter_warning_sign)
 	
 	# Configure all audio players to continue playing during dialogue pause
 	_configure_audio_players_for_dialogue()
@@ -156,6 +157,15 @@ func _on_dialogue_queued(dialogue: String, instruction_trigger_id: String = "", 
 
 func _on_dismiss_active_dialogue(_instruction_trigger_id: String) -> void:
 	_process_queue()
+
+func _on_enter_warning_sign(sign_name: String) -> void:
+	match sign_name:
+		"double_jump_lake":
+			GlobalSignals.queue_main_dialogue.emit(
+				"It looks like I need to learn how to double jump before crossing this water.",
+				"",
+				"gus"
+			)
 
 func get_dialogue_choices() -> Array:
 	return current_dialogue_choices
