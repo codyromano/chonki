@@ -1,8 +1,13 @@
 extends "res://scenes/quest_giver.gd"
 
 var volleyball_returned: bool = false
+var reward_given: bool = false
 
 func _get_dialogue_tree() -> DialogueTree:
+	var ruby_repeat = DialogueNode.new()
+	ruby_repeat.text = "Thanks again, Gus! Hope you enjoy the secret letter."
+	ruby_repeat.choices = []
+	
 	# Dialogue 2 - When Gus returns the ball (completion dialogue) - Part 3
 	var ruby_thanks_part3 = DialogueNode.new()
 	ruby_thanks_part3.text = "How can I ever thank you, Gus? OH! Here! Take this."
@@ -49,8 +54,10 @@ func _get_dialogue_tree() -> DialogueTree:
 	]
 
 	var ruby_tree = DialogueTree.new()
-	# Choose root based on whether volleyball has been returned
-	if volleyball_returned:
+	# Choose root based on quest state
+	if reward_given:
+		ruby_tree.root_node = ruby_repeat
+	elif volleyball_returned:
 		ruby_tree.root_node = ruby_thanks_part1
 	else:
 		ruby_tree.root_node = ruby_intro_part1
@@ -77,6 +84,7 @@ func _on_body_entered_override(body: Node2D) -> void:
 		sprite.play('happy')
 
 func on_dialogue_finished() -> void:
-	# Only emit signal if volleyball has been returned (completion dialogue was shown)
-	if volleyball_returned:
+	# Only emit signal if volleyball has been returned and reward not yet given
+	if volleyball_returned and not reward_given:
+		reward_given = true
 		GlobalSignals.unlock_ruby_quest_reward.emit()
