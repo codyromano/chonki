@@ -49,7 +49,8 @@ signal dismiss_instructional_text(instructions_id: String)
 signal display_instructional_text(instructions_id: String)
 @warning_ignore("unused_signal")
 signal lever_status_changed(lever_name: String, is_on: bool)
-@warning_ignore("unused_signal")
+@warning_ignore("unused_signal")@warning_ignore("unused_signal")
+signal unlock_isaac_quest_reward
 signal player_jump(intensity: float, entity_applying_force: String)
 @warning_ignore("unused_signal")
 signal horse_buck
@@ -86,4 +87,4 @@ signal unlock_ruby_quest_reward()
 @warning_ignore("unused_signal")
 signal spawn_item_in_location(item_name: PlayerInventory.Item)
 @warning_ignore("unused_signal")
-signal unlock_isaac_quest_reward
+signal enter_warning_sign(sign_name: String)

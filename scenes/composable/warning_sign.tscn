@@ -1,0 +1,36 @@
+[gd_scene load_steps=5 format=3 uid="uid://ds2iostgkakh2"]
+
+[ext_resource type="Script" uid="uid://e71klv7r7xaa" path="res://scenes/composable/warning_sign.gd" id="1_igesq"]
+[ext_resource type="Texture2D" uid="uid://y2w8c1eahi5a" path="res://assets/environment/sign.png" id="1_owql8"]
+[ext_resource type="FontFile" uid="uid://dlfbvpauldaco" path="res://fonts/Sniglet-Regular.ttf" id="3_8wxwm"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n5rn7"]
+size = Vector2(533, 746)
+
+[node name="WarningSign" type="Area2D"]
+z_index = 2
+script = ExtResource("1_igesq")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 2
+position = Vector2(0, -21)
+texture = ExtResource("1_owql8")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+z_index = 2
+position = Vector2(3, 1)
+shape = SubResource("RectangleShape2D_n5rn7")
+
+[node name="EnterLabel" type="Label" parent="."]
+modulate = Color(1, 1, 1, 0)
+offset_left = -393.0
+offset_top = -690.0
+offset_right = 424.0
+offset_bottom = -502.0
+theme_override_constants/outline_size = 100
+theme_override_fonts/font = ExtResource("3_8wxwm")
+theme_override_font_sizes/font_size = 150
+text = "Press 'Enter'"
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
