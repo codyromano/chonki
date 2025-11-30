@@ -1,4 +1,4 @@
-[gd_scene load_steps=117 format=3 uid="uid://br8ftak73gmww"]
+[gd_scene load_steps=118 format=3 uid="uid://br8ftak73gmww"]
 
 [ext_resource type="PackedScene" uid="uid://bk3oytbasgs5w" path="res://scenes/grown_up_chonki.tscn" id="1_6i0tl"]
 [ext_resource type="Script" uid="uid://b2cncqbuotdcl" path="res://scenes/level_1.gd" id="1_hvrd6"]
@@ -141,6 +141,9 @@ animations = [{
 "speed": 3.0
 }]
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_n5rn7"]
+size = Vector2(763.363, 472.117)
+
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_n5rn7"]
 vertices = PackedVector2Array(14971.8, -23, 9449.9, -23, 9407.09, -4386.13, 14898.2, -4459.86)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
@@ -182,9 +185,9 @@ radius = 218.555
 height = 437.11
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_1ju1f"]
-vertices = PackedVector2Array(17123.8, -4181.03, 17043.2, 8, 6966.93, 16.9922, 6941.06, -4216.96)
-polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(6957, 27, 6931, -4227, 17134, -4191, 17053, 18)])
+vertices = PackedVector2Array(17123.8, -4181.03, 17043.2, 7.77344, 12904.7, -86.7812, 12791.7, -4100.67, 11294.1, -812.297, 11133.3, 13.2734, 6966.93, 16.9922, 6941.06, -4216.96, 11516.7, -4145.33)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Array(4, 5, 6, 7, 8), PackedInt32Array(8, 7, 0), PackedInt32Array(8, 0, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(6957, 27, 6931, -4227, 17134, -4191, 17053, 18, 12895, -77, 12782, -4091, 11526, -4135, 11304, -811, 11141.6, 23.27)])
 source_geometry_group_name = &"navigation_polygon_source_group"
 
 [sub_resource type="Curve2D" id="Curve2D_dkkmk"]
@@ -832,7 +835,7 @@ texture = ExtResource("15_gqhdx")
 
 [node name="CrowBody" type="CharacterBody2D" parent="World2D/NPCs"]
 z_index = 1
-position = Vector2(108444, -5290)
+position = Vector2(108444, -4838)
 rotation = 0.797312
 script = ExtResource("15_4leuf")
 
@@ -852,17 +855,17 @@ autoplay = "default"
 frame_progress = 0.83919
 
 [node name="EndMarker" type="Marker2D" parent="World2D/NPCs/CrowBody"]
-position = Vector2(5319.48, -5484.11)
+position = Vector2(529.563, -578.679)
 
 [node name="StartMarker" type="Marker2D" parent="World2D/NPCs/CrowBody"]
-position = Vector2(-1848.58, 2027.14)
+position = Vector2(-3222.19, 3433.88)
 
 [node name="BranchMarker" type="Marker2D" parent="World2D/NPCs/CrowBody"]
 position = Vector2(13066.8, 9372.55)
 
 [node name="CrowBody2" type="CharacterBody2D" parent="World2D/NPCs"]
 z_index = 1
-position = Vector2(107128, -15701)
+position = Vector2(108444, -7314)
 rotation = 0.797312
 script = ExtResource("15_4leuf")
 
@@ -871,10 +874,10 @@ visible = false
 position = Vector2(-53.2764, -105.471)
 rotation = -0.851153
 scale = Vector2(0.951186, 0.679637)
-shape = SubResource("RectangleShape2D_adkmy")
+shape = SubResource("RectangleShape2D_n5rn7")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World2D/NPCs/CrowBody2"]
-position = Vector2(13.6614, -441.107)
+position = Vector2(-2460.3, 2092.52)
 rotation = -0.74351
 scale = Vector2(1.747, 1.747)
 sprite_frames = SubResource("SpriteFrames_euimj")
@@ -882,13 +885,13 @@ autoplay = "default"
 frame_progress = 0.83919
 
 [node name="EndMarker" type="Marker2D" parent="World2D/NPCs/CrowBody2"]
-position = Vector2(-4182.06, 1488.88)
+position = Vector2(529.563, -578.679)
 
 [node name="StartMarker" type="Marker2D" parent="World2D/NPCs/CrowBody2"]
-position = Vector2(6177.42, -323.234)
+position = Vector2(-3222.19, 3433.88)
 
 [node name="BranchMarker" type="Marker2D" parent="World2D/NPCs/CrowBody2"]
-position = Vector2(17410.4, 18582.3)
+position = Vector2(13066.8, 9372.55)
 
 [node name="NPCLinearPatrolLoop" type="Node2D" parent="World2D/NPCs" node_paths=PackedStringArray("body")]
 visible = false
@@ -974,7 +977,7 @@ position = Vector2(94419, 228)
 navigation_polygon = SubResource("NavigationPolygon_1ju1f")
 
 [node name="Goose2" type="CharacterBody2D" parent="World2D/NPCs/Enemies/GooseRegion2D3"]
-position = Vector2(12080, -691)
+position = Vector2(13533, -681)
 collision_layer = 2
 collision_mask = 9
 script = ExtResource("13_rdfy5")
@@ -1212,7 +1215,6 @@ collision_mask = 255
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/Platforms & Barriers/Ground"]
 z_index = 100
 position = Vector2(5419.6, 40)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_4w6xv")
 debug_color = Color(0.307035, 0.494072, 1, 0.42)
 
@@ -1225,7 +1227,6 @@ collision_mask = 255
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/Platforms & Barriers/Ground3"]
 z_index = 100
 position = Vector2(5587.9, 35.6)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_4w6xv")
 debug_color = Color(0.307035, 0.494072, 1, 0.42)
 
@@ -1251,7 +1252,6 @@ script = ExtResource("47_ocean")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/Platforms & Barriers/OceanFloor"]
 z_index = 100
 position = Vector2(11137.7, 165.4)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_7hmix")
 debug_color = Color(0.307035, 0.494072, 1, 0.42)
 
@@ -1261,7 +1261,6 @@ collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/Platforms & Barriers/OceanFloor/OceanFloorDamageArea"]
 position = Vector2(11235.4, 102.5)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_7hmix")
 
 [node name="CherryTreeBody2" type="StaticBody2D" parent="World2D/Platforms & Barriers"]
@@ -1303,7 +1302,7 @@ leg_height = 55.0
 
 [node name="VolleyballNet5" parent="World2D/Platforms & Barriers/Volleyballs" instance=ExtResource("17_nrtx7")]
 position = Vector2(111671, -12799)
-leg_height = 80.0
+leg_height = 300.0
 
 [node name="VolleyballNet2" parent="World2D/Platforms & Barriers/Volleyballs" instance=ExtResource("17_nrtx7")]
 position = Vector2(114687, -8948)
@@ -1587,6 +1586,7 @@ position = Vector2(53, 0)
 [node name="SpawnLocation" parent="World2D/Collectibles/Pottery" instance=ExtResource("59_x7a8r")]
 z_index = 5
 position = Vector2(83729, -2708)
+auto_spawn = true
 
 [node name="Pottery1" parent="World2D/Collectibles/Pottery/SpawnLocation" instance=ExtResource("32_5ipuv")]
 z_index = 5
@@ -1601,6 +1601,7 @@ audio = ExtResource("66_574qs")
 z_index = 5
 position = Vector2(85724, -1301)
 item_name = 1
+auto_spawn = true
 
 [node name="Pottery2" parent="World2D/Collectibles/Pottery/SpawnLocation2" instance=ExtResource("32_5ipuv")]
 z_index = 5
@@ -1615,6 +1616,7 @@ audio = ExtResource("66_574qs")
 z_index = 5
 position = Vector2(82403, -5082)
 item_name = 2
+auto_spawn = true
 
 [node name="Pottery3" parent="World2D/Collectibles/Pottery/SpawnLocation3" instance=ExtResource("32_5ipuv")]
 z_index = 5

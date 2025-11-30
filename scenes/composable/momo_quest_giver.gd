@@ -83,10 +83,6 @@ func get_next_dialogue_node_custom(current_node: DialogueNode, selected_option_i
 	if selected_option_id == "momo-accept":
 		quest_accepted = true
 		PlayerInventory.add_item(PlayerInventory.Item.MOMO_QUEST)
-		# Spawn pottery collectibles
-		GlobalSignals.spawn_item_in_location.emit(PlayerInventory.Item.POTTERY_1)
-		GlobalSignals.spawn_item_in_location.emit(PlayerInventory.Item.POTTERY_2)
-		GlobalSignals.spawn_item_in_location.emit(PlayerInventory.Item.POTTERY_3)
 	
 	# Proceed with normal dialogue flow 
 	return get_next_dialogue_node(current_node, selected_option_id)
