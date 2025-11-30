@@ -145,9 +145,9 @@ animations = [{
 size = Vector2(763.363, 472.117)
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_n5rn7"]
-vertices = PackedVector2Array(14971.8, -23, 9449.9, -23, 9407.09, -4386.13, 14898.2, -4459.86)
+vertices = PackedVector2Array(15271.7, -2068.45, 15421.2, 10.75, 13678.2, -28.7891, 13494.9, -2158.42)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(9440, -13, 9397, -4396, 14908, -4470, 14982, -13)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(13669, -19, 13484, -2169, 15281, -2078, 15432, 21)])
 source_geometry_group_name = &"navigation_polygon_source_group"
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_8w215"]
@@ -840,8 +840,7 @@ rotation = 0.797312
 script = ExtResource("15_4leuf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/NPCs/CrowBody"]
-visible = false
-position = Vector2(-53.2764, -105.471)
+position = Vector2(-5.94767, -499.182)
 rotation = -0.851153
 scale = Vector2(0.951186, 0.679637)
 shape = SubResource("RectangleShape2D_adkmy")
@@ -861,7 +860,7 @@ position = Vector2(529.563, -578.679)
 position = Vector2(-3222.19, 3433.88)
 
 [node name="BranchMarker" type="Marker2D" parent="World2D/NPCs/CrowBody"]
-position = Vector2(13066.8, 9372.55)
+position = Vector2(23560.1, 19618.8)
 
 [node name="CrowBody2" type="CharacterBody2D" parent="World2D/NPCs"]
 z_index = 1
@@ -870,8 +869,7 @@ rotation = 0.797312
 script = ExtResource("15_4leuf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/NPCs/CrowBody2"]
-visible = false
-position = Vector2(-53.2764, -105.471)
+position = Vector2(-2405.33, 2112.65)
 rotation = -0.851153
 scale = Vector2(0.951186, 0.679637)
 shape = SubResource("RectangleShape2D_n5rn7")
@@ -891,13 +889,89 @@ position = Vector2(529.563, -578.679)
 position = Vector2(-3222.19, 3433.88)
 
 [node name="BranchMarker" type="Marker2D" parent="World2D/NPCs/CrowBody2"]
-position = Vector2(13066.8, 9372.55)
+position = Vector2(23560.1, 19618.8)
+
+[node name="CrowBody3" type="CharacterBody2D" parent="World2D/NPCs"]
+z_index = 1
+position = Vector2(115649, -9525)
+rotation = 0.797312
+script = ExtResource("15_4leuf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/NPCs/CrowBody3"]
+position = Vector2(-2405.33, 2112.65)
+rotation = -0.851153
+scale = Vector2(0.951186, 0.679637)
+shape = SubResource("RectangleShape2D_n5rn7")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World2D/NPCs/CrowBody3"]
+position = Vector2(-2460.3, 2092.52)
+rotation = -0.74351
+scale = Vector2(1.747, 1.747)
+sprite_frames = SubResource("SpriteFrames_euimj")
+autoplay = "default"
+frame_progress = 0.83919
+
+[node name="EndMarker" type="Marker2D" parent="World2D/NPCs/CrowBody3"]
+position = Vector2(-14895.8, 1937.59)
+
+[node name="StartMarker" type="Marker2D" parent="World2D/NPCs/CrowBody3"]
+position = Vector2(-8749.39, 6728.89)
+
+[node name="BranchMarker" type="Marker2D" parent="World2D/NPCs/CrowBody3"]
+position = Vector2(23560.1, 19618.8)
+
+[node name="CrowBody4" type="CharacterBody2D" parent="World2D/NPCs"]
+z_index = 1
+position = Vector2(109873, -16858)
+rotation = 0.797312
+script = ExtResource("15_4leuf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/NPCs/CrowBody4"]
+position = Vector2(-2405.33, 2112.65)
+rotation = -0.851153
+scale = Vector2(0.951186, 0.679637)
+shape = SubResource("RectangleShape2D_n5rn7")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World2D/NPCs/CrowBody4"]
+position = Vector2(-1951.31, 2589.52)
+rotation = -0.74351
+scale = Vector2(1.747, 1.747)
+sprite_frames = SubResource("SpriteFrames_euimj")
+autoplay = "default"
+frame_progress = 0.83919
+
+[node name="EndMarker" type="Marker2D" parent="World2D/NPCs/CrowBody4"]
+position = Vector2(1407.76, -431.172)
+
+[node name="StartMarker" type="Marker2D" parent="World2D/NPCs/CrowBody4"]
+position = Vector2(-3626.84, 4524.46)
+
+[node name="BranchMarker" type="Marker2D" parent="World2D/NPCs/CrowBody4"]
+position = Vector2(23560.1, 19618.8)
 
 [node name="NPCLinearPatrolLoop" type="Node2D" parent="World2D/NPCs" node_paths=PackedStringArray("body")]
 visible = false
 script = ExtResource("23_a4ecq")
 body = NodePath("../CrowBody")
 move_duration = 7.0
+
+[node name="NPCLinearPatrolLoop2" type="Node2D" parent="World2D/NPCs" node_paths=PackedStringArray("body")]
+visible = false
+script = ExtResource("23_a4ecq")
+body = NodePath("../CrowBody2")
+move_duration = 7.0
+
+[node name="NPCLinearPatrolLoop3" type="Node2D" parent="World2D/NPCs" node_paths=PackedStringArray("body")]
+visible = false
+script = ExtResource("23_a4ecq")
+body = NodePath("../CrowBody3")
+move_duration = 4.0
+
+[node name="NPCLinearPatrolLoop4" type="Node2D" parent="World2D/NPCs" node_paths=PackedStringArray("body")]
+visible = false
+script = ExtResource("23_a4ecq")
+body = NodePath("../CrowBody4")
+move_duration = 3.0
 
 [node name="Enemies" type="Node" parent="World2D/NPCs"]
 
@@ -937,7 +1011,7 @@ stream = ExtResource("20_f7bbt")
 volume_db = 10.0
 
 [node name="GooseRegion2D4" type="NavigationRegion2D" parent="World2D/NPCs/Enemies"]
-position = Vector2(92006, -13335)
+position = Vector2(92006, -12197)
 navigation_polygon = SubResource("NavigationPolygon_n5rn7")
 
 [node name="Goose" type="CharacterBody2D" parent="World2D/NPCs/Enemies/GooseRegion2D4"]
@@ -1076,7 +1150,7 @@ position = Vector2(109534, -12346)
 position = Vector2(117936, -12282)
 
 [node name="OtterPath2D" type="Path2D" parent="World2D/NPCs/Enemies"]
-position = Vector2(143962, -8809)
+position = Vector2(184373, -22039)
 curve = SubResource("Curve2D_dkkmk")
 script = ExtResource("46_otter")
 loop_duration = 5.0
@@ -1087,7 +1161,7 @@ rotation = -0.346811
 progress = 9700.05
 
 [node name="OtterArea2D" type="Area2D" parent="World2D/NPCs/Enemies/OtterPath2D/PathFollow2D"]
-position = Vector2(34126.4, 2407.94)
+position = Vector2(76628.3, 3701.35)
 rotation = 0.401426
 collision_layer = 2
 
@@ -1104,7 +1178,7 @@ position = Vector2(9.21094, 18.9561)
 shape = SubResource("RectangleShape2D_sejw4")
 
 [node name="OtterPath2D2" type="Path2D" parent="World2D/NPCs/Enemies"]
-position = Vector2(151688, -8809)
+position = Vector2(192099, -22039)
 curve = SubResource("Curve2D_dkkmk")
 script = ExtResource("46_otter")
 loop_duration = 5.0
@@ -1115,7 +1189,7 @@ rotation = -0.346811
 progress = 9700.05
 
 [node name="OtterArea2D" type="Area2D" parent="World2D/NPCs/Enemies/OtterPath2D2/PathFollow2D"]
-position = Vector2(34126.4, 2407.94)
+position = Vector2(76628.3, 3701.35)
 rotation = 0.401426
 collision_layer = 2
 
@@ -1301,8 +1375,7 @@ position = Vector2(65788.5, -529)
 leg_height = 55.0
 
 [node name="VolleyballNet5" parent="World2D/Platforms & Barriers/Volleyballs" instance=ExtResource("17_nrtx7")]
-position = Vector2(111671, -12799)
-leg_height = 300.0
+position = Vector2(111671, -11661)
 
 [node name="VolleyballNet2" parent="World2D/Platforms & Barriers/Volleyballs" instance=ExtResource("17_nrtx7")]
 position = Vector2(114687, -8948)
@@ -1667,11 +1740,10 @@ sign_name = "double_jump_lake"
 position = Vector2(91431, -260)
 sign_name = "geese_danger"
 
-[node name="GrownUpChonki" parent="." node_paths=PackedStringArray("debug_start_marker") instance=ExtResource("1_6i0tl")]
+[node name="GrownUpChonki" parent="." instance=ExtResource("1_6i0tl")]
 z_index = 2
 position = Vector2(70890, -704)
 script = ExtResource("73_ix5rl")
-debug_start_marker = NodePath("../Debug/GusDebugStartMarker")
 jump_multiplier = 1.25
 midair_jumps = 10
 speed_multiplier = 1.0

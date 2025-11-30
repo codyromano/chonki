@@ -15,7 +15,7 @@ position = Vector2(1115, 903)
 scale = Vector2(2.4209, 2.4209)
 texture = ExtResource("1_h6hxh")
 script = ExtResource("2_vcodj")
-leg_height = 100.0
+leg_height = 300.0
 
 [node name="StaticBody2D" type="StaticBody2D" parent="."]
 position = Vector2(0, 97.0713)
