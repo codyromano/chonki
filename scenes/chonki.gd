@@ -320,6 +320,8 @@ func player_die():
 	
 	if PlayerInventory.last_damage_source == "ocean":
 		FadeTransition.show_message_and_reload("Gus went home to take a bath", 0.25, 3.0)
+	elif PlayerInventory.last_damage_source == "goose_boss":
+		FadeTransition.show_message_and_reload("Don't mess with mama goose", 0.25, 3.0)
 	else:
 		FadeTransition.fade_out_and_change_scene(get_tree().current_scene.scene_file_path, 0.0, 1.0)
 

@@ -192,9 +192,9 @@ source_geometry_group_name = &"navigation_polygon_source_group"
 
 [sub_resource type="Curve2D" id="Curve2D_dkkmk"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 363, 469, 0, 0, 0, 0, -2333, 1098, 0, 0, 0, 0, -4898, 189, 0, 0, 0, 0, -4580, -2274, 0, 0, 0, 0, -2325, -3089, 0, 0, 0, 0, 210, -2040, 0, 0, 0, 0, 363, 461)
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0)
 }
-point_count = 7
+point_count = 1
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_4xi8u"]
 animations = [{
@@ -844,6 +844,7 @@ position = Vector2(-5.94767, -499.182)
 rotation = -0.851153
 scale = Vector2(0.951186, 0.679637)
 shape = SubResource("RectangleShape2D_adkmy")
+one_way_collision = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World2D/NPCs/CrowBody"]
 position = Vector2(13.6614, -441.107)
@@ -873,6 +874,7 @@ position = Vector2(-2405.33, 2112.65)
 rotation = -0.851153
 scale = Vector2(0.951186, 0.679637)
 shape = SubResource("RectangleShape2D_n5rn7")
+one_way_collision = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World2D/NPCs/CrowBody2"]
 position = Vector2(-2460.3, 2092.52)
@@ -902,6 +904,7 @@ position = Vector2(-2405.33, 2112.65)
 rotation = -0.851153
 scale = Vector2(0.951186, 0.679637)
 shape = SubResource("RectangleShape2D_n5rn7")
+one_way_collision = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World2D/NPCs/CrowBody3"]
 position = Vector2(-2460.3, 2092.52)
@@ -927,10 +930,11 @@ rotation = 0.797312
 script = ExtResource("15_4leuf")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/NPCs/CrowBody4"]
-position = Vector2(-2405.33, 2112.65)
+position = Vector2(-1925.24, 2581.43)
 rotation = -0.851153
 scale = Vector2(0.951186, 0.679637)
 shape = SubResource("RectangleShape2D_n5rn7")
+one_way_collision = true
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World2D/NPCs/CrowBody4"]
 position = Vector2(-1951.31, 2589.52)
@@ -1014,34 +1018,34 @@ volume_db = 10.0
 position = Vector2(92006, -12197)
 navigation_polygon = SubResource("NavigationPolygon_n5rn7")
 
-[node name="Goose" type="CharacterBody2D" parent="World2D/NPCs/Enemies/GooseRegion2D4"]
+[node name="GooseBoss" type="CharacterBody2D" parent="World2D/NPCs/Enemies/GooseRegion2D4"]
 position = Vector2(14456, -488)
 collision_layer = 2
 collision_mask = 9
 script = ExtResource("13_rdfy5")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World2D/NPCs/Enemies/GooseRegion2D4/Goose"]
-position = Vector2(31.0001, 266)
-scale = Vector2(0.570312, 0.570312)
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World2D/NPCs/Enemies/GooseRegion2D4/GooseBoss"]
+position = Vector2(31.0001, -115)
+scale = Vector2(1.37031, 1.37031)
 sprite_frames = SubResource("SpriteFrames_8w215")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/NPCs/Enemies/GooseRegion2D4/Goose"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/NPCs/Enemies/GooseRegion2D4/GooseBoss"]
 position = Vector2(24, 259)
 rotation = 0.948541
 shape = SubResource("CapsuleShape2D_nwbuc")
 
-[node name="GooseNavigation" type="NavigationAgent2D" parent="World2D/NPCs/Enemies/GooseRegion2D4/Goose"]
+[node name="GooseNavigation" type="NavigationAgent2D" parent="World2D/NPCs/Enemies/GooseRegion2D4/GooseBoss"]
 script = ExtResource("16_vuaih")
 
-[node name="Timer" type="Timer" parent="World2D/NPCs/Enemies/GooseRegion2D4/Goose"]
+[node name="Timer" type="Timer" parent="World2D/NPCs/Enemies/GooseRegion2D4/GooseBoss"]
 wait_time = 2.5
 autostart = true
 
-[node name="FlapAudio" type="AudioStreamPlayer2D" parent="World2D/NPCs/Enemies/GooseRegion2D4/Goose"]
+[node name="FlapAudio" type="AudioStreamPlayer2D" parent="World2D/NPCs/Enemies/GooseRegion2D4/GooseBoss"]
 stream = ExtResource("18_60djy")
 volume_db = 10.0
 
-[node name="GooseDefeated" type="AudioStreamPlayer2D" parent="World2D/NPCs/Enemies/GooseRegion2D4/Goose"]
+[node name="GooseDefeated" type="AudioStreamPlayer2D" parent="World2D/NPCs/Enemies/GooseRegion2D4/GooseBoss"]
 stream = ExtResource("20_f7bbt")
 volume_db = 10.0
 
@@ -1156,8 +1160,8 @@ script = ExtResource("46_otter")
 loop_duration = 5.0
 
 [node name="PathFollow2D" type="PathFollow2D" parent="World2D/NPCs/Enemies/OtterPath2D"]
-position = Vector2(-2955.92, -2860.97)
-rotation = -0.346811
+position = Vector2(363, 461)
+rotation = 1.5097
 progress = 9700.05
 
 [node name="OtterArea2D" type="Area2D" parent="World2D/NPCs/Enemies/OtterPath2D/PathFollow2D"]
@@ -1178,14 +1182,14 @@ position = Vector2(9.21094, 18.9561)
 shape = SubResource("RectangleShape2D_sejw4")
 
 [node name="OtterPath2D2" type="Path2D" parent="World2D/NPCs/Enemies"]
-position = Vector2(192099, -22039)
+position = Vector2(112402, 78125)
 curve = SubResource("Curve2D_dkkmk")
 script = ExtResource("46_otter")
 loop_duration = 5.0
 
 [node name="PathFollow2D" type="PathFollow2D" parent="World2D/NPCs/Enemies/OtterPath2D2"]
-position = Vector2(-2955.92, -2860.97)
-rotation = -0.346811
+position = Vector2(363, 461)
+rotation = 1.5097
 progress = 9700.05
 
 [node name="OtterArea2D" type="Area2D" parent="World2D/NPCs/Enemies/OtterPath2D2/PathFollow2D"]
@@ -1950,7 +1954,7 @@ position = Vector2(1521, -4733)
 shape = SubResource("RectangleShape2D_hqycr")
 
 [connection signal="timeout" from="World2D/NPCs/Enemies/GooseRegion2D2/Goose/Timer" to="World2D/NPCs/Enemies/GooseRegion2D2/Goose" method="_on_hop_timer_timeout"]
-[connection signal="timeout" from="World2D/NPCs/Enemies/GooseRegion2D4/Goose/Timer" to="World2D/NPCs/Enemies/GooseRegion2D4/Goose" method="_on_hop_timer_timeout"]
+[connection signal="timeout" from="World2D/NPCs/Enemies/GooseRegion2D4/GooseBoss/Timer" to="World2D/NPCs/Enemies/GooseRegion2D4/GooseBoss" method="_on_hop_timer_timeout"]
 [connection signal="timeout" from="World2D/NPCs/Enemies/GooseRegion2D3/Goose2/Timer" to="World2D/NPCs/Enemies/GooseRegion2D3/Goose2" method="_on_hop_timer_timeout"]
 [connection signal="timeout" from="World2D/NPCs/Enemies/GooseRegion2D3/Goose3/Timer" to="World2D/NPCs/Enemies/GooseRegion2D3/Goose3" method="_on_hop_timer_timeout"]
 [connection signal="timeout" from="World2D/NPCs/Enemies/GooseRegion2D3/Goose4/Timer" to="World2D/NPCs/Enemies/GooseRegion2D3/Goose4" method="_on_hop_timer_timeout"]

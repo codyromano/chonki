@@ -141,10 +141,18 @@ func _physics_process(delta: float) -> void:
 						states[GooseState.DEFEATED] = true
 						goose_disappear()
 					, 2)
-				elif !states.has(GooseState.DEFEATED): 
-					Utils.throttle('player_hit', func():
-						GlobalSignals.player_hit.emit("goose")
-					, 3)
+				elif !states.has(GooseState.DEFEATED):
+					var damage_source = "goose_boss" if name == "GooseBoss" else "goose"
+					if name == "GooseBoss":
+						Utils.throttle('player_hit_boss', func():
+							GlobalSignals.player_hit.emit(damage_source)
+							GlobalSignals.player_hit.emit(damage_source)
+							GlobalSignals.player_hit.emit(damage_source)
+						, 3)
+					else:
+						Utils.throttle('player_hit', func():
+							GlobalSignals.player_hit.emit(damage_source)
+						, 3)
 	else:
 		# Move without collision detection when disabled
 		position += velocity * delta
