@@ -40,5 +40,3 @@ func _ready() -> void:
 	$LegEndRight.position.y = bottom_point_in_parent_space.y
 	
 	
-
-

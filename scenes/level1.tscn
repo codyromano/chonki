@@ -1,4 +1,4 @@
-[gd_scene load_steps=114 format=3 uid="uid://br8ftak73gmww"]
+[gd_scene load_steps=116 format=3 uid="uid://br8ftak73gmww"]
 
 [ext_resource type="PackedScene" uid="uid://bk3oytbasgs5w" path="res://scenes/grown_up_chonki.tscn" id="1_6i0tl"]
 [ext_resource type="Script" uid="uid://b2cncqbuotdcl" path="res://scenes/level_1.gd" id="1_hvrd6"]
@@ -87,6 +87,7 @@
 [ext_resource type="AudioStream" uid="uid://c4pq71yiir21k" path="res://assets/sound/library_open.mp3" id="82_ix5rl"]
 [ext_resource type="Script" uid="uid://djn0u7mqiiuj" path="res://scripts/scene_transition_controller.gd" id="83_scene_transition"]
 [ext_resource type="PackedScene" uid="uid://ds2iostgkakh2" path="res://scenes/composable/warning_sign.tscn" id="87_hqycr"]
+[ext_resource type="Script" uid="uid://dkrht4013uca1" path="res://scenes/zoom_area.gd" id="88_n5rn7"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_adkmy"]
 size = Vector2(763.363, 472.117)
@@ -379,6 +380,9 @@ animations = [{
 "name": &"open",
 "speed": 5.0
 }]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hqycr"]
+size = Vector2(6402, 10112.5)
 
 [node name="Level1" type="Node2D"]
 position = Vector2(-5159, -12)
@@ -1289,7 +1293,7 @@ is_disabled_on_swivel = false
 
 [node name="BranchL2" parent="World2D/Platforms & Barriers/TreeMaze" instance=ExtResource("35_v3v4h")]
 z_index = 1
-position = Vector2(-2038, -2856)
+position = Vector2(-2038, -3231)
 initial_rotation_degrees = 180.0
 swivel_rotation_degrees = 80.0
 swivel_animation_duration = 2.0
@@ -1780,6 +1784,16 @@ volume_db = -21.83
 [node name="WarningSign" parent="." instance=ExtResource("87_hqycr")]
 position = Vector2(80106, -248)
 sign_name = "double_jump_lake"
+
+[node name="ZoomArea" type="Area2D" parent="."]
+position = Vector2(76416, -347)
+script = ExtResource("88_n5rn7")
+camera_zoom = Vector2(0.1, 0.1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ZoomArea"]
+z_index = 1
+position = Vector2(1521, -4733)
+shape = SubResource("RectangleShape2D_hqycr")
 
 [connection signal="timeout" from="World2D/NPCs/Enemies/GooseRegion2D/Goose/Timer" to="World2D/NPCs/Enemies/GooseRegion2D/Goose" method="_on_hop_timer_timeout"]
 [connection signal="timeout" from="World2D/NPCs/Enemies/GooseRegion2D2/Goose/Timer" to="World2D/NPCs/Enemies/GooseRegion2D2/Goose" method="_on_hop_timer_timeout"]
