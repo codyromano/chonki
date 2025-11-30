@@ -18,11 +18,13 @@ const INITIAL_HEARTS: int = 3
 
 var items: Array[Item] = []
 var total_hearts: int = INITIAL_HEARTS
+var last_damage_source: String = ""
 
 func _ready() -> void:
 	GlobalSignals.player_hit.connect(_on_player_hit)
 
-func _on_player_hit() -> void:
+func _on_player_hit(damage_source: String) -> void:
+	last_damage_source = damage_source
 	remove_heart()
 
 func get_total_hearts() -> int:

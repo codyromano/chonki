@@ -22,7 +22,7 @@ func _ready():
 
 func _on_body_entered(body: Node2D):
 	if body.name == "ChonkiCharacter":
-		GlobalSignals.player_hit.emit()
+		GlobalSignals.player_hit.emit("otter")
 
 func _process(delta: float):
 	_rotation_timer += delta

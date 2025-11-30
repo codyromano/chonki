@@ -10,4 +10,4 @@ func _ready():
 	
 func on_child_entered_tree(collided_with: Node2D) -> void:
 	if collided_with.name == "Chonki":
-		GlobalSignals.player_hit.emit()
+		GlobalSignals.player_hit.emit("enemy")

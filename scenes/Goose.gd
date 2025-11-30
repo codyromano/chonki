@@ -143,7 +143,7 @@ func _physics_process(delta: float) -> void:
 					, 2)
 				elif !states.has(GooseState.DEFEATED): 
 					Utils.throttle('player_hit', func():
-						GlobalSignals.player_hit.emit()
+						GlobalSignals.player_hit.emit("goose")
 					, 3)
 	else:
 		# Move without collision detection when disabled

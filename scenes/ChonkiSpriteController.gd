@@ -43,7 +43,7 @@ func _on_chonki_state_updated(new_velocity, on_floor, sliding, can_slide, last_a
 	update_sprite()
 	play_sound_effects()
 
-func _on_player_hit() -> void:
+func _on_player_hit(_damage_source: String) -> void:
 	hit_time = Time.get_unix_time_from_system()
 	GlobalSignals.play_sfx.emit("ouch")
 

@@ -150,7 +150,7 @@ func wait_for_chonki_to_land() -> void:
 	while not body.is_on_floor():
 		await get_tree().process_frame
 
-func on_player_hit() -> void:
+func on_player_hit(_damage_source: String) -> void:
 	$ChonkiCharacter/AudioOuch.play()
 	hit_time = Time.get_unix_time_from_system()
 	
@@ -317,7 +317,11 @@ func player_die():
 	body.set_process(false)
 	body.set_physics_process(false)
 	await get_tree().create_timer(3.0, false).timeout
-	FadeTransition.fade_out_and_change_scene(get_tree().current_scene.scene_file_path, 0.0, 1.0)
+	
+	if PlayerInventory.last_damage_source == "ocean":
+		FadeTransition.show_message_and_reload("Gus went home to take a bath", 0.25, 3.0)
+	else:
+		FadeTransition.fade_out_and_change_scene(get_tree().current_scene.scene_file_path, 0.0, 1.0)
 
 # Handler to update Chonki position as the kite rotates while hanging
 func _on_kite_rotated(kite_position: Vector2, kite_rotation_deg: int, factor: float) -> void:

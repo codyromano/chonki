@@ -9,6 +9,6 @@ func _ready():
 func _on_body_entered(body: Node2D) -> void:
 	if body.name == "ChonkiCharacter":
 		# Ocean floor contact removes all three hearts
-		GlobalSignals.player_hit.emit()
-		GlobalSignals.player_hit.emit()
-		GlobalSignals.player_hit.emit()
+		GlobalSignals.player_hit.emit("ocean")
+		GlobalSignals.player_hit.emit("ocean")
+		GlobalSignals.player_hit.emit("ocean")

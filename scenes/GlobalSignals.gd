@@ -2,7 +2,7 @@ extends Node
 
 # Causes player to lose one life
 @warning_ignore("unused_signal")
-signal player_hit
+signal player_hit(damage_source: String)
 @warning_ignore("unused_signal")
 signal star_collected
 @warning_ignore("unused_signal")
