@@ -142,9 +142,9 @@ animations = [{
 }]
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_n5rn7"]
-vertices = PackedVector2Array(14828.6, -2290.08, 14971.4, -23, 9450.17, -23, 9489.83, -2340.9)
+vertices = PackedVector2Array(14971.8, -23, 9449.9, -23, 9407.09, -4386.13, 14898.2, -4459.86)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(9440, -13, 9480, -2351, 14838, -2300, 14982, -13)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(9440, -13, 9397, -4396, 14908, -4470, 14982, -13)])
 source_geometry_group_name = &"navigation_polygon_source_group"
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_8w215"]
@@ -858,7 +858,7 @@ position = Vector2(5319.48, -5484.11)
 position = Vector2(-1848.58, 2027.14)
 
 [node name="BranchMarker" type="Marker2D" parent="World2D/NPCs/CrowBody"]
-position = Vector2(-962.036, 642.575)
+position = Vector2(13066.8, 9372.55)
 
 [node name="CrowBody2" type="CharacterBody2D" parent="World2D/NPCs"]
 z_index = 1
@@ -882,13 +882,13 @@ autoplay = "default"
 frame_progress = 0.83919
 
 [node name="EndMarker" type="Marker2D" parent="World2D/NPCs/CrowBody2"]
-position = Vector2(5319.48, -5484.11)
+position = Vector2(-4182.06, 1488.88)
 
 [node name="StartMarker" type="Marker2D" parent="World2D/NPCs/CrowBody2"]
-position = Vector2(-1848.58, 2027.14)
+position = Vector2(6177.42, -323.234)
 
 [node name="BranchMarker" type="Marker2D" parent="World2D/NPCs/CrowBody2"]
-position = Vector2(-962.036, 642.575)
+position = Vector2(17410.4, 18582.3)
 
 [node name="NPCLinearPatrolLoop" type="Node2D" parent="World2D/NPCs" node_paths=PackedStringArray("body")]
 visible = false
@@ -1585,10 +1585,12 @@ position = Vector2(53, 0)
 [node name="Pottery" type="Node" parent="World2D/Collectibles"]
 
 [node name="SpawnLocation" parent="World2D/Collectibles/Pottery" instance=ExtResource("59_x7a8r")]
+z_index = 5
 position = Vector2(83729, -2708)
 
 [node name="Pottery1" parent="World2D/Collectibles/Pottery/SpawnLocation" instance=ExtResource("32_5ipuv")]
-position = Vector2(22817, -13031)
+z_index = 5
+position = Vector2(22840, -13240)
 scale = Vector2(2.24, 2.24)
 script = ExtResource("44_eedbu")
 frames = SubResource("SpriteFrames_eedbu")
@@ -1596,11 +1598,13 @@ collectible_name = "pottery1"
 audio = ExtResource("66_574qs")
 
 [node name="SpawnLocation2" parent="World2D/Collectibles/Pottery" instance=ExtResource("59_x7a8r")]
+z_index = 5
 position = Vector2(85724, -1301)
 item_name = 1
 
 [node name="Pottery2" parent="World2D/Collectibles/Pottery/SpawnLocation2" instance=ExtResource("32_5ipuv")]
-position = Vector2(17368, -9329)
+z_index = 5
+position = Vector2(17287, -8981)
 scale = Vector2(2.24, 2.24)
 script = ExtResource("45_eedbu")
 frames = SubResource("SpriteFrames_7r63v")
@@ -1608,10 +1612,12 @@ collectible_name = "pottery2"
 audio = ExtResource("66_574qs")
 
 [node name="SpawnLocation3" parent="World2D/Collectibles/Pottery" instance=ExtResource("59_x7a8r")]
+z_index = 5
 position = Vector2(82403, -5082)
 item_name = 2
 
 [node name="Pottery3" parent="World2D/Collectibles/Pottery/SpawnLocation3" instance=ExtResource("32_5ipuv")]
+z_index = 5
 position = Vector2(27184, -5027)
 scale = Vector2(2.24, 2.24)
 script = ExtResource("46_4yyev")
@@ -1659,10 +1665,11 @@ sign_name = "double_jump_lake"
 position = Vector2(91431, -260)
 sign_name = "geese_danger"
 
-[node name="GrownUpChonki" parent="." instance=ExtResource("1_6i0tl")]
+[node name="GrownUpChonki" parent="." node_paths=PackedStringArray("debug_start_marker") instance=ExtResource("1_6i0tl")]
 z_index = 2
 position = Vector2(70890, -704)
 script = ExtResource("73_ix5rl")
+debug_start_marker = NodePath("../Debug/GusDebugStartMarker")
 jump_multiplier = 1.25
 midair_jumps = 10
 speed_multiplier = 1.0
@@ -1798,7 +1805,7 @@ zoom_on_enter = 0.22
 [node name="Debug" type="Node" parent="."]
 
 [node name="GusDebugStartMarker" type="Marker2D" parent="Debug"]
-position = Vector2(42544, -782)
+position = Vector2(109365, -11681)
 
 [node name="JumpRuler" type="ColorRect" parent="Debug"]
 visible = false
