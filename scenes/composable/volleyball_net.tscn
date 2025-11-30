@@ -34,7 +34,7 @@ position = Vector2(-2.47846, 685.695)
 scale = Vector2(1, 3.99999)
 texture = ExtResource("2_qn72g")
 texture_offset = Vector2(21, 0)
-polygon = PackedVector2Array(-389.111, -75, -439.919, -75, -439.506, 633.496, -388.698, 633.496)
+polygon = PackedVector2Array(-389.111, -75, -439.919, -75, -439.506, 733.496, -388.698, 733.496)
 
 [node name="RightLegRepeatable" type="Polygon2D" parent="."]
 texture_repeat = 2
@@ -42,14 +42,14 @@ position = Vector2(825.726, 685.695)
 scale = Vector2(1, 3.99999)
 texture = ExtResource("2_qn72g")
 texture_offset = Vector2(21, 0)
-polygon = PackedVector2Array(-389.111, -75, -439.919, -75, -439.506, 633.496, -388.698, 633.496)
+polygon = PackedVector2Array(-389.111, -75, -439.919, -75, -439.506, 733.496, -388.698, 733.496)
 
 [node name="LegEndLeft" type="Sprite2D" parent="."]
-position = Vector2(-415.341, 3219.67)
+position = Vector2(-415.341, 3619.67)
 scale = Vector2(1.01718, 1.01546)
 texture = ExtResource("4_j8kuq")
 
 [node name="LegEndRight" type="Sprite2D" parent="."]
-position = Vector2(413.069, 3219.67)
+position = Vector2(413.069, 3619.67)
 scale = Vector2(1.01718, 1.01546)
 texture = ExtResource("4_j8kuq")

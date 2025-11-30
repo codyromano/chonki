@@ -1,4 +1,4 @@
-[gd_scene load_steps=116 format=3 uid="uid://br8ftak73gmww"]
+[gd_scene load_steps=117 format=3 uid="uid://br8ftak73gmww"]
 
 [ext_resource type="PackedScene" uid="uid://bk3oytbasgs5w" path="res://scenes/grown_up_chonki.tscn" id="1_6i0tl"]
 [ext_resource type="Script" uid="uid://b2cncqbuotdcl" path="res://scenes/level_1.gd" id="1_hvrd6"]
@@ -141,10 +141,10 @@ animations = [{
 "speed": 3.0
 }]
 
-[sub_resource type="NavigationPolygon" id="NavigationPolygon_1ju1f"]
-vertices = PackedVector2Array(15213.5, -1, 9406.35, -4.99219, 9361.69, -670.023, 15251.4, -685.969)
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_n5rn7"]
+vertices = PackedVector2Array(14828.6, -2290.08, 14971.4, -23, 9450.17, -23, 9489.83, -2340.9)
 polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
-outlines = Array[PackedVector2Array]([PackedVector2Array(9397, 5, 9351, -680, 15262, -696, 15223, 9)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(9440, -13, 9480, -2351, 14838, -2300, 14982, -13)])
 source_geometry_group_name = &"navigation_polygon_source_group"
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_8w215"]
@@ -180,6 +180,12 @@ animations = [{
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nwbuc"]
 radius = 218.555
 height = 437.11
+
+[sub_resource type="NavigationPolygon" id="NavigationPolygon_1ju1f"]
+vertices = PackedVector2Array(17123.8, -4181.03, 17043.2, 8, 6966.93, 16.9922, 6941.06, -4216.96)
+polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3)])
+outlines = Array[PackedVector2Array]([PackedVector2Array(6957, 27, 6931, -4227, 17134, -4191, 17053, 18)])
+source_geometry_group_name = &"navigation_polygon_source_group"
 
 [sub_resource type="Curve2D" id="Curve2D_dkkmk"]
 _data = {
@@ -445,6 +451,9 @@ script = ExtResource("8_8hmqo")
 [node name="Bench" parent="World2D/Environment" instance=ExtResource("58_eedbu")]
 position = Vector2(78517, -343)
 
+[node name="Bench3" parent="World2D/Environment" instance=ExtResource("58_eedbu")]
+position = Vector2(99932, -359)
+
 [node name="Bench2" parent="World2D/Environment" instance=ExtResource("58_eedbu")]
 position = Vector2(68516, -343)
 
@@ -603,7 +612,7 @@ scale = Vector2(1.2293, 1.23964)
 texture = ExtResource("2_gc4xo")
 texture_offset = Vector2(0, 3750)
 texture_scale = Vector2(0.25, 0.25)
-polygon = PackedVector2Array(-1009, 5, 126762, -66.9541, 126845, -2952.47, 126762, -5445.94, 53511.8, -5527.41, -1031.48, -5495.14)
+polygon = PackedVector2Array(-1009, 5, 126762, -66.9541, 126602, -21334.4, -564.549, -21937)
 
 [node name="OceanGroup" type="Node" parent="World2D/Environment/CloudsAndOceans"]
 
@@ -803,7 +812,7 @@ polygon = PackedVector2Array(-1100.97, 128.39, 73316.2, 137.115, 73294.4, 627.61
 [node name="TreasureSign" type="Sprite2D" parent="World2D/Environment"]
 modulate = Color(1, 1, 1, 0.588235)
 z_index = 2
-position = Vector2(117626, -597)
+position = Vector2(122878, -597)
 scale = Vector2(4.24871, 4.24871)
 texture = ExtResource("11_qfp7r")
 
@@ -813,11 +822,17 @@ position = Vector2(77548, -1372)
 scale = Vector2(1.95998, 1.95998)
 texture = ExtResource("15_gqhdx")
 
+[node name="CherryTreeSprite2" type="Sprite2D" parent="World2D/Environment"]
+z_index = 2
+position = Vector2(104521, -1372)
+scale = Vector2(1.95998, 1.95998)
+texture = ExtResource("15_gqhdx")
+
 [node name="NPCs" type="Node" parent="World2D"]
 
 [node name="CrowBody" type="CharacterBody2D" parent="World2D/NPCs"]
 z_index = 1
-position = Vector2(11144, -12973)
+position = Vector2(108444, -5290)
 rotation = 0.797312
 script = ExtResource("15_4leuf")
 
@@ -829,7 +844,7 @@ scale = Vector2(0.951186, 0.679637)
 shape = SubResource("RectangleShape2D_adkmy")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World2D/NPCs/CrowBody"]
-position = Vector2(26.5219, -88.7104)
+position = Vector2(13.6614, -441.107)
 rotation = -0.74351
 scale = Vector2(1.747, 1.747)
 sprite_frames = SubResource("SpriteFrames_euimj")
@@ -837,13 +852,43 @@ autoplay = "default"
 frame_progress = 0.83919
 
 [node name="EndMarker" type="Marker2D" parent="World2D/NPCs/CrowBody"]
-position = Vector2(6439.64, -6387.39)
+position = Vector2(5319.48, -5484.11)
 
 [node name="StartMarker" type="Marker2D" parent="World2D/NPCs/CrowBody"]
-position = Vector2(-728.417, 1123.86)
+position = Vector2(-1848.58, 2027.14)
 
 [node name="BranchMarker" type="Marker2D" parent="World2D/NPCs/CrowBody"]
-position = Vector2(158.126, -260.703)
+position = Vector2(-962.036, 642.575)
+
+[node name="CrowBody2" type="CharacterBody2D" parent="World2D/NPCs"]
+z_index = 1
+position = Vector2(107128, -15701)
+rotation = 0.797312
+script = ExtResource("15_4leuf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/NPCs/CrowBody2"]
+visible = false
+position = Vector2(-53.2764, -105.471)
+rotation = -0.851153
+scale = Vector2(0.951186, 0.679637)
+shape = SubResource("RectangleShape2D_adkmy")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World2D/NPCs/CrowBody2"]
+position = Vector2(13.6614, -441.107)
+rotation = -0.74351
+scale = Vector2(1.747, 1.747)
+sprite_frames = SubResource("SpriteFrames_euimj")
+autoplay = "default"
+frame_progress = 0.83919
+
+[node name="EndMarker" type="Marker2D" parent="World2D/NPCs/CrowBody2"]
+position = Vector2(5319.48, -5484.11)
+
+[node name="StartMarker" type="Marker2D" parent="World2D/NPCs/CrowBody2"]
+position = Vector2(-1848.58, 2027.14)
+
+[node name="BranchMarker" type="Marker2D" parent="World2D/NPCs/CrowBody2"]
+position = Vector2(-962.036, 642.575)
 
 [node name="NPCLinearPatrolLoop" type="Node2D" parent="World2D/NPCs" node_paths=PackedStringArray("body")]
 visible = false
@@ -853,44 +898,9 @@ move_duration = 7.0
 
 [node name="Enemies" type="Node" parent="World2D/NPCs"]
 
-[node name="GooseRegion2D" type="NavigationRegion2D" parent="World2D/NPCs/Enemies"]
-position = Vector2(72816, -6210)
-navigation_polygon = SubResource("NavigationPolygon_1ju1f")
-
-[node name="Goose" type="CharacterBody2D" parent="World2D/NPCs/Enemies/GooseRegion2D"]
-position = Vector2(14456, -488)
-collision_layer = 2
-collision_mask = 9
-script = ExtResource("13_rdfy5")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World2D/NPCs/Enemies/GooseRegion2D/Goose"]
-position = Vector2(31.0001, 266)
-scale = Vector2(0.570312, 0.570312)
-sprite_frames = SubResource("SpriteFrames_8w215")
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/NPCs/Enemies/GooseRegion2D/Goose"]
-position = Vector2(24, 259)
-rotation = 0.948541
-shape = SubResource("CapsuleShape2D_nwbuc")
-
-[node name="GooseNavigation" type="NavigationAgent2D" parent="World2D/NPCs/Enemies/GooseRegion2D/Goose"]
-script = ExtResource("16_vuaih")
-
-[node name="Timer" type="Timer" parent="World2D/NPCs/Enemies/GooseRegion2D/Goose"]
-wait_time = 2.5
-autostart = true
-
-[node name="FlapAudio" type="AudioStreamPlayer2D" parent="World2D/NPCs/Enemies/GooseRegion2D/Goose"]
-stream = ExtResource("18_60djy")
-volume_db = 10.0
-
-[node name="GooseDefeated" type="AudioStreamPlayer2D" parent="World2D/NPCs/Enemies/GooseRegion2D/Goose"]
-stream = ExtResource("20_f7bbt")
-volume_db = 10.0
-
 [node name="GooseRegion2D2" type="NavigationRegion2D" parent="World2D/NPCs/Enemies"]
-position = Vector2(82566, -2737)
-navigation_polygon = SubResource("NavigationPolygon_1ju1f")
+position = Vector2(83477, -4)
+navigation_polygon = SubResource("NavigationPolygon_n5rn7")
 
 [node name="Goose" type="CharacterBody2D" parent="World2D/NPCs/Enemies/GooseRegion2D2"]
 position = Vector2(14456, -488)
@@ -923,39 +933,44 @@ volume_db = 10.0
 stream = ExtResource("20_f7bbt")
 volume_db = 10.0
 
-[node name="Goose2" type="CharacterBody2D" parent="World2D/NPCs/Enemies/GooseRegion2D2"]
-position = Vector2(19291, -488)
+[node name="GooseRegion2D4" type="NavigationRegion2D" parent="World2D/NPCs/Enemies"]
+position = Vector2(92006, -13335)
+navigation_polygon = SubResource("NavigationPolygon_n5rn7")
+
+[node name="Goose" type="CharacterBody2D" parent="World2D/NPCs/Enemies/GooseRegion2D4"]
+position = Vector2(14456, -488)
 collision_layer = 2
 collision_mask = 9
 script = ExtResource("13_rdfy5")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World2D/NPCs/Enemies/GooseRegion2D2/Goose2"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World2D/NPCs/Enemies/GooseRegion2D4/Goose"]
 position = Vector2(31.0001, 266)
 scale = Vector2(0.570312, 0.570312)
 sprite_frames = SubResource("SpriteFrames_8w215")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/NPCs/Enemies/GooseRegion2D2/Goose2"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/NPCs/Enemies/GooseRegion2D4/Goose"]
 position = Vector2(24, 259)
 rotation = 0.948541
 shape = SubResource("CapsuleShape2D_nwbuc")
 
-[node name="GooseNavigation" type="NavigationAgent2D" parent="World2D/NPCs/Enemies/GooseRegion2D2/Goose2"]
+[node name="GooseNavigation" type="NavigationAgent2D" parent="World2D/NPCs/Enemies/GooseRegion2D4/Goose"]
 script = ExtResource("16_vuaih")
 
-[node name="Timer" type="Timer" parent="World2D/NPCs/Enemies/GooseRegion2D2/Goose2"]
+[node name="Timer" type="Timer" parent="World2D/NPCs/Enemies/GooseRegion2D4/Goose"]
 wait_time = 2.5
 autostart = true
 
-[node name="FlapAudio" type="AudioStreamPlayer2D" parent="World2D/NPCs/Enemies/GooseRegion2D2/Goose2"]
+[node name="FlapAudio" type="AudioStreamPlayer2D" parent="World2D/NPCs/Enemies/GooseRegion2D4/Goose"]
 stream = ExtResource("18_60djy")
 volume_db = 10.0
 
-[node name="GooseDefeated" type="AudioStreamPlayer2D" parent="World2D/NPCs/Enemies/GooseRegion2D2/Goose2"]
+[node name="GooseDefeated" type="AudioStreamPlayer2D" parent="World2D/NPCs/Enemies/GooseRegion2D4/Goose"]
 stream = ExtResource("20_f7bbt")
 volume_db = 10.0
 
 [node name="GooseRegion2D3" type="NavigationRegion2D" parent="World2D/NPCs/Enemies"]
-position = Vector2(79192, -4335)
+z_index = 7
+position = Vector2(94419, 228)
 navigation_polygon = SubResource("NavigationPolygon_1ju1f")
 
 [node name="Goose2" type="CharacterBody2D" parent="World2D/NPCs/Enemies/GooseRegion2D3"]
@@ -989,6 +1004,68 @@ volume_db = 10.0
 stream = ExtResource("20_f7bbt")
 volume_db = 10.0
 
+[node name="Goose3" type="CharacterBody2D" parent="World2D/NPCs/Enemies/GooseRegion2D3"]
+position = Vector2(8848, -691)
+collision_layer = 2
+collision_mask = 9
+script = ExtResource("13_rdfy5")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World2D/NPCs/Enemies/GooseRegion2D3/Goose3"]
+position = Vector2(31.0001, 266)
+scale = Vector2(0.570312, 0.570312)
+sprite_frames = SubResource("SpriteFrames_8w215")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/NPCs/Enemies/GooseRegion2D3/Goose3"]
+position = Vector2(24, 259)
+rotation = 0.948541
+shape = SubResource("CapsuleShape2D_nwbuc")
+
+[node name="GooseNavigation" type="NavigationAgent2D" parent="World2D/NPCs/Enemies/GooseRegion2D3/Goose3"]
+script = ExtResource("16_vuaih")
+
+[node name="Timer" type="Timer" parent="World2D/NPCs/Enemies/GooseRegion2D3/Goose3"]
+wait_time = 2.5
+autostart = true
+
+[node name="FlapAudio" type="AudioStreamPlayer2D" parent="World2D/NPCs/Enemies/GooseRegion2D3/Goose3"]
+stream = ExtResource("18_60djy")
+volume_db = 10.0
+
+[node name="GooseDefeated" type="AudioStreamPlayer2D" parent="World2D/NPCs/Enemies/GooseRegion2D3/Goose3"]
+stream = ExtResource("20_f7bbt")
+volume_db = 10.0
+
+[node name="Goose4" type="CharacterBody2D" parent="World2D/NPCs/Enemies/GooseRegion2D3"]
+position = Vector2(15694, -691)
+collision_layer = 2
+collision_mask = 9
+script = ExtResource("13_rdfy5")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World2D/NPCs/Enemies/GooseRegion2D3/Goose4"]
+position = Vector2(31.0001, 266)
+scale = Vector2(0.570312, 0.570312)
+sprite_frames = SubResource("SpriteFrames_8w215")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/NPCs/Enemies/GooseRegion2D3/Goose4"]
+position = Vector2(24, 259)
+rotation = 0.948541
+shape = SubResource("CapsuleShape2D_nwbuc")
+
+[node name="GooseNavigation" type="NavigationAgent2D" parent="World2D/NPCs/Enemies/GooseRegion2D3/Goose4"]
+script = ExtResource("16_vuaih")
+
+[node name="Timer" type="Timer" parent="World2D/NPCs/Enemies/GooseRegion2D3/Goose4"]
+wait_time = 2.5
+autostart = true
+
+[node name="FlapAudio" type="AudioStreamPlayer2D" parent="World2D/NPCs/Enemies/GooseRegion2D3/Goose4"]
+stream = ExtResource("18_60djy")
+volume_db = 10.0
+
+[node name="GooseDefeated" type="AudioStreamPlayer2D" parent="World2D/NPCs/Enemies/GooseRegion2D3/Goose4"]
+stream = ExtResource("20_f7bbt")
+volume_db = 10.0
+
 [node name="GooseRegionCloudL" parent="World2D/NPCs/Enemies" instance=ExtResource("38_6b8u6")]
 position = Vector2(109534, -12346)
 
@@ -996,7 +1073,7 @@ position = Vector2(109534, -12346)
 position = Vector2(117936, -12282)
 
 [node name="OtterPath2D" type="Path2D" parent="World2D/NPCs/Enemies"]
-position = Vector2(111049, 526)
+position = Vector2(143962, -8809)
 curve = SubResource("Curve2D_dkkmk")
 script = ExtResource("46_otter")
 loop_duration = 5.0
@@ -1007,6 +1084,7 @@ rotation = -0.346811
 progress = 9700.05
 
 [node name="OtterArea2D" type="Area2D" parent="World2D/NPCs/Enemies/OtterPath2D/PathFollow2D"]
+position = Vector2(34126.4, 2407.94)
 rotation = 0.401426
 collision_layer = 2
 
@@ -1023,7 +1101,7 @@ position = Vector2(9.21094, 18.9561)
 shape = SubResource("RectangleShape2D_sejw4")
 
 [node name="OtterPath2D2" type="Path2D" parent="World2D/NPCs/Enemies"]
-position = Vector2(118775, 526)
+position = Vector2(151688, -8809)
 curve = SubResource("Curve2D_dkkmk")
 script = ExtResource("46_otter")
 loop_duration = 5.0
@@ -1034,6 +1112,7 @@ rotation = -0.346811
 progress = 9700.05
 
 [node name="OtterArea2D" type="Area2D" parent="World2D/NPCs/Enemies/OtterPath2D2/PathFollow2D"]
+position = Vector2(34126.4, 2407.94)
 rotation = 0.401426
 collision_layer = 2
 
@@ -1145,7 +1224,7 @@ collision_mask = 255
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/Platforms & Barriers/Ground3"]
 z_index = 100
-position = Vector2(5617.9, 40)
+position = Vector2(5587.9, 35.6)
 scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_4w6xv")
 debug_color = Color(0.307035, 0.494072, 1, 0.42)
@@ -1218,32 +1297,20 @@ polygon = PackedVector2Array(10704, 13, 10569, -510, 10518, -846, 10430, -1006, 
 [node name="Volleyballs" type="Node2D" parent="World2D/Platforms & Barriers"]
 z_index = 1
 
-[node name="VolleyballNet" parent="World2D/Platforms & Barriers/Volleyballs" instance=ExtResource("17_nrtx7")]
-position = Vector2(103414, -529)
-leg_height = 55.0
-
 [node name="VolleyballNet7" parent="World2D/Platforms & Barriers/Volleyballs" instance=ExtResource("17_nrtx7")]
 position = Vector2(65788.5, -529)
 leg_height = 55.0
 
-[node name="VolleyballNet4" parent="World2D/Platforms & Barriers/Volleyballs" instance=ExtResource("17_nrtx7")]
-position = Vector2(106285, -892)
-leg_height = 55.0
-
 [node name="VolleyballNet5" parent="World2D/Platforms & Barriers/Volleyballs" instance=ExtResource("17_nrtx7")]
-position = Vector2(112298, -3961)
-leg_height = 55.0
-
-[node name="VolleyballNet6" parent="World2D/Platforms & Barriers/Volleyballs" instance=ExtResource("17_nrtx7")]
-position = Vector2(109426, -3961)
-leg_height = 55.0
+position = Vector2(111671, -12799)
+leg_height = 80.0
 
 [node name="VolleyballNet2" parent="World2D/Platforms & Barriers/Volleyballs" instance=ExtResource("17_nrtx7")]
-position = Vector2(105146, -6288.63)
+position = Vector2(114687, -8948)
 leg_height = 20.0
 
 [node name="VolleyballNet3" parent="World2D/Platforms & Barriers/Volleyballs" instance=ExtResource("17_nrtx7")]
-position = Vector2(108972, -6342.63)
+position = Vector2(108397, -8943)
 scale = Vector2(2.4066, 2.4066)
 
 [node name="TreeMaze" type="Node" parent="World2D/Platforms & Barriers"]
@@ -1348,17 +1415,17 @@ shape = SubResource("RectangleShape2D_574qs")
 
 [node name="Kayak" parent="World2D/Platforms & Barriers/Kayaks" instance=ExtResource("44_n3wcc")]
 z_index = 1
-position = Vector2(104221, 176)
+position = Vector2(140333, -11001)
 float_amplitude = 75.0
 
 [node name="Kayak2" parent="World2D/Platforms & Barriers/Kayaks" instance=ExtResource("44_n3wcc")]
 z_index = 1
-position = Vector2(108772, 176)
+position = Vector2(144884, -11001)
 float_amplitude = 75.0
 
 [node name="Kayak3" parent="World2D/Platforms & Barriers/Kayaks" instance=ExtResource("44_n3wcc")]
 z_index = 1
-position = Vector2(125768, 176)
+position = Vector2(161880, -11001)
 float_amplitude = 75.0
 
 [node name="CloudMaze" type="Node" parent="World2D/Platforms & Barriers"]
@@ -1521,7 +1588,7 @@ position = Vector2(53, 0)
 position = Vector2(83729, -2708)
 
 [node name="Pottery1" parent="World2D/Collectibles/Pottery/SpawnLocation" instance=ExtResource("32_5ipuv")]
-position = Vector2(-4353, -1420)
+position = Vector2(22817, -13031)
 scale = Vector2(2.24, 2.24)
 script = ExtResource("44_eedbu")
 frames = SubResource("SpriteFrames_eedbu")
@@ -1533,7 +1600,7 @@ position = Vector2(85724, -1301)
 item_name = 1
 
 [node name="Pottery2" parent="World2D/Collectibles/Pottery/SpawnLocation2" instance=ExtResource("32_5ipuv")]
-position = Vector2(11584, -7008)
+position = Vector2(17368, -9329)
 scale = Vector2(2.24, 2.24)
 script = ExtResource("45_eedbu")
 frames = SubResource("SpriteFrames_7r63v")
@@ -1545,7 +1612,7 @@ position = Vector2(82403, -5082)
 item_name = 2
 
 [node name="Pottery3" parent="World2D/Collectibles/Pottery/SpawnLocation3" instance=ExtResource("32_5ipuv")]
-position = Vector2(7352, -247)
+position = Vector2(27184, -5027)
 scale = Vector2(2.24, 2.24)
 script = ExtResource("46_4yyev")
 frames = SubResource("SpriteFrames_rb3io")
@@ -1562,16 +1629,16 @@ z_index = 10
 
 [node name="SecretLetter" parent="World2D/Collectibles/SpawnLetterX/Node2D" instance=ExtResource("56_yqdyt")]
 z_index = 1
-offset_left = -442.0
-offset_top = 452.0
-offset_right = -378.0
-offset_bottom = 516.0
+offset_left = 4949.0
+offset_top = 2483.0
+offset_right = 5013.0
+offset_bottom = 2547.0
 letter = "R"
 metadata/_edit_use_anchors_ = true
 
 [node name="Trampoline" parent="World2D" instance=ExtResource("53_7hmix")]
-z_index = 2
-position = Vector2(101656, -1093)
+z_index = 7
+position = Vector2(111160, -1008)
 scale = Vector2(0.360039, 0.360039)
 jump_intensity = 1.5
 
@@ -1581,6 +1648,16 @@ position = Vector2(56894, -1093)
 scale = Vector2(0.360039, 0.360039)
 jump_intensity = 1.5
 trampoline_id = "near_ruby"
+
+[node name="Signs" type="Node" parent="World2D"]
+
+[node name="WarningSign" parent="World2D/Signs" instance=ExtResource("87_hqycr")]
+position = Vector2(74947, -260)
+sign_name = "double_jump_lake"
+
+[node name="WarningSign2" parent="World2D/Signs" instance=ExtResource("87_hqycr")]
+position = Vector2(91431, -260)
+sign_name = "geese_danger"
 
 [node name="GrownUpChonki" parent="." instance=ExtResource("1_6i0tl")]
 z_index = 2
@@ -1781,10 +1858,6 @@ polygon = PackedVector2Array(62, -63, 81, -774, -771, -1289, -1745, -692, -1604,
 stream = ExtResource("82_ix5rl")
 volume_db = -21.83
 
-[node name="WarningSign" parent="." instance=ExtResource("87_hqycr")]
-position = Vector2(80106, -248)
-sign_name = "double_jump_lake"
-
 [node name="ZoomArea" type="Area2D" parent="."]
 position = Vector2(76416, -347)
 script = ExtResource("88_n5rn7")
@@ -1795,10 +1868,11 @@ z_index = 1
 position = Vector2(1521, -4733)
 shape = SubResource("RectangleShape2D_hqycr")
 
-[connection signal="timeout" from="World2D/NPCs/Enemies/GooseRegion2D/Goose/Timer" to="World2D/NPCs/Enemies/GooseRegion2D/Goose" method="_on_hop_timer_timeout"]
 [connection signal="timeout" from="World2D/NPCs/Enemies/GooseRegion2D2/Goose/Timer" to="World2D/NPCs/Enemies/GooseRegion2D2/Goose" method="_on_hop_timer_timeout"]
-[connection signal="timeout" from="World2D/NPCs/Enemies/GooseRegion2D2/Goose2/Timer" to="World2D/NPCs/Enemies/GooseRegion2D2/Goose2" method="_on_hop_timer_timeout"]
+[connection signal="timeout" from="World2D/NPCs/Enemies/GooseRegion2D4/Goose/Timer" to="World2D/NPCs/Enemies/GooseRegion2D4/Goose" method="_on_hop_timer_timeout"]
 [connection signal="timeout" from="World2D/NPCs/Enemies/GooseRegion2D3/Goose2/Timer" to="World2D/NPCs/Enemies/GooseRegion2D3/Goose2" method="_on_hop_timer_timeout"]
+[connection signal="timeout" from="World2D/NPCs/Enemies/GooseRegion2D3/Goose3/Timer" to="World2D/NPCs/Enemies/GooseRegion2D3/Goose3" method="_on_hop_timer_timeout"]
+[connection signal="timeout" from="World2D/NPCs/Enemies/GooseRegion2D3/Goose4/Timer" to="World2D/NPCs/Enemies/GooseRegion2D3/Goose4" method="_on_hop_timer_timeout"]
 [connection signal="body_entered" from="World2D/NPCs/Enemies/Bicyclist" to="World2D/NPCs/Enemies/Bicyclist" method="_on_body_entered"]
 [connection signal="body_entered" from="World2D/NPCs/Rodrigo" to="World2D/NPCs/Rodrigo" method="_on_body_entered"]
 [connection signal="input_event" from="World2D/Platforms & Barriers/CherryTreeBody2" to="World2D/Platforms & Barriers/CherryTreeBody2" method="_on_input_event"]

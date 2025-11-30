@@ -166,6 +166,12 @@ func _on_enter_warning_sign(sign_name: String) -> void:
 				"",
 				"gus"
 			)
+		"geese_danger":
+			GlobalSignals.queue_main_dialogue.emit(
+				"Careful: the geese look dangerous!",
+				"",
+				"gus"
+			)
 
 func get_dialogue_choices() -> Array:
 	return current_dialogue_choices
