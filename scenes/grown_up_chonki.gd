@@ -82,6 +82,9 @@ func _ready() -> void:
 	PlayerInventory.reset_hearts()
 	# Reset game over flag
 	is_game_over = false
+	# Only restore from inventory if export variable is 0 (not manually set for debugging)
+	if midair_jumps == 0:
+		midair_jumps = PlayerInventory.get_earned_midair_jumps()
 	# Cache and set total_stars for this level by scene path, using CollectibleStar group
 	var level_path = get_tree().current_scene.scene_file_path
 	var total_stars = GameState.get_total_stars_for_level(level_path)
@@ -464,6 +467,7 @@ func _perform_midair_backflip():
 	is_midair_jumping = false
 
 func _on_secret_letter_collected(_letter: String):
+	PlayerInventory.increment_midair_jumps()
 	midair_jumps += 1
 
 func _exit_tree() -> void:

@@ -19,6 +19,7 @@ const INITIAL_HEARTS: int = 3
 var items: Array[Item] = []
 var total_hearts: int = INITIAL_HEARTS
 var last_damage_source: String = ""
+var earned_midair_jumps: int = 0
 
 func _ready() -> void:
 	GlobalSignals.player_hit.connect(_on_player_hit)
@@ -63,6 +64,13 @@ func get_items() -> Array[Item]:
 
 func clear_inventory() -> void:
 	items.clear()
+	earned_midair_jumps = 0
 
 func get_item_count() -> int:
 	return items.size()
+
+func get_earned_midair_jumps() -> int:
+	return earned_midair_jumps
+
+func increment_midair_jumps() -> void:
+	earned_midair_jumps += 1
