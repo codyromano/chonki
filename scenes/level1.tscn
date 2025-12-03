@@ -1,4 +1,4 @@
-[gd_scene load_steps=123 format=3 uid="uid://br8ftak73gmww"]
+[gd_scene load_steps=125 format=3 uid="uid://br8ftak73gmww"]
 
 [ext_resource type="PackedScene" uid="uid://bk3oytbasgs5w" path="res://scenes/grown_up_chonki.tscn" id="1_6i0tl"]
 [ext_resource type="Script" uid="uid://b2cncqbuotdcl" path="res://scenes/level_1.gd" id="1_hvrd6"]
@@ -406,7 +406,13 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hqycr"]
-size = Vector2(6402, 10112.5)
+size = Vector2(3789, 10151.2)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ib8jg"]
+size = Vector2(3789, 3044.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_esecu"]
+size = Vector2(4348.5, 14775)
 
 [node name="Level1" type="Node2D"]
 position = Vector2(-5159, -12)
@@ -467,7 +473,7 @@ polygon = PackedVector2Array(-966.253, -382.053, 73308.7, -382.053, 73294.4, 627
 script = ExtResource("8_8hmqo")
 
 [node name="Bench" parent="World2D/Environment" instance=ExtResource("58_eedbu")]
-position = Vector2(78517, -343)
+position = Vector2(78517, -319)
 
 [node name="Bench3" parent="World2D/Environment" instance=ExtResource("58_eedbu")]
 position = Vector2(99932, -359)
@@ -619,7 +625,7 @@ polygon = PackedVector2Array(-1009, 5, 149906, 267.978, 149633, -1460.98, 149732
 
 [node name="CloudsBG3" type="Polygon2D" parent="World2D/Environment/CloudsAndOceans"]
 texture_repeat = 2
-position = Vector2(-4955.07, -4511)
+position = Vector2(-4955, -4514)
 scale = Vector2(1.2302, 1.23964)
 texture = ExtResource("2_gc4xo")
 texture_offset = Vector2(0, 3750)
@@ -1271,7 +1277,7 @@ sprite_scale = Vector2(1, 1)
 avatar_name = "ruby"
 
 [node name="IsaacQuestGiver" parent="World2D/NPCs/QuestGivers" instance=ExtResource("37_hvrd6")]
-position = Vector2(138973, -8512)
+position = Vector2(140973, -8203)
 script = ExtResource("43_6b8u6")
 frames = SubResource("SpriteFrames_6qhw2")
 sprite_scale = Vector2(1, 1)
@@ -1322,7 +1328,6 @@ collision_mask = 255
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/Platforms & Barriers/Ground3"]
 z_index = 100
 position = Vector2(4710.35, 35.6)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_c0y31")
 debug_color = Color(0.307035, 0.494072, 1, 0.42)
 
@@ -1587,17 +1592,19 @@ scale = Vector2(7.96, 7.96)
 collision_layer = 8
 
 [node name="Sprite2D" type="Sprite2D" parent="World2D/Platforms & Barriers/CloudMaze/CloudBarrierForQuestGiver"]
+z_index = 1
 position = Vector2(-566.512, -942.709)
 scale = Vector2(1.13735, 1.05943)
 texture = ExtResource("55_x80p0")
 
 [node name="Sprite2D2" type="Sprite2D" parent="World2D/Platforms & Barriers/CloudMaze/CloudBarrierForQuestGiver"]
+z_index = 1
 position = Vector2(-241.586, -942.71)
 scale = Vector2(1.13735, 1.05943)
 texture = ExtResource("55_x80p0")
 
 [node name="Sprite2D3" type="Sprite2D" parent="World2D/Platforms & Barriers/CloudMaze/CloudBarrierForQuestGiver"]
-z_index = 6
+z_index = 1
 position = Vector2(76.6297, -942.711)
 scale = Vector2(1.13735, 1.05943)
 texture = ExtResource("55_x80p0")
@@ -1613,6 +1620,7 @@ scale = Vector2(7.96, 7.96)
 collision_layer = 8
 
 [node name="Sprite2D" type="Sprite2D" parent="World2D/Platforms & Barriers/CloudMaze/CloudBarrierHorizontalR"]
+z_index = 1
 position = Vector2(-100.771, 46.316)
 scale = Vector2(0.477654, 1.06951)
 texture = ExtResource("55_x80p0")
@@ -1628,6 +1636,7 @@ scale = Vector2(7.96, 7.96)
 collision_layer = 8
 
 [node name="Sprite2D" type="Sprite2D" parent="World2D/Platforms & Barriers/CloudMaze/CloudBarrierHorizontalR2"]
+z_index = 1
 position = Vector2(-100.771, 46.316)
 scale = Vector2(0.477654, 1.06951)
 texture = ExtResource("55_x80p0")
@@ -1643,6 +1652,7 @@ scale = Vector2(7.96, 7.96)
 collision_layer = 8
 
 [node name="Sprite2D" type="Sprite2D" parent="World2D/Platforms & Barriers/CloudMaze/CloudBarrierHorizontalL2"]
+z_index = 1
 position = Vector2(-100.771, 46.316)
 scale = Vector2(0.477654, 1.06951)
 texture = ExtResource("55_x80p0")
@@ -1658,6 +1668,7 @@ scale = Vector2(7.96, 7.96)
 collision_layer = 8
 
 [node name="Sprite2D" type="Sprite2D" parent="World2D/Platforms & Barriers/CloudMaze/CloudBarrierHorizontalL"]
+z_index = 1
 position = Vector2(-100.771, 46.316)
 scale = Vector2(0.477654, 1.06951)
 texture = ExtResource("55_x80p0")
@@ -1994,6 +2005,37 @@ camera_zoom = Vector2(0.1, 0.1)
 z_index = 1
 position = Vector2(1521, -4733)
 shape = SubResource("RectangleShape2D_hqycr")
+
+[node name="ZoomArea2" type="Area2D" parent="."]
+position = Vector2(124174, -347)
+script = ExtResource("88_n5rn7")
+camera_zoom = Vector2(0.1, 0.1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ZoomArea2"]
+z_index = 1
+position = Vector2(1521, -4733)
+shape = SubResource("RectangleShape2D_hqycr")
+
+[node name="ZoomArea3" type="Area2D" parent="."]
+position = Vector2(143644, -8097)
+script = ExtResource("88_n5rn7")
+camera_zoom = Vector2(0.2, 0.2)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ZoomArea3"]
+z_index = 1
+position = Vector2(1722, -1148.75)
+shape = SubResource("RectangleShape2D_ib8jg")
+
+[node name="ZoomArea4" type="Area2D" parent="."]
+position = Vector2(139615, -8114)
+script = ExtResource("88_n5rn7")
+camera_zoom = Vector2(0.1, 0.1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ZoomArea4"]
+z_index = 1
+position = Vector2(1442.25, 503.5)
+shape = SubResource("RectangleShape2D_esecu")
+disabled = true
 
 [connection signal="timeout" from="World2D/NPCs/Enemies/GooseRegion2D2/Goose/Timer" to="World2D/NPCs/Enemies/GooseRegion2D2/Goose" method="_on_hop_timer_timeout"]
 [connection signal="timeout" from="World2D/NPCs/Enemies/GooseRegion2D4/GooseBoss/Timer" to="World2D/NPCs/Enemies/GooseRegion2D4/GooseBoss" method="_on_hop_timer_timeout"]
