@@ -181,8 +181,8 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nwbuc"]
-radius = 218.555
-height = 437.11
+radius = 672.305
+height = 1406.68
 
 [sub_resource type="NavigationPolygon" id="NavigationPolygon_1ju1f"]
 vertices = PackedVector2Array(17123.8, -4181.03, 17043.2, 7.77344, 12904.7, -86.7812, 12791.7, -4100.67, 11294.1, -812.297, 11133.3, 13.2734, 6966.93, 16.9922, 6941.06, -4216.96, 11516.7, -4145.33)
@@ -192,9 +192,9 @@ source_geometry_group_name = &"navigation_polygon_source_group"
 
 [sub_resource type="Curve2D" id="Curve2D_dkkmk"]
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 0, 0)
+"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 }
-point_count = 1
+point_count = 2
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_4xi8u"]
 animations = [{
@@ -342,7 +342,7 @@ size = Vector2(982.286, 744.729)
 size = Vector2(126.884, 744.729)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_882hj"]
-size = Vector2(141.112, 744.729)
+size = Vector2(141.112, 283.043)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_qxclr"]
 size = Vector2(133.291, 744.729)
@@ -412,7 +412,7 @@ size = Vector2(3789, 10151.2)
 size = Vector2(3789, 3044.5)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_esecu"]
-size = Vector2(4348.5, 14775)
+size = Vector2(5188.5, 14863)
 
 [node name="Level1" type="Node2D"]
 position = Vector2(-5159, -12)
@@ -1072,6 +1072,37 @@ volume_db = 10.0
 stream = ExtResource("20_f7bbt")
 volume_db = 10.0
 
+[node name="GooseBoss" type="CharacterBody2D" parent="World2D/NPCs/Enemies/GooseRegion2D4/GooseBoss"]
+position = Vector2(19954, -4452)
+collision_layer = 2
+collision_mask = 9
+script = ExtResource("13_rdfy5")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World2D/NPCs/Enemies/GooseRegion2D4/GooseBoss/GooseBoss"]
+position = Vector2(-134, -101)
+scale = Vector2(1.37031, 1.37031)
+sprite_frames = SubResource("SpriteFrames_8w215")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/NPCs/Enemies/GooseRegion2D4/GooseBoss/GooseBoss"]
+position = Vector2(-152, -36)
+rotation = 0.948541
+shape = SubResource("CapsuleShape2D_nwbuc")
+
+[node name="GooseNavigation" type="NavigationAgent2D" parent="World2D/NPCs/Enemies/GooseRegion2D4/GooseBoss/GooseBoss"]
+script = ExtResource("16_vuaih")
+
+[node name="Timer" type="Timer" parent="World2D/NPCs/Enemies/GooseRegion2D4/GooseBoss/GooseBoss"]
+wait_time = 2.5
+autostart = true
+
+[node name="FlapAudio" type="AudioStreamPlayer2D" parent="World2D/NPCs/Enemies/GooseRegion2D4/GooseBoss/GooseBoss"]
+stream = ExtResource("18_60djy")
+volume_db = 10.0
+
+[node name="GooseDefeated" type="AudioStreamPlayer2D" parent="World2D/NPCs/Enemies/GooseRegion2D4/GooseBoss/GooseBoss"]
+stream = ExtResource("20_f7bbt")
+volume_db = 10.0
+
 [node name="GooseRegion2D3" type="NavigationRegion2D" parent="World2D/NPCs/Enemies"]
 z_index = 7
 position = Vector2(94419, 228)
@@ -1177,6 +1208,7 @@ position = Vector2(109534, -12346)
 position = Vector2(117936, -12282)
 
 [node name="OtterPath2D" type="Path2D" parent="World2D/NPCs/Enemies"]
+visible = false
 position = Vector2(129343, -76358)
 curve = SubResource("Curve2D_dkkmk")
 script = ExtResource("46_otter")
@@ -1205,6 +1237,7 @@ position = Vector2(9.21094, 18.9561)
 shape = SubResource("RectangleShape2D_sejw4")
 
 [node name="OtterPath2D2" type="Path2D" parent="World2D/NPCs/Enemies"]
+visible = false
 position = Vector2(112402, 78125)
 curve = SubResource("Curve2D_dkkmk")
 script = ExtResource("46_otter")
@@ -1284,12 +1317,15 @@ sprite_scale = Vector2(1, 1)
 avatar_name = ""
 
 [node name="Rodrigo" type="Area2D" parent="World2D/NPCs"]
-position = Vector2(128624, -17199)
+z_index = 1
+position = Vector2(130102, -16851)
+scale = Vector2(1.4, 1.4)
 collision_layer = 2
 collision_mask = 9
 script = ExtResource("47_o55ux")
 
 [node name="RodrigoSprite" type="AnimatedSprite2D" parent="World2D/NPCs/Rodrigo"]
+z_index = 1
 scale = Vector2(0.560156, 0.560156)
 sprite_frames = SubResource("SpriteFrames_o55ux")
 
@@ -1513,17 +1549,17 @@ shape = SubResource("RectangleShape2D_574qs")
 [node name="Kayaks" type="Node" parent="World2D/Platforms & Barriers"]
 
 [node name="Kayak" parent="World2D/Platforms & Barriers/Kayaks" instance=ExtResource("44_n3wcc")]
-z_index = 1
+z_index = 3
 position = Vector2(128523, 379)
 float_amplitude = 75.0
 
 [node name="Kayak2" parent="World2D/Platforms & Barriers/Kayaks" instance=ExtResource("44_n3wcc")]
-z_index = 1
+z_index = 3
 position = Vector2(133074, 379)
 float_amplitude = 75.0
 
 [node name="Kayak3" parent="World2D/Platforms & Barriers/Kayaks" instance=ExtResource("44_n3wcc")]
-z_index = 1
+z_index = 3
 position = Vector2(150070, 379)
 float_amplitude = 75.0
 
@@ -1553,6 +1589,21 @@ position = Vector2(-49.7497, -108.929)
 scale = Vector2(0.755702, 0.330018)
 texture = ExtResource("55_x80p0")
 
+[node name="Sprite2D" type="Sprite2D" parent="World2D/Platforms & Barriers/CloudMaze/CloudBarrierVerticalShortL/Sprite2D"]
+position = Vector2(2629.59, -1955.48)
+scale = Vector2(0.6297, 1.06407)
+texture = ExtResource("55_x80p0")
+
+[node name="Sprite2D" type="Sprite2D" parent="World2D/Platforms & Barriers/CloudMaze/CloudBarrierVerticalShortL/Sprite2D/Sprite2D"]
+position = Vector2(2629.59, -1955.48)
+scale = Vector2(0.6297, 1.06407)
+texture = ExtResource("55_x80p0")
+
+[node name="Sprite2D2" type="Sprite2D" parent="World2D/Platforms & Barriers/CloudMaze/CloudBarrierVerticalShortL/Sprite2D/Sprite2D"]
+position = Vector2(-2169.54, 12.4701)
+scale = Vector2(1.05793, 1.92215)
+texture = ExtResource("55_x80p0")
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/Platforms & Barriers/CloudMaze/CloudBarrierVerticalShortL"]
 position = Vector2(-47.6768, -101.382)
 shape = SubResource("RectangleShape2D_6qhw2")
@@ -1563,12 +1614,13 @@ scale = Vector2(7.96, 7.96)
 collision_layer = 8
 
 [node name="Sprite2D" type="Sprite2D" parent="World2D/Platforms & Barriers/CloudMaze/CloudBarrierElevator"]
-position = Vector2(-49.7497, -171.231)
-scale = Vector2(0.755702, 0.0944211)
+position = Vector2(-1212.71, -283.543)
+scale = Vector2(0.626688, 0.0944211)
 texture = ExtResource("55_x80p0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/Platforms & Barriers/CloudMaze/CloudBarrierElevator"]
-position = Vector2(-47.6758, -165.201)
+position = Vector2(-1210.64, -277.513)
+scale = Vector2(0.829279, 1)
 shape = SubResource("RectangleShape2D_6qhw2")
 
 [node name="CloudBarrierVerticalR" type="StaticBody2D" parent="World2D/Platforms & Barriers/CloudMaze"]
@@ -1642,7 +1694,18 @@ scale = Vector2(0.477654, 1.06951)
 texture = ExtResource("55_x80p0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/Platforms & Barriers/CloudMaze/CloudBarrierHorizontalR2"]
-position = Vector2(-103.942, 44.3467)
+position = Vector2(-103.894, 44.3467)
+shape = SubResource("RectangleShape2D_882hj")
+
+[node name="CloudBarrierHorizontalR3" type="StaticBody2D" parent="World2D/Platforms & Barriers/CloudMaze"]
+z_index = 1
+position = Vector2(126960, -17791)
+rotation = 1.5708
+scale = Vector2(7.96, 7.96)
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/Platforms & Barriers/CloudMaze/CloudBarrierHorizontalR3"]
+position = Vector2(-103.895, -186.495)
 shape = SubResource("RectangleShape2D_882hj")
 
 [node name="CloudBarrierHorizontalL2" type="StaticBody2D" parent="World2D/Platforms & Barriers/CloudMaze"]
@@ -1653,12 +1716,12 @@ collision_layer = 8
 
 [node name="Sprite2D" type="Sprite2D" parent="World2D/Platforms & Barriers/CloudMaze/CloudBarrierHorizontalL2"]
 z_index = 1
-position = Vector2(-100.771, 46.316)
+position = Vector2(-446.272, -992.268)
 scale = Vector2(0.477654, 1.06951)
 texture = ExtResource("55_x80p0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/Platforms & Barriers/CloudMaze/CloudBarrierHorizontalL2"]
-position = Vector2(-103.329, 45.8535)
+position = Vector2(-448.83, -992.731)
 shape = SubResource("RectangleShape2D_qxclr")
 
 [node name="CloudBarrierHorizontalL" type="StaticBody2D" parent="World2D/Platforms & Barriers/CloudMaze"]
@@ -2016,6 +2079,36 @@ z_index = 1
 position = Vector2(1521, -4733)
 shape = SubResource("RectangleShape2D_hqycr")
 
+[node name="ZoomArea5" type="Area2D" parent="."]
+position = Vector2(103327, -347)
+script = ExtResource("88_n5rn7")
+camera_zoom = Vector2(0.1, 0.1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ZoomArea5"]
+z_index = 1
+position = Vector2(1521, -4733)
+shape = SubResource("RectangleShape2D_hqycr")
+
+[node name="ZoomArea6" type="Area2D" parent="."]
+position = Vector2(90208, -347)
+script = ExtResource("88_n5rn7")
+camera_zoom = Vector2(0.1, 0.1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ZoomArea6"]
+z_index = 1
+position = Vector2(1521, -4733)
+shape = SubResource("RectangleShape2D_hqycr")
+
+[node name="ZoomArea7" type="Area2D" parent="."]
+position = Vector2(94147, -347)
+script = ExtResource("88_n5rn7")
+camera_zoom = Vector2(0.2, 0.2)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="ZoomArea7"]
+z_index = 1
+position = Vector2(1521, -4733)
+shape = SubResource("RectangleShape2D_hqycr")
+
 [node name="ZoomArea3" type="Area2D" parent="."]
 position = Vector2(143644, -8097)
 script = ExtResource("88_n5rn7")
@@ -2027,18 +2120,18 @@ position = Vector2(1722, -1148.75)
 shape = SubResource("RectangleShape2D_ib8jg")
 
 [node name="ZoomArea4" type="Area2D" parent="."]
-position = Vector2(139615, -8114)
+position = Vector2(139231, -3833)
 script = ExtResource("88_n5rn7")
 camera_zoom = Vector2(0.1, 0.1)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ZoomArea4"]
 z_index = 1
-position = Vector2(1442.25, 503.5)
+position = Vector2(1022.25, 459.5)
 shape = SubResource("RectangleShape2D_esecu")
-disabled = true
 
 [connection signal="timeout" from="World2D/NPCs/Enemies/GooseRegion2D2/Goose/Timer" to="World2D/NPCs/Enemies/GooseRegion2D2/Goose" method="_on_hop_timer_timeout"]
 [connection signal="timeout" from="World2D/NPCs/Enemies/GooseRegion2D4/GooseBoss/Timer" to="World2D/NPCs/Enemies/GooseRegion2D4/GooseBoss" method="_on_hop_timer_timeout"]
+[connection signal="timeout" from="World2D/NPCs/Enemies/GooseRegion2D4/GooseBoss/GooseBoss/Timer" to="World2D/NPCs/Enemies/GooseRegion2D4/GooseBoss/GooseBoss" method="_on_hop_timer_timeout"]
 [connection signal="timeout" from="World2D/NPCs/Enemies/GooseRegion2D3/Goose2/Timer" to="World2D/NPCs/Enemies/GooseRegion2D3/Goose2" method="_on_hop_timer_timeout"]
 [connection signal="timeout" from="World2D/NPCs/Enemies/GooseRegion2D3/Goose3/Timer" to="World2D/NPCs/Enemies/GooseRegion2D3/Goose3" method="_on_hop_timer_timeout"]
 [connection signal="timeout" from="World2D/NPCs/Enemies/GooseRegion2D3/Goose4/Timer" to="World2D/NPCs/Enemies/GooseRegion2D3/Goose4" method="_on_hop_timer_timeout"]
