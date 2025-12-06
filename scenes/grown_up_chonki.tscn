@@ -579,7 +579,7 @@ script = ExtResource("1_myqjb")
 
 [node name="ChonkiCharacter" type="CharacterBody2D" parent="."]
 z_index = 1
-collision_mask = 9
+collision_mask = 11
 script = ExtResource("2_myqjb")
 
 [node name="AudioRun" type="AudioStreamPlayer2D" parent="ChonkiCharacter"]
