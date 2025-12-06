@@ -30,6 +30,13 @@ GlobalSignals.player_hit.emit()
 
 **Critical Pattern**: Prefer using `GlobalSignals` to connect disparate components instead of traversing the scene tree with `get_node()` or `find_child()`. This decouples components and makes them more reusable.
 
+**When to use signals vs NodePaths**:
+- ✅ **Use GlobalSignals**: When components are in different parts of the scene tree or need loose coupling (e.g., Rodrigo pickup triggering wall fade)
+- ✅ **Use @export NodePath or direct children access**: Only when a script modifies its own direct/shallow children (e.g., a parent node accessing `$ChildSprite` or `$ChildCollision`)
+- ❌ **Avoid**: Deep NodePath traversal like `../../Platforms/SomeNode` - this creates brittle dependencies and breaks when scene structure changes
+
+**Example**: `rodrigo_enclosure_wall.gd` listens to `GlobalSignals.rodrigo_picked_up` instead of Rodrigo trying to find wall nodes with complex NodePaths. Each wall script independently handles the signal and manages its own fade/removal.
+
 Common signals:
 - `player_hit` / `player_out_of_hearts` / `heart_lost` - Health system
 - `star_collected` - Collectible tracking
