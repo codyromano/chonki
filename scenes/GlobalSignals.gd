@@ -88,3 +88,5 @@ signal unlock_ruby_quest_reward()
 signal spawn_item_in_location(item_name: PlayerInventory.Item)
 @warning_ignore("unused_signal")
 signal enter_warning_sign(sign_name: String)
+@warning_ignore("unused_signal")
+signal rodrigo_picked_up

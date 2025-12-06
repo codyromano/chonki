@@ -5,8 +5,8 @@ extends Area2D
 @onready var arrow_up: Label = $ArrowUp
 @onready var arrow_down: Label = $ArrowDown
 
-var direction_horizontal: int = 1
-var direction_vertical: int = 1
+var direction_horizontal: int = -1
+var direction_vertical: int = -1
 var is_powered: bool = false
 var is_returning: bool = false
 var power_start_time: float = 0.0
@@ -15,13 +15,13 @@ var goose_defeated: bool = false
 
 var arrow_tweens: Dictionary = {}
 
-const POWER_DURATION: float = 20.0
+const POWER_DURATION: float = 12.0
 const RETURN_DURATION: float = 4.0
 
 func _ready() -> void:
 	initial_position = position
 	GlobalSignals.lever_status_changed.connect(_on_lever_changed)
-	body_entered.connect(_on_body_entered)
+	area_entered.connect(_on_area_entered)
 	_update_arrow_display()
 
 func _process(delta: float) -> void:
@@ -51,17 +51,13 @@ func _on_lever_changed(lever_name: String, is_on: bool) -> void:
 			is_powered = true
 			power_start_time = Time.get_unix_time_from_system()
 	elif lever_name == "CloudLeverLeftOrRight":
-		if not is_returning:
-			var new_direction = -1 if is_on else 1
-			if new_direction != direction_horizontal:
-				direction_horizontal = new_direction
-				_update_arrow_display()
+		if not is_returning and is_on:
+			direction_horizontal = -direction_horizontal
+			_update_arrow_display()
 	elif lever_name == "CloudLeverUpOrDown":
-		if not is_returning:
-			var new_direction = -1 if is_on else 1
-			if new_direction != direction_vertical:
-				direction_vertical = new_direction
-				_update_arrow_display()
+		if not is_returning and is_on:
+			direction_vertical = -direction_vertical
+			_update_arrow_display()
 
 func _update_arrow_display() -> void:
 	arrow_left.visible = direction_horizontal == -1
@@ -95,20 +91,20 @@ func _stop_arrow_tween(arrow: Label) -> void:
 		arrow_tweens[arrow].kill()
 		arrow.scale = Vector2(1.0, 1.0)
 
-func _on_body_entered(body: Node) -> void:
-	if body.name == "GooseBossCloudMaze" and not goose_defeated:
+func _on_area_entered(area: Area2D) -> void:
+	if area.name == "GooseBossCloudMaze" and not goose_defeated:
 		goose_defeated = true
-		if body.has_method("trigger_defeat"):
-			body.trigger_defeat()
+		if area.has_method("trigger_defeat"):
+			area.trigger_defeat()
 
 func _check_collision_backup() -> void:
 	if goose_defeated:
 		return
 	
-	var overlapping_bodies = get_overlapping_bodies()
-	for body in overlapping_bodies:
-		if body.name == "GooseBossCloudMaze":
+	var overlapping_areas = get_overlapping_areas()
+	for area in overlapping_areas:
+		if area.name == "GooseBossCloudMaze":
 			goose_defeated = true
-			if body.has_method("trigger_defeat"):
-				body.trigger_defeat()
+			if area.has_method("trigger_defeat"):
+				area.trigger_defeat()
 			break
