@@ -36,6 +36,7 @@ var is_jumping: bool = false
 var jump_phase: String = "none"  # "takeoff", "coasting", "descending", "none"
 var takeoff_timer: float = 0.0  # Track takeoff duration
 var collisions_disabled: bool = false
+var defeat_triggered: bool = false
 
 const GOOSE_INJURY_TIME: float = 2.5
 var goose_last_injured_time: int
@@ -47,10 +48,27 @@ var goose_last_injured_time: int
 
 func _ready():
 	sprite.play()
-	# Set up the timer for 4-second intervals
 	hop_timer.wait_time = 4.0
-	# hop_timer.timeout.connect(_on_hop_timer_timeout)
 	hop_timer.start()
+
+func trigger_defeat() -> void:
+	if defeat_triggered:
+		return
+	
+	defeat_triggered = true
+	states[GooseState.DEFEATED] = true
+	
+	set_collision_layer_value(2, false)
+	set_collision_mask_value(1, false)
+	
+	if $GooseDefeated:
+		$GooseDefeated.play()
+	
+	var fade_tween = create_tween()
+	fade_tween.tween_property(self, "modulate:a", 0.0, 3.0)
+	
+	await fade_tween.finished
+	queue_free()
 	
 func is_injured() -> bool:
 	return states.has(GooseState.DEFEATED)
@@ -96,7 +114,6 @@ func goose_disappear() -> void:
 	collision_layer &= ~inanimate_layer
 	
 func _physics_process(delta: float) -> void:
-	# Don't try to move while injured
 	if states.has(GooseState.DEFEATED):
 		sprite.play(get_sprite())
 		return

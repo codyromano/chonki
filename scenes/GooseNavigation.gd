@@ -1,14 +1,18 @@
 extends NavigationAgent2D
 
 @export var speed: float = 200.0
-@onready var parent: CharacterBody2D = get_parent()
-@onready var sprite: AnimatedSprite2D = get_parent().find_child('AnimatedSprite2D')
+var parent: CharacterBody2D
+var sprite: AnimatedSprite2D
 
 var target: Node2D
 var enemy: CharacterBody2D
 var is_navigation_ready = false
 
 func _ready():
+	parent = get_parent() as CharacterBody2D
+	if parent:
+		sprite = parent.find_child('AnimatedSprite2D')
+	
 	target = get_tree().current_scene.find_child("GrownUpChonki", true, false)
 	
 	if !target:

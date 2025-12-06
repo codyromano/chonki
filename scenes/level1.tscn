@@ -1,4 +1,4 @@
-[gd_scene load_steps=125 format=3 uid="uid://br8ftak73gmww"]
+[gd_scene load_steps=130 format=3 uid="uid://br8ftak73gmww"]
 
 [ext_resource type="PackedScene" uid="uid://bk3oytbasgs5w" path="res://scenes/grown_up_chonki.tscn" id="1_6i0tl"]
 [ext_resource type="Script" uid="uid://b2cncqbuotdcl" path="res://scenes/level_1.gd" id="1_hvrd6"]
@@ -88,6 +88,8 @@
 [ext_resource type="Script" uid="uid://djn0u7mqiiuj" path="res://scripts/scene_transition_controller.gd" id="83_scene_transition"]
 [ext_resource type="PackedScene" uid="uid://ds2iostgkakh2" path="res://scenes/composable/warning_sign.tscn" id="87_hqycr"]
 [ext_resource type="Script" uid="uid://dkrht4013uca1" path="res://scenes/zoom_area.gd" id="88_n5rn7"]
+[ext_resource type="Script" uid="uid://b4gj75bwo3f3f" path="res://scenes/CloudBarrierElevator.gd" id="89_elevator"]
+[ext_resource type="Script" uid="uid://d2yhxtsjqi4yg" path="res://scenes/GooseBossCloudMaze.gd" id="90_gooseboss"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_adkmy"]
 size = Vector2(763.363, 472.117)
@@ -181,6 +183,10 @@ animations = [{
 }]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_nwbuc"]
+radius = 672.305
+height = 1406.68
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_hbu35"]
 radius = 672.305
 height = 1406.68
 
@@ -335,11 +341,20 @@ size = Vector2(214.95, 619.221)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6qhw2"]
 size = Vector2(214.95, 68.3419)
 
+[sub_resource type="LabelSettings" id="LabelSettings_arrow"]
+font_size = 128
+font_color = Color(1, 1, 0.529412, 1)
+outline_size = 8
+outline_color = Color(0, 0, 0, 1)
+
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6b8u6"]
 size = Vector2(982.286, 744.729)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hbu35"]
 size = Vector2(126.884, 744.729)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_fc2km"]
+size = Vector2(141.112, 612.559)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_882hj"]
 size = Vector2(141.112, 283.043)
@@ -1042,7 +1057,7 @@ position = Vector2(92006, -12197)
 navigation_polygon = SubResource("NavigationPolygon_n5rn7")
 
 [node name="GooseBoss" type="CharacterBody2D" parent="World2D/NPCs/Enemies/GooseRegion2D4"]
-position = Vector2(14456, -488)
+position = Vector2(14541, -1005)
 collision_layer = 2
 collision_mask = 9
 script = ExtResource("13_rdfy5")
@@ -1055,7 +1070,7 @@ sprite_frames = SubResource("SpriteFrames_8w215")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/NPCs/Enemies/GooseRegion2D4/GooseBoss"]
 position = Vector2(24, 259)
 rotation = 0.948541
-shape = SubResource("CapsuleShape2D_nwbuc")
+shape = SubResource("CapsuleShape2D_hbu35")
 
 [node name="GooseNavigation" type="NavigationAgent2D" parent="World2D/NPCs/Enemies/GooseRegion2D4/GooseBoss"]
 script = ExtResource("16_vuaih")
@@ -1072,34 +1087,25 @@ volume_db = 10.0
 stream = ExtResource("20_f7bbt")
 volume_db = 10.0
 
-[node name="GooseBoss" type="CharacterBody2D" parent="World2D/NPCs/Enemies/GooseRegion2D4/GooseBoss"]
-position = Vector2(19954, -4452)
+[node name="GooseBossCloudMaze" type="CharacterBody2D" parent="World2D/NPCs/Enemies/GooseRegion2D4"]
+z_index = 4
+position = Vector2(34410, -4940)
 collision_layer = 2
-collision_mask = 9
-script = ExtResource("13_rdfy5")
+collision_mask = 3
+motion_mode = 1
+script = ExtResource("90_gooseboss")
 
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World2D/NPCs/Enemies/GooseRegion2D4/GooseBoss/GooseBoss"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World2D/NPCs/Enemies/GooseRegion2D4/GooseBossCloudMaze"]
 position = Vector2(-134, -101)
 scale = Vector2(1.37031, 1.37031)
 sprite_frames = SubResource("SpriteFrames_8w215")
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/NPCs/Enemies/GooseRegion2D4/GooseBoss/GooseBoss"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/NPCs/Enemies/GooseRegion2D4/GooseBossCloudMaze"]
 position = Vector2(-152, -36)
 rotation = 0.948541
 shape = SubResource("CapsuleShape2D_nwbuc")
 
-[node name="GooseNavigation" type="NavigationAgent2D" parent="World2D/NPCs/Enemies/GooseRegion2D4/GooseBoss/GooseBoss"]
-script = ExtResource("16_vuaih")
-
-[node name="Timer" type="Timer" parent="World2D/NPCs/Enemies/GooseRegion2D4/GooseBoss/GooseBoss"]
-wait_time = 2.5
-autostart = true
-
-[node name="FlapAudio" type="AudioStreamPlayer2D" parent="World2D/NPCs/Enemies/GooseRegion2D4/GooseBoss/GooseBoss"]
-stream = ExtResource("18_60djy")
-volume_db = 10.0
-
-[node name="GooseDefeated" type="AudioStreamPlayer2D" parent="World2D/NPCs/Enemies/GooseRegion2D4/GooseBoss/GooseBoss"]
+[node name="GooseDefeated" type="AudioStreamPlayer2D" parent="World2D/NPCs/Enemies/GooseRegion2D4/GooseBossCloudMaze"]
 stream = ExtResource("20_f7bbt")
 volume_db = 10.0
 
@@ -1608,10 +1614,12 @@ texture = ExtResource("55_x80p0")
 position = Vector2(-47.6768, -101.382)
 shape = SubResource("RectangleShape2D_6qhw2")
 
-[node name="CloudBarrierElevator" type="StaticBody2D" parent="World2D/Platforms & Barriers/CloudMaze"]
-position = Vector2(135741, -11296)
+[node name="CloudBarrierElevator" type="Area2D" parent="World2D/Platforms & Barriers/CloudMaze"]
+position = Vector2(138940, -11813)
 scale = Vector2(7.96, 7.96)
 collision_layer = 8
+collision_mask = 2
+script = ExtResource("89_elevator")
 
 [node name="Sprite2D" type="Sprite2D" parent="World2D/Platforms & Barriers/CloudMaze/CloudBarrierElevator"]
 position = Vector2(-1212.71, -283.543)
@@ -1622,6 +1630,46 @@ texture = ExtResource("55_x80p0")
 position = Vector2(-1210.64, -277.513)
 scale = Vector2(0.829279, 1)
 shape = SubResource("RectangleShape2D_6qhw2")
+
+[node name="ArrowLeft" type="Label" parent="World2D/Platforms & Barriers/CloudMaze/CloudBarrierElevator"]
+offset_left = -1500.0
+offset_top = -320.0
+offset_right = -1400.0
+offset_bottom = -192.0
+text = "←"
+label_settings = SubResource("LabelSettings_arrow")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ArrowRight" type="Label" parent="World2D/Platforms & Barriers/CloudMaze/CloudBarrierElevator"]
+offset_left = -920.0
+offset_top = -320.0
+offset_right = -820.0
+offset_bottom = -192.0
+text = "→"
+label_settings = SubResource("LabelSettings_arrow")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ArrowUp" type="Label" parent="World2D/Platforms & Barriers/CloudMaze/CloudBarrierElevator"]
+offset_left = -1260.0
+offset_top = -400.0
+offset_right = -1160.0
+offset_bottom = -272.0
+text = "↑"
+label_settings = SubResource("LabelSettings_arrow")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ArrowDown" type="Label" parent="World2D/Platforms & Barriers/CloudMaze/CloudBarrierElevator"]
+offset_left = -1260.0
+offset_top = -180.0
+offset_right = -1160.0
+offset_bottom = -52.0
+text = "↓"
+label_settings = SubResource("LabelSettings_arrow")
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [node name="CloudBarrierVerticalR" type="StaticBody2D" parent="World2D/Platforms & Barriers/CloudMaze"]
 position = Vector2(124276, -8322)
@@ -1694,8 +1742,8 @@ scale = Vector2(0.477654, 1.06951)
 texture = ExtResource("55_x80p0")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/Platforms & Barriers/CloudMaze/CloudBarrierHorizontalR2"]
-position = Vector2(-103.894, 44.3467)
-shape = SubResource("RectangleShape2D_882hj")
+position = Vector2(-103.894, 113.063)
+shape = SubResource("RectangleShape2D_fc2km")
 
 [node name="CloudBarrierHorizontalR3" type="StaticBody2D" parent="World2D/Platforms & Barriers/CloudMaze"]
 z_index = 1
@@ -1742,12 +1790,19 @@ shape = SubResource("RectangleShape2D_t3dvg")
 
 [node name="CloudLeverLeftOrRight" parent="World2D/Platforms & Barriers/CloudMaze" instance=ExtResource("2_vutef")]
 position = Vector2(116607, -13349)
+timer_duration = 10.0
+lever_name = "CloudLeverLeftOrRight"
 
 [node name="CloudLeverUpOrDown" parent="World2D/Platforms & Barriers/CloudMaze" instance=ExtResource("2_vutef")]
 position = Vector2(123901, -10268)
+timer_duration = 10.0
+lever_name = "CloudLeverUpOrDown"
 
 [node name="CloudLeverPower" parent="World2D/Platforms & Barriers/CloudMaze" instance=ExtResource("2_vutef")]
 position = Vector2(128013, -10268)
+timer_duration = 20.0
+lever_name = "CloudLeverPower"
+touchable_while_timer_is_active = false
 
 [node name="StaticBody2D" type="StaticBody2D" parent="World2D/Platforms & Barriers"]
 position = Vector2(30376, 9)
@@ -1861,7 +1916,7 @@ texture = ExtResource("11_qfp7r")
 
 [node name="GrownUpChonki" parent="." node_paths=PackedStringArray("debug_start_marker") instance=ExtResource("1_6i0tl")]
 z_index = 2
-position = Vector2(71000, -870)
+position = Vector2(127867, -1550)
 script = ExtResource("73_ix5rl")
 debug_start_marker = NodePath("../Debug/GusDebugStartMarker")
 jump_multiplier = 1.25
@@ -1999,7 +2054,7 @@ zoom_on_enter = 0.22
 [node name="Debug" type="Node" parent="."]
 
 [node name="GusDebugStartMarker" type="Marker2D" parent="Debug"]
-position = Vector2(121442, -987)
+position = Vector2(64500, -1293)
 
 [node name="JumpRuler" type="ColorRect" parent="Debug"]
 visible = false
@@ -2131,7 +2186,6 @@ shape = SubResource("RectangleShape2D_esecu")
 
 [connection signal="timeout" from="World2D/NPCs/Enemies/GooseRegion2D2/Goose/Timer" to="World2D/NPCs/Enemies/GooseRegion2D2/Goose" method="_on_hop_timer_timeout"]
 [connection signal="timeout" from="World2D/NPCs/Enemies/GooseRegion2D4/GooseBoss/Timer" to="World2D/NPCs/Enemies/GooseRegion2D4/GooseBoss" method="_on_hop_timer_timeout"]
-[connection signal="timeout" from="World2D/NPCs/Enemies/GooseRegion2D4/GooseBoss/GooseBoss/Timer" to="World2D/NPCs/Enemies/GooseRegion2D4/GooseBoss/GooseBoss" method="_on_hop_timer_timeout"]
 [connection signal="timeout" from="World2D/NPCs/Enemies/GooseRegion2D3/Goose2/Timer" to="World2D/NPCs/Enemies/GooseRegion2D3/Goose2" method="_on_hop_timer_timeout"]
 [connection signal="timeout" from="World2D/NPCs/Enemies/GooseRegion2D3/Goose3/Timer" to="World2D/NPCs/Enemies/GooseRegion2D3/Goose3" method="_on_hop_timer_timeout"]
 [connection signal="timeout" from="World2D/NPCs/Enemies/GooseRegion2D3/Goose4/Timer" to="World2D/NPCs/Enemies/GooseRegion2D3/Goose4" method="_on_hop_timer_timeout"]
