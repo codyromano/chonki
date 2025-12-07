@@ -12,9 +12,13 @@ var characters_revealed: int = 0
 var start_time: float
 var animation_finished: bool = false
 var total_animation_duration: float = 0.0
+var can_skip: bool = true
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(_delta):
+	if animation_finished:
+		return
+		
 	if !start_time:
 		pen_sound.play()
 		start_time = Time.get_unix_time_from_system()
@@ -33,4 +37,25 @@ func _process(_delta):
 		if !animation_finished:
 			animation_finished = true
 			animation_complete.emit()
+
+func skip_to_end() -> void:
+	if !can_skip or animation_finished:
+		return
+	
+	can_skip = false
+	animation_finished = true
+	characters_revealed = text_after_reveal.length()
+	text = text_after_reveal
+	
+	if !start_time:
+		start_time = Time.get_unix_time_from_system()
+		total_animation_duration = text_after_reveal.length() * seconds_per_character
+	
+	if pen_sound:
+		pen_sound.stop()
+	
+	animation_complete.emit()
+
+func is_typing() -> bool:
+	return !animation_finished
 	

@@ -1,4 +1,4 @@
-[gd_scene load_steps=135 format=3 uid="uid://br8ftak73gmww"]
+[gd_scene load_steps=136 format=3 uid="uid://br8ftak73gmww"]
 
 [ext_resource type="PackedScene" uid="uid://bk3oytbasgs5w" path="res://scenes/grown_up_chonki.tscn" id="1_6i0tl"]
 [ext_resource type="Script" uid="uid://b2cncqbuotdcl" path="res://scenes/level_1.gd" id="1_hvrd6"]
@@ -79,6 +79,7 @@
 [ext_resource type="PackedScene" uid="uid://dmvfy4x1ini0v" path="res://scenes/composable/bench.tscn" id="58_eedbu"]
 [ext_resource type="PackedScene" path="res://scenes/spawn_location.tscn" id="59_x7a8r"]
 [ext_resource type="PackedScene" uid="uid://dpwcrkl2e2ro4" path="res://scenes/composable/adjust_zoom_on_player_enter.tscn" id="62_4w6xv"]
+[ext_resource type="Texture2D" uid="uid://b6o0s4p3wr44" path="res://assets/friends/sun.png" id="64_qxclr"]
 [ext_resource type="AudioStream" uid="uid://cy7y35exdndmr" path="res://assets/sound/secret_letter.mp3" id="66_574qs"]
 [ext_resource type="Script" uid="uid://cu46jqmyvfpbt" path="res://scenes/grown_up_chonki.gd" id="73_ix5rl"]
 [ext_resource type="Script" uid="uid://bj8qjm1gsuny4" path="res://scenes/spawn_location.gd" id="78_5674x"]
@@ -319,7 +320,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4w6xv"]
-size = Vector2(4938.05, 79)
+size = Vector2(5640.39, 79)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c0y31"]
 size = Vector2(3651.3, 79)
@@ -340,7 +341,7 @@ size = Vector2(25846, 481)
 size = Vector2(214.95, 137.562)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_6qhw2"]
-size = Vector2(431.721, 82.9146)
+size = Vector2(198.752, 140.201)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4qqow"]
 size = Vector2(85.8047, 426.257)
@@ -1370,7 +1371,8 @@ collision_mask = 255
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/Platforms & Barriers/Ground"]
 z_index = 100
-position = Vector2(5648.77, 40)
+position = Vector2(5297.6, 40)
+scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_4w6xv")
 debug_color = Color(0.307035, 0.494072, 1, 0.42)
 
@@ -1660,30 +1662,30 @@ collision_mask = 2
 script = ExtResource("89_elevator")
 
 [node name="Sprite2D" type="Sprite2D" parent="World2D/Platforms & Barriers/CloudMaze/CloudBarrierElevator"]
-position = Vector2(30.2539, 22.7384)
-scale = Vector2(0.626688, 0.0944211)
-texture = ExtResource("55_x80p0")
+position = Vector2(34.548, 104.523)
+scale = Vector2(0.312752, 0.288658)
+texture = ExtResource("64_qxclr")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/Platforms & Barriers/CloudMaze/CloudBarrierElevator"]
-position = Vector2(32.3239, 28.7684)
+position = Vector2(37.4316, 103.895)
 scale = Vector2(0.829279, 1)
 shape = SubResource("RectangleShape2D_6qhw2")
 
 [node name="ArrowLeft" type="Label" parent="World2D/Platforms & Barriers/CloudMaze/CloudBarrierElevator"]
-offset_left = -257.036
-offset_top = -13.7186
-offset_right = -129.036
-offset_bottom = 161.281
+offset_left = -185.0
+offset_top = 5.0
+offset_right = -57.0
+offset_bottom = 180.0
 text = "←"
 label_settings = SubResource("LabelSettings_arrow")
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="ArrowRight" type="Label" parent="World2D/Platforms & Barriers/CloudMaze/CloudBarrierElevator"]
-offset_left = 322.964
-offset_top = -13.7186
-offset_right = 450.964
-offset_bottom = 161.281
+offset_left = 130.402
+offset_top = 6.15567
+offset_right = 258.402
+offset_bottom = 181.155
 text = "→"
 label_settings = SubResource("LabelSettings_arrow")
 horizontal_alignment = 1
@@ -1691,9 +1693,9 @@ vertical_alignment = 1
 
 [node name="ArrowUp" type="Label" parent="World2D/Platforms & Barriers/CloudMaze/CloudBarrierElevator"]
 offset_left = -17.0361
-offset_top = -93.7186
+offset_top = -128.769
 offset_right = 82.9639
-offset_bottom = 81.2814
+offset_bottom = 46.2312
 text = "↑"
 label_settings = SubResource("LabelSettings_arrow")
 horizontal_alignment = 1
@@ -1701,9 +1703,9 @@ vertical_alignment = 1
 
 [node name="ArrowDown" type="Label" parent="World2D/Platforms & Barriers/CloudMaze/CloudBarrierElevator"]
 offset_left = -17.0361
-offset_top = 126.281
+offset_top = 161.306
 offset_right = 82.9639
-offset_bottom = 301.281
+offset_bottom = 336.306
 text = "↓"
 label_settings = SubResource("LabelSettings_arrow")
 horizontal_alignment = 1

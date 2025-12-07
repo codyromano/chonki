@@ -372,3 +372,38 @@ func test_audio_nodes_have_always_process_mode():
 			assert_eq(audio_node.process_mode, Node.PROCESS_MODE_ALWAYS, "Audio nodes should process during pause")
 	else:
 		assert_true(true, "No audio nodes in test scene - skipping check")
+
+func test_skip_typewriter_then_advance_to_next_dialogue():
+	GlobalSignals.queue_main_dialogue.emit("First dialogue", "id-1", "gus", [{"id": "continue-1", "text": "Continue"}])
+	await wait_frames(3)
+	
+	var first_dialogue = controller.rendered_dialogue
+	if !first_dialogue:
+		assert_true(true, "No canvas layer - skipping integration test")
+		return
+	
+	assert_eq(controller.current_instruction_trigger_id, "id-1", "Should display first dialogue")
+	
+	var typewriter = first_dialogue.get_node("VBoxContainer/HBoxContainer/TypewriterReveal")
+	assert_not_null(typewriter, "Typewriter should exist")
+	
+	if typewriter.has_method("is_typing") and typewriter.is_typing():
+		var skip_event = InputEventAction.new()
+		skip_event.action = "ui_accept"
+		skip_event.pressed = true
+		first_dialogue._unhandled_input(skip_event)
+		
+		await wait_frames(2)
+		
+		assert_false(typewriter.is_typing(), "Typewriter should be complete after skip")
+	
+	GlobalSignals.queue_main_dialogue.emit("Second dialogue", "id-2", "gus", [{"id": "continue-2", "text": "Continue"}])
+	
+	var advance_event = InputEventAction.new()
+	advance_event.action = "ui_accept"
+	advance_event.pressed = true
+	first_dialogue._unhandled_input(advance_event)
+	
+	await wait_frames(3)
+	
+	assert_eq(controller.current_instruction_trigger_id, "id-2", "Should advance to second dialogue after skip and Enter")

@@ -8,9 +8,12 @@ extends PanelContainer
 
 var dialogue_options_count: int = 0
 var is_typewriter_active: bool = true
+var skip_sound: AudioStreamPlayer
+var was_skipped: bool = false
 
 var can_dismiss_dialogue: bool = false
 var is_dismissing: bool = false
+var is_processing_completion: bool = false
 
 func _ready():
 	# Check all required nodes
@@ -32,6 +35,11 @@ func _ready():
 	# Connect to typewriter animation complete
 	if typewriter.animation_complete.connect(_on_typewriter_complete) != OK:
 		push_error("[MainDialogueDisplay] Failed to connect to typewriter animation_complete signal")
+	
+	skip_sound = AudioStreamPlayer.new()
+	skip_sound.stream = load("res://assets/sound/book1.mp3")
+	skip_sound.volume_db = -10.0
+	add_child(skip_sound)
 
 func set_dialogue(text: String) -> void:
 	if typewriter:
@@ -46,16 +54,39 @@ func set_avatar(texture: CompressedTexture2D) -> void:
 		push_error("[MainDialogueDisplay] Cannot set avatar, avatar node is null")
 
 func _on_typewriter_complete() -> void:
+	print("[MainDialogueDisplay] _on_typewriter_complete called")
+	print("  is_typewriter_active: ", is_typewriter_active)
+	print("  was_skipped: ", was_skipped)
+	print("  is_processing_completion: ", is_processing_completion)
+	
 	is_typewriter_active = false
 	
-	var choices = MainDialogueController.get_dialogue_choices()
+	print("  After setting flags - is_typewriter_active: ", is_typewriter_active)
 	
-	if choices.size() > 0:
+	var choices = MainDialogueController.get_dialogue_choices()
+	print("  choices.size(): ", choices.size())
+	
+	if was_skipped and choices.size() == 1 and choices[0].text == "Continue":
+		print("  Branch: Auto-advance for single Continue")
+		was_skipped = false
+		await get_tree().process_frame
+		GlobalSignals.dialogue_option_selected.emit(choices[0].id, "Continue")
+	elif choices.size() > 0:
+		print("  Branch: Creating dialogue options for ", choices.size(), " choices")
+		for i in range(choices.size()):
+			print("    Choice ", i, ": ", choices[i].text)
+		was_skipped = false
 		_create_dialogue_options(choices)
 	else:
+		print("  Branch: No choices, setting can_dismiss_dialogue = true")
+		was_skipped = false
 		can_dismiss_dialogue = true
+	
+	print("  _on_typewriter_complete finished")
 
 func _create_dialogue_options(choices: Array) -> void:
+	print("[MainDialogueDisplay] _create_dialogue_options called with ", choices.size(), " choices")
+	
 	for child in dialogue_options_container.get_children():
 		if child.name.begins_with("DialogueOption"):
 			child.queue_free()
@@ -82,10 +113,12 @@ func _create_dialogue_options(choices: Array) -> void:
 			current_button.focus_neighbor_bottom = current_button.get_path_to(option_buttons[i + 1])
 	
 	dialogue_options_container.visible = true
-	
-	call_deferred("_focus_first_option")
+	print("  Set dialogue_options_container.visible = true")
 	
 	dialogue_options_count = choices.size()
+	print("  Set dialogue_options_count = ", dialogue_options_count)
+	
+	await call_deferred("_focus_first_option")
 
 func _focus_first_option() -> void:
 	await get_tree().process_frame
@@ -100,18 +133,42 @@ func _process(_delta) -> void:
 	press_enter_label.visible = dialogue_options_count == 0 && !is_typewriter_active
 
 func _unhandled_input(event: InputEvent) -> void:
-	if dialogue_options_container.visible and dialogue_options_count > 0:
-		if event.is_action_pressed("ui_up") or event.is_action_pressed("ui_down") or event.is_action_pressed("ui_accept"):
-			get_viewport().set_input_as_handled()
-			return
-	
-	if is_dismissing or !can_dismiss_dialogue:
+	if !event.is_action_pressed("ui_accept"):
+		if event.is_action_pressed("ui_up") or event.is_action_pressed("ui_down"):
+			if dialogue_options_container.visible and dialogue_options_count > 0:
+				get_viewport().set_input_as_handled()
 		return
-		
-	if event.is_action_pressed("ui_accept") or event.is_action_pressed("ui_up"):
-		is_dismissing = true
-		GlobalSignals.dismiss_active_main_dialogue.emit("")
-		
-		var viewport = get_viewport()
-		if viewport:
-			viewport.set_input_as_handled()
+	
+	print("[MainDialogueDisplay] ui_accept pressed")
+	print("  is_typewriter_active: ", is_typewriter_active)
+	print("  is_processing_completion: ", is_processing_completion)
+	print("  dialogue_options_container.visible: ", dialogue_options_container.visible)
+	print("  dialogue_options_count: ", dialogue_options_count)
+	print("  can_dismiss_dialogue: ", can_dismiss_dialogue)
+	print("  is_dismissing: ", is_dismissing)
+	
+	if is_typewriter_active and typewriter and typewriter.has_method("is_typing") and typewriter.is_typing():
+		print("  Action: Skipping typewriter")
+		was_skipped = true
+		typewriter.skip_to_end()
+		if skip_sound:
+			skip_sound.play()
+		get_viewport().set_input_as_handled()
+		print("  Returning after skip, input handled")
+		return
+	
+	if dialogue_options_container.visible and dialogue_options_count > 0:
+		print("  Action: Dialogue options visible, not dismissing")
+		return
+	
+	if is_dismissing or !can_dismiss_dialogue or is_processing_completion:
+		print("  Action: Blocked from dismissing - is_dismissing:", is_dismissing, " can_dismiss:", can_dismiss_dialogue, " is_processing:", is_processing_completion)
+		return
+	
+	print("  Action: DISMISSING DIALOGUE")
+	is_dismissing = true
+	GlobalSignals.dismiss_active_main_dialogue.emit("")
+	
+	var viewport = get_viewport()
+	if viewport:
+		viewport.set_input_as_handled()

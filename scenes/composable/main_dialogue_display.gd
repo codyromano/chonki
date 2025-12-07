@@ -9,6 +9,8 @@ var dialogue: String = ""
 var instruction_trigger_id: String = ""
 var dialogue_option_scene: PackedScene = preload("res://scenes/menus/dialogue_option.tscn")
 var continue_option_id: String = ""
+var is_typewriter_active: bool = false
+var skip_sound: AudioStreamPlayer
 
 func _ready() -> void:
 	if !label:
@@ -36,12 +38,19 @@ func _ready() -> void:
 		child.queue_free()
 	
 	if typewriter:
+		is_typewriter_active = true
 		typewriter.animation_complete.connect(_on_typewriter_complete)
+	
+	skip_sound = AudioStreamPlayer.new()
+	skip_sound.stream = load("res://assets/sound/book1.mp3")
+	skip_sound.volume_db = -10.0
+	add_child(skip_sound)
 
 func set_instruction_trigger_id(trigger_id: String) -> void:
 	instruction_trigger_id = trigger_id
 
 func _on_typewriter_complete() -> void:
+	is_typewriter_active = false
 	var choices = MainDialogueController.get_dialogue_choices()
 	
 	if choices.size() == 1 and choices[0].text == "Continue":
@@ -95,11 +104,17 @@ func _create_dialogue_options(choices: Array) -> void:
 		option_buttons[0].grab_focus()
 
 func _unhandled_input(event: InputEvent) -> void:
-	if continue_option_id != "" and press_enter_label.modulate.a >= 1.0:
-		if event.is_action_pressed("ui_accept") or event.is_action_pressed("ui_up"):
-			GlobalSignals.dialogue_option_selected.emit(continue_option_id, "Continue")
-			get_viewport().set_input_as_handled()
-	elif dialogue_options_container.modulate.a < 1.0:
-		if event.is_action_pressed("ui_accept") or event.is_action_pressed("ui_up"):
-			GlobalSignals.dismiss_active_main_dialogue.emit(instruction_trigger_id)
-			get_viewport().set_input_as_handled()
+	if !event.is_action_pressed("ui_accept"):
+		return
+	
+	if is_typewriter_active and typewriter and typewriter.has_method("is_typing") and typewriter.is_typing():
+		typewriter.skip_to_end()
+		if skip_sound:
+			skip_sound.play()
+		get_viewport().set_input_as_handled()
+	elif continue_option_id != "" and press_enter_label.modulate.a >= 1.0:
+		GlobalSignals.dialogue_option_selected.emit(continue_option_id, "Continue")
+		get_viewport().set_input_as_handled()
+	elif dialogue_options_container.modulate.a < 1.0 and !is_typewriter_active:
+		GlobalSignals.dismiss_active_main_dialogue.emit(instruction_trigger_id)
+		get_viewport().set_input_as_handled()
