@@ -39,6 +39,7 @@ position = Vector2(34, 26)
 shape = SubResource("RectangleShape2D_6lx4c")
 
 [node name="Instructions" type="Label" parent="."]
+process_mode = 3
 modulate = Color(1, 1, 1, 0)
 offset_left = -496.0
 offset_top = -1135.0

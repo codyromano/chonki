@@ -94,6 +94,10 @@ func _create_dialogue(dialogue: String, _trigger_id: String = "", avatar_name: S
 		push_error("[MainDialogueController] No CanvasLayer found to display dialogue!")
 		return null
 	
+	var tree = get_tree()
+	if tree:
+		tree.paused = true
+	
 	var scene = dialogue_scene.instantiate()
 	target_canvas_layer.call_deferred("add_child", scene)
 	scene.call_deferred("set_dialogue", dialogue)
@@ -103,11 +107,12 @@ func _create_dialogue(dialogue: String, _trigger_id: String = "", avatar_name: S
 	
 	time_dialogue_created = Time.get_unix_time_from_system()
 	
-	# Prevent immediate dismissal by waiting one frame
+	# Prevent immediate dismissal by waiting for key release
 	can_dismiss_dialogue = false
-	var tree = get_tree()
 	if tree:
-		await tree.process_frame
+		# Wait until ui_accept is released
+		while Input.is_action_pressed("ui_accept"):
+			await tree.process_frame
 	can_dismiss_dialogue = true
 	
 	return scene
@@ -127,7 +132,10 @@ func _process_queue() -> void:
 
 	if dialogue_queue.is_empty():
 		current_instruction_trigger_id = ""
+		if tree:
+			tree.paused = false
 		return
+	
 	var next_dialogue_data = dialogue_queue.pop_front()
 	var dialogue_text = next_dialogue_data.dialogue if next_dialogue_data is Dictionary else next_dialogue_data
 	current_instruction_trigger_id = next_dialogue_data.trigger_id if next_dialogue_data is Dictionary else ""
@@ -137,6 +145,9 @@ func _process_queue() -> void:
 
 
 func _on_dialogue_queued(dialogue: String, instruction_trigger_id: String = "", avatar_name: String = "", choices: Array = []) -> void:
+	print("[MainDialogueController] _on_dialogue_queued called")
+	print("[MainDialogueController] dialogue: ", dialogue.substr(0, 50), "...")
+	print("[MainDialogueController] avatar_name: ", avatar_name)
 	var dialogue_data = {
 		"dialogue": dialogue,
 		"trigger_id": instruction_trigger_id,
@@ -144,9 +155,11 @@ func _on_dialogue_queued(dialogue: String, instruction_trigger_id: String = "", 
 		"choices": choices
 	}
 	dialogue_queue.push_back(dialogue_data)
+	print("[MainDialogueController] Added to queue. Queue size: ", dialogue_queue.size())
 	
 	# Check if rendered_dialogue is still valid (in the tree)
 	var has_valid_dialogue = rendered_dialogue != null and is_instance_valid(rendered_dialogue) and rendered_dialogue.is_inside_tree()
+	print("[MainDialogueController] has_valid_dialogue: ", has_valid_dialogue)
 	
 	if not has_valid_dialogue:
 		# Clear invalid reference if it exists

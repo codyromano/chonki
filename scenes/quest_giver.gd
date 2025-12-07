@@ -23,6 +23,7 @@ var is_in_dialogue: bool = false
 var is_transitioning_dialogue: bool = false
 
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_ALWAYS
 	sprite.sprite_frames = frames
 	sprite.scale *= sprite_scale
 	_prepare_collisions()
@@ -37,34 +38,66 @@ func update_rodrigo_position() -> void:
 	if rodrigo:
 		rodrigo.global_position = rodrigo_marker.global_position
 
-func _process(_delta) -> void:  
+func _process(_delta) -> void:
 	# Check if we're waiting for key release and the key is now released
 	if waiting_for_key_release and !Input.is_action_pressed("ui_accept"):
+		print("[QuestGiver] Key released, allowing dialogue trigger")
 		waiting_for_key_release = false
 		can_trigger_dialogue = true
 	
-	# Only allow initiating dialogue when we can trigger and not waiting for key release
-	if Input.is_action_just_pressed("ui_accept") && is_player_nearby && can_trigger_dialogue && !waiting_for_key_release:
-		can_trigger_dialogue = false
-		_initiate_dialogue()
-	
 	update_rodrigo_position()
 
+func _unhandled_input(event: InputEvent) -> void:
+	# Don't process input if main dialogue is already showing (not from us)
+	if MainDialogueController.rendered_dialogue and not is_in_dialogue:
+		print("[QuestGiver] Input blocked: Another dialogue is showing")
+		return
+	
+	# Only allow initiating dialogue when we can trigger and not waiting for key release
+	if event.is_action_pressed("ui_accept"):
+		print("[QuestGiver] Enter pressed in _unhandled_input")
+		print("[QuestGiver]   is_player_nearby: ", is_player_nearby)
+		print("[QuestGiver]   can_trigger_dialogue: ", can_trigger_dialogue)
+		print("[QuestGiver]   waiting_for_key_release: ", waiting_for_key_release)
+		print("[QuestGiver]   is_in_dialogue: ", is_in_dialogue)
+		
+		if is_player_nearby && can_trigger_dialogue && !waiting_for_key_release:
+			print("[QuestGiver] All conditions met! Initiating dialogue")
+			can_trigger_dialogue = false
+			_initiate_dialogue()
+			get_viewport().set_input_as_handled()
+		else:
+			print("[QuestGiver] Conditions NOT met, dialogue will not trigger")
+
 func _on_dialogue_dismissed(_instruction_trigger_id: String) -> void:
+	print("[QuestGiver] _on_dialogue_dismissed called")
+	print("[QuestGiver] is_in_dialogue: ", is_in_dialogue)
+	print("[QuestGiver] is_transitioning_dialogue: ", is_transitioning_dialogue)
+	print("[QuestGiver] current_dialogue_node: ", current_dialogue_node)
+	if current_dialogue_node:
+		print("[QuestGiver] current_dialogue_node.choices.size(): ", current_dialogue_node.choices.size())
+	
 	# If we're transitioning between dialogue nodes, don't end the dialogue
 	if is_transitioning_dialogue:
+		print("[QuestGiver] Transitioning, not ending dialogue")
 		is_transitioning_dialogue = false
 		return
 	
-	# Only mark as not in dialogue if we're actually ending the conversation
-	# (not just transitioning between dialogue nodes)
-	if is_in_dialogue and current_dialogue_node and current_dialogue_node.choices.size() == 0:
+	# If we're in dialogue, always clean up state when dismissed
+	if is_in_dialogue:
+		print("[QuestGiver] Ending dialogue, resetting state")
 		is_in_dialogue = false
 		waiting_for_key_release = true
-		# Call the on_dialogue_finished callback before resetting
-		on_dialogue_finished()
-		# Reset to start from root on next interaction
-		current_dialogue_node = null
+		
+		# Only call on_dialogue_finished and reset if we're at a leaf node (no more choices)
+		if current_dialogue_node and current_dialogue_node.choices.size() == 0:
+			print("[QuestGiver] At leaf node, calling on_dialogue_finished")
+			on_dialogue_finished()
+			current_dialogue_node = null
+		else:
+			print("[QuestGiver] Not at leaf node, keeping current_dialogue_node for next interaction")
+	else:
+		print("[QuestGiver] Not in dialogue, ignoring dismiss")
 
 func _on_dialogue_option_selected(option_id: String, _option_text: String) -> void:
 	# Only handle this if we're currently in dialogue with this quest giver
@@ -89,11 +122,13 @@ func _on_dialogue_option_selected(option_id: String, _option_text: String) -> vo
 	# Warnings are already handled in get_next_dialogue_node()
 
 func _initiate_dialogue() -> void:
+	print("[QuestGiver] _initiate_dialogue called")
 	# Hide instructions when dialogue starts
 	_set_instructions_opacity(0, 0.25)
 	
 	# If we don't have a current node, start from the root
 	if !current_dialogue_node:
+		print("[QuestGiver] No current node, getting dialogue tree root")
 		var dialogue_tree = _get_dialogue_tree()
 		if dialogue_tree and dialogue_tree.root_node:
 			current_dialogue_node = dialogue_tree.root_node
@@ -102,6 +137,7 @@ func _initiate_dialogue() -> void:
 			return
 	
 	# Display the current node (either root on first interaction, or last leaf node on subsequent interactions)
+	print("[QuestGiver] Setting is_in_dialogue = true")
 	is_in_dialogue = true
 	_display_current_node()
 
@@ -179,6 +215,7 @@ func _set_instructions_opacity(modulate_a: float, duration: float) -> void:
 			tween_instructions.kill()
 			
 		tween_instructions = create_tween()
+		tween_instructions.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 		tween_instructions.tween_property(instructions, "modulate:a", modulate_a, duration)
 		await tween_instructions.finished
 

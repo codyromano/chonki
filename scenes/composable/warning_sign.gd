@@ -11,6 +11,7 @@ var is_standing_by_sign: bool = false
 var has_been_triggered: bool = false
 
 func _ready() -> void:
+	process_mode = Node.PROCESS_MODE_WHEN_PAUSED
 	if !sign_name:
 		push_error("Warning sign has unspecified name")
 
