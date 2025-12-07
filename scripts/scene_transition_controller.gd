@@ -88,6 +88,7 @@ func fade_to_black():
 		tween.kill()
 	
 	tween = create_tween()
+	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	tween.tween_property(fade_overlay, "color:a", 1.0, 0.5)  # Fade to black over 0.5 seconds
 	tween.tween_callback(_on_fade_complete)
 

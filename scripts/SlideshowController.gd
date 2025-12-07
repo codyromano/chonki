@@ -67,6 +67,7 @@ func _skip_to_end() -> void:
 	var audio_players = _find_all_audio_players(get_tree().current_scene)
 	
 	var fade_tween = get_tree().create_tween()
+	fade_tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	fade_tween.set_parallel(true)
 	
 	for audio_player in audio_players:
@@ -127,7 +128,7 @@ func _start_slideshow() -> void:
 		if is_skipping:
 			return
 		
-		await get_tree().create_timer(display_time).timeout
+		await get_tree().create_timer(display_time, false).timeout
 		
 		if is_skipping:
 			return

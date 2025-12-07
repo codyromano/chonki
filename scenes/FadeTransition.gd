@@ -43,6 +43,7 @@ func fade_out(duration: float = 3.0):
 	fade_rect.color = Color(0, 0, 0, 0)
 	fade_rect.size = get_viewport().get_visible_rect().size
 	var tween = create_tween()
+	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	tween.tween_property(fade_rect, "color:a", 1.0, duration).set_trans(Tween.TRANS_SINE)
 	await tween.finished
 
@@ -51,6 +52,7 @@ func fade_in(duration: float = 3.0):
 	fade_rect.visible = true
 	fade_rect.size = get_viewport().get_visible_rect().size
 	var tween = create_tween()
+	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	tween.tween_property(fade_rect, "color:a", 0.0, duration).set_trans(Tween.TRANS_SINE)
 	await tween.finished
 	fade_rect.visible = false
@@ -68,12 +70,14 @@ func show_message_and_reload(message: String, text_fade_duration: float = 0.25, 
 	message_label.text = message
 	message_label.get_parent().visible = true
 	var fade_in_tween = create_tween()
+	fade_in_tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	fade_in_tween.tween_property(message_label, "modulate:a", 1.0, text_fade_duration)
 	await fade_in_tween.finished
 	
-	await get_tree().create_timer(text_display_duration).timeout
+	await get_tree().create_timer(text_display_duration, false).timeout
 	
 	var fade_out_tween = create_tween()
+	fade_out_tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	fade_out_tween.tween_property(message_label, "modulate:a", 0.0, text_fade_duration)
 	await fade_out_tween.finished
 	
@@ -91,7 +95,7 @@ func fade_out_and_change_scene(scene_path: String, delay: float = 5.0, fade_dura
 	is_fading = true
 	# Store the current scene path before changing
 	_previous_scene_path = get_tree().current_scene.scene_file_path if get_tree().current_scene else ""
-	await get_tree().create_timer(delay).timeout
+	await get_tree().create_timer(delay, false).timeout
 	await fade_out(fade_duration)
 	get_tree().change_scene_to_file(scene_path)
 	await get_tree().process_frame

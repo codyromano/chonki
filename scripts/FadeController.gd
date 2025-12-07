@@ -36,6 +36,7 @@ func fade_to_black(duration: float) -> void:
 		tween.kill()
 	
 	tween = parent.create_tween()
+	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	tween.tween_property(overlay, "modulate:a", 1.0, duration)
 	await tween.finished
 
@@ -45,6 +46,7 @@ func fade_to_clear(duration: float) -> void:
 		tween.kill()
 	
 	tween = parent.create_tween()
+	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	tween.tween_property(overlay, "modulate:a", 0.0, duration)
 	await tween.finished
 
@@ -66,6 +68,7 @@ func fade_to_black_with_audio(visual_duration: float, audio_duration: float, aud
 		tween.kill()
 	
 	tween = parent.create_tween()
+	tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
 	tween.set_parallel(true)
 	
 	tween.tween_property(overlay, "modulate:a", 1.0, visual_duration)
