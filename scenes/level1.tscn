@@ -319,7 +319,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4w6xv"]
-size = Vector2(4479.7, 79)
+size = Vector2(4938.05, 79)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c0y31"]
 size = Vector2(3651.3, 79)
@@ -1370,7 +1370,8 @@ collision_mask = 255
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/Platforms & Barriers/Ground"]
 z_index = 100
-position = Vector2(5419.6, 40)
+position = Vector2(5648.77, 40)
+scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_4w6xv")
 debug_color = Color(0.307035, 0.494072, 1, 0.42)
 
@@ -1929,6 +1930,7 @@ trampoline_id = "near_ruby"
 [node name="WarningSign" parent="World2D/Signs" instance=ExtResource("87_hqycr")]
 position = Vector2(74947, -260)
 sign_name = "double_jump_lake"
+auto_display = true
 
 [node name="WarningSign2" parent="World2D/Signs" instance=ExtResource("87_hqycr")]
 position = Vector2(91431, -260)
@@ -1946,11 +1948,10 @@ position = Vector2(117719, -609)
 scale = Vector2(4.24871, 4.24871)
 texture = ExtResource("11_qfp7r")
 
-[node name="GrownUpChonki" parent="." node_paths=PackedStringArray("debug_start_marker") instance=ExtResource("1_6i0tl")]
+[node name="GrownUpChonki" parent="." instance=ExtResource("1_6i0tl")]
 z_index = 2
-position = Vector2(127867, -1550)
+position = Vector2(70357, -626)
 script = ExtResource("73_ix5rl")
-debug_start_marker = NodePath("../Debug/GusDebugStartMarker")
 jump_multiplier = 1.25
 midair_jumps = 10
 speed_multiplier = 1.0
@@ -2068,8 +2069,8 @@ position = Vector2(62900, -1602)
 zoom_on_enter = 0.22
 
 [node name="ZoomOut2" parent="ZoomAdjustmentZones" instance=ExtResource("62_4w6xv")]
-position = Vector2(48862, -1602)
-zoom_on_enter = 0.125
+position = Vector2(49193, -1625)
+zoom_on_enter = 0.1
 
 [node name="ZoomIn2" parent="ZoomAdjustmentZones" instance=ExtResource("62_4w6xv")]
 position = Vector2(48540, -1602)
@@ -2077,11 +2078,11 @@ zoom_on_enter = 0.22
 
 [node name="ZoomOut3" parent="ZoomAdjustmentZones" instance=ExtResource("62_4w6xv")]
 position = Vector2(44349, -1602)
-zoom_on_enter = 0.125
+zoom_on_enter = 0.1
 
 [node name="ZoomIn3" parent="ZoomAdjustmentZones" instance=ExtResource("62_4w6xv")]
-position = Vector2(44671, -1602)
-zoom_on_enter = 0.22
+position = Vector2(44841, -1602)
+zoom_on_enter = 0.2
 
 [node name="Debug" type="Node" parent="."]
 

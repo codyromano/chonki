@@ -1,12 +1,14 @@
 extends Area2D
 
 @export var sign_name: String
+@export var auto_display: bool = false
 
 @onready var label: Label = find_child('EnterLabel')
 
 const FADE_SPEED = 0.25
 
 var is_standing_by_sign: bool = false
+var has_been_triggered: bool = false
 
 func _ready() -> void:
 	if !sign_name:
@@ -31,7 +33,11 @@ func _on_body_entered(body: Node2D) -> void:
 		if MainDialogueController.rendered_dialogue != null:
 			return
 		
-		# Fade in the instructional text 
+		if auto_display and not has_been_triggered:
+			has_been_triggered = true
+			GlobalSignals.enter_warning_sign.emit(sign_name)
+			return
+		
 		var tween = create_tween()
 		tween.tween_property(label, "modulate:a", 1, FADE_SPEED)
 		await tween.finished 
