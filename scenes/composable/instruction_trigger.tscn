@@ -3,13 +3,13 @@
 [ext_resource type="Script" uid="uid://dt0kx2hrygxis" path="res://scenes/InstructionTrigger.gd" id="1_0k3jo"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_5s064"]
-size = Vector2(50.8979, 81.8809)
+size = Vector2(9.07372, 81.8809)
 
 [node name="InstructionTrigger" type="Area2D"]
 script = ExtResource("1_0k3jo")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
-position = Vector2(5147, -2667)
+position = Vector2(5211, -2667)
 scale = Vector2(21.16, 21.16)
 shape = SubResource("RectangleShape2D_5s064")
 
