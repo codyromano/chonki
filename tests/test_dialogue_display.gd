@@ -8,14 +8,14 @@ func before_each():
 	dialogue_display = dialogue_display_scene.instantiate()
 	add_child_autofree(dialogue_display)
 	
-	await wait_frames(1)
+	await wait_physics_frames(1)
 	dialogue_display.set_dialogue("Test dialogue text")
 
 func after_each():
 	dialogue_display = null
 
 func test_press_enter_label_hidden_initially():
-	await wait_frames(1)
+	await wait_physics_frames(1)
 	
 	var press_enter_label = dialogue_display.get_node("VBoxContainer/VBoxContainer/PressEnterLabel")
 	
@@ -48,7 +48,7 @@ func test_buttons_created_for_multiple_choices():
 	
 	dialogue_display._on_typewriter_complete()
 	
-	await wait_frames(2)
+	await wait_physics_frames(2)
 	
 	var dialogue_options_container = dialogue_display.get_node("VBoxContainer/VBoxContainer/DialogueOptions")
 	var button_count = 0
@@ -59,7 +59,7 @@ func test_buttons_created_for_multiple_choices():
 	assert_eq(button_count, 2, "Should create 2 buttons for 2 choices")
 
 func test_enter_key_emits_dismiss_for_no_choices():
-	await wait_frames(1)
+	await wait_physics_frames(1)
 	
 	var choices = []
 	
@@ -72,7 +72,7 @@ func test_enter_key_emits_dismiss_for_no_choices():
 	var dialogue_options_container = dialogue_display.get_node("VBoxContainer/VBoxContainer/DialogueOptions")
 	dialogue_options_container.visible = false
 	
-	await wait_frames(1)
+	await wait_physics_frames(1)
 	
 	watch_signals(GlobalSignals)
 	
@@ -85,7 +85,7 @@ func test_enter_key_emits_dismiss_for_no_choices():
 	assert_signal_emitted(GlobalSignals, "dismiss_active_main_dialogue", "Should emit dismiss for no choices")
 
 func test_first_dialogue_option_is_auto_focused():
-	await wait_frames(1)
+	await wait_physics_frames(1)
 	
 	var choices = [
 		{"id": "yes", "text": "Yes, I'll help!", "next_node": null},
@@ -95,7 +95,7 @@ func test_first_dialogue_option_is_auto_focused():
 	MainDialogueController.current_dialogue_choices = choices
 	dialogue_display._on_typewriter_complete()
 	
-	await wait_frames(3)
+	await wait_physics_frames(3)
 	
 	var dialogue_options_container = dialogue_display.get_node("VBoxContainer/VBoxContainer/DialogueOptions")
 	var first_button = null
@@ -109,7 +109,7 @@ func test_first_dialogue_option_is_auto_focused():
 	assert_eq(dialogue_display.dialogue_options_count, 2, "Should have 2 dialogue options")
 
 func test_dialogue_blocks_ui_up_when_options_visible():
-	await wait_frames(1)
+	await wait_physics_frames(1)
 	
 	var choices = [
 		{"id": "yes", "text": "Yes, I'll help!", "next_node": null},
@@ -119,7 +119,7 @@ func test_dialogue_blocks_ui_up_when_options_visible():
 	MainDialogueController.current_dialogue_choices = choices
 	dialogue_display._on_typewriter_complete()
 	
-	await wait_frames(2)
+	await wait_physics_frames(2)
 	
 	var input_event = InputEventAction.new()
 	input_event.action = "ui_up"
@@ -130,7 +130,7 @@ func test_dialogue_blocks_ui_up_when_options_visible():
 	assert_true(get_viewport().is_input_handled(), "Should consume ui_up input when dialogue options are visible")
 
 func test_dialogue_does_not_block_input_when_no_options():
-	await wait_frames(1)
+	await wait_physics_frames(1)
 	
 	dialogue_display.dialogue_options_count = 0
 	dialogue_display.can_dismiss_dialogue = true

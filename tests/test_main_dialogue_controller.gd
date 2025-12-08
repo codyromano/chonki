@@ -15,7 +15,7 @@ func before_each():
 	add_child_autofree(mock_canvas_layer)
 	
 	controller._ready()
-	await wait_frames(2)
+	await wait_physics_frames(2)
 	
 	if controller.rendered_dialogue and is_instance_valid(controller.rendered_dialogue):
 		controller.rendered_dialogue.queue_free()
@@ -58,7 +58,7 @@ func test_dialogue_data_structure_contains_all_fields():
 func test_dialogue_data_stores_correct_values():
 	var choices = [{"id": "choice-1", "text": "Yes"}]
 	GlobalSignals.queue_main_dialogue.emit("Test dialogue", "trigger-123", "momo", choices)
-	await wait_frames(2)
+	await wait_physics_frames(2)
 	
 	assert_eq(controller.current_instruction_trigger_id, "trigger-123", "Should store trigger ID")
 
@@ -72,20 +72,20 @@ func test_multiple_dialogues_queue_in_order():
 
 func test_dismiss_signal_triggers_next_dialogue():
 	GlobalSignals.queue_main_dialogue.emit("First", "id-1", "", [])
-	await wait_frames(2)
+	await wait_physics_frames(2)
 	
 	GlobalSignals.queue_main_dialogue.emit("Second", "id-2", "", [])
 	
 	var queue_size_before = controller.dialogue_queue.size()
 	GlobalSignals.dismiss_active_main_dialogue.emit("id-1")
-	await wait_frames(2)
+	await wait_physics_frames(2)
 	
 	var queue_size_after = controller.dialogue_queue.size()
 	assert_lte(queue_size_after, queue_size_before, "Should process queue on dismiss")
 
 func test_current_trigger_id_updates_on_dialogue_display():
 	GlobalSignals.queue_main_dialogue.emit("Test", "trigger-abc", "", [])
-	await wait_frames(2)
+	await wait_physics_frames(2)
 	
 	assert_eq(controller.current_instruction_trigger_id, "trigger-abc", "Should update current trigger ID")
 
@@ -111,7 +111,7 @@ func test_dialogue_choices_stored_correctly():
 		{"id": "choice-2", "text": "Option B"}
 	]
 	GlobalSignals.queue_main_dialogue.emit("Pick one", "", "gus", choices)
-	await wait_frames(2)
+	await wait_physics_frames(2)
 	
 	var stored_choices = controller.get_dialogue_choices()
 	assert_eq(stored_choices.size(), 2, "Should store two choices")
@@ -277,7 +277,7 @@ func test_current_dialogue_choices_starts_empty():
 func test_queue_processes_automatically_when_empty():
 	watch_signals(GlobalSignals)
 	GlobalSignals.queue_main_dialogue.emit("Auto process", "auto-id", "", [])
-	await wait_frames(2)
+	await wait_physics_frames(2)
 	
 	assert_eq(controller.current_instruction_trigger_id, "auto-id", "Should process first dialogue automatically")
 
@@ -289,14 +289,14 @@ func test_controller_handles_empty_avatar_name():
 
 func test_controller_handles_empty_choices_array():
 	GlobalSignals.queue_main_dialogue.emit("No choices", "test-id", "", [])
-	await wait_frames(2)
+	await wait_physics_frames(2)
 	
 	assert_eq(controller.current_instruction_trigger_id, "test-id", "Should process dialogue with empty choices")
 
 func test_warning_sign_unknown_name_does_nothing():
 	var initial_rendered = controller.rendered_dialogue
 	GlobalSignals.enter_warning_sign.emit("unknown_sign_name")
-	await wait_frames(2)
+	await wait_physics_frames(2)
 	
 	assert_eq(controller.rendered_dialogue, initial_rendered, "Unknown warning sign should not change dialogue state")
 
@@ -304,7 +304,7 @@ func test_game_pauses_when_dialogue_displayed():
 	var tree = get_tree()
 	
 	GlobalSignals.queue_main_dialogue.emit("Test pause", "", "gus", [])
-	await wait_frames(2)
+	await wait_physics_frames(2)
 	
 	if controller.rendered_dialogue:
 		assert_true(tree.paused, "Game should be paused when dialogue is displayed")
@@ -315,13 +315,13 @@ func test_game_unpauses_when_dialogue_dismissed():
 	var tree = get_tree()
 	
 	GlobalSignals.queue_main_dialogue.emit("Test unpause", "unpause-id", "gus", [])
-	await wait_frames(2)
+	await wait_physics_frames(2)
 	
 	if controller.rendered_dialogue:
 		assert_true(tree.paused, "Game should be paused with dialogue")
 		
 		GlobalSignals.dismiss_active_main_dialogue.emit("unpause-id")
-		await wait_frames(2)
+		await wait_physics_frames(2)
 		
 		assert_false(tree.paused, "Game should unpause when dialogue dismissed")
 	else:
@@ -331,14 +331,14 @@ func test_game_unpauses_when_queue_empty():
 	var tree = get_tree()
 	
 	GlobalSignals.queue_main_dialogue.emit("Test", "test-id", "", [])
-	await wait_frames(2)
+	await wait_physics_frames(2)
 	
 	if controller.rendered_dialogue:
 		assert_true(tree.paused, "Game should be paused")
 		
 		controller.dialogue_queue.clear()
 		GlobalSignals.dismiss_active_main_dialogue.emit("test-id")
-		await wait_frames(2)
+		await wait_physics_frames(2)
 		
 		assert_false(tree.paused, "Game should unpause when queue is empty")
 	else:
@@ -348,14 +348,14 @@ func test_game_stays_paused_with_queued_dialogues():
 	var tree = get_tree()
 	
 	GlobalSignals.queue_main_dialogue.emit("First", "id-1", "", [])
-	await wait_frames(2)
+	await wait_physics_frames(2)
 	GlobalSignals.queue_main_dialogue.emit("Second", "id-2", "", [])
 	
 	if controller.rendered_dialogue:
 		assert_true(tree.paused, "Game should be paused")
 		
 		GlobalSignals.dismiss_active_main_dialogue.emit("id-1")
-		await wait_frames(2)
+		await wait_physics_frames(2)
 		
 		assert_true(tree.paused, "Game should stay paused with more dialogues queued")
 	else:
@@ -375,7 +375,7 @@ func test_audio_nodes_have_always_process_mode():
 
 func test_skip_typewriter_then_advance_to_next_dialogue():
 	GlobalSignals.queue_main_dialogue.emit("First dialogue", "id-1", "gus", [{"id": "continue-1", "text": "Continue"}])
-	await wait_frames(3)
+	await wait_physics_frames(3)
 	
 	var first_dialogue = controller.rendered_dialogue
 	if !first_dialogue:
@@ -393,7 +393,7 @@ func test_skip_typewriter_then_advance_to_next_dialogue():
 		skip_event.pressed = true
 		first_dialogue._unhandled_input(skip_event)
 		
-		await wait_frames(2)
+		await wait_physics_frames(2)
 		
 		assert_false(typewriter.is_typing(), "Typewriter should be complete after skip")
 	
@@ -404,6 +404,6 @@ func test_skip_typewriter_then_advance_to_next_dialogue():
 	advance_event.pressed = true
 	first_dialogue._unhandled_input(advance_event)
 	
-	await wait_frames(3)
+	await wait_physics_frames(3)
 	
 	assert_eq(controller.current_instruction_trigger_id, "id-2", "Should advance to second dialogue after skip and Enter")

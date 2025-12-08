@@ -65,25 +65,25 @@ func test_goose_starts_not_defeated():
 
 func test_elevator_powers_on_with_power_lever():
 	GlobalSignals.lever_status_changed.emit("CloudLeverPower", true)
-	await wait_frames(1)
+	await wait_physics_frames(1)
 	assert_true(elevator.is_powered, "Should power on with CloudLeverPower")
 
 func test_elevator_toggles_horizontal_direction():
 	var initial_dir = elevator.direction_horizontal
 	GlobalSignals.lever_status_changed.emit("CloudLeverLeftOrRight", true)
-	await wait_frames(1)
+	await wait_physics_frames(1)
 	assert_eq(elevator.direction_horizontal, -initial_dir, "Should toggle horizontal direction")
 
 func test_elevator_toggles_vertical_direction():
 	var initial_dir = elevator.direction_vertical
 	GlobalSignals.lever_status_changed.emit("CloudLeverUpOrDown", true)
-	await wait_frames(1)
+	await wait_physics_frames(1)
 	assert_eq(elevator.direction_vertical, -initial_dir, "Should toggle vertical direction")
 
 func test_elevator_moves_when_powered():
 	var initial_pos = elevator.position
 	GlobalSignals.lever_status_changed.emit("CloudLeverPower", true)
-	await wait_frames(10)
+	await wait_physics_frames(10)
 	assert_ne(elevator.position, initial_pos, "Should move when powered")
 
 func test_elevator_collision_with_goose_triggers_defeat():
@@ -93,7 +93,7 @@ func test_elevator_collision_with_goose_triggers_defeat():
 
 func test_goose_defeat_disables_collision():
 	goose.trigger_defeat()
-	await wait_frames(1)
+	await wait_physics_frames(1)
 	assert_false(goose.get_collision_layer_value(2), "Should disable collision layer 2")
 	assert_false(goose.get_collision_mask_value(1), "Should disable collision mask 1")
 
@@ -126,14 +126,14 @@ func test_elevator_returns_to_initial_position():
 func test_elevator_cannot_power_while_returning():
 	elevator.is_returning = true
 	GlobalSignals.lever_status_changed.emit("CloudLeverPower", true)
-	await wait_frames(1)
+	await wait_physics_frames(1)
 	assert_false(elevator.is_powered, "Should not power on while returning")
 
 func test_elevator_cannot_change_direction_while_returning():
 	var initial_h = elevator.direction_horizontal
 	elevator.is_returning = true
 	GlobalSignals.lever_status_changed.emit("CloudLeverLeftOrRight", true)
-	await wait_frames(1)
+	await wait_physics_frames(1)
 	assert_eq(elevator.direction_horizontal, initial_h, "Should not change direction while returning")
 
 func test_goose_collision_method_exists():

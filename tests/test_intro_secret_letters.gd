@@ -6,7 +6,7 @@ var intro: Node2D
 func before_each():
 	intro = intro_scene.instantiate()
 	add_child_autofree(intro)
-	await wait_frames(1)
+	await wait_physics_frames(1)
 
 func after_each():
 	intro = null
@@ -23,6 +23,6 @@ func test_intro_has_five_secret_letters():
 	assert_eq(letter_count, 5, "Should have exactly 5 SecretLetter nodes in intro.tscn")
 
 func test_intro_total_secret_letters_matches_five():
-	await wait_frames(2)
+	await wait_physics_frames(2)
 	
 	assert_eq(intro.total_secret_letters, 5, "intro.gd should count 5 total secret letters")

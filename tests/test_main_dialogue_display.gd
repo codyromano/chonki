@@ -15,7 +15,7 @@ func before_each():
 	
 	dialogue_display.set_dialogue("This is a test dialogue with some text to reveal through typewriter animation.")
 	
-	await wait_frames(2)
+	await wait_physics_frames(2)
 	
 	typewriter = dialogue_display.get_node("VBoxContainer/HBoxContainer/TypewriterReveal")
 
@@ -30,7 +30,7 @@ func test_typewriter_starts_in_active_state():
 	assert_true(dialogue_display.is_typewriter_active, "Typewriter should start in active state")
 
 func test_enter_during_typing_skips_to_end():
-	await wait_frames(2)
+	await wait_physics_frames(2)
 	
 	var full_text_length = typewriter.text_after_reveal.length()
 	
@@ -44,14 +44,14 @@ func test_enter_during_typing_skips_to_end():
 	dialogue_display._unhandled_input(event)
 	
 	await get_tree().process_frame
-	await wait_frames(2)
+	await wait_physics_frames(2)
 	
 	assert_signal_emit_count(typewriter, "animation_complete", 1, "Should emit animation_complete when skipped")
 	assert_false(typewriter.is_typing(), "Typewriter should not be typing after skip")
 	assert_eq(typewriter.text.length(), full_text_length, "Text should be fully revealed after skip")
 
 func test_enter_after_skip_shows_continue_option():
-	await wait_frames(2)
+	await wait_physics_frames(2)
 	
 	assert_true(typewriter.is_typing(), "Typewriter should be typing initially")
 	
@@ -60,20 +60,20 @@ func test_enter_after_skip_shows_continue_option():
 	skip_event.pressed = true
 	dialogue_display._unhandled_input(skip_event)
 	
-	await wait_frames(2)
+	await wait_physics_frames(2)
 	
 	assert_false(typewriter.is_typing(), "Typewriter should not be typing after skip")
 	
 	MainDialogueController.current_dialogue_choices = [{"id": "continue-1", "text": "Continue"}]
 	dialogue_display._on_typewriter_complete()
 	
-	await wait_frames(2)
+	await wait_physics_frames(2)
 	
 	var press_enter_label = dialogue_display.get_node("VBoxContainer/VBoxContainer/PressEnterLabel")
 	assert_gt(press_enter_label.modulate.a, 0.0, "Press Enter label should be visible after typewriter completes")
 
 func test_skip_plays_book_sound():
-	await wait_frames(2)
+	await wait_physics_frames(2)
 	
 	assert_true(typewriter.is_typing(), "Typewriter should be typing")
 	
@@ -87,12 +87,12 @@ func test_skip_plays_book_sound():
 	event.pressed = true
 	dialogue_display._unhandled_input(event)
 	
-	await wait_frames(2)
+	await wait_physics_frames(2)
 	
 	assert_signal_emit_count(skip_sound, "finished", 0, "Sound should be playing (not finished yet)")
 
 func test_multiple_queued_dialogues_advance_correctly():
-	await wait_frames(2)
+	await wait_physics_frames(2)
 	
 	var tree = get_tree()
 	if !tree or !tree.current_scene:
@@ -103,7 +103,7 @@ func test_multiple_queued_dialogues_advance_correctly():
 	tree.current_scene.add_child(test_canvas)
 	
 	GlobalSignals.queue_main_dialogue.emit("First dialogue text", "trigger-1", "gus", [{"id": "continue-1", "text": "Continue"}])
-	await wait_frames(3)
+	await wait_physics_frames(3)
 	
 	var first_display = MainDialogueController.rendered_dialogue
 	if !first_display:
@@ -118,7 +118,7 @@ func test_multiple_queued_dialogues_advance_correctly():
 	skip_event.pressed = true
 	first_display._unhandled_input(skip_event)
 	
-	await wait_frames(2)
+	await wait_physics_frames(2)
 	
 	assert_false(first_typewriter.is_typing(), "First typewriter should be complete after skip")
 	
@@ -129,33 +129,33 @@ func test_multiple_queued_dialogues_advance_correctly():
 	advance_event.pressed = true
 	first_display._unhandled_input(advance_event)
 	
-	await wait_frames(3)
+	await wait_physics_frames(3)
 	
 	assert_eq(MainDialogueController.current_instruction_trigger_id, "trigger-2", "Should advance to second dialogue")
 	
 	test_canvas.queue_free()
 
 func test_cannot_skip_already_complete_text():
-	await wait_frames(2)
+	await wait_physics_frames(2)
 	
 	var skip_event = InputEventAction.new()
 	skip_event.action = "ui_accept"
 	skip_event.pressed = true
 	dialogue_display._unhandled_input(skip_event)
 	
-	await wait_frames(2)
+	await wait_physics_frames(2)
 	
 	assert_false(typewriter.is_typing(), "Typewriter should be complete")
 	
 	var initial_state = typewriter.animation_finished
 	
 	dialogue_display._unhandled_input(skip_event)
-	await wait_frames(2)
+	await wait_physics_frames(2)
 	
 	assert_eq(typewriter.animation_finished, initial_state, "Skip should not affect already completed text")
 
 func test_typewriter_becomes_inactive_after_completion():
-	await wait_frames(2)
+	await wait_physics_frames(2)
 	
 	assert_true(dialogue_display.is_typewriter_active, "Should be active initially")
 	
@@ -164,12 +164,12 @@ func test_typewriter_becomes_inactive_after_completion():
 	skip_event.pressed = true
 	dialogue_display._unhandled_input(skip_event)
 	
-	await wait_frames(2)
+	await wait_physics_frames(2)
 	
 	assert_false(dialogue_display.is_typewriter_active, "Should be inactive after completion")
 
 func test_only_ui_accept_triggers_skip():
-	await wait_frames(2)
+	await wait_physics_frames(2)
 	
 	assert_true(typewriter.is_typing(), "Typewriter should be typing")
 	
@@ -178,7 +178,7 @@ func test_only_ui_accept_triggers_skip():
 	up_event.pressed = true
 	dialogue_display._unhandled_input(up_event)
 	
-	await wait_frames(2)
+	await wait_physics_frames(2)
 	
 	assert_true(typewriter.is_typing(), "Typewriter should still be typing (ui_up should not skip)")
 	
@@ -187,7 +187,7 @@ func test_only_ui_accept_triggers_skip():
 	skip_event.pressed = true
 	dialogue_display._unhandled_input(skip_event)
 	
-	await wait_frames(2)
+	await wait_physics_frames(2)
 	
 	assert_false(typewriter.is_typing(), "Typewriter should be complete after ui_accept")
 
@@ -198,7 +198,7 @@ func test_skip_sound_has_correct_properties():
 	assert_eq(skip_sound.volume_db, -10.0, "Skip sound should have correct volume")
 
 func test_dismissal_only_works_when_typewriter_inactive():
-	await wait_frames(2)
+	await wait_physics_frames(2)
 	
 	assert_true(dialogue_display.is_typewriter_active, "Typewriter should be active")
 	
@@ -211,14 +211,14 @@ func test_dismissal_only_works_when_typewriter_inactive():
 	dismiss_event.pressed = true
 	dialogue_display._unhandled_input(dismiss_event)
 	
-	await wait_frames(2)
+	await wait_physics_frames(2)
 	
 	assert_signal_emit_count(GlobalSignals, "dismiss_active_main_dialogue", 0, "Should not dismiss while typing")
 	
 	typewriter.skip_to_end()
-	await wait_frames(2)
+	await wait_physics_frames(2)
 	
 	dialogue_display._unhandled_input(dismiss_event)
-	await wait_frames(2)
+	await wait_physics_frames(2)
 	
 	assert_signal_emit_count(GlobalSignals, "dismiss_active_main_dialogue", 1, "Should dismiss after typewriter complete")

@@ -64,13 +64,13 @@ func test_reset_hearts_restores_to_initial():
 
 func test_player_hit_signal_stores_damage_source():
 	GlobalSignals.player_hit.emit("ocean")
-	await wait_frames(1)
+	await wait_physics_frames(1)
 	assert_eq(PlayerInventory.last_damage_source, "ocean", "Should store damage source")
 
 func test_player_hit_signal_removes_heart():
 	var initial = PlayerInventory.get_total_hearts()
 	GlobalSignals.player_hit.emit("enemy")
-	await wait_frames(1)
+	await wait_physics_frames(1)
 	assert_eq(PlayerInventory.get_total_hearts(), initial - 1, "Player hit should remove a heart")
 
 func test_add_item_adds_to_inventory():
@@ -137,15 +137,15 @@ func test_multiple_hits_deplete_hearts_correctly():
 	assert_eq(PlayerInventory.get_total_hearts(), 3, "Should start with 3 hearts")
 	
 	GlobalSignals.player_hit.emit("enemy")
-	await wait_frames(1)
+	await wait_physics_frames(1)
 	assert_eq(PlayerInventory.get_total_hearts(), 2, "Should have 2 hearts after first hit")
 	
 	GlobalSignals.player_hit.emit("enemy")
-	await wait_frames(1)
+	await wait_physics_frames(1)
 	assert_eq(PlayerInventory.get_total_hearts(), 1, "Should have 1 heart after second hit")
 	
 	GlobalSignals.player_hit.emit("enemy")
-	await wait_frames(1)
+	await wait_physics_frames(1)
 	assert_eq(PlayerInventory.get_total_hearts(), 0, "Should have 0 hearts after third hit")
 	assert_true(player_out_of_hearts_emitted, "Should emit player_out_of_hearts")
 
@@ -153,5 +153,5 @@ func test_ocean_damage_tracks_source():
 	GlobalSignals.player_hit.emit("ocean")
 	GlobalSignals.player_hit.emit("ocean")
 	GlobalSignals.player_hit.emit("ocean")
-	await wait_frames(1)
+	await wait_physics_frames(1)
 	assert_eq(PlayerInventory.last_damage_source, "ocean", "Should track ocean as damage source")

@@ -18,7 +18,7 @@ func before_each():
 	last_queued_dialogue = ""
 	GlobalSignals.connect("queue_main_dialogue", _on_dialogue_queued)
 	
-	await wait_frames(2)
+	await wait_physics_frames(2)
 
 func after_each():
 	if GlobalSignals.is_connected("queue_main_dialogue", _on_dialogue_queued):
@@ -33,7 +33,7 @@ func _on_dialogue_queued(text: String, _trigger_id: String, _avatar: String, _ch
 func test_player_entering_area_shows_instructions():
 	var area = quest_giver.get_node("Area2D")
 	area.body_entered.emit(mock_player)
-	await wait_frames(2)
+	await wait_physics_frames(2)
 	
 	var instructions = quest_giver.get_node("Instructions")
 	assert_gt(instructions.modulate.a, 0.0, "Instructions should fade in when player enters")
@@ -41,7 +41,7 @@ func test_player_entering_area_shows_instructions():
 func test_player_exiting_area_hides_instructions():
 	var area = quest_giver.get_node("Area2D")
 	area.body_entered.emit(mock_player)
-	await wait_frames(2)
+	await wait_physics_frames(2)
 	
 	area.body_exited.emit(mock_player)
 	await wait_seconds(1.5)
@@ -52,13 +52,13 @@ func test_player_exiting_area_hides_instructions():
 func test_pressing_enter_near_quest_giver_queues_dialogue():
 	var area = quest_giver.get_node("Area2D")
 	area.body_entered.emit(mock_player)
-	await wait_frames(2)
+	await wait_physics_frames(2)
 	
 	var event = InputEventAction.new()
 	event.action = "ui_accept"
 	event.pressed = true
 	quest_giver._unhandled_input(event)
-	await wait_frames(2)
+	await wait_physics_frames(2)
 	
 	assert_eq(dialogue_queued_count, 1, "Should queue dialogue when Enter pressed near quest giver")
 	assert_ne(last_queued_dialogue, "", "Queued dialogue should have text")
@@ -66,61 +66,61 @@ func test_pressing_enter_near_quest_giver_queues_dialogue():
 func test_can_retrigger_dialogue_after_dismissal():
 	var area = quest_giver.get_node("Area2D")
 	area.body_entered.emit(mock_player)
-	await wait_frames(2)
+	await wait_physics_frames(2)
 	
 	var event = InputEventAction.new()
 	event.action = "ui_accept"
 	event.pressed = true
 	quest_giver._unhandled_input(event)
-	await wait_frames(2)
+	await wait_physics_frames(2)
 	
 	assert_eq(dialogue_queued_count, 1, "First trigger should queue dialogue")
 	
 	GlobalSignals.dismiss_active_main_dialogue.emit("")
-	await wait_frames(2)
+	await wait_physics_frames(2)
 	
 	var release_event = InputEventAction.new()
 	release_event.action = "ui_accept"
 	release_event.pressed = false
 	quest_giver._unhandled_input(release_event)
-	await wait_frames(2)
+	await wait_physics_frames(2)
 	
 	quest_giver._unhandled_input(event)
-	await wait_frames(2)
+	await wait_physics_frames(2)
 	
 	assert_eq(dialogue_queued_count, 2, "Should be able to retrigger dialogue after dismissal and key release")
 
 func test_rapid_dismiss_allows_retrigger():
 	var area = quest_giver.get_node("Area2D")
 	area.body_entered.emit(mock_player)
-	await wait_frames(2)
+	await wait_physics_frames(2)
 	
 	var event = InputEventAction.new()
 	event.action = "ui_accept"
 	event.pressed = true
 	quest_giver._unhandled_input(event)
-	await wait_frames(2)
+	await wait_physics_frames(2)
 	
 	GlobalSignals.dismiss_active_main_dialogue.emit("")
 	GlobalSignals.dismiss_active_main_dialogue.emit("")
 	GlobalSignals.dismiss_active_main_dialogue.emit("")
-	await wait_frames(2)
+	await wait_physics_frames(2)
 	
 	var release_event = InputEventAction.new()
 	release_event.action = "ui_accept"
 	release_event.pressed = false
 	quest_giver._unhandled_input(release_event)
-	await wait_frames(2)
+	await wait_physics_frames(2)
 	
 	quest_giver._unhandled_input(event)
-	await wait_frames(2)
+	await wait_physics_frames(2)
 	
 	assert_eq(dialogue_queued_count, 2, "Multiple rapid dismissals should still allow retrigger")
 
 func test_cannot_trigger_while_another_dialogue_showing():
 	var area = quest_giver.get_node("Area2D")
 	area.body_entered.emit(mock_player)
-	await wait_frames(2)
+	await wait_physics_frames(2)
 	
 	var mock_dialogue = PanelContainer.new()
 	MainDialogueController.rendered_dialogue = mock_dialogue
@@ -130,7 +130,7 @@ func test_cannot_trigger_while_another_dialogue_showing():
 	event.action = "ui_accept"
 	event.pressed = true
 	quest_giver._unhandled_input(event)
-	await wait_frames(2)
+	await wait_physics_frames(2)
 	
 	assert_eq(dialogue_queued_count, 0, "Should not trigger when another dialogue is showing")
 	
@@ -139,10 +139,10 @@ func test_cannot_trigger_while_another_dialogue_showing():
 func test_instructions_visible_during_game_pause():
 	var area = quest_giver.get_node("Area2D")
 	area.body_entered.emit(mock_player)
-	await wait_frames(2)
+	await wait_physics_frames(2)
 	
 	get_tree().paused = true
-	await wait_frames(2)
+	await wait_physics_frames(2)
 	
 	var instructions = quest_giver.get_node("Instructions")
 	assert_gt(instructions.modulate.a, 0.0, "Instructions should remain visible during pause")
