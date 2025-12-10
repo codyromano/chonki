@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=3 uid="uid://clf1h56slh0fv"]
+[gd_scene load_steps=16 format=3 uid="uid://clf1h56slh0fv"]
 
 [ext_resource type="Texture2D" uid="uid://3tbiiq22wvjd" path="res://assets/dave/standing.png" id="2_y4odb"]
 [ext_resource type="PackedScene" uid="uid://bgshjng2ky6hg" path="res://scenes/bonus_chonki.tscn" id="3_k1xfh"]
@@ -9,6 +9,7 @@
 [ext_resource type="Theme" uid="uid://dte5an7k6hog1" path="res://themes/base.tres" id="7_ik1mb"]
 [ext_resource type="Texture2D" uid="uid://bytsxlqncfgi8" path="res://assets/environment/sky.png" id="8_3hbtu"]
 [ext_resource type="Texture2D" uid="uid://bpqdlmvtkr1i5" path="res://assets/environment/lake.png" id="8_monau"]
+[ext_resource type="AudioStream" uid="uid://cfv8wvih0lw77" path="res://assets/sound/move_your_feet.mp3" id="10_4p7jk"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_k1xfh"]
 animations = [{
@@ -171,3 +172,7 @@ theme = ExtResource("7_ik1mb")
 theme_override_colors/font_color = Color(1, 1, 1, 1)
 theme_override_font_sizes/font_size = 1500
 text = "for playing!"
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("10_4p7jk")
+autoplay = true
