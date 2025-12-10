@@ -175,7 +175,7 @@ func _on_enter_warning_sign(sign_name: String) -> void:
 	match sign_name:
 		"double_jump_lake":
 			GlobalSignals.queue_main_dialogue.emit(
-				"It looks like I need to learn how to double jump before crossing this water.",
+				"I need to find a way to double-jump before I can climb this tower.",
 				"",
 				"gus"
 			)

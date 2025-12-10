@@ -1,4 +1,4 @@
-[gd_scene load_steps=136 format=3 uid="uid://br8ftak73gmww"]
+[gd_scene load_steps=127 format=3 uid="uid://br8ftak73gmww"]
 
 [ext_resource type="PackedScene" uid="uid://bk3oytbasgs5w" path="res://scenes/grown_up_chonki.tscn" id="1_6i0tl"]
 [ext_resource type="Script" uid="uid://b2cncqbuotdcl" path="res://scenes/level_1.gd" id="1_hvrd6"]
@@ -45,18 +45,12 @@
 [ext_resource type="Script" uid="uid://dli13y3iqt0uo" path="res://scenes/gpu_particles_2d.gd" id="36_6xmqk"]
 [ext_resource type="Texture2D" uid="uid://c8gmllsoee5gj" path="res://assets/collectibles/pottery_3.png" id="36_mopj3"]
 [ext_resource type="Texture2D" uid="uid://do40vx10g03uc" path="res://assets/environment/volleyball.png" id="36_v3v4h"]
-[ext_resource type="Texture2D" uid="uid://b05ylqdbp1qq8" path="res://assets/enemies/otter/otter_hands.png" id="37_dkkmk"]
 [ext_resource type="PackedScene" uid="uid://db4eojj42lfw7" path="res://scenes/composable/quest_giver.tscn" id="37_hvrd6"]
 [ext_resource type="Texture2D" uid="uid://cff1qabpfn1hq" path="res://assets/environment/cherry_leaf.png" id="38_1vjko"]
 [ext_resource type="PackedScene" uid="uid://b83a108lrg6l5" path="res://themes/goose_gang.tscn" id="38_6b8u6"]
-[ext_resource type="Texture2D" uid="uid://dtlt7hqgskntu" path="res://assets/enemies/otter/otter_kneel.png" id="38_sejw4"]
 [ext_resource type="Script" uid="uid://d0vo8jsubn4m1" path="res://scenes/composable/momo_quest_giver.gd" id="38_y3pui"]
-[ext_resource type="Texture2D" uid="uid://bbjhffq3vk8l" path="res://assets/enemies/otter/otter_raise_hands.png" id="39_qfp7r"]
-[ext_resource type="Texture2D" uid="uid://edh1gldrfbus" path="res://assets/enemies/otter/otter_raise_hands_eyes_closed.png" id="40_x80p0"]
 [ext_resource type="PackedScene" uid="uid://ft24k8s13tpc" path="res://scenes/composable/instructional_text.tscn" id="41_0xdic"]
-[ext_resource type="Texture2D" uid="uid://btet14ijapd25" path="res://assets/enemies/otter/otter_rise.png" id="41_6b8u6"]
 [ext_resource type="Script" uid="uid://bohb45sc7o600" path="res://scenes/MoveLeftOrRightText.gd" id="42_5ipuv"]
-[ext_resource type="Texture2D" uid="uid://bu1gkhk5myacr" path="res://assets/enemies/otter/otter_stand_smile.png" id="42_6qhw2"]
 [ext_resource type="Script" uid="uid://cbnnv41ak8lae" path="res://scenes/composable/ruby_quest_giver.gd" id="43_4xi8u"]
 [ext_resource type="Script" uid="uid://bllcs5ppc1ul7" path="res://scenes/composable/isaac_quest_giver.gd" id="43_6b8u6"]
 [ext_resource type="Script" uid="uid://4mx2cyi0i3oy" path="res://scenes/composable/jump_text.gd" id="43_onmav"]
@@ -67,7 +61,6 @@
 [ext_resource type="Texture2D" uid="uid://dnr005l5x0slj" path="res://assets/friends/eagle/eagle_dad_sad.png" id="46_4xi8u"]
 [ext_resource type="Script" uid="uid://bfcdimts6npaa" path="res://scenes/pottery_3.gd" id="46_4yyev"]
 [ext_resource type="Texture2D" uid="uid://bgh1g2nyfpojr" path="res://assets/friends/volleyball/ruby_happy.png" id="46_juw6p"]
-[ext_resource type="Script" uid="uid://b7x75jyph32sm" path="res://scenes/OtterPath2D.gd" id="46_otter"]
 [ext_resource type="Texture2D" uid="uid://d3vj71ug2rs00" path="res://assets/friends/eagle/eagle_baby_concerned.png" id="47_4xi8u"]
 [ext_resource type="Script" uid="uid://dtdi4lk7jh4ii" path="res://scenes/rodrigo.gd" id="47_o55ux"]
 [ext_resource type="Script" uid="uid://d4kk2iudy17ia" path="res://scenes/OceanFloor.gd" id="47_ocean"]
@@ -81,6 +74,7 @@
 [ext_resource type="PackedScene" uid="uid://dpwcrkl2e2ro4" path="res://scenes/composable/adjust_zoom_on_player_enter.tscn" id="62_4w6xv"]
 [ext_resource type="Texture2D" uid="uid://b6o0s4p3wr44" path="res://assets/friends/sun.png" id="64_qxclr"]
 [ext_resource type="AudioStream" uid="uid://cy7y35exdndmr" path="res://assets/sound/secret_letter.mp3" id="66_574qs"]
+[ext_resource type="Texture2D" uid="uid://cp2hj8qmm6egl" path="res://assets/environment/level1/lifeguard.png" id="66_t3dvg"]
 [ext_resource type="Script" uid="uid://cu46jqmyvfpbt" path="res://scenes/grown_up_chonki.gd" id="73_ix5rl"]
 [ext_resource type="Script" uid="uid://bj8qjm1gsuny4" path="res://scenes/spawn_location.gd" id="78_5674x"]
 [ext_resource type="Script" uid="uid://cq7t1ryt217o7" path="res://scenes/LittleFreeLibrary.gd" id="79_u6iub"]
@@ -198,41 +192,6 @@ polygons = Array[PackedInt32Array]([PackedInt32Array(0, 1, 2, 3), PackedInt32Arr
 outlines = Array[PackedVector2Array]([PackedVector2Array(6957, 27, 6931, -4227, 17134, -4191, 17053, 18, 12895, -77, 12782, -4091, 11526, -4135, 11304, -811, 11141.6, 23.27)])
 source_geometry_group_name = &"navigation_polygon_source_group"
 
-[sub_resource type="Curve2D" id="Curve2D_dkkmk"]
-_data = {
-"points": PackedVector2Array(0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-}
-point_count = 2
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_4xi8u"]
-animations = [{
-"frames": [{
-"duration": 8.0,
-"texture": ExtResource("37_dkkmk")
-}, {
-"duration": 1.0,
-"texture": ExtResource("38_sejw4")
-}, {
-"duration": 1.0,
-"texture": ExtResource("39_qfp7r")
-}, {
-"duration": 8.0,
-"texture": ExtResource("40_x80p0")
-}, {
-"duration": 1.0,
-"texture": ExtResource("41_6b8u6")
-}, {
-"duration": 1.0,
-"texture": ExtResource("42_6qhw2")
-}],
-"loop": true,
-"name": &"default",
-"speed": 5.0
-}]
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_sejw4"]
-size = Vector2(1018.78, 960.916)
-
 [sub_resource type="SpriteFrames" id="SpriteFrames_6cvlo"]
 animations = [{
 "frames": [{
@@ -320,7 +279,7 @@ animations = [{
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4w6xv"]
-size = Vector2(5640.39, 79)
+size = Vector2(5860.7, 79)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c0y31"]
 size = Vector2(3651.3, 79)
@@ -479,11 +438,11 @@ texture_offset = Vector2(0, 400)
 polygon = PackedVector2Array(40179.2, -386.111, 73308.7, -382.053, 73294.4, 627.614, 40124.1, 320.464)
 
 [node name="GroundSprite" type="Polygon2D" parent="World2D/Environment"]
-z_index = 3
+z_index = 8
 texture_repeat = 2
 use_parent_material = true
-position = Vector2(59.0014, 616)
-scale = Vector2(1.10737, 1.60449)
+position = Vector2(86.9078, 616)
+scale = Vector2(1.13625, 1.60449)
 texture = ExtResource("1_vplxb")
 texture_offset = Vector2(0, 400)
 polygon = PackedVector2Array(-966.253, -382.053, 73308.7, -382.053, 73294.4, 627.614, -964.201, 621.381)
@@ -604,7 +563,7 @@ texture_offset = Vector2(0, 400)
 polygon = PackedVector2Array(-1031.22, 135.869, 73316.2, 137.115, 73294.4, 627.614, -1038.74, 617.642)
 
 [node name="Ocean9" type="Polygon2D" parent="World2D/Environment/CloudsAndOceans"]
-z_index = 6
+z_index = 2
 texture_repeat = 2
 use_parent_material = true
 position = Vector2(77567, -221)
@@ -1227,64 +1186,6 @@ position = Vector2(127427, -12097)
 [node name="GooseRegionCloudR" parent="World2D/NPCs/Enemies" instance=ExtResource("38_6b8u6")]
 position = Vector2(135164, -11999)
 
-[node name="OtterPath2D" type="Path2D" parent="World2D/NPCs/Enemies"]
-visible = false
-position = Vector2(129343, -76358)
-curve = SubResource("Curve2D_dkkmk")
-script = ExtResource("46_otter")
-loop_duration = 5.0
-
-[node name="PathFollow2D" type="PathFollow2D" parent="World2D/NPCs/Enemies/OtterPath2D"]
-position = Vector2(363, 461)
-rotation = 1.5097
-progress = 9700.05
-
-[node name="OtterArea2D" type="Area2D" parent="World2D/NPCs/Enemies/OtterPath2D/PathFollow2D"]
-position = Vector2(76628.3, 3701.35)
-rotation = 0.401426
-collision_layer = 2
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World2D/NPCs/Enemies/OtterPath2D/PathFollow2D/OtterArea2D"]
-z_index = 5
-scale = Vector2(3.04, 3.04)
-sprite_frames = SubResource("SpriteFrames_4xi8u")
-autoplay = "default"
-frame_progress = 0.135845
-flip_h = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/NPCs/Enemies/OtterPath2D/PathFollow2D/OtterArea2D"]
-position = Vector2(9.21094, 18.9561)
-shape = SubResource("RectangleShape2D_sejw4")
-
-[node name="OtterPath2D2" type="Path2D" parent="World2D/NPCs/Enemies"]
-visible = false
-position = Vector2(112402, 78125)
-curve = SubResource("Curve2D_dkkmk")
-script = ExtResource("46_otter")
-loop_duration = 5.0
-
-[node name="PathFollow2D" type="PathFollow2D" parent="World2D/NPCs/Enemies/OtterPath2D2"]
-position = Vector2(363, 461)
-rotation = 1.5097
-progress = 9700.05
-
-[node name="OtterArea2D" type="Area2D" parent="World2D/NPCs/Enemies/OtterPath2D2/PathFollow2D"]
-position = Vector2(76628.3, 3701.35)
-rotation = 0.401426
-collision_layer = 2
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="World2D/NPCs/Enemies/OtterPath2D2/PathFollow2D/OtterArea2D"]
-z_index = 5
-scale = Vector2(3.04, 3.04)
-sprite_frames = SubResource("SpriteFrames_4xi8u")
-autoplay = "default"
-frame_progress = 0.135845
-flip_h = true
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/NPCs/Enemies/OtterPath2D2/PathFollow2D/OtterArea2D"]
-position = Vector2(9.21094, 18.9561)
-shape = SubResource("RectangleShape2D_sejw4")
-
 [node name="Bicyclist" type="Area2D" parent="World2D/NPCs/Enemies"]
 z_index = 2
 position = Vector2(60816, 5056)
@@ -1371,7 +1272,8 @@ collision_mask = 255
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/Platforms & Barriers/Ground"]
 z_index = 100
-position = Vector2(5297.6, 40)
+position = Vector2(5407.75, 40)
+scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_4w6xv")
 debug_color = Color(0.307035, 0.494072, 1, 0.42)
 
@@ -1845,6 +1747,18 @@ rotation = 1.5708
 position = Vector2(3026, 2014)
 scale = Vector2(1, 23.0914)
 shape = SubResource("WorldBoundaryShape2D_ix5rl")
+
+[node name="LifeGuard" type="StaticBody2D" parent="World2D/Platforms & Barriers"]
+position = Vector2(81111, -805)
+
+[node name="Sprite2D" type="Sprite2D" parent="World2D/Platforms & Barriers/LifeGuard"]
+z_index = 7
+position = Vector2(181, -1451)
+scale = Vector2(5.52012, 5.52012)
+texture = ExtResource("66_t3dvg")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="World2D/Platforms & Barriers/LifeGuard"]
+polygon = PackedVector2Array(-619, 766, -515, -2053, -468, -3089, -355, -3233, -191, -3284, 473, -3279, 555, -3177, 511, -2587, 486, -2103, 965, -2074, 1021, -2006, 880, -1881, 802, -1803, 986, 795)
 
 [node name="Collectibles" type="Node2D" parent="World2D"]
 position = Vector2(53, 0)
