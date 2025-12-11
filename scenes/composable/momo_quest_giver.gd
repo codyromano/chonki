@@ -1,12 +1,30 @@
 extends "res://scenes/quest_giver.gd"
 
-var quest_accepted: bool = false
+func _get_quest_state(key: String) -> bool:
+	var level = GameState.current_level
+	if GameState.quest_states_by_level.has(level) and GameState.quest_states_by_level[level].has(key):
+		return GameState.quest_states_by_level[level][key]
+	return false
+
+func _set_quest_state(key: String, value: bool) -> void:
+	var level = GameState.current_level
+	if GameState.quest_states_by_level.has(level):
+		GameState.quest_states_by_level[level][key] = value
 
 func _get_dialogue_tree() -> DialogueTree:
 	# Check pottery count when building dialogue tree
 	var pottery_count = _count_pottery_pieces()
+	var reward_given = _get_quest_state("momo_reward_given")
 	
 	var momo_tree = DialogueTree.new()
+	
+	# If reward has been given, show thank you message
+	if reward_given:
+		var momo_thanks = DialogueNode.new()
+		momo_thanks.text = "Thanks again for helping me find those pottery pieces, Gus!"
+		momo_thanks.choices = []
+		momo_tree.root_node = momo_thanks
+		return momo_tree
 	
 	# If player has collected all 3 pieces, show completion message
 	if pottery_count == 3:
@@ -81,12 +99,14 @@ func _count_pottery_pieces() -> int:
 func get_next_dialogue_node_custom(current_node: DialogueNode, selected_option_id: String) -> DialogueNode:
 	# Track quest acceptance
 	if selected_option_id == "momo-accept":
-		quest_accepted = true
+		_set_quest_state("momo_quest_accepted", true)
 		PlayerInventory.add_item(PlayerInventory.Item.MOMO_QUEST)
 	
 	# Proceed with normal dialogue flow 
 	return get_next_dialogue_node(current_node, selected_option_id)
 
 func on_dialogue_finished() -> void:
-	if _count_pottery_pieces() == 3:
+	var reward_given = _get_quest_state("momo_reward_given")
+	if _count_pottery_pieces() == 3 and not reward_given:
+		_set_quest_state("momo_reward_given", true)
 		GlobalSignals.spawn_item_in_location.emit(PlayerInventory.Item.SECRET_LETTER_R)

@@ -39,6 +39,12 @@ func _ready():
 	# Add to group for star counting
 	if collectible_name == "star":
 		add_to_group("CollectibleStar")
+		var level = GameState.current_level
+		if GameState.collected_star_ids_by_level.has(level):
+			var star_path = get_path()
+			if star_path in GameState.collected_star_ids_by_level[level]:
+				queue_free()
+				return
 
 # Tween the sprite up and down forever
 func _start_floating():
@@ -61,6 +67,13 @@ func _on_static_body_2d_2_body_entered(body):
 	
 	if is_collected:
 		return
+	
+	if collectible_name == "star":
+		var level = GameState.current_level
+		if GameState.collected_star_ids_by_level.has(level):
+			var star_path = get_path()
+			if star_path not in GameState.collected_star_ids_by_level[level]:
+				GameState.collected_star_ids_by_level[level].append(star_path)
 		
 	_on_item_collected(collectible_name)
 

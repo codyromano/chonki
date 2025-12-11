@@ -33,7 +33,9 @@ func _on_body_exited(body: Node2D) -> void:
 
 func _on_zoom_timer_timeout() -> void:
 	if is_player_inside:
-		GlobalSignals.game_zoom_level.emit(camera_zoom.x, 2.0)
+		# DEBUG: Make the zoom always set to the same level
+		GlobalSignals.game_zoom_level.emit(0.1, 2.0)
+		# GlobalSignals.game_zoom_level.emit(camera_zoom.x, 2.0)
 	
 	if zoom_timer:
 		zoom_timer.queue_free()

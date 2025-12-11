@@ -1,9 +1,19 @@
 extends "res://scenes/quest_giver.gd"
 
-var volleyball_returned: bool = false
-var reward_given: bool = false
+func _get_quest_state(key: String) -> bool:
+	var level = GameState.current_level
+	if GameState.quest_states_by_level.has(level) and GameState.quest_states_by_level[level].has(key):
+		return GameState.quest_states_by_level[level][key]
+	return false
+
+func _set_quest_state(key: String, value: bool) -> void:
+	var level = GameState.current_level
+	if GameState.quest_states_by_level.has(level):
+		GameState.quest_states_by_level[level][key] = value
 
 func _get_dialogue_tree() -> DialogueTree:
+	var volleyball_returned = _get_quest_state("ruby_volleyball_returned")
+	var reward_given = _get_quest_state("ruby_reward_given")
 	var ruby_repeat = DialogueNode.new()
 	ruby_repeat.text = "Thanks again, Gus! Hope you enjoy the secret letter."
 	ruby_repeat.choices = []
@@ -70,7 +80,7 @@ func _on_body_entered_override(body: Node2D) -> void:
 	# Check if the body is the volleyball
 	if body.name == "Volleyball":
 		# Mark that volleyball has been returned
-		volleyball_returned = true
+		_set_quest_state("ruby_volleyball_returned", true)
 		# Reset dialogue to show the thank you dialogue
 		current_dialogue_node = null
 		
@@ -85,6 +95,8 @@ func _on_body_entered_override(body: Node2D) -> void:
 
 func on_dialogue_finished() -> void:
 	# Only emit signal if volleyball has been returned and reward not yet given
+	var volleyball_returned = _get_quest_state("ruby_volleyball_returned")
+	var reward_given = _get_quest_state("ruby_reward_given")
 	if volleyball_returned and not reward_given:
-		reward_given = true
+		_set_quest_state("ruby_reward_given", true)
 		GlobalSignals.unlock_ruby_quest_reward.emit()

@@ -14,11 +14,16 @@ func _ready():
 	GameState.current_level = 2
 	GlobalSignals.secret_letter_collected.connect(_on_secret_letter_collected)
 	
-	GameState.letters_collected_by_scene[2] = []
+	GameState.restore_letters_from_persistent_state(2)
 	
 	_count_total_secret_letters()
 	_create_letters_display()
 	_create_jump_height_indicator()
+	
+	if GameState.collected_letter_items_by_level.has(2):
+		collected_secret_letters = GameState.collected_letter_items_by_level[2].size()
+		if title_label and collected_secret_letters > 0:
+			title_label.text = "Jump power: %d / 5" % collected_secret_letters
 
 func _create_jump_height_indicator():
 	var indicator = ColorRect.new()

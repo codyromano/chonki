@@ -78,6 +78,11 @@ func _ready() -> void:
 	GlobalSignals.connect("backflip_triggered", _on_backflip_triggered)
 	# Always reset GameState at the start of the level
 	GameState.reset()
+	
+	if GameState.stars_before_respawn > 0:
+		GameState.stars_collected = GameState.stars_before_respawn
+		GameState.stars_before_respawn = 0
+	
 	# Reset player hearts when scene loads/reloads
 	PlayerInventory.reset_hearts()
 	# Reset game over flag
@@ -163,6 +168,13 @@ func _on_chonki_touched_kite(kite_position: Vector2, kite_rotation_deg: int) -> 
 func on_win_game(zoom_intensity: float = 0.5) -> void:
 	is_game_win = true
 	win_zoom_intensity = zoom_intensity
+	
+	var level = GameState.current_level
+	if GameState.collected_star_ids_by_level.has(level):
+		GameState.collected_star_ids_by_level[level].clear()
+	if GameState.collected_letter_items_by_level.has(level):
+		GameState.collected_letter_items_by_level[level].clear()
+	
 	# Wait for Chonki to land on the floor before spawning hearts
 	await wait_for_chonki_to_land()
 	GlobalSignals.spawn_hearts_begin.emit()
@@ -342,6 +354,8 @@ func handle_movement(delta: float) -> void:
 	body.velocity = velocity
 
 func player_die():
+	GameState.stars_before_respawn = GameState.stars_collected
+	
 	# Play sleep animation
 	sprite.play("sleep")
 	# Prevent player movement and input

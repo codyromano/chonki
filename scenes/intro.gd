@@ -11,7 +11,7 @@ var collected_secret_letters: int = 0
 func _ready():
 	GlobalSignals.game_zoom_level.emit(0.2)
 	
-	GameState.letters_collected_by_scene[1] = []
+	GameState.restore_letters_from_persistent_state(1)
 	
 	GlobalSignals.secret_letter_collected.connect(_on_secret_letter_collected)
 	

@@ -28,6 +28,8 @@ func _ready():
 	GlobalSignals.heart_lost.connect(_on_heart_lost)
 	GlobalSignals.secret_letter_collected.connect(_on_secret_letter_collected)
 	
+	books_collected = GameState.stars_collected
+	
 	_initialize_letter_display()
 	_load_existing_letters()
 	

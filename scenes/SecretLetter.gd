@@ -4,6 +4,7 @@ extends Control
 ## Uses a SubViewport to render 3D content for use in 2D games
 
 @export var letter: String = "A"
+@export var letter_item: PlayerInventory.Item
 
 # TODO: Remove this. Doesn't do anything now that we switched to 2D
 @export var rotation_speed: float = 90.0  # degrees per second
@@ -35,6 +36,15 @@ var float_tween: Tween
 var original_position: Vector2
 
 func _ready():
+	var level = GameState.current_level
+	if GameState.collected_letter_items_by_level.has(level):
+		if letter_item in GameState.collected_letter_items_by_level[level]:
+			queue_free()
+			return
+	
+	if letter_item == null:
+		push_warning("[SecretLetter] letter_item is not set for letter '%s'. This letter won't persist across respawns." % letter)
+	
 	# Safely get the audio player if it exists
 	audio_player = get_node_or_null("AudioStreamPlayer")
 	
@@ -89,6 +99,11 @@ func _on_body_entered(body: Node2D):
 
 ## Start the collection animation sequence
 func _start_collection_sequence():
+	var level = GameState.current_level
+	if letter_item != null and GameState.collected_letter_items_by_level.has(level):
+		if letter_item not in GameState.collected_letter_items_by_level[level]:
+			GameState.collected_letter_items_by_level[level].append(letter_item)
+	
 	GameState.add_collected_letter(letter)
 	GlobalSignals.secret_letter_collected.emit(letter)
 	
