@@ -1016,7 +1016,7 @@ stream = ExtResource("20_f7bbt")
 volume_db = 10.0
 
 [node name="GooseRegion2D2" type="NavigationRegion2D" parent="World2D/NPCs/Enemies"]
-position = Vector2(83477, -4)
+position = Vector2(83462, -4)
 navigation_polygon = SubResource("NavigationPolygon_n5rn7")
 
 [node name="Goose" type="CharacterBody2D" parent="World2D/NPCs/Enemies/GooseRegion2D2"]

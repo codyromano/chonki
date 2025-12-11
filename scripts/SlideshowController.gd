@@ -153,7 +153,7 @@ func _transition_to_next_scene() -> void:
 	if is_after_intro_scene:
 		GameState.letters_collected_by_scene[1] = []
 		GameState.letters_collected_by_scene[2] = []
-		FadeTransition.fade_out_and_change_scene("res://scenes/level1.tscn", 0.0, 1.0)
+		get_tree().change_scene_to_file("res://scenes/level1.tscn")
 	elif is_final_animation_scene:
 		FadeTransition.fade_out_and_change_scene("res://scenes/bonus.tscn", 0.0, 1.0)
 	else:
