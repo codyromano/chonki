@@ -1858,7 +1858,6 @@ trampoline_id = "near_ruby"
 [node name="WarningSign" parent="World2D/Signs" instance=ExtResource("87_hqycr")]
 position = Vector2(74947, -260)
 sign_name = "double_jump_lake"
-auto_display = true
 
 [node name="WarningSign2" parent="World2D/Signs" instance=ExtResource("87_hqycr")]
 position = Vector2(91431, -260)
