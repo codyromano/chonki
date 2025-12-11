@@ -10,10 +10,7 @@ extends Node2D
 
 @onready var sprite: AnimatedSprite2D = find_child('QuestGiverSprite2D')
 @onready var collision_shape: CollisionShape2D = find_child('QuestGiverCollisionShape')
-@onready var instructions: Label = find_child('Instructions')
 @onready var rodrigo_marker: Marker2D = find_child('RodrigoReturnedToIsaacMarker2D')
-
-var tween_instructions: Tween
 
 var is_player_nearby: bool = false
 var can_trigger_dialogue: bool = true
@@ -124,7 +121,7 @@ func _on_dialogue_option_selected(option_id: String, _option_text: String) -> vo
 func _initiate_dialogue() -> void:
 	print("[QuestGiver] _initiate_dialogue called")
 	# Hide instructions when dialogue starts
-	_set_instructions_opacity(0, 0.25)
+	GlobalSignals.hide_quest_prompt.emit()
 	
 	# If we don't have a current node, start from the root
 	if !current_dialogue_node:
@@ -210,15 +207,6 @@ func _prepare_collisions() -> void:
 			var rect_shape = collision_shape.shape
 			rect_shape.size = tex.get_size() * sprite.scale
 
-func _set_instructions_opacity(modulate_a: float, duration: float) -> void:
-		if tween_instructions:
-			tween_instructions.kill()
-			
-		tween_instructions = create_tween()
-		tween_instructions.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
-		tween_instructions.tween_property(instructions, "modulate:a", modulate_a, duration)
-		await tween_instructions.finished
-
 # Override this in character-specific quest giver scripts to
 # listen to collision events (e.g. Ruby's volleyball being returned)
 func _on_body_entered_override(_body: Node2D) -> void:
@@ -227,7 +215,7 @@ func _on_body_entered_override(_body: Node2D) -> void:
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body.name == 'ChonkiCharacter':
 		is_player_nearby = true
-		_set_instructions_opacity(1, 0.25)
+		GlobalSignals.show_quest_prompt.emit()
 	
 	_on_body_entered_override(body)
 
@@ -235,4 +223,4 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 func _on_area_2d_body_exited(body: Node2D) -> void:
 	if body.name == 'ChonkiCharacter':
 		is_player_nearby = false
-		_set_instructions_opacity(0, 1)
+		GlobalSignals.hide_quest_prompt.emit()

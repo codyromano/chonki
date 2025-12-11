@@ -90,3 +90,7 @@ signal spawn_item_in_location(item_name: PlayerInventory.Item)
 signal enter_warning_sign(sign_name: String)
 @warning_ignore("unused_signal")
 signal rodrigo_picked_up
+@warning_ignore("unused_signal")
+signal show_quest_prompt
+@warning_ignore("unused_signal")
+signal hide_quest_prompt

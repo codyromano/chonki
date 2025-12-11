@@ -38,19 +38,6 @@ collision_mask = 5
 position = Vector2(34, 26)
 shape = SubResource("RectangleShape2D_6lx4c")
 
-[node name="Instructions" type="Label" parent="."]
-process_mode = 3
-modulate = Color(1, 1, 1, 0)
-offset_left = -496.0
-offset_top = -1135.0
-offset_right = 648.0
-offset_bottom = -978.0
-theme = ExtResource("4_s3tby")
-theme_override_colors/font_color = Color(1, 1, 1, 1)
-theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
-theme_override_font_sizes/font_size = 125
-text = "Press \"enter\" to talk"
-
 [node name="RodrigoReturnedToIsaacMarker2D" type="Marker2D" parent="."]
 position = Vector2(-240, 398)
 

@@ -1,4 +1,4 @@
-[gd_scene load_steps=123 format=3 uid="uid://br8ftak73gmww"]
+[gd_scene load_steps=124 format=3 uid="uid://br8ftak73gmww"]
 
 [ext_resource type="PackedScene" uid="uid://bk3oytbasgs5w" path="res://scenes/grown_up_chonki.tscn" id="1_6i0tl"]
 [ext_resource type="Script" uid="uid://b2cncqbuotdcl" path="res://scenes/level_1.gd" id="1_hvrd6"]
@@ -48,6 +48,7 @@
 [ext_resource type="PackedScene" uid="uid://db4eojj42lfw7" path="res://scenes/composable/quest_giver.tscn" id="37_hvrd6"]
 [ext_resource type="Texture2D" uid="uid://cff1qabpfn1hq" path="res://assets/environment/cherry_leaf.png" id="38_1vjko"]
 [ext_resource type="PackedScene" uid="uid://b83a108lrg6l5" path="res://themes/goose_gang.tscn" id="38_6b8u6"]
+[ext_resource type="PackedScene" uid="uid://pdtilsmceni" path="res://scenes/quest_prompt_hud.tscn" id="38_quest_prompt"]
 [ext_resource type="Script" uid="uid://d0vo8jsubn4m1" path="res://scenes/composable/momo_quest_giver.gd" id="38_y3pui"]
 [ext_resource type="PackedScene" uid="uid://ft24k8s13tpc" path="res://scenes/composable/instructional_text.tscn" id="41_0xdic"]
 [ext_resource type="Script" uid="uid://bohb45sc7o600" path="res://scenes/MoveLeftOrRightText.gd" id="42_5ipuv"]
@@ -398,6 +399,8 @@ script = ExtResource("1_hvrd6")
 
 [node name="SceneTransitionController" type="Node2D" parent="."]
 script = ExtResource("83_scene_transition")
+
+[node name="QuestPromptHUD" parent="." instance=ExtResource("38_quest_prompt")]
 
 [node name="TreeMazeLever" parent="." instance=ExtResource("2_vutef")]
 z_index = 1
@@ -1989,7 +1992,7 @@ script = ExtResource("57_4yyev")
 [node name="Debug" type="Node" parent="."]
 
 [node name="GusDebugStartMarker" type="Marker2D" parent="Debug"]
-position = Vector2(65274, -699)
+position = Vector2(41085, -1056)
 
 [node name="JumpRuler" type="ColorRect" parent="Debug"]
 visible = false
