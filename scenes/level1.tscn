@@ -1,4 +1,4 @@
-[gd_scene load_steps=127 format=3 uid="uid://br8ftak73gmww"]
+[gd_scene load_steps=123 format=3 uid="uid://br8ftak73gmww"]
 
 [ext_resource type="PackedScene" uid="uid://bk3oytbasgs5w" path="res://scenes/grown_up_chonki.tscn" id="1_6i0tl"]
 [ext_resource type="Script" uid="uid://b2cncqbuotdcl" path="res://scenes/level_1.gd" id="1_hvrd6"]
@@ -71,7 +71,6 @@
 [ext_resource type="Script" uid="uid://dcemo5f7jvunp" path="res://scenes/SecretLetterAMarker.gd" id="57_4yyev"]
 [ext_resource type="PackedScene" uid="uid://dmvfy4x1ini0v" path="res://scenes/composable/bench.tscn" id="58_eedbu"]
 [ext_resource type="PackedScene" path="res://scenes/spawn_location.tscn" id="59_x7a8r"]
-[ext_resource type="PackedScene" uid="uid://dpwcrkl2e2ro4" path="res://scenes/composable/adjust_zoom_on_player_enter.tscn" id="62_4w6xv"]
 [ext_resource type="Texture2D" uid="uid://b6o0s4p3wr44" path="res://assets/friends/sun.png" id="64_qxclr"]
 [ext_resource type="AudioStream" uid="uid://cy7y35exdndmr" path="res://assets/sound/secret_letter.mp3" id="66_574qs"]
 [ext_resource type="Texture2D" uid="uid://cp2hj8qmm6egl" path="res://assets/environment/level1/lifeguard.png" id="66_t3dvg"]
@@ -335,9 +334,6 @@ size = Vector2(133.291, 744.729)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t3dvg"]
 size = Vector2(147.299, 744.729)
 
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_1un6k"]
-size = Vector2(10723, 10030)
-
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ix5rl"]
 normal = Vector2(-0.806548, -0.591169)
 
@@ -395,12 +391,6 @@ animations = [{
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_hqycr"]
 size = Vector2(3789, 10151.2)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_ib8jg"]
-size = Vector2(4201.5, 3044.5)
-
-[sub_resource type="RectangleShape2D" id="RectangleShape2D_esecu"]
-size = Vector2(5188.5, 14863)
 
 [node name="Level1" type="Node2D"]
 position = Vector2(-5159, -12)
@@ -1759,16 +1749,6 @@ timer_duration = 12.0
 lever_name = "CloudLeverPower"
 touchable_while_timer_is_active = false
 
-[node name="ZoomArea8" type="Area2D" parent="World2D/Platforms & Barriers/CloudMaze"]
-position = Vector2(127789, -3958)
-script = ExtResource("88_n5rn7")
-camera_zoom = Vector2(0.1, 0.1)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/Platforms & Barriers/CloudMaze/ZoomArea8"]
-z_index = 1
-position = Vector2(4543.5, -8840)
-shape = SubResource("RectangleShape2D_1un6k")
-
 [node name="StaticBody2D" type="StaticBody2D" parent="World2D/Platforms & Barriers"]
 position = Vector2(26725, 9)
 rotation = 1.5708
@@ -1899,6 +1879,7 @@ position = Vector2(70357, -626)
 script = ExtResource("73_ix5rl")
 debug_start_marker = NodePath("../Debug/GusDebugStartMarker")
 jump_multiplier = 1.25
+midair_jumps = 10
 speed_multiplier = 1.0
 initial_camera_zoom = Vector2(0.22, 0.22)
 win_zoom_intensity = 0.1
@@ -2005,30 +1986,6 @@ script = ExtResource("57_4yyev")
 
 [node name="ZoomAdjustmentZones" type="Node" parent="."]
 
-[node name="ZoomOut" parent="ZoomAdjustmentZones" instance=ExtResource("62_4w6xv")]
-position = Vector2(62579, -1602)
-zoom_on_enter = 0.125
-
-[node name="ZoomIn" parent="ZoomAdjustmentZones" instance=ExtResource("62_4w6xv")]
-position = Vector2(62900, -1602)
-zoom_on_enter = 0.22
-
-[node name="ZoomOut2" parent="ZoomAdjustmentZones" instance=ExtResource("62_4w6xv")]
-position = Vector2(49193, -1625)
-zoom_on_enter = 0.1
-
-[node name="ZoomIn2" parent="ZoomAdjustmentZones" instance=ExtResource("62_4w6xv")]
-position = Vector2(48540, -1602)
-zoom_on_enter = 0.22
-
-[node name="ZoomOut3" parent="ZoomAdjustmentZones" instance=ExtResource("62_4w6xv")]
-position = Vector2(44349, -1602)
-zoom_on_enter = 0.1
-
-[node name="ZoomIn3" parent="ZoomAdjustmentZones" instance=ExtResource("62_4w6xv")]
-position = Vector2(44841, -1602)
-zoom_on_enter = 0.2
-
 [node name="Debug" type="Node" parent="."]
 
 [node name="GusDebugStartMarker" type="Marker2D" parent="Debug"]
@@ -2106,7 +2063,7 @@ position = Vector2(1521, -4733)
 shape = SubResource("RectangleShape2D_hqycr")
 
 [node name="ZoomArea2" type="Area2D" parent="."]
-position = Vector2(124174, -347)
+position = Vector2(66111, -399)
 script = ExtResource("88_n5rn7")
 camera_zoom = Vector2(0.1, 0.1)
 
@@ -2114,66 +2071,6 @@ camera_zoom = Vector2(0.1, 0.1)
 z_index = 1
 position = Vector2(1521, -4733)
 shape = SubResource("RectangleShape2D_hqycr")
-
-[node name="ZoomArea5" type="Area2D" parent="."]
-position = Vector2(103327, -347)
-script = ExtResource("88_n5rn7")
-camera_zoom = Vector2(0.1, 0.1)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ZoomArea5"]
-z_index = 1
-position = Vector2(1521, -4733)
-shape = SubResource("RectangleShape2D_hqycr")
-
-[node name="ZoomArea6" type="Area2D" parent="."]
-position = Vector2(90208, -347)
-script = ExtResource("88_n5rn7")
-camera_zoom = Vector2(0.1, 0.1)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ZoomArea6"]
-z_index = 1
-position = Vector2(1521, -4733)
-shape = SubResource("RectangleShape2D_hqycr")
-
-[node name="ZoomArea7" type="Area2D" parent="."]
-position = Vector2(94147, -347)
-script = ExtResource("88_n5rn7")
-camera_zoom = Vector2(0.2, 0.2)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ZoomArea7"]
-z_index = 1
-position = Vector2(1521, -4733)
-shape = SubResource("RectangleShape2D_hqycr")
-
-[node name="ZoomArea3" type="Area2D" parent="."]
-position = Vector2(143644, -8097)
-script = ExtResource("88_n5rn7")
-camera_zoom = Vector2(0.2, 0.2)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ZoomArea3"]
-z_index = 1
-position = Vector2(1515.75, -1148.75)
-shape = SubResource("RectangleShape2D_ib8jg")
-
-[node name="ZoomArea4" type="Area2D" parent="."]
-position = Vector2(139231, -3833)
-script = ExtResource("88_n5rn7")
-camera_zoom = Vector2(0.1, 0.1)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ZoomArea4"]
-z_index = 1
-position = Vector2(22918, -3470)
-shape = SubResource("RectangleShape2D_esecu")
-
-[node name="ZoomArea8" type="Area2D" parent="."]
-position = Vector2(144617, -3961)
-script = ExtResource("88_n5rn7")
-camera_zoom = Vector2(0.2, 0.2)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="ZoomArea8"]
-z_index = 1
-position = Vector2(22918, -3470)
-shape = SubResource("RectangleShape2D_esecu")
 
 [connection signal="timeout" from="World2D/NPCs/Enemies/GooseRegion2D2/Goose/Timer" to="World2D/NPCs/Enemies/GooseRegion2D2/Goose" method="_on_hop_timer_timeout"]
 [connection signal="timeout" from="World2D/NPCs/Enemies/GooseRegion2D4/GooseBoss/Timer" to="World2D/NPCs/Enemies/GooseRegion2D4/GooseBoss" method="_on_hop_timer_timeout"]
