@@ -572,6 +572,16 @@ texture = ExtResource("1_vplxb")
 texture_offset = Vector2(0, 400)
 polygon = PackedVector2Array(-1031.22, 135.869, 73316.2, 137.115, 73294.4, 627.614, -1038.74, 617.642)
 
+[node name="Ocean11" type="Polygon2D" parent="World2D/Environment/CloudsAndOceans"]
+z_index = 7
+texture_repeat = 2
+use_parent_material = true
+position = Vector2(-87514, -216)
+scale = Vector2(1.46235, 1.60449)
+texture = ExtResource("1_vplxb")
+texture_offset = Vector2(0, 400)
+polygon = PackedVector2Array(-1031.22, 135.869, 73316.2, 137.115, 73294.4, 627.614, -1038.74, 617.642)
+
 [node name="Ocean10" type="Polygon2D" parent="World2D/Environment/CloudsAndOceans"]
 z_index = 6
 texture_repeat = 2
@@ -660,7 +670,7 @@ position = Vector2(-4762, 2666)
 scale = Vector2(1.46235, 1.60449)
 texture = ExtResource("1_vplxb")
 texture_offset = Vector2(0, 400)
-polygon = PackedVector2Array(-1100.97, 128.39, 73316.2, 137.115, 73294.4, 627.614, -1059.25, 630.106)
+polygon = PackedVector2Array(-1100.97, 128.39, 55952.7, 135.079, 73316.2, 137.115, 73294.4, 627.614, -1059.25, 630.106)
 
 [node name="Ocean4" type="Polygon2D" parent="World2D/Environment/CloudsAndOceans/OceanGroup"]
 z_index = 3
@@ -1273,7 +1283,6 @@ collision_mask = 255
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/Platforms & Barriers/Ground"]
 z_index = 100
 position = Vector2(5407.75, 40)
-scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_4w6xv")
 debug_color = Color(0.307035, 0.494072, 1, 0.42)
 
@@ -1322,6 +1331,27 @@ collision_layer = 0
 position = Vector2(11235.4, 102.5)
 shape = SubResource("RectangleShape2D_7hmix")
 
+[node name="OceanFloor2" type="StaticBody2D" parent="World2D/Platforms & Barriers"]
+position = Vector2(-115659, 1047)
+scale = Vector2(10, 10)
+collision_layer = 7
+collision_mask = 247
+script = ExtResource("47_ocean")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/Platforms & Barriers/OceanFloor2"]
+z_index = 100
+position = Vector2(11137.7, 165.4)
+shape = SubResource("RectangleShape2D_7hmix")
+debug_color = Color(0.307035, 0.494072, 1, 0.42)
+
+[node name="OceanFloorDamageArea" type="Area2D" parent="World2D/Platforms & Barriers/OceanFloor2"]
+position = Vector2(0, 4.5)
+collision_layer = 0
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/Platforms & Barriers/OceanFloor2/OceanFloorDamageArea"]
+position = Vector2(11235.4, 102.5)
+shape = SubResource("RectangleShape2D_7hmix")
+
 [node name="CherryTreeBody2" type="StaticBody2D" parent="World2D/Platforms & Barriers"]
 z_index = 5
 position = Vector2(44462, 0)
@@ -1339,7 +1369,7 @@ polygon = PackedVector2Array(10704, 13, 10569, -510, 10518, -846, 10430, -1006, 
 
 [node name="CherryTreeBody3" type="StaticBody2D" parent="World2D/Platforms & Barriers"]
 z_index = 1
-position = Vector2(20464, 0)
+position = Vector2(14075, 0)
 collision_layer = 8
 collision_mask = 21
 script = ExtResource("15_iid5p")
@@ -1740,7 +1770,7 @@ position = Vector2(4543.5, -8840)
 shape = SubResource("RectangleShape2D_1un6k")
 
 [node name="StaticBody2D" type="StaticBody2D" parent="World2D/Platforms & Barriers"]
-position = Vector2(30376, 9)
+position = Vector2(26725, 9)
 rotation = 1.5708
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/Platforms & Barriers/StaticBody2D"]
