@@ -181,7 +181,7 @@ func _on_enter_warning_sign(sign_name: String) -> void:
 			)
 		"geese_danger":
 			GlobalSignals.queue_main_dialogue.emit(
-				"Careful: the geese look dangerous!",
+				"WARNING: Geese can be aggressive!",
 				"",
 				"gus"
 			)

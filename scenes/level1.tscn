@@ -833,12 +833,6 @@ position = Vector2(77548, -1372)
 scale = Vector2(1.95998, 1.95998)
 texture = ExtResource("15_gqhdx")
 
-[node name="CherryTreeSprite2" type="Sprite2D" parent="World2D/Environment"]
-z_index = 2
-position = Vector2(104521, -1372)
-scale = Vector2(1.95998, 1.95998)
-texture = ExtResource("15_gqhdx")
-
 [node name="CherryTreeSprite3" type="Sprite2D" parent="World2D/Environment"]
 z_index = 2
 position = Vector2(122671, -1372)
@@ -1016,7 +1010,7 @@ stream = ExtResource("20_f7bbt")
 volume_db = 10.0
 
 [node name="GooseRegion2D2" type="NavigationRegion2D" parent="World2D/NPCs/Enemies"]
-position = Vector2(83462, -4)
+position = Vector2(85841, -4)
 navigation_polygon = SubResource("NavigationPolygon_n5rn7")
 
 [node name="Goose" type="CharacterBody2D" parent="World2D/NPCs/Enemies/GooseRegion2D2"]
@@ -1033,6 +1027,7 @@ sprite_frames = SubResource("SpriteFrames_8w215")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/NPCs/Enemies/GooseRegion2D2/Goose"]
 position = Vector2(24, 259)
 rotation = 0.948541
+scale = Vector2(-0.292344, -0.292344)
 shape = SubResource("CapsuleShape2D_nwbuc")
 
 [node name="GooseNavigation" type="NavigationAgent2D" parent="World2D/NPCs/Enemies/GooseRegion2D2/Goose"]
@@ -1066,8 +1061,9 @@ scale = Vector2(1.37031, 1.37031)
 sprite_frames = SubResource("SpriteFrames_8w215")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/NPCs/Enemies/GooseRegion2D4/GooseBoss"]
-position = Vector2(24, 259)
-rotation = 0.948541
+position = Vector2(-19, 30)
+rotation = -0.84423
+scale = Vector2(0.48, 0.48)
 shape = SubResource("CapsuleShape2D_hbu35")
 
 [node name="GooseNavigation" type="NavigationAgent2D" parent="World2D/NPCs/Enemies/GooseRegion2D4/GooseBoss"]
@@ -1104,6 +1100,7 @@ sprite_frames = SubResource("SpriteFrames_8w215")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/NPCs/Enemies/GooseRegion2D3/Goose2"]
 position = Vector2(24, 259)
 rotation = 0.948541
+scale = Vector2(0.302656, 0.302656)
 shape = SubResource("CapsuleShape2D_nwbuc")
 
 [node name="GooseNavigation" type="NavigationAgent2D" parent="World2D/NPCs/Enemies/GooseRegion2D3/Goose2"]
@@ -1135,6 +1132,7 @@ sprite_frames = SubResource("SpriteFrames_8w215")
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/NPCs/Enemies/GooseRegion2D3/Goose3"]
 position = Vector2(24, 259)
 rotation = 0.948541
+scale = Vector2(0.367656, 0.367656)
 shape = SubResource("CapsuleShape2D_nwbuc")
 
 [node name="GooseNavigation" type="NavigationAgent2D" parent="World2D/NPCs/Enemies/GooseRegion2D3/Goose3"]
@@ -1164,8 +1162,9 @@ scale = Vector2(0.570312, 0.570312)
 sprite_frames = SubResource("SpriteFrames_8w215")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/NPCs/Enemies/GooseRegion2D3/Goose4"]
-position = Vector2(24, 259)
+position = Vector2(-12, 259)
 rotation = 0.948541
+scale = Vector2(0.273077, 0.321583)
 shape = SubResource("CapsuleShape2D_nwbuc")
 
 [node name="GooseNavigation" type="NavigationAgent2D" parent="World2D/NPCs/Enemies/GooseRegion2D3/Goose4"]
@@ -1358,6 +1357,21 @@ scale = Vector2(1.51269, 1.51269)
 texture = ExtResource("15_gqhdx")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="World2D/Platforms & Barriers/CherryTreeBody2"]
+polygon = PackedVector2Array(10704, 13, 10569, -510, 10518, -846, 10430, -1006, 10387, -1281, 10375, -1572, 10587, -1893, 10871, -2149, 11101, -2190, 11470, -1940, 11577, -1618, 11719, -1493, 11780, -1010, 11567, -666, 11321, -310, 11163, 23)
+
+[node name="CherryTreeBody4" type="StaticBody2D" parent="World2D/Platforms & Barriers"]
+z_index = 5
+position = Vector2(91886, -15)
+collision_layer = 8
+collision_mask = 21
+script = ExtResource("15_iid5p")
+
+[node name="Sprite2D" type="Sprite2D" parent="World2D/Platforms & Barriers/CherryTreeBody4"]
+position = Vector2(11067.5, -1078.75)
+scale = Vector2(1.51269, 1.51269)
+texture = ExtResource("15_gqhdx")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="World2D/Platforms & Barriers/CherryTreeBody4"]
 polygon = PackedVector2Array(10704, 13, 10569, -510, 10518, -846, 10430, -1006, 10387, -1281, 10375, -1572, 10587, -1893, 10871, -2149, 11101, -2190, 11470, -1940, 11577, -1618, 11719, -1493, 11780, -1010, 11567, -666, 11321, -310, 11163, 23)
 
 [node name="CherryTreeBody3" type="StaticBody2D" parent="World2D/Platforms & Barriers"]
@@ -1860,7 +1874,8 @@ position = Vector2(74947, -260)
 sign_name = "double_jump_lake"
 
 [node name="WarningSign2" parent="World2D/Signs" instance=ExtResource("87_hqycr")]
-position = Vector2(91431, -260)
+position = Vector2(96538, -260)
+rotation = 9.33897e-05
 sign_name = "geese_danger"
 
 [node name="WarningSign3" parent="World2D/Signs" instance=ExtResource("87_hqycr")]
@@ -1991,7 +2006,7 @@ script = ExtResource("57_4yyev")
 [node name="Debug" type="Node" parent="."]
 
 [node name="GusDebugStartMarker" type="Marker2D" parent="Debug"]
-position = Vector2(41085, -1056)
+position = Vector2(88368, -349)
 
 [node name="JumpRuler" type="ColorRect" parent="Debug"]
 visible = false
@@ -2082,6 +2097,7 @@ shape = SubResource("RectangleShape2D_hqycr")
 [connection signal="body_entered" from="World2D/NPCs/Enemies/Bicyclist" to="World2D/NPCs/Enemies/Bicyclist" method="_on_body_entered"]
 [connection signal="body_entered" from="World2D/NPCs/Rodrigo" to="World2D/NPCs/Rodrigo" method="_on_body_entered"]
 [connection signal="input_event" from="World2D/Platforms & Barriers/CherryTreeBody2" to="World2D/Platforms & Barriers/CherryTreeBody2" method="_on_input_event"]
+[connection signal="input_event" from="World2D/Platforms & Barriers/CherryTreeBody4" to="World2D/Platforms & Barriers/CherryTreeBody4" method="_on_input_event"]
 [connection signal="input_event" from="World2D/Platforms & Barriers/CherryTreeBody3" to="World2D/Platforms & Barriers/CherryTreeBody3" method="_on_input_event"]
 [connection signal="body_entered" from="LittleFreeLibrary" to="LittleFreeLibrary" method="_on_body_entered"]
 [connection signal="body_exited" from="LittleFreeLibrary" to="LittleFreeLibrary" method="_on_body_exited"]
