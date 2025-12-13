@@ -4,7 +4,8 @@
 [ext_resource type="Script" uid="uid://dykjl2jt0sr83" path="res://scenes/menus/DialogueOption.gd" id="2_script"]
 
 [node name="DialogueOption1" type="Button"]
-custom_minimum_size = Vector2(600, 0)
+custom_minimum_size = Vector2(500, 0)
+size_flags_horizontal = 4
 focus_neighbor_bottom = NodePath("../DialogueOption2")
 theme = ExtResource("1_3omyf")
 text = "Dialogue option #1 for the player"

@@ -7,10 +7,10 @@
 [resource]
 default_font = ExtResource("1_vg6h3")
 default_font_size = 25
-Button/colors/font_color = Color(0.5, 0.5, 0.5, 1)
+Button/colors/font_color = Color(0.3, 0.3, 0.3, 1)
 Button/colors/font_focus_color = Color(0, 0, 0, 1)
-Button/colors/font_hover_color = Color(0.5, 0.5, 0.5, 1)
-Button/colors/font_pressed_color = Color(0.5, 0.5, 0.5, 1)
+Button/colors/font_hover_color = Color(0.3, 0.3, 0.3, 1)
+Button/colors/font_pressed_color = Color(0.3, 0.3, 0.3, 1)
 Button/styles/focus = ExtResource("3_button_focus")
 Button/styles/hover = ExtResource("2_button")
 Button/styles/normal = ExtResource("2_button")
