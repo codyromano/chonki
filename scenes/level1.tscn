@@ -1237,7 +1237,7 @@ position = Vector2(140973, -8203)
 script = ExtResource("43_6b8u6")
 frames = SubResource("SpriteFrames_6qhw2")
 sprite_scale = Vector2(1, 1)
-avatar_name = ""
+avatar_name = "isaac"
 
 [node name="Rodrigo" type="Area2D" parent="World2D/NPCs"]
 z_index = 1
