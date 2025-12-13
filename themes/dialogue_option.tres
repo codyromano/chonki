@@ -1,12 +1,17 @@
-[gd_resource type="Theme" load_steps=3 format=3 uid="uid://cib5m4kcttj0j"]
+[gd_resource type="Theme" load_steps=4 format=3 uid="uid://cib5m4kcttj0j"]
 
 [ext_resource type="FontFile" uid="uid://dlfbvpauldaco" path="res://fonts/Sniglet-Regular.ttf" id="1_vg6h3"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vg6h3"]
-bg_color = Color(0.976471, 0.976471, 0.976471, 1)
+[ext_resource type="StyleBox" uid="uid://d34fpnq2ua283" path="res://themes/button.tres" id="2_button"]
+[ext_resource type="StyleBox" uid="uid://gt8qeik7gjdp" path="res://themes/button_focus.tres" id="3_button_focus"]
 
 [resource]
 default_font = ExtResource("1_vg6h3")
 default_font_size = 25
+Button/colors/font_color = Color(0.5, 0.5, 0.5, 1)
 Button/colors/font_focus_color = Color(0, 0, 0, 1)
-Button/styles/focus = SubResource("StyleBoxFlat_vg6h3")
+Button/colors/font_hover_color = Color(0.5, 0.5, 0.5, 1)
+Button/colors/font_pressed_color = Color(0.5, 0.5, 0.5, 1)
+Button/styles/focus = ExtResource("3_button_focus")
+Button/styles/hover = ExtResource("2_button")
+Button/styles/normal = ExtResource("2_button")
+Button/styles/pressed = ExtResource("2_button")
