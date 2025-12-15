@@ -105,7 +105,7 @@ func _start_collection_sequence():
 			GameState.collected_letter_items_by_level[level].append(letter_item)
 	
 	GameState.add_collected_letter(letter)
-	GlobalSignals.secret_letter_collected.emit(letter)
+	GlobalSignals.secret_letter_collected.emit(letter_item)
 	
 	# Play the secret letter collection sound
 	if audio_player:

@@ -25,5 +25,9 @@ func _process(_delta):
 	
 func _on_body_entered(body):
 	if body.name == "ChonkiCharacter":
-		GlobalSignals.win_game.emit(zoom_intensity)
-		state = State.HAPPY
+		if _has_collected_all_letters():
+			GlobalSignals.win_game.emit(zoom_intensity)
+			state = State.HAPPY
+
+func _has_collected_all_letters() -> bool:
+	return PlayerInventory.get_collected_secret_letter_count() >= 5

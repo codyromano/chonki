@@ -1839,7 +1839,7 @@ audio = ExtResource("66_574qs")
 [node name="SpawnLetterX" parent="World2D/Collectibles" instance=ExtResource("59_x7a8r")]
 z_index = 10
 position = Vector2(89924, -5033)
-item_name = 4
+item_name = 9
 
 [node name="Node2D" type="Node2D" parent="World2D/Collectibles/SpawnLetterX"]
 z_index = 10
@@ -1851,7 +1851,7 @@ offset_top = 2483.0
 offset_right = 5013.0
 offset_bottom = 2547.0
 letter = "R"
-letter_item = 4
+letter_item = 9
 metadata/_edit_use_anchors_ = true
 
 [node name="Trampoline" parent="World2D" instance=ExtResource("53_7hmix")]
@@ -1900,6 +1900,7 @@ initial_camera_zoom = Vector2(0.22, 0.22)
 win_zoom_intensity = 0.1
 
 [node name="HUD" parent="." instance=ExtResource("20_g3dfk")]
+debug_mode = true
 
 [node name="TitleLayers" type="Node2D" parent="."]
 
@@ -2021,7 +2022,7 @@ offset_top = -1894.0
 offset_right = 120215.0
 offset_bottom = -1830.0
 letter = "E"
-letter_item = 5
+letter_item = 10
 
 [node name="SecretLetter2" parent="." instance=ExtResource("56_yqdyt")]
 z_index = 10
@@ -2030,12 +2031,12 @@ offset_top = -21135.0
 offset_right = 150263.0
 offset_bottom = -21071.0
 letter = "S"
-letter_item = 6
+letter_item = 11
 
 [node name="IsaacSecretLetterSpawnPoint" type="Marker2D" parent="."]
 position = Vector2(134824, -7186)
 script = ExtResource("78_5674x")
-item_name = 7
+item_name = 12
 
 [node name="Node2D" type="Node2D" parent="IsaacSecretLetterSpawnPoint"]
 
@@ -2046,7 +2047,7 @@ offset_top = -1868.0
 offset_right = 9642.0
 offset_bottom = -1804.0
 letter = "H"
-letter_item = 7
+letter_item = 12
 
 [node name="LittleFreeLibrary" type="Area2D" parent="."]
 z_index = 7

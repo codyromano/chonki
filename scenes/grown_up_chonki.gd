@@ -480,7 +480,7 @@ func _perform_midair_backflip():
 	# Allow next midair jump
 	is_midair_jumping = false
 
-func _on_secret_letter_collected(_letter: String):
+func _on_secret_letter_collected(_letter_item: PlayerInventory.Item):
 	PlayerInventory.increment_midair_jumps()
 	midair_jumps += 1
 

@@ -122,7 +122,8 @@ func _on_heart_lost() -> void:
 	if heart_node:
 		heart_node.queue_free()
 
-func _on_secret_letter_collected(letter: String) -> void:
+func _on_secret_letter_collected(letter_item: PlayerInventory.Item) -> void:
+	var letter = GameState.get_letter_string_from_item(letter_item)
 	_display_letter(letter)
 
 func _hide_health() -> void:

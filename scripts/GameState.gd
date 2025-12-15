@@ -88,6 +88,16 @@ func get_collected_letters() -> Array:
 
 func get_letter_string_from_item(item: PlayerInventory.Item) -> String:
 	match item:
+		PlayerInventory.Item.SECRET_LETTER_A:
+			return "A"
+		PlayerInventory.Item.SECRET_LETTER_D:
+			return "D"
+		PlayerInventory.Item.SECRET_LETTER_O:
+			return "O"
+		PlayerInventory.Item.SECRET_LETTER_P:
+			return "P"
+		PlayerInventory.Item.SECRET_LETTER_T:
+			return "T"
 		PlayerInventory.Item.SECRET_LETTER_F:
 			return "F"
 		PlayerInventory.Item.SECRET_LETTER_R:

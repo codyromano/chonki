@@ -78,7 +78,7 @@ size = Vector2(4918.48, 1548.38)
 size = Vector2(4918.48, 1548.38)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_a3fuc"]
-size = Vector2(13137.2, 406.926)
+size = Vector2(17693.9, 406.926)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ih5xv"]
 size = Vector2(20, 1.67627)
@@ -477,6 +477,27 @@ texture = ExtResource("1_553eq")
 texture_offset = Vector2(0, 200)
 polygon = PackedVector2Array(-49.2891, -201.494, 13634.4, -209.514, 13609.4, 95.7778, -67.5977, 92.8271)
 
+[node name="WallBesideHorse2" type="StaticBody2D" parent="Environment/PhysicsBarriers"]
+position = Vector2(39911, -14561)
+rotation = 1.54664
+collision_layer = 8
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/PhysicsBarriers/WallBesideHorse2"]
+z_index = 1
+position = Vector2(299.222, 208.031)
+scale = Vector2(0.870129, 0.870129)
+shape = SubResource("RectangleShape2D_a3fuc")
+
+[node name="Polygon2D" type="Polygon2D" parent="Environment/PhysicsBarriers/WallBesideHorse2"]
+z_index = 1
+position = Vector2(-7331.4, 187.793)
+rotation = 0.007998
+scale = Vector2(1.12667, 1.00232)
+color = Color(0.480342, 0.424905, 0.200685, 1)
+texture = ExtResource("1_553eq")
+texture_offset = Vector2(0, 200)
+polygon = PackedVector2Array(-49.2891, -201.494, 13634.4, -209.514, 13609.4, 95.7778, -63.2607, 184.625, -57.5308, -69.0103)
+
 [node name="HaySquares" type="Node2D" parent="Environment/PhysicsBarriers"]
 
 [node name="HayBox" parent="Environment/PhysicsBarriers/HaySquares" instance=ExtResource("3_7kkmp")]
@@ -531,10 +552,11 @@ texture_offset = Vector2(0, 3750)
 texture_scale = Vector2(0.25, 0.25)
 polygon = PackedVector2Array(-10844.7, 336.809, 88755.7, 445.486, 88537.4, -2763.63, -10918.7, -2722.32)
 
-[node name="Chonki" parent="." instance=ExtResource("3_meeps")]
+[node name="Chonki" parent="." node_paths=PackedStringArray("debug_start_marker") instance=ExtResource("3_meeps")]
 z_index = 5
 position = Vector2(-2845, -3086)
 scale = Vector2(1.76, 1.76)
+debug_start_marker = NodePath("../DebugPlayerStartMarker")
 heart_texture = ExtResource("4_ee0bn")
 jump_multiplier = 1.25
 
@@ -560,7 +582,8 @@ position = Vector2(2000, -3766)
 position = Vector2(2411, -3512)
 
 [node name="Dave" parent="NPCs" instance=ExtResource("8_uteif")]
-position = Vector2(92006, -3497)
+z_index = 1
+position = Vector2(44694, -3497)
 scale = Vector2(0.877844, 0.877844)
 zoom_intensity = 0.1
 
@@ -667,6 +690,7 @@ offset_left = 3412.0
 offset_top = -4397.0
 offset_right = 3476.0
 offset_bottom = -4333.0
+letter_item = 3
 font_size = 75
 
 [node name="SecretLetter2" parent="Items/StoryLetters" instance=ExtResource("37_7ukfb")]
@@ -675,6 +699,7 @@ offset_top = -6020.0
 offset_right = 27516.0
 offset_bottom = -5956.0
 letter = "D"
+letter_item = 4
 font_size = 75
 
 [node name="SecretLetter3" parent="Items/StoryLetters" instance=ExtResource("37_7ukfb")]
@@ -683,6 +708,7 @@ offset_top = -16095.0
 offset_right = 24550.0
 offset_bottom = -16031.0
 letter = "O"
+letter_item = 5
 font_size = 75
 
 [node name="SecretLetter4" parent="Items/StoryLetters" instance=ExtResource("37_7ukfb")]
@@ -691,6 +717,7 @@ offset_top = -14780.0
 offset_right = -3856.0
 offset_bottom = -14716.0
 letter = "P"
+letter_item = 6
 font_size = 75
 
 [node name="SecretLetter5" parent="Items/StoryLetters" instance=ExtResource("37_7ukfb")]
@@ -699,10 +726,11 @@ offset_top = -13548.0
 offset_right = 32638.0
 offset_bottom = -13484.0
 letter = "T"
+letter_item = 7
 font_size = 75
 
 [node name="LittleFreeLibrary" type="Area2D" parent="Items"]
-position = Vector2(64396, -4620)
+position = Vector2(44302, -4620)
 script = ExtResource("18_fq2xm")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Items/LittleFreeLibrary"]
@@ -775,14 +803,14 @@ id = "intro_to_books"
 dialogue = "Hmm. Maybe the books will explain how I got here."
 
 [node name="LittleFreeLibraryTrigger" parent="InstructionTriggers" instance=ExtResource("12_hq858")]
-position = Vector2(45024, 3500)
+position = Vector2(24930, 3500)
 scale = Vector2(3.59222, 3.01853)
 script = ExtResource("28_127wd")
 id = "little_free_library_intro"
 dialogue = "Visit little free libraries to learn more about Gus's story"
 
 [node name="DebugPlayerStartMarker" type="Marker2D" parent="."]
-position = Vector2(60003, -3970)
+position = Vector2(39154, -4171)
 
 [node name="ScriptedAnimationScenarios" type="Node2D" parent="."]
 

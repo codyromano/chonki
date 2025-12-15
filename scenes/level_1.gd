@@ -3,8 +3,6 @@ extends Node2D
 @onready var leaf_system = find_child('Leaves')
 @onready var sniglet_font: Font = preload("res://fonts/Sniglet-Regular.ttf")
 
-var total_secret_letters: int = 0
-var collected_secret_letters: int = 0
 var letters_display_label: Label
 var letters_display_control: Control
 var title_label: Label
@@ -16,14 +14,13 @@ func _ready():
 	
 	GameState.restore_letters_from_persistent_state(2)
 	
-	_count_total_secret_letters()
 	_create_letters_display()
 	_create_jump_height_indicator()
 	
-	if GameState.collected_letter_items_by_level.has(2):
-		collected_secret_letters = GameState.collected_letter_items_by_level[2].size()
-		if title_label and collected_secret_letters > 0:
-			title_label.text = "Jump power: %d / 5" % collected_secret_letters
+	if title_label:
+		var collected = PlayerInventory.get_collected_secret_letter_count()
+		if collected > 0:
+			title_label.text = "Jump power: %d / 5" % collected
 
 func _create_jump_height_indicator():
 	var indicator = ColorRect.new()
@@ -33,33 +30,6 @@ func _create_jump_height_indicator():
 	indicator.size = Vector2(20, jump_height)
 	indicator.position = Vector2(1000, 1000 - jump_height)
 	add_child(indicator)
-	
-func _count_total_secret_letters():
-	total_secret_letters = 0
-	
-	var letters_node = get_node_or_null("Letters")
-	if letters_node:
-		for child in letters_node.get_children():
-			if child.name.begins_with("SecretLetter"):
-				total_secret_letters += 1
-	
-	if total_secret_letters == 0:
-		var secret_letters = get_tree().get_nodes_in_group("secret_letters")
-		total_secret_letters = secret_letters.size()
-	
-	if total_secret_letters == 0:
-		total_secret_letters = _count_secret_letters_recursive(self)
-
-func _count_secret_letters_recursive(node: Node) -> int:
-	var count = 0
-	
-	if node.get_script() and node.get_script().get_path().ends_with("SecretLetter.gd"):
-		count += 1
-	
-	for child in node.get_children():
-		count += _count_secret_letters_recursive(child)
-	
-	return count
 
 func _create_letters_display():
 	var canvas_layer = CanvasLayer.new()
@@ -115,15 +85,15 @@ func _create_letters_display():
 	letters_display_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	vbox.add_child(letters_display_label)
 
-func _on_secret_letter_collected(_letter: String):
+func _on_secret_letter_collected(_letter_item: PlayerInventory.Item):
 	if not letters_display_control:
 		return
 	
-	collected_secret_letters += 1
+	var collected = PlayerInventory.get_collected_secret_letter_count()
 	
 	# Update title with current jump power
 	if title_label:
-		title_label.text = "Jump power: %d / 5" % collected_secret_letters
+		title_label.text = "Jump power: %d / 5" % collected
 	
 	var tween = create_tween()
 	

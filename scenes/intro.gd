@@ -5,8 +5,6 @@ extends Node2D
 @onready var letters_count_label: Label = $TitleLayers/LettersDiscoveredLayer/Control/MarginContainer/VBoxContainer/HBoxContainer/VBoxContainer/Label
 
 var player_moved_initially: bool = false
-var total_secret_letters: int = 0
-var collected_secret_letters: int = 0
 
 func _ready():
 	GlobalSignals.game_zoom_level.emit(0.2)
@@ -15,53 +13,8 @@ func _ready():
 	
 	GlobalSignals.secret_letter_collected.connect(_on_secret_letter_collected)
 	
-	_count_total_secret_letters()
-	
-	_update_letters_count_display()
-	
 	# Add fade-in effect when scene loads
 	_add_fade_in_effect()
-
-## Count all SecretLetter instances in the scene
-func _count_total_secret_letters():
-	total_secret_letters = 0
-	
-	# First try to find them in the StoryLetters group
-	var story_letters = get_node_or_null("Items/StoryLetters")
-	if story_letters:
-		for child in story_letters.get_children():
-			if child.name.begins_with("SecretLetter"):
-				total_secret_letters += 1
-	
-	# Fallback: search by group
-	if total_secret_letters == 0:
-		var tree = get_tree()
-		if tree:
-			var secret_letters = tree.get_nodes_in_group("secret_letters")
-			total_secret_letters = secret_letters.size()
-	
-	# Final fallback: recursive search
-	if total_secret_letters == 0:
-		total_secret_letters = _count_secret_letters_recursive(self)
-
-## Recursively count SecretLetter nodes
-func _count_secret_letters_recursive(node: Node) -> int:
-	var count = 0
-	
-	# Check if this node has the SecretLetter script
-	if node.get_script() and node.get_script().get_path().ends_with("SecretLetter.gd"):
-		count += 1
-	
-	# Check all children recursively
-	for child in node.get_children():
-		count += _count_secret_letters_recursive(child)
-	
-	return count
-
-## Update the letters count display
-func _update_letters_count_display():
-	if letters_count_label:
-		letters_count_label.text = "%d/%d" % [collected_secret_letters, total_secret_letters]
 	
 func _add_fade_in_effect():
 	# Create a black overlay for fade-in effect
@@ -103,13 +56,13 @@ func _process(_delta) -> void:
 func _on_little_free_library_body_entered(_body):
 	pass # Replace with function body.
 
-func _on_secret_letter_collected(_letter: String):
+func _on_secret_letter_collected(_letter_item: PlayerInventory.Item):
 	if not letters_discovered_control:
 		return
 	
-	collected_secret_letters += 1
-	
-	_update_letters_count_display()
+	if letters_count_label:
+		var collected = PlayerInventory.get_collected_secret_letter_count()
+		letters_count_label.text = "%d/5" % collected
 	
 	var tween = create_tween()
 	

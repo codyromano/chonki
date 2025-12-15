@@ -6,6 +6,11 @@ enum Item {
 	POTTERY_1,
 	POTTERY_2,
 	POTTERY_3,
+	SECRET_LETTER_A,
+	SECRET_LETTER_D,
+	SECRET_LETTER_O,
+	SECRET_LETTER_P,
+	SECRET_LETTER_T,
 	SECRET_LETTER_F,
 	SECRET_LETTER_R,
 	SECRET_LETTER_E,
@@ -74,3 +79,10 @@ func get_earned_midair_jumps() -> int:
 
 func increment_midair_jumps() -> void:
 	earned_midair_jumps += 1
+
+func get_collected_secret_letter_count() -> int:
+	var level = GameState.current_level
+	if not GameState.collected_letter_items_by_level.has(level):
+		return 0
+	
+	return GameState.collected_letter_items_by_level[level].size()
