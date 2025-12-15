@@ -1233,7 +1233,7 @@ sprite_scale = Vector2(1, 1)
 avatar_name = "ruby"
 
 [node name="IsaacQuestGiver" parent="World2D/NPCs/QuestGivers" instance=ExtResource("37_hvrd6")]
-position = Vector2(140973, -8203)
+position = Vector2(140973, -7191)
 script = ExtResource("43_6b8u6")
 frames = SubResource("SpriteFrames_6qhw2")
 sprite_scale = Vector2(1, 1)
@@ -1664,7 +1664,7 @@ position = Vector2(2868.22, -819.409)
 shape = SubResource("RectangleShape2D_srghs")
 
 [node name="CloudBarrierForQuestGiver" type="StaticBody2D" parent="World2D/Platforms & Barriers/CloudMaze"]
-position = Vector2(131602, -1912)
+position = Vector2(131602, -855)
 rotation = 1.5708
 scale = Vector2(7.96, 7.96)
 collision_layer = 8
@@ -1890,13 +1890,11 @@ position = Vector2(117719, -609)
 scale = Vector2(4.24871, 4.24871)
 texture = ExtResource("11_qfp7r")
 
-[node name="GrownUpChonki" parent="." node_paths=PackedStringArray("debug_start_marker") instance=ExtResource("1_6i0tl")]
+[node name="GrownUpChonki" parent="." instance=ExtResource("1_6i0tl")]
 z_index = 2
 position = Vector2(70357, -626)
 script = ExtResource("73_ix5rl")
-debug_start_marker = NodePath("../Debug/GusDebugStartMarker")
 jump_multiplier = 1.25
-midair_jumps = 10
 speed_multiplier = 1.0
 initial_camera_zoom = Vector2(0.22, 0.22)
 win_zoom_intensity = 0.1
@@ -2043,10 +2041,10 @@ item_name = 7
 
 [node name="SecretLetter" parent="IsaacSecretLetterSpawnPoint/Node2D" instance=ExtResource("56_yqdyt")]
 z_index = 8
-offset_left = 10312.0
-offset_top = -2580.0
-offset_right = 10376.0
-offset_bottom = -2516.0
+offset_left = 9578.0
+offset_top = -1868.0
+offset_right = 9642.0
+offset_bottom = -1804.0
 letter = "H"
 letter_item = 7
 
