@@ -59,9 +59,30 @@ var was_on_floor_last_frame: bool = false
 
 signal chonki_landed_and_hearts_spawned(zoom_intensity: float)
 
+func _on_library_unloaded(scene_path: String) -> void:
+	print("[GUS UNLOAD] Scene unloaded: ", scene_path)
+	print("[GUS UNLOAD] Gus position after unload: ", global_position)
+	if scene_path == "res://scenes/little_free_library.tscn":
+		var anagram_solved = GameState.is_anagram_solved(GameState.current_level)
+		print("[GUS UNLOAD] Anagram solved for level ", GameState.current_level, ": ", anagram_solved)
+		if anagram_solved:
+			print("[GUS UNLOAD] Triggering win sequence (deferred)")
+			call_deferred("_trigger_win_sequence")
+
+func _trigger_win_sequence() -> void:
+	print("[GUS WIN TRIGGER] _trigger_win_sequence called")
+	var dave = get_tree().current_scene.find_child("Dave", true, false)
+	if dave and dave.has_method("get_sprite"):
+		var zoom = dave.zoom_intensity if dave.has_method("get") else 0.5
+		print("[GUS WIN TRIGGER] Found Dave, emitting win_game signal with zoom: ", zoom)
+		GlobalSignals.win_game.emit(zoom)
+	else:
+		print("[GUS WIN TRIGGER] ERROR: Dave not found or missing get_sprite method")
+
 func _ready() -> void:
 	GlobalSignals.player_registered.emit(self)
 	GlobalSignals.set_chonki_frozen.connect(_on_chonki_frozen)
+	GlobalSignals.on_unload_scene.connect(_on_library_unloaded)
 	GlobalSignals.secret_letter_collected.connect(_on_secret_letter_collected)
 	
 	if debug_start_marker:
