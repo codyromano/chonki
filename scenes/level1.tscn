@@ -414,7 +414,7 @@ unique_name_in_owner = true
 
 [node name="Dave" parent="World2D" instance=ExtResource("16_ytk5w")]
 z_index = 1
-position = Vector2(173164, -676)
+position = Vector2(170562, -676)
 scale = Vector2(0.4, 0.4)
 
 [node name="Environment" type="Node2D" parent="World2D"]
@@ -1890,10 +1890,11 @@ position = Vector2(117719, -609)
 scale = Vector2(4.24871, 4.24871)
 texture = ExtResource("11_qfp7r")
 
-[node name="GrownUpChonki" parent="." instance=ExtResource("1_6i0tl")]
+[node name="GrownUpChonki" parent="." node_paths=PackedStringArray("debug_start_marker") instance=ExtResource("1_6i0tl")]
 z_index = 2
 position = Vector2(70357, -626)
 script = ExtResource("73_ix5rl")
+debug_start_marker = NodePath("../Debug/GusDebugStartMarker")
 jump_multiplier = 1.25
 speed_multiplier = 1.0
 initial_camera_zoom = Vector2(0.22, 0.22)
@@ -2005,7 +2006,7 @@ script = ExtResource("57_4yyev")
 [node name="Debug" type="Node" parent="."]
 
 [node name="GusDebugStartMarker" type="Marker2D" parent="Debug"]
-position = Vector2(88368, -349)
+position = Vector2(161087, -844)
 
 [node name="JumpRuler" type="ColorRect" parent="Debug"]
 visible = false
@@ -2051,7 +2052,7 @@ letter_item = 12
 
 [node name="LittleFreeLibrary" type="Area2D" parent="."]
 z_index = 7
-position = Vector2(145590, -1392)
+position = Vector2(148281, -1392)
 scale = Vector2(0.720039, 0.720039)
 script = ExtResource("79_u6iub")
 
