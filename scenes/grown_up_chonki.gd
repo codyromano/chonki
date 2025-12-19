@@ -14,6 +14,7 @@ class_name Gus
 
 # An item or character carried on Gus's back
 @export var carried_entity: Node2D
+
 @onready var carried_entity_marker: Marker2D = find_child('CarriedEntityMarker')
 
 @export var initial_camera_zoom: Vector2 = Vector2(0.2, 0.2)
@@ -74,7 +75,7 @@ func _trigger_win_sequence() -> void:
 	print("[GUS WIN TRIGGER] _trigger_win_sequence called")
 	var dave = get_tree().current_scene.find_child("Dave", true, false)
 	if dave and dave.has_method("get_sprite"):
-		var zoom = dave.zoom_intensity if dave.has_method("get") else 0.5
+		var zoom = 0.25
 		print("[GUS WIN TRIGGER] Found Dave, emitting win_game signal with zoom: ", zoom)
 		GlobalSignals.win_game.emit(zoom)
 	else:
@@ -188,7 +189,6 @@ func _on_chonki_touched_kite(kite_position: Vector2, kite_rotation_deg: int) -> 
 	hang_offset = Vector2(0, half_h)
 
 func on_win_game(zoom_intensity: float = 0.5) -> void:
-	global_position = win_game_marker.global_position
 	is_game_win = true
 	win_zoom_intensity = zoom_intensity
 	
@@ -197,6 +197,8 @@ func on_win_game(zoom_intensity: float = 0.5) -> void:
 		GameState.collected_star_ids_by_level[level].clear()
 	if GameState.collected_letter_items_by_level.has(level):
 		GameState.collected_letter_items_by_level[level].clear()
+
+	body.global_position.x = win_game_marker.global_position.x
 	
 	# Wait for Chonki to land on the floor before spawning hearts
 	await wait_for_chonki_to_land()

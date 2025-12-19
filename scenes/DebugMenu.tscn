@@ -87,6 +87,11 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Add All Letters"
 
+[node name="TeleportToLibraryWinButton" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ButtonsContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 24
+text = "Teleport to Library Win"
+
 [node name="DismissButton" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ButtonsContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
@@ -96,4 +101,5 @@ text = "Dismiss (ESC)"
 [connection signal="pressed" from="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ButtonsContainer/SkipButton" to="." method="_on_skip_button_pressed"]
 [connection signal="pressed" from="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ButtonsContainer/SetZoomButton" to="." method="_on_set_zoom_button_pressed"]
 [connection signal="pressed" from="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ButtonsContainer/AddAllLettersButton" to="." method="_on_add_all_letters_button_pressed"]
+[connection signal="pressed" from="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ButtonsContainer/TeleportToLibraryWinButton" to="." method="_on_teleport_to_library_win_button_pressed"]
 [connection signal="pressed" from="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ButtonsContainer/DismissButton" to="." method="_on_dismiss_button_pressed"]

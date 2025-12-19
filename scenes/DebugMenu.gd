@@ -2,8 +2,36 @@ extends Control
 
 @onready var debug_info_label: Label = $CenterContainer/PanelContainer/MarginContainer/VBoxContainer/DebugInfoLabel
 
+var position_log_timer: float = 0.0
+var last_logged_position: Vector2 = Vector2(-999999, -999999)
+
 func _ready():
 	update_debug_info()
+	set_process_mode(PROCESS_MODE_ALWAYS)
+
+func _process(delta: float) -> void:
+	position_log_timer += delta
+	
+	if position_log_timer >= 3.0:
+		position_log_timer = 0.0
+		_log_player_position()
+
+func _log_player_position() -> void:
+	var level = get_tree().current_scene
+	if not level:
+		return
+	
+	var chonki = level.find_child("GrownUpChonki", true, false)
+	if not chonki:
+		return
+	
+	var character_body = chonki.find_child("ChonkiCharacter", false, false)
+	if not character_body:
+		return
+	
+	var current_position: Vector2 = character_body.global_position
+	print("Player position: ", current_position)
+	last_logged_position = current_position
 
 func _input(event: InputEvent) -> void:
 	if visible and event.is_action_pressed("ui_cancel"):
@@ -71,3 +99,24 @@ func _add_letter(letter_item: PlayerInventory.Item) -> void:
 			GlobalSignals.secret_letter_collected.emit(letter_item)
 			PlayerInventory.increment_midair_jumps()
 	update_debug_info()
+
+func _on_teleport_to_library_win_button_pressed() -> void:
+	var level = get_tree().current_scene
+	if not level:
+		push_error("Teleport failed: no current scene")
+		return
+	
+	var marker = level.find_child("SpawnAfterLibraryWin", true, false)
+	print("debug - marker is at ", marker.global_position)
+
+	if not marker:
+		push_error("SpawnAfterLibraryWin marker not found in scene tree")
+		return
+	
+	var chonki = level.find_child("GrownUpChonki", true, false)
+	if not chonki:
+		push_error("GrownUpChonki node not found")
+		return
+	
+	chonki.global_position = marker.global_position
+	hide_menu()

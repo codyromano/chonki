@@ -92,6 +92,11 @@ func _on_body_entered_override(body: Node2D) -> void:
 		body.queue_free()
 		
 		sprite.play('happy')
+		
+		GlobalSignals.queue_main_dialogue.emit(
+			"Quest complete! Return to Ruby for a reward.",
+			"gus"
+		)
 
 func on_dialogue_finished() -> void:
 	# Only emit signal if volleyball has been returned and reward not yet given
