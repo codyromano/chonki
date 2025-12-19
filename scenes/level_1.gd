@@ -8,6 +8,11 @@ var letters_display_control: Control
 var title_label: Label
 var subtitle_label: Label
 
+var input_sequence: Array[String] = []
+const DEBUG_SEQUENCE: Array[String] = ["ui_up", "ui_down", "ui_up", "ui_down", "ui_left", "ui_right"]
+const SEQUENCE_TIMEOUT: float = 2.0
+var last_input_time: float = 0.0
+
 func _ready():
 	GameState.current_level = 2
 	GlobalSignals.secret_letter_collected.connect(_on_secret_letter_collected)
@@ -105,3 +110,49 @@ func _on_secret_letter_collected(_letter_item: PlayerInventory.Item):
 
 func _on_wind_change():
 	pass
+
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_up"):
+		print("[DEBUG] ui_up pressed")
+		_check_debug_sequence("ui_up")
+	elif event.is_action_pressed("ui_down"):
+		print("[DEBUG] ui_down pressed")
+		_check_debug_sequence("ui_down")
+	elif event.is_action_pressed("ui_left"):
+		print("[DEBUG] ui_left pressed")
+		_check_debug_sequence("ui_left")
+	elif event.is_action_pressed("ui_right"):
+		print("[DEBUG] ui_right pressed")
+		_check_debug_sequence("ui_right")
+
+func _check_debug_sequence(action: String) -> void:
+	var current_time = Time.get_ticks_msec() / 1000.0
+	
+	if current_time - last_input_time > SEQUENCE_TIMEOUT:
+		input_sequence.clear()
+	
+	last_input_time = current_time
+	input_sequence.append(action)
+	
+	print("[DEBUG] Sequence: ", input_sequence, " | Target: ", DEBUG_SEQUENCE)
+	
+	if input_sequence.size() > DEBUG_SEQUENCE.size():
+		input_sequence.pop_front()
+	
+	if input_sequence == DEBUG_SEQUENCE:
+		print("[DEBUG] Sequence matched! Showing debug menu")
+		_show_debug_menu()
+		input_sequence.clear()
+
+func _show_debug_menu() -> void:
+	print("[DEBUG] _show_debug_menu called")
+	var hud = $HUD
+	print("[DEBUG] HUD found: ", hud != null)
+	if hud:
+		var menu = hud.find_child("DebugMenu", true, false)
+		print("[DEBUG] DebugMenu found: ", menu != null)
+		if menu and menu.has_method("show_menu"):
+			print("[DEBUG] Calling show_menu()")
+			menu.show_menu()
+		else:
+			print("[DEBUG] Menu not found or doesn't have show_menu method")

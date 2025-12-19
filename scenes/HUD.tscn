@@ -1,7 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://b41x2t8numn7a"]
+[gd_scene load_steps=4 format=3 uid="uid://b41x2t8numn7a"]
 
 [ext_resource type="Script" uid="uid://cmji548mt4n3g" path="res://scenes/PrimaryGameplayHUD.gd" id="1_pehsw"]
 [ext_resource type="Texture2D" uid="uid://qx1ubqqi74hv" path="res://assets/collectibles/menu-icons/heart.png" id="2"]
+[ext_resource type="PackedScene" uid="uid://d3v7x8c0jn2k8" path="res://scenes/DebugMenu.tscn" id="3_debug"]
 
 [node name="PrimaryGameplayHUD" type="CanvasLayer"]
 script = ExtResource("1_pehsw")
@@ -84,3 +85,6 @@ layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
 theme_override_constants/separation = 5
+
+[node name="DebugMenu" parent="HUDControl" instance=ExtResource("3_debug")]
+layout_mode = 1

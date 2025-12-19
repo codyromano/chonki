@@ -109,19 +109,10 @@ func _check_debug_sequence(action: String) -> void:
 
 func _show_debug_menu() -> void:
 	var hud = $TitleLayers/HUD
-	print("[DEBUG] HUD found: ", hud != null)
 	if hud:
 		var menu = hud.find_child("DebugMenu", true, false)
-		print("[DEBUG] DebugMenu found: ", menu != null)
-		if menu:
-			print("[DEBUG] Setting menu visible")
-			menu.visible = true
-		else:
-			print("[DEBUG] DebugMenu not found in HUD tree")
+		if menu and menu.has_method("show_menu"):
+			menu.show_menu()
 
 func _on_unload_scene(_scene_path: String) -> void:
-	var hud = $TitleLayers/HUD
-	if hud:
-		var menu = hud.find_child("DebugMenu", true, false)
-		if menu:
-			menu.visible = false
+	pass
