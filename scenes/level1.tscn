@@ -1,4 +1,4 @@
-[gd_scene load_steps=124 format=3 uid="uid://br8ftak73gmww"]
+[gd_scene load_steps=126 format=3 uid="uid://br8ftak73gmww"]
 
 [ext_resource type="PackedScene" uid="uid://bk3oytbasgs5w" path="res://scenes/grown_up_chonki.tscn" id="1_6i0tl"]
 [ext_resource type="Script" uid="uid://b2cncqbuotdcl" path="res://scenes/level_1.gd" id="1_hvrd6"]
@@ -71,6 +71,7 @@
 [ext_resource type="PackedScene" uid="uid://divvcbosmeqxn" path="res://scenes/SecretLetter.tscn" id="56_yqdyt"]
 [ext_resource type="Script" uid="uid://dcemo5f7jvunp" path="res://scenes/SecretLetterAMarker.gd" id="57_4yyev"]
 [ext_resource type="PackedScene" uid="uid://dmvfy4x1ini0v" path="res://scenes/composable/bench.tscn" id="58_eedbu"]
+[ext_resource type="Script" uid="uid://un3vh6dlk1g2" path="res://scenes/block_entrance_after_eagle_win.gd" id="59_hqycr"]
 [ext_resource type="PackedScene" path="res://scenes/spawn_location.tscn" id="59_x7a8r"]
 [ext_resource type="Texture2D" uid="uid://b6o0s4p3wr44" path="res://assets/friends/sun.png" id="64_qxclr"]
 [ext_resource type="AudioStream" uid="uid://cy7y35exdndmr" path="res://assets/sound/secret_letter.mp3" id="66_574qs"]
@@ -335,6 +336,9 @@ size = Vector2(133.291, 744.729)
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_t3dvg"]
 size = Vector2(147.299, 744.729)
 
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ib8jg"]
+size = Vector2(811, 4251)
+
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ix5rl"]
 normal = Vector2(-0.806548, -0.591169)
 
@@ -556,7 +560,7 @@ texture_offset = Vector2(0, 400)
 polygon = PackedVector2Array(-1031.22, 135.869, 73316.2, 137.115, 73294.4, 627.614, -1038.74, 617.642)
 
 [node name="Ocean9" type="Polygon2D" parent="World2D/Environment/CloudsAndOceans"]
-z_index = 2
+z_index = 7
 texture_repeat = 2
 use_parent_material = true
 position = Vector2(77567, -221)
@@ -576,7 +580,7 @@ texture_offset = Vector2(0, 400)
 polygon = PackedVector2Array(-1031.22, 135.869, 73316.2, 137.115, 73294.4, 627.614, -1038.74, 617.642)
 
 [node name="Ocean10" type="Polygon2D" parent="World2D/Environment/CloudsAndOceans"]
-z_index = 6
+z_index = 11
 texture_repeat = 2
 use_parent_material = true
 position = Vector2(77580, 545.834)
@@ -738,7 +742,7 @@ polygon = PackedVector2Array(-1100.97, 128.39, 73316.2, 137.115, 73294.4, 627.61
 [node name="OceanGroup2" type="Node" parent="World2D/Environment/CloudsAndOceans"]
 
 [node name="Ocean" type="Polygon2D" parent="World2D/Environment/CloudsAndOceans/OceanGroup2"]
-z_index = 3
+z_index = 11
 texture_repeat = 2
 use_parent_material = true
 position = Vector2(103954, 1895)
@@ -748,7 +752,7 @@ texture_offset = Vector2(0, 400)
 polygon = PackedVector2Array(-1100.97, 128.39, 73316.2, 137.115, 73294.4, 627.614, -1059.25, 630.106)
 
 [node name="Ocean2" type="Polygon2D" parent="World2D/Environment/CloudsAndOceans/OceanGroup2"]
-z_index = 3
+z_index = 11
 texture_repeat = 2
 use_parent_material = true
 position = Vector2(103954, 1228)
@@ -758,7 +762,7 @@ texture_offset = Vector2(0, 400)
 polygon = PackedVector2Array(-1100.97, 128.39, 73316.2, 137.115, 73294.4, 627.614, -1059.25, 630.106)
 
 [node name="Ocean3" type="Polygon2D" parent="World2D/Environment/CloudsAndOceans/OceanGroup2"]
-z_index = 3
+z_index = 11
 texture_repeat = 2
 use_parent_material = true
 position = Vector2(103954, 2641)
@@ -768,7 +772,7 @@ texture_offset = Vector2(0, 400)
 polygon = PackedVector2Array(-1100.97, 128.39, 73316.2, 137.115, 73294.4, 627.614, -1059.25, 630.106)
 
 [node name="Ocean9" type="Polygon2D" parent="World2D/Environment/CloudsAndOceans/OceanGroup2"]
-z_index = 3
+z_index = 11
 texture_repeat = 2
 use_parent_material = true
 position = Vector2(103954, 3390)
@@ -1320,6 +1324,7 @@ position = Vector2(0, 4.5)
 collision_layer = 0
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/Platforms & Barriers/OceanFloor/OceanFloorDamageArea"]
+z_index = 11
 position = Vector2(11235.4, 102.5)
 shape = SubResource("RectangleShape2D_7hmix")
 
@@ -1766,6 +1771,21 @@ timer_duration = 12.0
 lever_name = "CloudLeverPower"
 touchable_while_timer_is_active = false
 
+[node name="BlockEntranceAfterEagleWin" type="StaticBody2D" parent="World2D/Platforms & Barriers/CloudMaze"]
+collision_layer = 8
+script = ExtResource("59_hqycr")
+
+[node name="BlockEntranceAfterEagleWinSprite" type="Sprite2D" parent="World2D/Platforms & Barriers/CloudMaze/BlockEntranceAfterEagleWin"]
+modulate = Color(1, 1, 1, 0)
+position = Vector2(137025, -8880.43)
+scale = Vector2(2.85738, 6.35524)
+texture = ExtResource("55_x80p0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="World2D/Platforms & Barriers/CloudMaze/BlockEntranceAfterEagleWin"]
+position = Vector2(137016, -8926.5)
+shape = SubResource("RectangleShape2D_ib8jg")
+disabled = true
+
 [node name="StaticBody2D" type="StaticBody2D" parent="World2D/Platforms & Barriers"]
 position = Vector2(26725, 9)
 rotation = 1.5708
@@ -2007,7 +2027,7 @@ script = ExtResource("57_4yyev")
 [node name="Debug" type="Node" parent="."]
 
 [node name="GusDebugStartMarker" type="Marker2D" parent="Debug"]
-position = Vector2(161087, -844)
+position = Vector2(137424, -8246)
 
 [node name="JumpRuler" type="ColorRect" parent="Debug"]
 visible = false
