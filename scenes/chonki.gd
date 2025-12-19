@@ -1,7 +1,15 @@
 # Use centralized physics constants: PhysicsConstants.*
 extends Node2D
 
+# Optionally, spawn Gus in a different place for debugging
 @export var debug_start_marker: Marker2D
+
+# Where Gus respawns after leaving the library without solving the anagram
+@export var post_library_spawn_marker: Marker2D
+
+# Where Gus respawns after leaving the library having correctly solved the anagram
+@export var post_library_win_spawn_marker: Marker2D
+
 @onready var body         : CharacterBody2D    = $ChonkiCharacter
 @onready var sprite       : AnimatedSprite2D   = $ChonkiCharacter/AnimatedSprite2D
 
@@ -43,13 +51,55 @@ var is_running_sound_playing: bool = false
 var is_backflipping: bool = false
 var is_frozen: bool = false
 
-# Signal to indicate Chonki has landed and hearts have spawned
+# Signal to indicate Chonki has landed and hearts spawned
 signal chonki_landed_and_hearts_spawned(zoom_intensity: float)
 
+func _on_unload_scene(scene_path: String):
+	var timestamp = Time.get_ticks_msec()
+	print("[CHONKI %d] _on_unload_scene called. Scene: %s Current position: %s" % [timestamp, scene_path, global_position])
+	
+	if scene_path != "res://scenes/little_free_library.tscn":
+		return
+	
+	if not is_inside_tree():
+		return
+	
+	if GameState.is_anagram_solved(GameState.current_level):
+		if is_inside_tree():
+			global_position = post_library_win_spawn_marker.global_position
+			print("[CHONKI %d] Moved to win location: %s" % [timestamp, global_position])
+	else:
+		print("[CHONKI %d] Moving to spawn marker immediately" % timestamp)
+		print("[CHONKI %d] Before: %s" % [timestamp, global_position])
+		print("[CHONKI %d] Marker position: %s" % [timestamp, post_library_spawn_marker.global_position])
+		print("[CHONKI %d] Marker valid: %s" % [timestamp, is_instance_valid(post_library_spawn_marker)])
+		# global_position = post_library_spawn_marker.global_position
+		print("[CHONKI %d] After: %s" % [timestamp, global_position])
+
+func move_away_from_library() -> void:
+	var timestamp = Time.get_ticks_msec()
+	print("[CHONKI %d] move_away_from_library called. Before: %s" % [timestamp, global_position])
+	print("[CHONKI %d] Marker position: %s" % [timestamp, post_library_spawn_marker.global_position])
+	print("[CHONKI %d] Marker valid: %s" % [timestamp, is_instance_valid(post_library_spawn_marker)])
+	# global_position = post_library_spawn_marker.global_position
+	print("[CHONKI %d] move_away_from_library. After: %s" % [timestamp, global_position])
+
+func _on_enter_library() -> void:
+	pass
+
 func _ready() -> void:
+	if !post_library_spawn_marker or !post_library_win_spawn_marker:
+		push_error("Post-library spawn locations should be provided")
+	else:
+		print("[CHONKI] Spawn marker configured:")
+		print("[CHONKI]   post_library_spawn_marker position: ", post_library_spawn_marker.global_position)
+		print("[CHONKI]   post_library_win_spawn_marker position: ", post_library_win_spawn_marker.global_position)
+		
 	GlobalSignals.player_registered.emit(self)
 	GlobalSignals.set_chonki_frozen.connect(_on_chonki_frozen)
-	
+	GlobalSignals.on_unload_scene.connect(_on_unload_scene)
+	GlobalSignals.enter_little_free_library.connect(_on_enter_library)
+
 	if debug_start_marker:
 		global_position = debug_start_marker.global_position
 		
@@ -153,7 +203,6 @@ func wait_for_chonki_to_land() -> void:
 func on_player_hit(_damage_source: String) -> void:
 	$ChonkiCharacter/AudioOuch.play()
 	hit_time = Time.get_unix_time_from_system()
-	
 	
 func _physics_process(delta: float) -> void:
 	handle_movement(delta)

@@ -17,6 +17,8 @@ var letters_collected_by_scene: Dictionary = {
 
 var triggered_instruction_triggers: Dictionary = {}
 
+var anagrams_solved_by_level: Dictionary = {}
+
 # Cache for total stars per level (by scene path)
 var stars_per_level := {}
 
@@ -130,3 +132,9 @@ func is_instruction_trigger_used(trigger_id: String) -> bool:
 
 func mark_instruction_trigger_used(trigger_id: String) -> void:
 	triggered_instruction_triggers[trigger_id] = true
+
+func mark_anagram_solved(level: int) -> void:
+	anagrams_solved_by_level[level] = true
+
+func is_anagram_solved(level: int) -> bool:
+	return anagrams_solved_by_level.get(level, false)

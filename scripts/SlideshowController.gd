@@ -153,10 +153,12 @@ func _transition_to_next_scene() -> void:
 	if is_after_intro_scene:
 		GameState.letters_collected_by_scene[1] = []
 		GameState.letters_collected_by_scene[2] = []
+		GlobalSignals.on_unload_scene.emit(get_tree().current_scene.scene_file_path if get_tree().current_scene else "")
 		get_tree().change_scene_to_file("res://scenes/level1.tscn")
 	elif is_final_animation_scene:
 		FadeTransition.fade_out_and_change_scene("res://scenes/bonus.tscn", 0.0, 1.0)
 	else:
+		GlobalSignals.on_unload_scene.emit(get_tree().current_scene.scene_file_path if get_tree().current_scene else "")
 		get_tree().change_scene_to_file("res://scenes/intro.tscn")
 
 # Helper function to find all audio players in the scene

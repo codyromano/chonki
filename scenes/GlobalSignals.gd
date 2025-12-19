@@ -94,3 +94,5 @@ signal rodrigo_picked_up
 signal show_quest_prompt
 @warning_ignore("unused_signal")
 signal hide_quest_prompt
+@warning_ignore("unused_signal")
+signal on_unload_scene(scene_path: String)

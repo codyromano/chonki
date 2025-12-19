@@ -83,6 +83,7 @@ func show_message_and_reload(message: String, text_fade_duration: float = 0.25, 
 	
 	message_label.get_parent().visible = false
 	
+	GlobalSignals.on_unload_scene.emit(target_scene)
 	get_tree().change_scene_to_file(target_scene)
 	await get_tree().process_frame
 	
@@ -97,6 +98,7 @@ func fade_out_and_change_scene(scene_path: String, delay: float = 5.0, fade_dura
 	_previous_scene_path = get_tree().current_scene.scene_file_path if get_tree().current_scene else ""
 	await get_tree().create_timer(delay, false).timeout
 	await fade_out(fade_duration)
+	GlobalSignals.on_unload_scene.emit(_previous_scene_path)
 	get_tree().change_scene_to_file(scene_path)
 	await get_tree().process_frame
 	await fade_in(fade_duration)

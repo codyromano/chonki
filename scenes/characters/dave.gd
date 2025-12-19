@@ -25,7 +25,7 @@ func _process(_delta):
 	
 func _on_body_entered(body):
 	if body.name == "ChonkiCharacter":
-		if _has_collected_all_letters():
+		if GameState.is_anagram_solved(GameState.current_level):
 			GlobalSignals.win_game.emit(zoom_intensity)
 			state = State.HAPPY
 

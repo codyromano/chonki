@@ -13,6 +13,7 @@ func _ready() -> void:
 func push_scene(packed: PackedScene) -> Node:
 	var current := get_tree().current_scene
 	if current:
+		GlobalSignals.on_unload_scene.emit(current.scene_file_path)
 		# Stop current scene and detach it from the tree (preserves all state).
 		current.visible = false
 		current.process_mode = Node.PROCESS_MODE_DISABLED
@@ -32,6 +33,7 @@ func push_scene(packed: PackedScene) -> Node:
 func push_existing(next: Node) -> void:
 	var current := get_tree().current_scene
 	if current:
+		GlobalSignals.on_unload_scene.emit(current.scene_file_path)
 		current.visible = false
 		current.process_mode = Node.PROCESS_MODE_DISABLED
 		_root.remove_child(current)
@@ -47,6 +49,7 @@ func push_existing(next: Node) -> void:
 func pop_scene(free_current: bool = true) -> void:
 	var current := get_tree().current_scene
 	if current:
+		GlobalSignals.on_unload_scene.emit(current.scene_file_path)
 		_root.remove_child(current)
 		if free_current:
 			current.queue_free()
@@ -66,6 +69,10 @@ func pop_scene(free_current: bool = true) -> void:
 		if child.has_method("clear_fade"):
 			child.clear_fade()
 			break
+	
+	# Re-emit on_unload_scene for the just-unloaded scene so cached scene components can react
+	if current:
+		GlobalSignals.on_unload_scene.emit(current.scene_file_path)
 
 ## Convenience: clear all cached scenes (e.g., when returning to main menu).
 func clear_cache(free_scenes: bool = true) -> void:

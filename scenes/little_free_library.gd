@@ -22,6 +22,8 @@ func _on_dismiss_active_dialogue(_instruction_trigger_id: String) -> void:
 	SceneStack.pop_scene()
 	
 func _on_win() -> void:
+	GameState.mark_anagram_solved(GameState.current_level)
+	
 	var win_audio: AudioStreamPlayer = find_child('WinAudio')
 	win_audio.play()
 	
@@ -43,7 +45,7 @@ func _on_win() -> void:
 		
 func _on_anagram_word_guess_updated(word: String) -> void:
 	if word.to_lower() == win_word:
-		_on_win()
+		_on_win() 
 
 func add_single_button(index: int, letter: String) -> Button:
 	var button = button_scene.instantiate()

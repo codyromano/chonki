@@ -13,6 +13,9 @@ func _ready():
 	
 	GlobalSignals.secret_letter_collected.connect(_on_secret_letter_collected)
 	
+	_debug_collect_all_letters()
+	print("[DEBUG] Mocking all letters collected")
+	
 	# Add fade-in effect when scene loads
 	_add_fade_in_effect()
 	
@@ -74,3 +77,21 @@ func _on_secret_letter_collected(_letter_item: PlayerInventory.Item):
 	
 	# Fade out over 0.5 seconds
 	tween.tween_property(letters_discovered_control, "modulate:a", 0.0, 0.5)
+
+func _debug_collect_all_letters() -> void:
+	var letters = [
+		PlayerInventory.Item.SECRET_LETTER_A,
+		PlayerInventory.Item.SECRET_LETTER_D,
+		PlayerInventory.Item.SECRET_LETTER_O,
+		PlayerInventory.Item.SECRET_LETTER_P,
+		PlayerInventory.Item.SECRET_LETTER_T
+	]
+	
+	var level = GameState.current_level
+	for letter_item in letters:
+		if letter_item not in GameState.collected_letter_items_by_level[level]:
+			GameState.collected_letter_items_by_level[level].append(letter_item)
+		
+		var letter_string = GameState.get_letter_string_from_item(letter_item)
+		GameState.add_collected_letter(letter_string)
+		GlobalSignals.secret_letter_collected.emit(letter_item)
