@@ -6,6 +6,7 @@ class_name Gus
 @onready var body         : CharacterBody2D    = $ChonkiCharacter
 @onready var sprite       : AnimatedSprite2D   = $ChonkiCharacter/AnimatedSprite2D
 
+@export var win_game_marker: Marker2D
 @export var heart_texture: Texture2D
 @export var jump_multiplier: float = 1.0
 @export var midair_jumps: int = 0
@@ -187,6 +188,7 @@ func _on_chonki_touched_kite(kite_position: Vector2, kite_rotation_deg: int) -> 
 	hang_offset = Vector2(0, half_h)
 
 func on_win_game(zoom_intensity: float = 0.5) -> void:
+	global_position = win_game_marker.global_position
 	is_game_win = true
 	win_zoom_intensity = zoom_intensity
 	

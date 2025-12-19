@@ -413,8 +413,8 @@ touchable_while_timer_is_active = false
 unique_name_in_owner = true
 
 [node name="Dave" parent="World2D" instance=ExtResource("16_ytk5w")]
-z_index = 1
-position = Vector2(170562, -676)
+z_index = 8
+position = Vector2(171594, -554)
 scale = Vector2(0.4, 0.4)
 
 [node name="Environment" type="Node2D" parent="World2D"]
@@ -612,16 +612,16 @@ scale = Vector2(1.10874, 1.11339)
 texture = ExtResource("2_gc4xo")
 texture_offset = Vector2(0, 3750)
 texture_scale = Vector2(0.25, 0.25)
-polygon = PackedVector2Array(-1009, 5, 149906, 267.978, 149633, -1460.98, 149732, -4453.64, 53481.7, -4381.79, -995.425, -4447.35)
+polygon = PackedVector2Array(-1009, 5, 168722, 64.9943, 169094, -4582.07, 53481.7, -4381.79, -995.425, -4447.35)
 
 [node name="CloudsBG3" type="Polygon2D" parent="World2D/Environment/CloudsAndOceans"]
 texture_repeat = 2
-position = Vector2(-4955, -4514)
+position = Vector2(-4690, -4514)
 scale = Vector2(1.2302, 1.23964)
 texture = ExtResource("2_gc4xo")
 texture_offset = Vector2(0, 3750)
 texture_scale = Vector2(0.25, 0.25)
-polygon = PackedVector2Array(-1009, 5, 135542, -4.84009, 135001, -5889.61, 111188, -6104.19, 53511.8, -5527.41, -1031.48, -5495.14)
+polygon = PackedVector2Array(-1009, 5, 152140, 77.4417, 152346, -5870.25, 111188, -6104.19, 53511.8, -5527.41, -1031.48, -5495.14)
 
 [node name="CloudsBG4" type="Polygon2D" parent="World2D/Environment/CloudsAndOceans"]
 texture_repeat = 2
@@ -630,7 +630,7 @@ scale = Vector2(1.2293, 1.23964)
 texture = ExtResource("2_gc4xo")
 texture_offset = Vector2(0, 3750)
 texture_scale = Vector2(0.25, 0.25)
-polygon = PackedVector2Array(-1009, 5, 126762, -66.9541, 126602, -21334.4, -564.549, -21937)
+polygon = PackedVector2Array(-1009, 5, 145323, 399.31, 145747, -22207.3, -564.549, -21937)
 
 [node name="OceanGroup" type="Node" parent="World2D/Environment/CloudsAndOceans"]
 
@@ -1890,11 +1890,12 @@ position = Vector2(117719, -609)
 scale = Vector2(4.24871, 4.24871)
 texture = ExtResource("11_qfp7r")
 
-[node name="GrownUpChonki" parent="." node_paths=PackedStringArray("debug_start_marker") instance=ExtResource("1_6i0tl")]
-z_index = 2
+[node name="GrownUpChonki" parent="." node_paths=PackedStringArray("debug_start_marker", "win_game_marker") instance=ExtResource("1_6i0tl")]
+z_index = 8
 position = Vector2(70357, -626)
 script = ExtResource("73_ix5rl")
 debug_start_marker = NodePath("../Debug/GusDebugStartMarker")
+win_game_marker = NodePath("../SpawnAfterLibraryWin")
 jump_multiplier = 1.25
 speed_multiplier = 1.0
 initial_camera_zoom = Vector2(0.22, 0.22)
@@ -2052,17 +2053,18 @@ letter_item = 12
 
 [node name="LittleFreeLibrary" type="Area2D" parent="."]
 z_index = 7
-position = Vector2(148281, -1392)
+position = Vector2(148281, -1553)
 scale = Vector2(0.720039, 0.720039)
 script = ExtResource("79_u6iub")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="LittleFreeLibrary"]
-position = Vector2(29728.9, 444.42)
-scale = Vector2(7.57796, 7.83065)
+position = Vector2(29728.9, 759.803)
+scale = Vector2(6.41136, 6.62515)
 sprite_frames = SubResource("SpriteFrames_574qs")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="LittleFreeLibrary"]
-position = Vector2(30462.2, 31.7128)
+position = Vector2(30462.2, 347.096)
+scale = Vector2(0.846053, 0.846053)
 polygon = PackedVector2Array(62, -63, 81, -774, -771, -1289, -1745, -692, -1604, -485, -1560, 533, -1597, 1337, -1345, 2026, -723, 2140, -134, 2018, 14, 1278, 14, 504)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="LittleFreeLibrary"]
@@ -2088,6 +2090,9 @@ camera_zoom = Vector2(0.1, 0.1)
 z_index = 1
 position = Vector2(1521, -4733)
 shape = SubResource("RectangleShape2D_hqycr")
+
+[node name="SpawnAfterLibraryWin" type="Marker2D" parent="."]
+position = Vector2(168643, -1084)
 
 [connection signal="timeout" from="World2D/NPCs/Enemies/GooseRegion2D2/Goose/Timer" to="World2D/NPCs/Enemies/GooseRegion2D2/Goose" method="_on_hop_timer_timeout"]
 [connection signal="timeout" from="World2D/NPCs/Enemies/GooseRegion2D4/GooseBoss/Timer" to="World2D/NPCs/Enemies/GooseRegion2D4/GooseBoss" method="_on_hop_timer_timeout"]

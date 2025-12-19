@@ -49,13 +49,16 @@ func add_single_button(index: int, letter: String) -> Button:
 func create_select_letter_buttons() -> void:
 	var letters_array = Array(GameState.get_collected_letters())
 	if letters_array.is_empty():
+		var back_button = find_child("BackToGameButton", true, false)
+		if back_button:
+			back_button.grab_focus.call_deferred()
 		return
 		
 	letters_array.shuffle()
 	
 	# Create a button for the first letter and focus on it
 	var first_button = add_single_button(0, letters_array[0])
-	first_button.grab_focus()
+	first_button.grab_focus.call_deferred()
 	
 	var buttons = [first_button]
 	
