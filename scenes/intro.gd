@@ -6,15 +6,18 @@ extends Node2D
 
 var player_moved_initially: bool = false
 
+var input_sequence: Array[String] = []
+const DEBUG_SEQUENCE: Array[String] = ["ui_up", "ui_down", "ui_up", "ui_down", "ui_left", "ui_right"]
+const SEQUENCE_TIMEOUT: float = 2.0
+var last_input_time: float = 0.0
+
 func _ready():
 	GlobalSignals.game_zoom_level.emit(0.2)
 	
 	GameState.restore_letters_from_persistent_state(1)
 	
 	GlobalSignals.secret_letter_collected.connect(_on_secret_letter_collected)
-	
-	_debug_collect_all_letters()
-	print("[DEBUG] Mocking all letters collected")
+	GlobalSignals.on_unload_scene.connect(_on_unload_scene)
 	
 	# Add fade-in effect when scene loads
 	_add_fade_in_effect()
@@ -78,20 +81,47 @@ func _on_secret_letter_collected(_letter_item: PlayerInventory.Item):
 	# Fade out over 0.5 seconds
 	tween.tween_property(letters_discovered_control, "modulate:a", 0.0, 0.5)
 
-func _debug_collect_all_letters() -> void:
-	var letters = [
-		PlayerInventory.Item.SECRET_LETTER_A,
-		PlayerInventory.Item.SECRET_LETTER_D,
-		PlayerInventory.Item.SECRET_LETTER_O,
-		PlayerInventory.Item.SECRET_LETTER_P,
-		PlayerInventory.Item.SECRET_LETTER_T
-	]
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_up"):
+		_check_debug_sequence("ui_up")
+	elif event.is_action_pressed("ui_down"):
+		_check_debug_sequence("ui_down")
+	elif event.is_action_pressed("ui_left"):
+		_check_debug_sequence("ui_left")
+	elif event.is_action_pressed("ui_right"):
+		_check_debug_sequence("ui_right")
+
+func _check_debug_sequence(action: String) -> void:
+	var current_time = Time.get_ticks_msec() / 1000.0
 	
-	var level = GameState.current_level
-	for letter_item in letters:
-		if letter_item not in GameState.collected_letter_items_by_level[level]:
-			GameState.collected_letter_items_by_level[level].append(letter_item)
-		
-		var letter_string = GameState.get_letter_string_from_item(letter_item)
-		GameState.add_collected_letter(letter_string)
-		GlobalSignals.secret_letter_collected.emit(letter_item)
+	if current_time - last_input_time > SEQUENCE_TIMEOUT:
+		input_sequence.clear()
+	
+	last_input_time = current_time
+	input_sequence.append(action)
+	
+	if input_sequence.size() > DEBUG_SEQUENCE.size():
+		input_sequence.pop_front()
+	
+	if input_sequence == DEBUG_SEQUENCE:
+		_show_debug_menu()
+		input_sequence.clear()
+
+func _show_debug_menu() -> void:
+	var hud = $TitleLayers/HUD
+	print("[DEBUG] HUD found: ", hud != null)
+	if hud:
+		var menu = hud.find_child("DebugMenu", true, false)
+		print("[DEBUG] DebugMenu found: ", menu != null)
+		if menu:
+			print("[DEBUG] Setting menu visible")
+			menu.visible = true
+		else:
+			print("[DEBUG] DebugMenu not found in HUD tree")
+
+func _on_unload_scene(_scene_path: String) -> void:
+	var hud = $TitleLayers/HUD
+	if hud:
+		var menu = hud.find_child("DebugMenu", true, false)
+		if menu:
+			menu.visible = false

@@ -145,9 +145,6 @@ func _process_queue() -> void:
 
 
 func _on_dialogue_queued(dialogue: String, instruction_trigger_id: String = "", avatar_name: String = "", choices: Array = []) -> void:
-	print("[MainDialogueController] _on_dialogue_queued called")
-	print("[MainDialogueController] dialogue: ", dialogue.substr(0, 50), "...")
-	print("[MainDialogueController] avatar_name: ", avatar_name)
 	var dialogue_data = {
 		"dialogue": dialogue,
 		"trigger_id": instruction_trigger_id,
@@ -155,11 +152,9 @@ func _on_dialogue_queued(dialogue: String, instruction_trigger_id: String = "", 
 		"choices": choices
 	}
 	dialogue_queue.push_back(dialogue_data)
-	print("[MainDialogueController] Added to queue. Queue size: ", dialogue_queue.size())
 	
 	# Check if rendered_dialogue is still valid (in the tree)
 	var has_valid_dialogue = rendered_dialogue != null and is_instance_valid(rendered_dialogue) and rendered_dialogue.is_inside_tree()
-	print("[MainDialogueController] has_valid_dialogue: ", has_valid_dialogue)
 	
 	if not has_valid_dialogue:
 		# Clear invalid reference if it exists

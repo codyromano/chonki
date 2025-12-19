@@ -31,17 +31,7 @@ func _on_win() -> void:
 	tween.tween_property(overall_game_container, 'modulate:a', 0, WIN_FADEOUT_DURATION)
 	await tween.finished
 	
-	var dialogue_text: String
-	if GameState.current_level == 2:
-		dialogue_text = "Gus and Dave experience fresh air for the first time in ages"
-	else:
-		dialogue_text = "Gus, the Corgi, was born in a barn in Olympia, Washington. His future owner drove from Seattle to pick him up."
-	
-	GlobalSignals.queue_main_dialogue.emit(
-		dialogue_text,
-		"",
-		"gus"
-	)
+	SceneStack.pop_scene()
 		
 func _on_anagram_word_guess_updated(word: String) -> void:
 	if word.to_lower() == win_word:

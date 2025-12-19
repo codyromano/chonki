@@ -4,12 +4,6 @@ extends Node2D
 # Optionally, spawn Gus in a different place for debugging
 @export var debug_start_marker: Marker2D
 
-# Where Gus respawns after leaving the library without solving the anagram
-@export var post_library_spawn_marker: Marker2D
-
-# Where Gus respawns after leaving the library having correctly solved the anagram
-@export var post_library_win_spawn_marker: Marker2D
-
 @onready var body         : CharacterBody2D    = $ChonkiCharacter
 @onready var sprite       : AnimatedSprite2D   = $ChonkiCharacter/AnimatedSprite2D
 
@@ -54,51 +48,30 @@ var is_frozen: bool = false
 # Signal to indicate Chonki has landed and hearts spawned
 signal chonki_landed_and_hearts_spawned(zoom_intensity: float)
 
-func _on_unload_scene(scene_path: String):
-	var timestamp = Time.get_ticks_msec()
-	print("[CHONKI %d] _on_unload_scene called. Scene: %s Current position: %s" % [timestamp, scene_path, global_position])
-	
-	if scene_path != "res://scenes/little_free_library.tscn":
-		return
-	
-	if not is_inside_tree():
-		return
-	
-	if GameState.is_anagram_solved(GameState.current_level):
-		if is_inside_tree():
-			global_position = post_library_win_spawn_marker.global_position
-			print("[CHONKI %d] Moved to win location: %s" % [timestamp, global_position])
+func _on_library_unloaded(scene_path: String) -> void:
+	print("[CHONKI UNLOAD] Scene unloaded: ", scene_path)
+	print("[CHONKI UNLOAD] Chonki position after unload: ", global_position)
+	if scene_path == "res://scenes/little_free_library.tscn":
+		var anagram_solved = GameState.is_anagram_solved(GameState.current_level)
+		print("[CHONKI UNLOAD] Anagram solved for level ", GameState.current_level, ": ", anagram_solved)
+		if anagram_solved:
+			print("[CHONKI UNLOAD] Triggering win sequence (deferred)")
+			call_deferred("_trigger_win_sequence")
+
+func _trigger_win_sequence() -> void:
+	print("[CHONKI WIN TRIGGER] _trigger_win_sequence called")
+	var dave = get_tree().current_scene.find_child("Dave", true, false)
+	if dave and dave.has_method("get_sprite"):
+		var zoom = dave.zoom_intensity if dave.has_method("get") else 0.5
+		print("[CHONKI WIN TRIGGER] Found Dave, emitting win_game signal with zoom: ", zoom)
+		GlobalSignals.win_game.emit(zoom)
 	else:
-		print("[CHONKI %d] Moving to spawn marker immediately" % timestamp)
-		print("[CHONKI %d] Before: %s" % [timestamp, global_position])
-		print("[CHONKI %d] Marker position: %s" % [timestamp, post_library_spawn_marker.global_position])
-		print("[CHONKI %d] Marker valid: %s" % [timestamp, is_instance_valid(post_library_spawn_marker)])
-		# global_position = post_library_spawn_marker.global_position
-		print("[CHONKI %d] After: %s" % [timestamp, global_position])
-
-func move_away_from_library() -> void:
-	var timestamp = Time.get_ticks_msec()
-	print("[CHONKI %d] move_away_from_library called. Before: %s" % [timestamp, global_position])
-	print("[CHONKI %d] Marker position: %s" % [timestamp, post_library_spawn_marker.global_position])
-	print("[CHONKI %d] Marker valid: %s" % [timestamp, is_instance_valid(post_library_spawn_marker)])
-	# global_position = post_library_spawn_marker.global_position
-	print("[CHONKI %d] move_away_from_library. After: %s" % [timestamp, global_position])
-
-func _on_enter_library() -> void:
-	pass
+		print("[CHONKI WIN TRIGGER] ERROR: Dave not found or missing get_sprite method")
 
 func _ready() -> void:
-	if !post_library_spawn_marker or !post_library_win_spawn_marker:
-		push_error("Post-library spawn locations should be provided")
-	else:
-		print("[CHONKI] Spawn marker configured:")
-		print("[CHONKI]   post_library_spawn_marker position: ", post_library_spawn_marker.global_position)
-		print("[CHONKI]   post_library_win_spawn_marker position: ", post_library_win_spawn_marker.global_position)
-		
 	GlobalSignals.player_registered.emit(self)
 	GlobalSignals.set_chonki_frozen.connect(_on_chonki_frozen)
-	GlobalSignals.on_unload_scene.connect(_on_unload_scene)
-	GlobalSignals.enter_little_free_library.connect(_on_enter_library)
+	GlobalSignals.on_unload_scene.connect(_on_library_unloaded)
 
 	if debug_start_marker:
 		global_position = debug_start_marker.global_position
@@ -188,12 +161,15 @@ func _on_chonki_touched_kite(kite_position: Vector2, kite_rotation_deg: int) -> 
 	hang_offset = Vector2(0, half_h)
 
 func on_win_game(zoom_intensity: float = 0.5) -> void:
+	print("[CHONKI WIN] on_win_game called with zoom: ", zoom_intensity)
+	print("[CHONKI WIN] Chonki staying at position: ", global_position)
 	is_game_win = true
 	win_zoom_intensity = zoom_intensity
 	await wait_for_chonki_to_land()
+	print("[CHONKI WIN] Chonki landed at position: ", global_position)
+	
 	GlobalSignals.spawn_hearts_begin.emit()
 	emit_signal("chonki_landed_and_hearts_spawned", zoom_intensity)
-	# Start fade out and scene transition after 5 seconds using the autoload
 	FadeTransition.fade_out_and_change_scene("res://scenes/after_intro_animation_sequence.tscn", 5.0, 3.0)
 
 func wait_for_chonki_to_land() -> void:

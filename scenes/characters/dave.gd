@@ -12,6 +12,11 @@ var state: State = State.CONCERNED
 
 func _ready() -> void:
 	sprite.play()
+	GlobalSignals.win_game.connect(_on_win_game)
+
+func _on_win_game(_zoom_intensity: float) -> void:
+	state = State.HAPPY
+	sprite.play("happy")
 
 func get_sprite() -> String:
 	return "happy" if state == State.HAPPY else "concerned"
@@ -26,7 +31,7 @@ func _process(_delta):
 func _on_body_entered(body):
 	if body.name == "ChonkiCharacter":
 		if GameState.is_anagram_solved(GameState.current_level):
-			GlobalSignals.win_game.emit(zoom_intensity)
+			# GlobalSignals.win_game.emit(zoom_intensity)
 			state = State.HAPPY
 
 func _has_collected_all_letters() -> bool:

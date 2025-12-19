@@ -1,6 +1,7 @@
 extends CanvasLayer
 
 @export var debug_mode: bool = false
+@export var debug_letters: Array[String] = ["F", "R", "E", "S", "H"]
 
 # Hide/show menu functionality
 @export var is_health_visible: bool = true
@@ -79,38 +80,86 @@ func _initialize_debug_menu() -> void:
 	debug_menu.position = Vector2(300, 100)
 	
 	var debug_title = Label.new()
-	debug_title.text = "DEBUG: Spawn Letters"
+	debug_title.text = "DEBUG: Collect Letters"
 	debug_title.add_theme_font_size_override("font_size", 20)
 	debug_title.add_theme_color_override("font_color", Color(1.0, 0.0, 0.0))
 	debug_menu.add_child(debug_title)
 	
-	var available_letters = ["F", "R", "E", "S", "H"]
-	
-	for letter in available_letters:
+	for letter in debug_letters:
 		var button = Button.new()
-		button.text = "Spawn " + letter
+		button.text = "Collect " + letter
 		button.custom_minimum_size = Vector2(100, 30)
 		button.pressed.connect(_on_debug_letter_toggled.bind(letter))
 		debug_menu.add_child(button)
+	
+	var teleport_button = Button.new()
+	teleport_button.text = "Teleport to Letter T"
+	teleport_button.custom_minimum_size = Vector2(150, 30)
+	teleport_button.pressed.connect(_on_debug_teleport_to_letter_t)
+	debug_menu.add_child(teleport_button)
+	
+	var close_button = Button.new()
+	close_button.text = "Close"
+	close_button.custom_minimum_size = Vector2(100, 30)
+	close_button.pressed.connect(_on_debug_menu_close)
+	debug_menu.add_child(close_button)
 	
 	var hud_control = find_child("HUDControl")
 	if hud_control:
 		hud_control.add_child(debug_menu)
 	else:
 		add_child(debug_menu)
+	
+	debug_menu.visible = false
 
 func _on_debug_letter_toggled(letter: String) -> void:
+	var letter_item: PlayerInventory.Item
 	match letter:
+		"A":
+			letter_item = PlayerInventory.Item.SECRET_LETTER_A
+		"D":
+			letter_item = PlayerInventory.Item.SECRET_LETTER_D
+		"O":
+			letter_item = PlayerInventory.Item.SECRET_LETTER_O
+		"P":
+			letter_item = PlayerInventory.Item.SECRET_LETTER_P
+		"T":
+			letter_item = PlayerInventory.Item.SECRET_LETTER_T
 		"F":
-			GlobalSignals.unlock_ruby_quest_reward.emit()
+			letter_item = PlayerInventory.Item.SECRET_LETTER_F
 		"R":
-			GlobalSignals.spawn_item_in_location.emit(PlayerInventory.Item.SECRET_LETTER_R)
+			letter_item = PlayerInventory.Item.SECRET_LETTER_R
 		"E":
-			GlobalSignals.spawn_item_in_location.emit(PlayerInventory.Item.SECRET_LETTER_E)
+			letter_item = PlayerInventory.Item.SECRET_LETTER_E
 		"S":
-			GlobalSignals.spawn_item_in_location.emit(PlayerInventory.Item.SECRET_LETTER_S)
+			letter_item = PlayerInventory.Item.SECRET_LETTER_S
 		"H":
-			GlobalSignals.spawn_item_in_location.emit(PlayerInventory.Item.SECRET_LETTER_H)
+			letter_item = PlayerInventory.Item.SECRET_LETTER_H
+		_:
+			return
+	
+	PlayerInventory.add_item(letter_item)
+	GameState.add_collected_letter(letter)
+	GlobalSignals.secret_letter_collected.emit(letter_item)
+
+func _on_debug_menu_close() -> void:
+	if debug_menu:
+		debug_menu.visible = false
+
+func _on_debug_teleport_to_letter_t() -> void:
+	var chonki = get_tree().current_scene.find_child("Chonki", true, false)
+	var marker = get_tree().current_scene.find_child("SkipLevelDebug", true, false)
+	
+	if not chonki:
+		print("[DEBUG] ERROR: Could not find Chonki node")
+		return
+	
+	if not marker:
+		print("[DEBUG] ERROR: Could not find SkipLevelDebug marker")
+		return
+	
+	chonki.global_position = marker.global_position
+	print("[DEBUG] Teleported Chonki to SkipLevelDebug marker position: ", chonki.global_position)
 
 func _on_star_collected() -> void:
 	books_collected += 1

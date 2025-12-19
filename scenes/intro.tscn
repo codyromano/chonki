@@ -552,13 +552,10 @@ texture_offset = Vector2(0, 3750)
 texture_scale = Vector2(0.25, 0.25)
 polygon = PackedVector2Array(-10844.7, 336.809, 88755.7, 445.486, 88537.4, -2763.63, -10918.7, -2722.32)
 
-[node name="Chonki" parent="." node_paths=PackedStringArray("debug_start_marker", "post_library_spawn_marker", "post_library_win_spawn_marker") instance=ExtResource("3_meeps")]
+[node name="Chonki" parent="." instance=ExtResource("3_meeps")]
 z_index = 5
 position = Vector2(-2845, -3086)
 scale = Vector2(1.76, 1.76)
-debug_start_marker = NodePath("../DebugPlayerStartMarker")
-post_library_spawn_marker = NodePath("../SpawnAfterLittleFreeLibrary")
-post_library_win_spawn_marker = NodePath("../SpawnAfterWinningFreeLibrary")
 heart_texture = ExtResource("4_ee0bn")
 jump_multiplier = 1.25
 
@@ -747,22 +744,6 @@ polygon = PackedVector2Array(62, -63, 81, -774, -771, -1289, -1745, -692, -1604,
 stream = ExtResource("21_rb10m")
 volume_db = -21.83
 
-[node name="LittleFreeLibrary" type="Area2D" parent="Items/LittleFreeLibrary"]
-position = Vector2(44302, -4620)
-script = ExtResource("18_fq2xm")
-
-[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Items/LittleFreeLibrary/LittleFreeLibrary"]
-position = Vector2(-753.002, 443.806)
-scale = Vector2(7.57796, 7.83065)
-sprite_frames = SubResource("SpriteFrames_07tae")
-
-[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Items/LittleFreeLibrary/LittleFreeLibrary"]
-polygon = PackedVector2Array(62, -63, 81, -774, -771, -1289, -1745, -692, -1604, -485, -1560, 533, -1597, 1337, -1345, 2026, -723, 2140, -134, 2018, 14, 1278, 14, 504)
-
-[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Items/LittleFreeLibrary/LittleFreeLibrary"]
-stream = ExtResource("21_rb10m")
-volume_db = -21.83
-
 [node name="Cable" type="Node2D" parent="Items"]
 position = Vector2(8654, 0)
 scale = Vector2(0.925254, 0.99869)
@@ -821,7 +802,7 @@ id = "intro_to_books"
 dialogue = "Hmm. Maybe the books will explain how I got here."
 
 [node name="LittleFreeLibraryTrigger" parent="InstructionTriggers" instance=ExtResource("12_hq858")]
-position = Vector2(24930, 3500)
+position = Vector2(22371, 3500)
 scale = Vector2(3.59222, 3.01853)
 script = ExtResource("28_127wd")
 id = "little_free_library_intro"
@@ -920,6 +901,8 @@ script = ExtResource("26_3mjik")
 [node name="TitleLayers" type="Node2D" parent="."]
 
 [node name="HUD" parent="TitleLayers" instance=ExtResource("31_i8bqy")]
+debug_mode = true
+debug_letters = Array[String](["A", "D", "O", "P", "T"])
 is_health_visible = false
 
 [node name="TitleCanvasLayer" type="CanvasLayer" parent="TitleLayers"]
@@ -1009,14 +992,9 @@ theme_override_constants/outline_size = 20
 theme_override_font_sizes/font_size = 30
 text = "Mystery letters discovered"
 
-[node name="SpawnAfterLittleFreeLibrary" type="Marker2D" parent="."]
-position = Vector2(36892, -3828)
-
-[node name="SpawnAfterWinningFreeLibrary" type="Marker2D" parent="."]
-position = Vector2(40737, -3929)
+[node name="SkipLevelDebug" type="Marker2D" parent="."]
+position = Vector2(34009, -16081)
 
 [connection signal="body_entered" from="Items/Trampoline2" to="Items/Trampoline2" method="_on_body_entered"]
 [connection signal="body_entered" from="Items/LittleFreeLibrary" to="Items/LittleFreeLibrary" method="_on_body_entered"]
 [connection signal="body_exited" from="Items/LittleFreeLibrary" to="Items/LittleFreeLibrary" method="_on_body_exited"]
-[connection signal="body_entered" from="Items/LittleFreeLibrary/LittleFreeLibrary" to="Items/LittleFreeLibrary/LittleFreeLibrary" method="_on_body_entered"]
-[connection signal="body_exited" from="Items/LittleFreeLibrary/LittleFreeLibrary" to="Items/LittleFreeLibrary/LittleFreeLibrary" method="_on_body_exited"]
