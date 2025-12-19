@@ -5,6 +5,7 @@ extends StaticBody2D
 func _ready() -> void:
 	# collision_shape.disabled = true
 	GlobalSignals.rodrigo_picked_up.connect(_on_rodrigo_picked_up)
+	modulate.a = 0
 
 func _make_wall_collidable() -> void:
 	collision_shape.disabled = false

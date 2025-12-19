@@ -77,30 +77,10 @@ layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Skip Level"
 
-[node name="AddLetterAButton" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ButtonsContainer"]
+[node name="SetZoomButton" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ButtonsContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
-text = "Add Letter A"
-
-[node name="AddLetterDButton" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ButtonsContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 24
-text = "Add Letter D"
-
-[node name="AddLetterOButton" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ButtonsContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 24
-text = "Add Letter O"
-
-[node name="AddLetterPButton" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ButtonsContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 24
-text = "Add Letter P"
-
-[node name="AddLetterTButton" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ButtonsContainer"]
-layout_mode = 2
-theme_override_font_sizes/font_size = 24
-text = "Add Letter T"
+text = "Set Zoom to 0.1"
 
 [node name="AddAllLettersButton" type="Button" parent="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ButtonsContainer"]
 layout_mode = 2
@@ -114,10 +94,6 @@ text = "Dismiss (ESC)"
 
 [connection signal="pressed" from="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ButtonsContainer/RestartButton" to="." method="_on_restart_button_pressed"]
 [connection signal="pressed" from="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ButtonsContainer/SkipButton" to="." method="_on_skip_button_pressed"]
-[connection signal="pressed" from="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ButtonsContainer/AddLetterAButton" to="." method="_on_add_letter_a_button_pressed"]
-[connection signal="pressed" from="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ButtonsContainer/AddLetterDButton" to="." method="_on_add_letter_d_button_pressed"]
-[connection signal="pressed" from="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ButtonsContainer/AddLetterOButton" to="." method="_on_add_letter_o_button_pressed"]
-[connection signal="pressed" from="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ButtonsContainer/AddLetterPButton" to="." method="_on_add_letter_p_button_pressed"]
-[connection signal="pressed" from="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ButtonsContainer/AddLetterTButton" to="." method="_on_add_letter_t_button_pressed"]
+[connection signal="pressed" from="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ButtonsContainer/SetZoomButton" to="." method="_on_set_zoom_button_pressed"]
 [connection signal="pressed" from="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ButtonsContainer/AddAllLettersButton" to="." method="_on_add_all_letters_button_pressed"]
 [connection signal="pressed" from="CenterContainer/PanelContainer/MarginContainer/VBoxContainer/ButtonsContainer/DismissButton" to="." method="_on_dismiss_button_pressed"]

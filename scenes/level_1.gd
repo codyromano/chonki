@@ -113,16 +113,12 @@ func _on_wind_change():
 
 func _input(event: InputEvent) -> void:
 	if event.is_action_pressed("ui_up"):
-		print("[DEBUG] ui_up pressed")
 		_check_debug_sequence("ui_up")
 	elif event.is_action_pressed("ui_down"):
-		print("[DEBUG] ui_down pressed")
 		_check_debug_sequence("ui_down")
 	elif event.is_action_pressed("ui_left"):
-		print("[DEBUG] ui_left pressed")
 		_check_debug_sequence("ui_left")
 	elif event.is_action_pressed("ui_right"):
-		print("[DEBUG] ui_right pressed")
 		_check_debug_sequence("ui_right")
 
 func _check_debug_sequence(action: String) -> void:
@@ -133,9 +129,7 @@ func _check_debug_sequence(action: String) -> void:
 	
 	last_input_time = current_time
 	input_sequence.append(action)
-	
-	print("[DEBUG] Sequence: ", input_sequence, " | Target: ", DEBUG_SEQUENCE)
-	
+		
 	if input_sequence.size() > DEBUG_SEQUENCE.size():
 		input_sequence.pop_front()
 	

@@ -42,20 +42,10 @@ func _on_skip_button_pressed() -> void:
 func _on_dismiss_button_pressed() -> void:
 	hide_menu()
 
-func _on_add_letter_a_button_pressed() -> void:
-	_add_letter(PlayerInventory.Item.SECRET_LETTER_A)
-
-func _on_add_letter_d_button_pressed() -> void:
-	_add_letter(PlayerInventory.Item.SECRET_LETTER_D)
-
-func _on_add_letter_o_button_pressed() -> void:
-	_add_letter(PlayerInventory.Item.SECRET_LETTER_O)
-
-func _on_add_letter_p_button_pressed() -> void:
-	_add_letter(PlayerInventory.Item.SECRET_LETTER_P)
-
-func _on_add_letter_t_button_pressed() -> void:
-	_add_letter(PlayerInventory.Item.SECRET_LETTER_T)
+func _on_set_zoom_button_pressed() -> void:
+	var camera = get_viewport().get_camera_2d()
+	if camera:
+		camera.zoom = Vector2(0.1, 0.1)
 
 func _on_add_all_letters_button_pressed() -> void:
 	if GameState.current_level == 1:
