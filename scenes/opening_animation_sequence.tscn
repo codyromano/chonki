@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://dgfp3mnafwk1g"]
+[gd_scene load_steps=12 format=3 uid="uid://dgfp3mnafwk1g"]
 
 [ext_resource type="Script" uid="uid://x8w1g2c80t4e" path="res://scripts/SlideshowController.gd" id="1_0thiv"]
 [ext_resource type="AudioStream" uid="uid://gdlkomr1wbfu" path="res://assets/sound/coast.mp3" id="1_olsx0"]
+[ext_resource type="PackedScene" uid="uid://r7l3ce6ckn33" path="res://scenes/animation_image.tscn" id="2_animation_image"]
 [ext_resource type="Texture2D" uid="uid://bjiee7ofr7xc8" path="res://assets/animations/intro_home_park.jpeg" id="3_olsx0"]
 [ext_resource type="Texture2D" uid="uid://yn4v1bs8gwtr" path="res://assets/animations/intro_home_outside.jpeg" id="4_olsx0"]
 [ext_resource type="Texture2D" uid="uid://r7ujlrcnmy8g" path="res://assets/animations/intro_home_fireplace.jpeg" id="5_cfx2n"]
@@ -51,55 +52,45 @@ layout_mode = 2
 size_flags_vertical = 3
 alignment = 1
 script = ExtResource("1_0thiv")
-fade_in_duration = 0.0
-display_duration = 2.5
-fade_out_duration = 0.0
-crop_bottom_pixels = 0
 
-[node name="Image1" type="TextureRect" parent="CanvasLayer/Control/VBoxContainer/AnimationContainer"]
+[node name="AnimationImage1" parent="CanvasLayer/Control/VBoxContainer/AnimationContainer" instance=ExtResource("2_animation_image")]
 layout_mode = 2
 texture = ExtResource("3_olsx0")
-expand_mode = 3
-stretch_mode = 5
+overlay_text = "\"It's bedtime, kids\" "
+display_duration = 4.0
 
-[node name="Image2" type="TextureRect" parent="CanvasLayer/Control/VBoxContainer/AnimationContainer"]
+[node name="AnimationImage2" parent="CanvasLayer/Control/VBoxContainer/AnimationContainer" instance=ExtResource("2_animation_image")]
 layout_mode = 2
 texture = ExtResource("4_olsx0")
-expand_mode = 3
-stretch_mode = 5
+overlay_text = "\"One more story, dad!\" "
+display_duration = 4.0
 
-[node name="Image3" type="TextureRect" parent="CanvasLayer/Control/VBoxContainer/AnimationContainer"]
+[node name="AnimationImage3" parent="CanvasLayer/Control/VBoxContainer/AnimationContainer" instance=ExtResource("2_animation_image")]
 layout_mode = 2
 texture = ExtResource("5_cfx2n")
-expand_mode = 3
-stretch_mode = 5
+overlay_text = "\"Okay...\""
 
-[node name="Image4" type="TextureRect" parent="CanvasLayer/Control/VBoxContainer/AnimationContainer"]
+[node name="AnimationImage4" parent="CanvasLayer/Control/VBoxContainer/AnimationContainer" instance=ExtResource("2_animation_image")]
 layout_mode = 2
 texture = ExtResource("6_h380q")
-expand_mode = 3
-stretch_mode = 5
+overlay_text = "\"This is the story of how I met your mother\" "
 
-[node name="Image5" type="TextureRect" parent="CanvasLayer/Control/VBoxContainer/AnimationContainer"]
+[node name="AnimationImage5" parent="CanvasLayer/Control/VBoxContainer/AnimationContainer" instance=ExtResource("2_animation_image")]
 layout_mode = 2
 texture = ExtResource("6_h31sv")
-expand_mode = 3
-stretch_mode = 5
+overlay_text = "   "
 
-[node name="Image6" type="TextureRect" parent="CanvasLayer/Control/VBoxContainer/AnimationContainer"]
+[node name="AnimationImage6" parent="CanvasLayer/Control/VBoxContainer/AnimationContainer" instance=ExtResource("2_animation_image")]
 layout_mode = 2
 texture = ExtResource("7_2dau1")
-expand_mode = 3
-stretch_mode = 5
+overlay_text = "    "
 
-[node name="Image7" type="TextureRect" parent="CanvasLayer/Control/VBoxContainer/AnimationContainer"]
+[node name="AnimationImage7" parent="CanvasLayer/Control/VBoxContainer/AnimationContainer" instance=ExtResource("2_animation_image")]
 layout_mode = 2
 texture = ExtResource("6_tmmyj")
-expand_mode = 3
-stretch_mode = 5
+overlay_text = "\"The story begins with our dog...\""
 
-[node name="Image8" type="TextureRect" parent="CanvasLayer/Control/VBoxContainer/AnimationContainer"]
+[node name="AnimationImage8" parent="CanvasLayer/Control/VBoxContainer/AnimationContainer" instance=ExtResource("2_animation_image")]
 layout_mode = 2
 texture = ExtResource("7_eafvx")
-expand_mode = 3
-stretch_mode = 5
+overlay_text = "   "

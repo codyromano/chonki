@@ -1,34 +1,20 @@
 extends Node
 
-@export var fade_in_duration: float = 1.0
-@export var display_duration: float = 2.0
-@export var fade_out_duration: float = 1.0
-@export var crop_bottom_pixels: int = 25  # Pixels to crop from bottom of each image
-@export var title_fade_duration: float = 0.25
-@export var title_display_duration: float = 5.0
-
-var images: Array[TextureRect]
-var slides: Array[Control]  # Holds both images and title cards in order
+var slides: Array[Control]
 var fade_controller: FadeController
 var is_skipping: bool = false
 var slideshow_running: bool = false
+var active_tweens: Array[Tween] = []
 
 func _ready() -> void:
 	fade_controller = FadeController.new(get_tree().current_scene)
 	
 	for child in get_children():
-		if child is TextureRect:
-			images.append(child)
-			slides.append(child)
-		elif child is Control and child.name.begins_with("Title"):
+		if child is Control and "display_duration" in child and "overlay_text" in child:
 			slides.append(child)
 	
 	if slides.is_empty():
 		return
-
-	# Apply cropping to all images before starting slideshow
-	if crop_bottom_pixels > 0:
-		_apply_cropping_to_images()
 
 	# Sort slides by name numerically to ensure correct order
 	slides.sort_custom(func(a, b): 
@@ -64,6 +50,12 @@ func _process(_delta: float) -> void:
 		_skip_to_end()
 
 func _skip_to_end() -> void:
+	# Kill all active tweens immediately
+	for tween in active_tweens:
+		if tween and tween.is_valid():
+			tween.kill()
+	active_tweens.clear()
+	
 	var audio_players = _find_all_audio_players(get_tree().current_scene)
 	
 	var fade_tween = get_tree().create_tween()
@@ -87,43 +79,40 @@ func _start_slideshow() -> void:
 			return
 			
 		var slide = slides[i]
-		var is_title_card = slide.name.begins_with("Title")
 		
-		# Determine fade and display durations based on slide type
-		var fade_in: float
-		var display_time: float
-		
-		if is_title_card:
-			# Title cards: 0.25s fade in/out, 5s display
-			fade_in = title_fade_duration
-			display_time = title_display_duration
-		else:
-			# Images: use export variables
-			fade_in = fade_in_duration
-			
-			# Adjust display duration for special images
-			var current_scene_name = get_tree().current_scene.name
-			var is_after_intro_scene = current_scene_name == "after_intro_animation_sequence"
-			
-			if i == 0 and is_after_intro_scene:
-				display_time = display_duration * 2.0
-			elif i == slides.size() - 1:
-				display_time = 3.0
-			else:
-				display_time = display_duration
+		# Get display duration from the animation_image component
+		var display_time: float = slide.display_duration if "display_duration" in slide else 3.0
 		
 		# Show slide
 		slide.visible = true
 		slide.modulate.a = 1.0
 		
-		# Fade in only for first slide
+		# First slide: fade in from black
 		if i == 0:
-			if fade_in > 0:
-				await fade_controller.fade_to_clear(fade_in)
-			else:
-				fade_controller.set_clear()
+			await fade_controller.fade_to_clear(0.5)
 		else:
-			fade_controller.set_clear()
+			# Cross-fade with previous slide
+			var previous_slide = slides[i - 1]
+			
+			# Create parallel tweens for cross-fade
+			var fade_out_tween = create_tween()
+			fade_out_tween.set_trans(Tween.TRANS_LINEAR)
+			fade_out_tween.tween_property(previous_slide, "modulate:a", 0.0, 0.5)
+			active_tweens.append(fade_out_tween)
+			
+			var fade_in_tween = create_tween()
+			fade_in_tween.set_trans(Tween.TRANS_LINEAR)
+			fade_in_tween.tween_property(slide, "modulate:a", 1.0, 0.5).from(0.0)
+			active_tweens.append(fade_in_tween)
+			
+			await fade_in_tween.finished
+			
+			# Hide previous slide after cross-fade
+			previous_slide.visible = false
+			
+			# Clean up finished tweens
+			active_tweens.erase(fade_out_tween)
+			active_tweens.erase(fade_in_tween)
 		
 		if is_skipping:
 			return
@@ -132,14 +121,17 @@ func _start_slideshow() -> void:
 		
 		if is_skipping:
 			return
-			
-		slide.visible = false
 	
+	# Last slide visible, fade to black
 	if is_skipping:
 		return
 	
 	var audio_players = _find_all_audio_players(get_tree().current_scene)
 	await fade_controller.fade_to_black_with_audio(2.0, 3.0, audio_players)
+	
+	# Hide all slides after fade to black
+	for slide in slides:
+		slide.visible = false
 	
 	_transition_to_next_scene()
 
@@ -174,43 +166,3 @@ func _find_all_audio_players(node: Node) -> Array:
 		audio_players.append_array(_find_all_audio_players(child))
 	
 	return audio_players
-
-func _apply_cropping_to_images():
-	var crop_shader_code = """
-shader_type canvas_item;
-
-uniform float crop_bottom : hint_range(0.0, 1.0) = 0.1;
-
-void fragment() {
-	// Calculate the adjusted UV coordinates
-	// We need to scale the UV.y to exclude the bottom portion
-	vec2 adjusted_uv = UV;
-	adjusted_uv.y = UV.y * (1.0 - crop_bottom);
-	
-	// Sample the texture with the adjusted coordinates
-	COLOR = texture(TEXTURE, adjusted_uv);
-	
-	// Make cropped area transparent
-	if (UV.y > (1.0 - crop_bottom)) {
-		COLOR.a = 0.0;
-	}
-}
-"""
-	
-	for image in images:
-		if not image.texture:
-			continue
-			
-		# Get the texture dimensions to calculate crop ratio
-		var texture_size = image.texture.get_size()
-		var crop_ratio = float(crop_bottom_pixels) / texture_size.y
-		
-		# Create the shader material
-		var shader = Shader.new()
-		shader.code = crop_shader_code
-		
-		var shader_material = ShaderMaterial.new()
-		shader_material.shader = shader
-		shader_material.set_shader_parameter("crop_bottom", crop_ratio)
-		
-		image.material = shader_material

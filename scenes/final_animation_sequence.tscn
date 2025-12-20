@@ -1,8 +1,8 @@
-[gd_scene load_steps=10 format=3 uid="uid://bwlbha7tll5ic"]
+[gd_scene load_steps=9 format=3 uid="uid://bwlbha7tll5ic"]
 
 [ext_resource type="Script" uid="uid://x8w1g2c80t4e" path="res://scripts/SlideshowController.gd" id="1_0pilm"]
+[ext_resource type="PackedScene" uid="uid://c8k2l5m9n0p1q" path="res://scenes/animation_image.tscn" id="2_animation_image"]
 [ext_resource type="Texture2D" uid="uid://ctggbs5t4ffym" path="res://assets/animations/final_scene/final_01.png" id="2_npc3b"]
-[ext_resource type="PackedScene" uid="uid://bbanlqxatecvt" path="res://scenes/title_card.tscn" id="2_title"]
 [ext_resource type="Texture2D" uid="uid://bo4ax4pu1uh6" path="res://scenes/final_02.png" id="3_lfhsi"]
 [ext_resource type="Texture2D" uid="uid://drsdofflhe63o" path="res://assets/animations/final_scene/final_03.png" id="4_kebro"]
 [ext_resource type="Texture2D" uid="uid://ccs31h25bum7a" path="res://assets/animations/final_scene/final_04.png" id="5_eguaf"]
@@ -39,74 +39,39 @@ size_flags_horizontal = 4
 size_flags_vertical = 6
 alignment = 1
 script = ExtResource("1_0pilm")
-fade_in_duration = 0.0
-display_duration = 2.5
-fade_out_duration = 0.0
 
-[node name="Title1" parent="VBoxContainer/AnimationContainer" instance=ExtResource("2_title")]
-custom_minimum_size = Vector2(500, 100)
+[node name="AnimationImage1" parent="VBoxContainer/AnimationContainer" instance=ExtResource("2_animation_image")]
 layout_mode = 2
-size_flags_horizontal = 1
-title_text = "Momo led Dave and Gus through a forest"
-
-[node name="Image1" type="TextureRect" parent="VBoxContainer/AnimationContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
 texture = ExtResource("2_npc3b")
-stretch_mode = 5
+overlay_text = "Momo led Dave and Gus through a forest"
+display_duration = 5.0
 
-[node name="Title2" parent="VBoxContainer/AnimationContainer" instance=ExtResource("2_title")]
+[node name="AnimationImage2" parent="VBoxContainer/AnimationContainer" instance=ExtResource("2_animation_image")]
 layout_mode = 2
-title_text = "It was a long walk, but the air without a mask felt refreshing"
-
-[node name="Image2" type="TextureRect" parent="VBoxContainer/AnimationContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
 texture = ExtResource("3_lfhsi")
-stretch_mode = 5
+overlay_text = "It was a long walk, but the air without a mask felt refreshing"
+display_duration = 5.0
 
-[node name="Title3" parent="VBoxContainer/AnimationContainer" instance=ExtResource("2_title")]
+[node name="AnimationImage3" parent="VBoxContainer/AnimationContainer" instance=ExtResource("2_animation_image")]
 layout_mode = 2
-title_text = "At the end of the path sat a young woman crafting pottery"
-
-[node name="Image3" type="TextureRect" parent="VBoxContainer/AnimationContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
 texture = ExtResource("4_kebro")
-stretch_mode = 5
+overlay_text = "At the end of the path sat a young woman crafting pottery"
+display_duration = 5.0
 
-[node name="Title4" parent="VBoxContainer/AnimationContainer" instance=ExtResource("2_title")]
+[node name="AnimationImage4" parent="VBoxContainer/AnimationContainer" instance=ExtResource("2_animation_image")]
 layout_mode = 2
-title_text = "Where Dave had felt alone, he suddenly felt connected to all the world"
-
-[node name="Image4" type="TextureRect" parent="VBoxContainer/AnimationContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
 texture = ExtResource("5_eguaf")
-stretch_mode = 5
+overlay_text = "Where Dave had felt alone, he suddenly felt connected to all the world"
+display_duration = 5.0
 
-[node name="Title5" parent="VBoxContainer/AnimationContainer" instance=ExtResource("2_title")]
+[node name="AnimationImage5" parent="VBoxContainer/AnimationContainer" instance=ExtResource("2_animation_image")]
 layout_mode = 2
-title_text = "Gus had a family. He even had a handmade dog bowl…"
-
-[node name="Image5" type="TextureRect" parent="VBoxContainer/AnimationContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
 texture = ExtResource("6_3gx8p")
-stretch_mode = 5
+overlay_text = "Gus had a family. He even had a handmade dog bowl…"
+display_duration = 5.0
 
-[node name="Title6" parent="VBoxContainer/AnimationContainer" instance=ExtResource("2_title")]
+[node name="AnimationImage6" parent="VBoxContainer/AnimationContainer" instance=ExtResource("2_animation_image")]
 layout_mode = 2
-title_text = "…with magical powers"
-
-[node name="Image6" type="TextureRect" parent="VBoxContainer/AnimationContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
 texture = ExtResource("7_y1kg5")
-stretch_mode = 5
+overlay_text = "…with magical powers"
+display_duration = 5.0
