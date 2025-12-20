@@ -1,4 +1,4 @@
-[gd_scene load_steps=145 format=3 uid="uid://bgshjng2ky6hg"]
+[gd_scene load_steps=146 format=3 uid="uid://bgshjng2ky6hg"]
 
 [ext_resource type="Script" uid="uid://ddxti58p7tpj6" path="res://scenes/bonus_chonki.gd" id="1_f1fj4"]
 [ext_resource type="Script" uid="uid://ghyqnuev2ipa" path="res://scenes/ChonkiBody.gd" id="2_0fwn6"]
@@ -141,6 +141,7 @@
 [ext_resource type="Script" uid="uid://cpmrk8cy0fi0w" path="res://scenes/ChonkiSpriteController.gd" id="138_bmntv"]
 [ext_resource type="Script" uid="uid://dhsaw4wf2lbak" path="res://scenes/Camera2D.gd" id="139_ffila"]
 [ext_resource type="AudioStream" uid="uid://3u0hk83prun5" path="res://assets/sound/chill-bark.mp3" id="140_vpvu3"]
+[ext_resource type="Texture2D" uid="uid://bytsxlqncfgi8" path="res://assets/environment/sky.png" id="141_l7t58"]
 [ext_resource type="Script" uid="uid://dhssmho81ae2l" path="res://scenes/ChonkiAudioController.gd" id="143_m5nrs"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_fg46y"]
@@ -614,6 +615,7 @@ stream = ExtResource("8_wbv3x")
 stream = ExtResource("9_1oxux")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="ChonkiCharacter"]
+z_index = 3
 position = Vector2(2, 0)
 sprite_frames = SubResource("SpriteFrames_fg46y")
 animation = &"jetpack"
@@ -631,6 +633,14 @@ zoom = Vector2(0.2, 0.2)
 script = ExtResource("139_ffila")
 target = NodePath("..")
 duration = 10.0
+
+[node name="CloudsBG" type="Polygon2D" parent="ChonkiCharacter/Camera2D"]
+texture_repeat = 2
+position = Vector2(0, 151.846)
+scale = Vector2(0.005, 0.005)
+texture = ExtResource("141_l7t58")
+texture_scale = Vector2(0, 0)
+polygon = PackedVector2Array(-9989.46, -275.734, 28357.7, -36.8244, 28537.2, -58931.7, -9027.11, -58333.6)
 
 [node name="ChillBark" type="AudioStreamPlayer2D" parent="ChonkiCharacter"]
 stream = ExtResource("140_vpvu3")
