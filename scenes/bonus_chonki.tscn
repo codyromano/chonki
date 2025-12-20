@@ -1,4 +1,4 @@
-[gd_scene load_steps=144 format=3 uid="uid://bgshjng2ky6hg"]
+[gd_scene load_steps=145 format=3 uid="uid://bgshjng2ky6hg"]
 
 [ext_resource type="Script" uid="uid://ddxti58p7tpj6" path="res://scenes/bonus_chonki.gd" id="1_f1fj4"]
 [ext_resource type="Script" uid="uid://ghyqnuev2ipa" path="res://scenes/ChonkiBody.gd" id="2_0fwn6"]
@@ -94,6 +94,7 @@
 [ext_resource type="Texture2D" uid="uid://ddqx5krsvtpfl" path="res://assets/corgi/08_rest/skeleton-0h_rest_09.png" id="92_0stwr"]
 [ext_resource type="Texture2D" uid="uid://vtmg8on34wij" path="res://assets/corgi/08_rest/skeleton-0h_rest_10.png" id="93_chl1h"]
 [ext_resource type="Texture2D" uid="uid://dx8ta2qp1jwmi" path="res://assets/corgi/04_running/skeleton-0e_running_00.png" id="94_4767a"]
+[ext_resource type="Texture2D" uid="uid://cw14xrm8ylj3i" path="res://assets/corgi/gus_rocket.png" id="94_twkes"]
 [ext_resource type="Texture2D" uid="uid://b352qae02y6vp" path="res://assets/corgi/04_running/skeleton-0e_running_01.png" id="95_tep41"]
 [ext_resource type="Texture2D" uid="uid://crq5ke58ujfjm" path="res://assets/corgi/04_running/skeleton-0e_running_02.png" id="96_vl3cy"]
 [ext_resource type="Texture2D" uid="uid://cucv45rhoj06x" path="res://assets/corgi/04_running/skeleton-0e_running_03.png" id="97_1bkn0"]
@@ -211,6 +212,14 @@ animations = [{
 "loop": true,
 "name": &"idle",
 "speed": 25.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("94_twkes")
+}],
+"loop": true,
+"name": &"jetpack",
+"speed": 5.0
 }, {
 "frames": [{
 "duration": 1.0,
@@ -607,7 +616,7 @@ stream = ExtResource("9_1oxux")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="ChonkiCharacter"]
 position = Vector2(2, 0)
 sprite_frames = SubResource("SpriteFrames_fg46y")
-animation = &"run"
+animation = &"jetpack"
 script = ExtResource("138_bmntv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChonkiCharacter"]

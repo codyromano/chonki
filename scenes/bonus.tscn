@@ -1,12 +1,14 @@
-[gd_scene load_steps=16 format=3 uid="uid://clf1h56slh0fv"]
+[gd_scene load_steps=19 format=3 uid="uid://clf1h56slh0fv"]
 
+[ext_resource type="Texture2D" uid="uid://byuemfc5v4oe5" path="res://assets/joycie/joycie.png" id="2_4p7jk"]
 [ext_resource type="Texture2D" uid="uid://3tbiiq22wvjd" path="res://assets/dave/standing.png" id="2_y4odb"]
 [ext_resource type="PackedScene" uid="uid://bgshjng2ky6hg" path="res://scenes/bonus_chonki.tscn" id="3_k1xfh"]
-[ext_resource type="Texture2D" uid="uid://bgauqhedbva6m" path="res://assets/friends/joycie.png" id="3_y4odb"]
 [ext_resource type="Texture2D" uid="uid://dkkcuts87y084" path="res://assets/interactables/dog_bowl.png" id="4_hfuap"]
 [ext_resource type="PackedScene" uid="uid://6q16boewrg0o" path="res://scenes/composable/trampoline.tscn" id="5_k1xfh"]
 [ext_resource type="PackedScene" uid="uid://divvcbosmeqxn" path="res://scenes/SecretLetter.tscn" id="6_h0d21"]
+[ext_resource type="Script" uid="uid://ch2buyoohf8tx" path="res://scenes/jetpack.gd" id="7_c440y"]
 [ext_resource type="Theme" uid="uid://dte5an7k6hog1" path="res://themes/base.tres" id="7_ik1mb"]
+[ext_resource type="Texture2D" uid="uid://c2cq23vygq0pm" path="res://assets/corgi/jetpack.png" id="7_wjlw7"]
 [ext_resource type="Texture2D" uid="uid://bytsxlqncfgi8" path="res://assets/environment/sky.png" id="8_3hbtu"]
 [ext_resource type="Texture2D" uid="uid://bpqdlmvtkr1i5" path="res://assets/environment/lake.png" id="8_monau"]
 [ext_resource type="AudioStream" uid="uid://cfv8wvih0lw77" path="res://assets/sound/move_your_feet.mp3" id="10_4p7jk"]
@@ -26,12 +28,15 @@ animations = [{
 animations = [{
 "frames": [{
 "duration": 1.0,
-"texture": ExtResource("3_y4odb")
+"texture": ExtResource("2_4p7jk")
 }],
-"loop": false,
-"name": &"default",
+"loop": true,
+"name": &"new_animation",
 "speed": 5.0
 }]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_c440y"]
+size = Vector2(1185, 1165)
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_3no7k"]
 
@@ -45,30 +50,34 @@ animations = [{
 
 [node name="DaveSprite" type="AnimatedSprite2D" parent="Characters"]
 z_index = 4
-position = Vector2(15717.7, -370)
+position = Vector2(15717.7, -130)
 scale = Vector2(5.82152, 5.82152)
 sprite_frames = SubResource("SpriteFrames_k1xfh")
 
 [node name="JoycieSprite" type="AnimatedSprite2D" parent="Characters"]
 z_index = 4
-position = Vector2(10105.7, -370)
-scale = Vector2(2.90152, 2.90152)
+position = Vector2(10289.2, -155)
+scale = Vector2(3.51849, 3.51849)
 sprite_frames = SubResource("SpriteFrames_piybw")
+animation = &"new_animation"
+flip_h = true
 
 [node name="BonusChonki" parent="Characters" instance=ExtResource("3_k1xfh")]
 z_index = 3
-position = Vector2(11568.7, 300)
+position = Vector2(11722, 300)
+scale = Vector2(1.6, 1.6)
 jump_multiplier = 1.5
-midair_jumps = 10
+midair_jumps = 100
 speed_multiplier = 2.0
-initial_camera_zoom = Vector2(0.15, 0.15)
+jetpack_thrust_speed = -10000.0
+initial_camera_zoom = Vector2(0.1, 0.1)
 
 [node name="Items" type="Node" parent="."]
 
 [node name="MagicTrampoline" parent="Items" instance=ExtResource("5_k1xfh")]
 z_index = 4
-position = Vector2(12988.7, 116)
-scale = Vector2(0.27999, 0.27999)
+position = Vector2(12988.7, 333)
+scale = Vector2(0.23999, 0.23999)
 jump_intensity = 2.0
 trampoline_id = "magic_bowl"
 custom_texture = ExtResource("4_hfuap")
@@ -76,49 +85,63 @@ custom_texture = ExtResource("4_hfuap")
 [node name="SecretLetterT" parent="Items" instance=ExtResource("6_h0d21")]
 z_index = 1
 offset_left = 11990.0
-offset_top = -5593.0
+offset_top = -24855.0
 offset_right = 12054.0
-offset_bottom = -5529.0
+offset_bottom = -24791.0
 letter = "T"
 
 [node name="SecretLetterH" parent="Items" instance=ExtResource("6_h0d21")]
 z_index = 1
 offset_left = 14264.0
-offset_top = -12291.0
+offset_top = -31553.0
 offset_right = 14328.0
-offset_bottom = -12227.0
+offset_bottom = -31489.0
 letter = "H"
 
 [node name="SecretLetterA" parent="Items" instance=ExtResource("6_h0d21")]
 z_index = 1
 offset_left = 9443.0
-offset_top = -19395.0
+offset_top = -38657.0
 offset_right = 9507.0
-offset_bottom = -19331.0
+offset_bottom = -38593.0
 
 [node name="SecretLetterN" parent="Items" instance=ExtResource("6_h0d21")]
 z_index = 1
 offset_left = 14463.0
-offset_top = -26126.0
+offset_top = -45388.0
 offset_right = 14527.0
-offset_bottom = -26062.0
+offset_bottom = -45324.0
 letter = "N"
 
 [node name="SecretLetterK" parent="Items" instance=ExtResource("6_h0d21")]
 z_index = 1
 offset_left = 9529.0
-offset_top = -32921.0
+offset_top = -52183.0
 offset_right = 9593.0
-offset_bottom = -32857.0
+offset_bottom = -52119.0
 letter = "K"
 
 [node name="SecretLetterS" parent="Items" instance=ExtResource("6_h0d21")]
 z_index = 1
 offset_left = 14406.0
-offset_top = -40042.0
+offset_top = -59304.0
 offset_right = 14470.0
-offset_bottom = -39978.0
+offset_bottom = -59240.0
 letter = "S"
+
+[node name="Jetpack" type="Area2D" parent="Items"]
+position = Vector2(13199, -3205)
+scale = Vector2(0.675334, 0.675334)
+script = ExtResource("7_c440y")
+
+[node name="Sprite2D" type="Sprite2D" parent="Items/Jetpack"]
+z_index = 1
+scale = Vector2(3.32, 3.32)
+texture = ExtResource("7_wjlw7")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Items/Jetpack"]
+position = Vector2(9.5, -103.5)
+shape = SubResource("RectangleShape2D_c440y")
 
 [node name="Environment" type="Node" parent="."]
 
@@ -149,15 +172,17 @@ texture_scale = Vector2(0.25, 0.25)
 polygon = PackedVector2Array(-9989.46, -275.734, 28357.7, -36.8244, 28537.2, -58931.7, -9027.11, -58333.6)
 
 [node name="LeftWorldBoundary" type="StaticBody2D" parent="Environment"]
+position = Vector2(6851, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/LeftWorldBoundary"]
 rotation = 1.5708
 shape = SubResource("WorldBoundaryShape2D_3hbtu")
 
 [node name="RightWorldBoundary" type="StaticBody2D" parent="Environment"]
+position = Vector2(19636, 0)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/RightWorldBoundary"]
-position = Vector2(22740, 0)
+position = Vector2(2889, 0)
 rotation = -1.5708
 shape = SubResource("WorldBoundaryShape2D_4p7jk")
 
@@ -176,3 +201,6 @@ text = "for playing!"
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("10_4p7jk")
 autoplay = true
+
+[connection signal="body_entered" from="Items/Jetpack" to="Characters/BonusChonki" method="_on_jetpack_body_entered"]
+[connection signal="body_entered" from="Items/Jetpack" to="Items/Jetpack" method="_on_body_entered"]

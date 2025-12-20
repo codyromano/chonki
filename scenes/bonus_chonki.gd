@@ -11,6 +11,7 @@ extends Node2D
 @export var jump_multiplier: float = 1.0
 @export var midair_jumps: int = 0
 @export var speed_multiplier: float = 0.375
+@export var jetpack_thrust_speed: float = -800.0
 
 # An item or character carried on Gus's back
 @export var carried_entity: Node2D
@@ -45,11 +46,13 @@ var is_backflipping: bool = false
 var is_frozen: bool = false
 var remaining_midair_jumps: int = 0
 var is_midair_jumping: bool = false
+var has_jetpack: bool = false
 
 func _ready() -> void:
 	GlobalSignals.player_registered.emit(self)
 	GlobalSignals.set_chonki_frozen.connect(_on_chonki_frozen)
 	GlobalSignals.secret_letter_collected.connect(_on_secret_letter_collected)
+	GlobalSignals.collected_jetpack.connect(_on_collected_jetpack)
 	
 	if debug_start_marker:
 		global_position = debug_start_marker.global_position
@@ -139,7 +142,7 @@ func on_player_hit(_damage_source: String) -> void:
 	
 func _physics_process(delta: float) -> void:
 	handle_movement(delta)
-	GlobalSignals.chonki_state_updated.emit(velocity, body.is_on_floor(), is_chonki_sliding, can_slide_on_release, last_action_time, time_held, state)
+	GlobalSignals.chonki_state_updated.emit(velocity, body.is_on_floor(), is_chonki_sliding, can_slide_on_release, last_action_time, time_held, state, has_jetpack)
 	
 	# Store original velocity before collision processing
 	var pre_collision_velocity = body.velocity
@@ -272,12 +275,14 @@ func handle_movement(delta: float) -> void:
 	elif hit_time != null && current_time - hit_time >= PhysicsConstants.HIT_RECOVERY_TIME && original_collision_mask > 0:
 		pass
 
-	# Apply gravity
-	velocity.y += PhysicsConstants.GRAVITY * delta
-
-	# Cap the fall speed to prevent teleportation-like falling
-	if velocity.y > PhysicsConstants.MAX_FALL_SPEED:
-		velocity.y = PhysicsConstants.MAX_FALL_SPEED
+	# Apply jetpack thrust if collected, otherwise apply gravity
+	if has_jetpack:
+		velocity.y = jetpack_thrust_speed
+	else:
+		velocity.y += PhysicsConstants.GRAVITY * delta
+		# Cap the fall speed to prevent teleportation-like falling
+		if velocity.y > PhysicsConstants.MAX_FALL_SPEED:
+			velocity.y = PhysicsConstants.MAX_FALL_SPEED
 
 	# Only freeze Chonki after win once on the floor
 	if is_game_win and body.is_on_floor():
@@ -391,3 +396,10 @@ func _on_secret_letter_collected(_letter_item: PlayerInventory.Item):
 
 func _exit_tree() -> void:
 	GlobalSignals.player_unregistered.emit()
+
+
+func _on_jetpack_body_entered(body: Node2D) -> void:
+	pass
+
+func _on_collected_jetpack() -> void:
+	has_jetpack = true

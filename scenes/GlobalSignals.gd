@@ -96,3 +96,5 @@ signal show_quest_prompt
 signal hide_quest_prompt
 @warning_ignore("unused_signal")
 signal on_unload_scene(scene_path: String)
+@warning_ignore("unused_signal")
+signal collected_jetpack

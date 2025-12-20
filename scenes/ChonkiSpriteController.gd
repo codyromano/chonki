@@ -13,6 +13,7 @@ var time_held: float = 0.0
 var chonki_state: int = 0 # Corresponds to ChonkiState enum
 
 var is_sliding: bool = false
+var has_jetpack: bool = false
 
 var slide_tween: Tween
 
@@ -31,7 +32,7 @@ func _on_slide_start() -> void:
 func _on_slide_end() -> void:
 	is_sliding = false
 
-func _on_chonki_state_updated(new_velocity, on_floor, sliding, can_slide, last_action, time_held_input, state) -> void:
+func _on_chonki_state_updated(new_velocity, on_floor, sliding, can_slide, last_action, time_held_input, state, jetpack = false) -> void:
 	self.velocity = new_velocity
 	self.is_on_floor = on_floor
 	self.is_sliding = sliding
@@ -39,6 +40,7 @@ func _on_chonki_state_updated(new_velocity, on_floor, sliding, can_slide, last_a
 	self.last_action_time = last_action
 	self.time_held = time_held_input
 	self.chonki_state = state
+	self.has_jetpack = jetpack
 	
 	update_sprite()
 	play_sound_effects()
@@ -125,6 +127,12 @@ func handle_sprite_flip() -> void:
 		flip_h = false
 
 func update_sprite() -> void:
+	if has_jetpack:
+		if animation != "jetpack":
+			play("jetpack")
+		handle_sprite_flip()
+		return
+	
 	if chonki_state == 3: # ChonkiState.HANG_ON
 		play("idle")
 		frame = 0
