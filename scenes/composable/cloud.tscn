@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://b8r7yq33rcakh"]
+
+[ext_resource type="Texture2D" uid="uid://3kxmmn70x6u3" path="res://assets/environment/cloud_spawn_01.png" id="1_ffdu3"]
+
+[node name="Cloud1" type="Sprite2D"]
+z_index = 4
+scale = Vector2(11.64, 11.64)
+texture = ExtResource("1_ffdu3")

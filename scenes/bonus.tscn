@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://clf1h56slh0fv"]
+[gd_scene load_steps=23 format=3 uid="uid://clf1h56slh0fv"]
 
 [ext_resource type="Texture2D" uid="uid://byuemfc5v4oe5" path="res://assets/joycie/joycie.png" id="2_4p7jk"]
 [ext_resource type="Texture2D" uid="uid://3tbiiq22wvjd" path="res://assets/dave/standing.png" id="2_y4odb"]
@@ -11,6 +11,11 @@
 [ext_resource type="Texture2D" uid="uid://c2cq23vygq0pm" path="res://assets/corgi/jetpack.png" id="7_wjlw7"]
 [ext_resource type="Texture2D" uid="uid://bpqdlmvtkr1i5" path="res://assets/environment/lake.png" id="8_monau"]
 [ext_resource type="AudioStream" uid="uid://cfv8wvih0lw77" path="res://assets/sound/move_your_feet.mp3" id="10_4p7jk"]
+[ext_resource type="PackedScene" uid="uid://b8r7yq33rcakh" path="res://scenes/composable/cloud.tscn" id="10_v8jj2"]
+[ext_resource type="Texture2D" uid="uid://vnr587mqo4rx" path="res://assets/environment/cloud_spawn_03.png" id="11_u6kvj"]
+[ext_resource type="Script" uid="uid://c0i6kbwmms5vg" path="res://scenes/score_ticker.gd" id="12_score"]
+[ext_resource type="Texture2D" uid="uid://bb1vtwo26agug" path="res://assets/environment/cloud_spawn_02.png" id="12_v8jj2"]
+[ext_resource type="FontFile" uid="uid://dlfbvpauldaco" path="res://fonts/Sniglet-Regular.ttf" id="13_font"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_k1xfh"]
 animations = [{
@@ -207,6 +212,24 @@ position = Vector2(2889, 0)
 rotation = -1.5708
 shape = SubResource("WorldBoundaryShape2D_4p7jk")
 
+[node name="Clouds" type="Node" parent="Environment"]
+
+[node name="Cloud1" parent="Environment/Clouds" instance=ExtResource("10_v8jj2")]
+position = Vector2(8501, -11420)
+scale = Vector2(11.64, 11.64)
+
+[node name="Cloud2" type="Sprite2D" parent="Environment/Clouds"]
+z_index = 4
+position = Vector2(13263, -11420)
+scale = Vector2(11.64, 11.64)
+texture = ExtResource("11_u6kvj")
+
+[node name="Cloud3" type="Sprite2D" parent="Environment/Clouds"]
+z_index = 4
+position = Vector2(19935, -11420)
+scale = Vector2(11.64, 11.64)
+texture = ExtResource("12_v8jj2")
+
 [node name="Titles" type="Node" parent="."]
 
 [node name="Label" type="Label" parent="Titles"]
@@ -222,6 +245,58 @@ text = "for playing!"
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("10_4p7jk")
 autoplay = true
+
+[node name="ScoreHUD" type="CanvasLayer" parent="." groups=["HUDControl"]]
+layer = 11
+
+[node name="Control" type="Control" parent="ScoreHUD"]
+layout_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+grow_horizontal = 0
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="ScoreHUD/Control"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -50.0
+offset_top = 50.0
+offset_right = -50.0
+grow_horizontal = 0
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="VBoxContainer" type="VBoxContainer" parent="ScoreHUD/Control/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+alignment = 1
+
+[node name="ScoreTitle" type="Label" parent="ScoreHUD/Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 20
+theme_override_fonts/font = ExtResource("13_font")
+theme_override_font_sizes/font_size = 20
+text = "Score"
+horizontal_alignment = 2
+
+[node name="ScoreValue" type="Label" parent="ScoreHUD/Control/MarginContainer/VBoxContainer" node_paths=PackedStringArray("chonki")]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 20
+theme_override_fonts/font = ExtResource("13_font")
+theme_override_font_sizes/font_size = 75
+text = "0"
+horizontal_alignment = 2
+script = ExtResource("12_score")
+chonki = NodePath("../../../../../Characters/BonusChonki")
 
 [connection signal="body_entered" from="Items/Jetpack" to="Characters/BonusChonki" method="_on_jetpack_body_entered"]
 [connection signal="body_entered" from="Items/Jetpack" to="Items/Jetpack" method="_on_body_entered"]
