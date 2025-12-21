@@ -135,9 +135,15 @@ func wait_for_chonki_to_land() -> void:
 	while not body.is_on_floor():
 		await get_tree().process_frame
 
-func on_player_hit(_damage_source: String) -> void:
+func on_player_hit(damage_source: String) -> void:
 	$ChonkiCharacter/AudioOuch.play()
 	hit_time = Time.get_unix_time_from_system()
+	
+	if damage_source == "bonus_goose":
+		var current_score = int(abs(body.global_position.y))
+		GameState.update_bonus_high_score(current_score)
+		await get_tree().create_timer(1.0, false).timeout
+		FadeTransition.fade_out_and_change_scene(get_tree().current_scene.scene_file_path, 0.0, 0.5)
 	
 	
 func _physics_process(delta: float) -> void:
@@ -398,7 +404,7 @@ func _exit_tree() -> void:
 	GlobalSignals.player_unregistered.emit()
 
 
-func _on_jetpack_body_entered(body: Node2D) -> void:
+func _on_jetpack_body_entered(_jetpack_body: Node2D) -> void:
 	pass
 
 func _on_collected_jetpack() -> void:

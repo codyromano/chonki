@@ -1,4 +1,4 @@
-[gd_scene load_steps=26 format=3 uid="uid://clf1h56slh0fv"]
+[gd_scene load_steps=29 format=3 uid="uid://clf1h56slh0fv"]
 
 [ext_resource type="Texture2D" uid="uid://byuemfc5v4oe5" path="res://assets/joycie/joycie.png" id="2_4p7jk"]
 [ext_resource type="Texture2D" uid="uid://3tbiiq22wvjd" path="res://assets/dave/standing.png" id="2_y4odb"]
@@ -10,12 +10,14 @@
 [ext_resource type="Theme" uid="uid://dte5an7k6hog1" path="res://themes/base.tres" id="7_ik1mb"]
 [ext_resource type="Texture2D" uid="uid://c2cq23vygq0pm" path="res://assets/corgi/jetpack.png" id="7_wjlw7"]
 [ext_resource type="Texture2D" uid="uid://bpqdlmvtkr1i5" path="res://assets/environment/lake.png" id="8_monau"]
+[ext_resource type="Texture2D" uid="uid://dyfm8vlrc33al" path="res://assets/interactables/jetpack_2.png" id="8_yj0e2"]
 [ext_resource type="AudioStream" uid="uid://cfv8wvih0lw77" path="res://assets/sound/move_your_feet.mp3" id="10_4p7jk"]
 [ext_resource type="PackedScene" uid="uid://b8r7yq33rcakh" path="res://scenes/composable/cloud.tscn" id="10_v8jj2"]
 [ext_resource type="Texture2D" uid="uid://vnr587mqo4rx" path="res://assets/environment/cloud_spawn_03.png" id="11_u6kvj"]
 [ext_resource type="Script" uid="uid://c0i6kbwmms5vg" path="res://scenes/score_ticker.gd" id="12_score"]
 [ext_resource type="Texture2D" uid="uid://bb1vtwo26agug" path="res://assets/environment/cloud_spawn_02.png" id="12_v8jj2"]
 [ext_resource type="FontFile" uid="uid://dlfbvpauldaco" path="res://fonts/Sniglet-Regular.ttf" id="13_font"]
+[ext_resource type="Script" uid="uid://d0ape54ki5ul0" path="res://scenes/high_score_label.gd" id="13_highscore"]
 [ext_resource type="Script" uid="uid://03ucyaq8uw0s" path="res://scenes/cloud_spawner.gd" id="14_cloud_spawner"]
 [ext_resource type="Script" uid="uid://bjvbktoe3g4i7" path="res://scenes/goose_spawner.gd" id="15_goose_spawner"]
 [ext_resource type="PackedScene" uid="uid://frs4em5ffbab" path="res://scenes/composable/bonus_goose.tscn" id="18_4wxfo"]
@@ -40,6 +42,20 @@ animations = [{
 "loop": true,
 "name": &"new_animation",
 "speed": 5.0
+}]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_b8nnx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("8_yj0e2")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_wjlw7")
+}],
+"loop": true,
+"name": &"default",
+"speed": 20.0
 }]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_c440y"]
@@ -141,11 +157,13 @@ z_index = 3
 position = Vector2(13199, -3205)
 scale = Vector2(0.675334, 0.675334)
 script = ExtResource("7_c440y")
+float_intensity = 100.0
 
-[node name="Sprite2D" type="Sprite2D" parent="Items/Jetpack"]
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Items/Jetpack"]
 z_index = 1
 scale = Vector2(3.32, 3.32)
-texture = ExtResource("7_wjlw7")
+sprite_frames = SubResource("SpriteFrames_b8nnx")
+autoplay = "default"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Items/Jetpack"]
 position = Vector2(9.5, -103.5)
@@ -158,6 +176,7 @@ chonki = NodePath("../Characters/BonusChonki/ChonkiCharacter")
 [node name="GooseSpawner" type="Node2D" parent="." node_paths=PackedStringArray("chonki")]
 script = ExtResource("15_goose_spawner")
 chonki = NodePath("../Characters/BonusChonki/ChonkiCharacter")
+spawn_interval = 2.5
 
 [node name="Environment" type="Node" parent="."]
 
@@ -307,6 +326,48 @@ text = "0"
 horizontal_alignment = 2
 script = ExtResource("12_score")
 chonki = NodePath("../../../../../Characters/BonusChonki")
+
+[node name="HighScoreHUD" type="CanvasLayer" parent="." groups=["HUDControl"]]
+layer = 11
+
+[node name="Control" type="Control" parent="HighScoreHUD"]
+layout_mode = 3
+anchors_preset = 0
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="HighScoreHUD/Control"]
+layout_mode = 1
+offset_left = 50.0
+offset_top = 50.0
+offset_right = 50.0
+theme_override_constants/margin_left = 25
+theme_override_constants/margin_top = 25
+theme_override_constants/margin_right = 25
+theme_override_constants/margin_bottom = 25
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HighScoreHUD/Control/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 5
+alignment = 1
+
+[node name="HighScoreTitle" type="Label" parent="HighScoreHUD/Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 20
+theme_override_fonts/font = ExtResource("13_font")
+theme_override_font_sizes/font_size = 20
+text = "High Score"
+
+[node name="HighScoreValue" type="Label" parent="HighScoreHUD/Control/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 20
+theme_override_fonts/font = ExtResource("13_font")
+theme_override_font_sizes/font_size = 75
+text = "0"
+script = ExtResource("13_highscore")
 
 [node name="Obstacles" type="Node" parent="."]
 

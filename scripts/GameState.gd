@@ -19,6 +19,8 @@ var triggered_instruction_triggers: Dictionary = {}
 
 var anagrams_solved_by_level: Dictionary = {}
 
+var bonus_high_score: int = 0
+
 # Cache for total stars per level (by scene path)
 var stars_per_level := {}
 
@@ -138,3 +140,7 @@ func mark_anagram_solved(level: int) -> void:
 
 func is_anagram_solved(level: int) -> bool:
 	return anagrams_solved_by_level.get(level, false)
+
+func update_bonus_high_score(new_score: int) -> void:
+	if new_score > bonus_high_score:
+		bonus_high_score = new_score

@@ -618,7 +618,7 @@ stream = ExtResource("9_1oxux")
 z_index = 3
 position = Vector2(2, 0)
 sprite_frames = SubResource("SpriteFrames_fg46y")
-animation = &"jetpack"
+animation = &"ouch"
 script = ExtResource("138_bmntv")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="ChonkiCharacter"]

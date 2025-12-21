@@ -3,15 +3,21 @@ extends Node2D
 @export var chonki: CharacterBody2D
 @export var spawn_interval: float = 5.0
 @export var goose_speed: float = 300.0
+@export var interval_decrease_rate: float = 0.25
+@export var interval_decrease_every: float = 5.0
+@export var min_spawn_interval: float = 0.5
 
 var goose_scene: PackedScene = preload("res://scenes/composable/bonus_goose.tscn")
 
 var spawn_timer: float = 0.0
 var camera: Camera2D
+var current_spawn_interval: float
+var difficulty_timer: float = 0.0
 
 func _ready() -> void:
 	if chonki:
 		camera = chonki.find_child("Camera2D", true, false)
+	current_spawn_interval = spawn_interval
 
 func _process(delta: float) -> void:
 	if not chonki or not camera:
@@ -20,9 +26,15 @@ func _process(delta: float) -> void:
 	if chonki.is_on_floor():
 		return
 	
+	difficulty_timer += delta
+	
+	if difficulty_timer >= interval_decrease_every:
+		difficulty_timer = 0.0
+		current_spawn_interval = max(current_spawn_interval - interval_decrease_rate, min_spawn_interval)
+	
 	spawn_timer += delta
 	
-	if spawn_timer >= spawn_interval:
+	if spawn_timer >= current_spawn_interval:
 		spawn_timer = 0.0
 		_spawn_goose()
 

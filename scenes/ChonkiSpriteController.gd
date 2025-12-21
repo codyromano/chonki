@@ -127,12 +127,6 @@ func handle_sprite_flip() -> void:
 		flip_h = false
 
 func update_sprite() -> void:
-	if has_jetpack:
-		if animation != "jetpack":
-			play("jetpack")
-		handle_sprite_flip()
-		return
-	
 	if chonki_state == 3: # ChonkiState.HANG_ON
 		play("idle")
 		frame = 0
@@ -142,12 +136,19 @@ func update_sprite() -> void:
 		get_win_game_sprite(),
 		get_slide_sprite(),
 		get_player_injured_sprite(),
+		get_idle_sprite() if has_jetpack and get_player_injured_sprite() == "" else "",
 		get_jump_sprite(),
 		get_run_sprite(),
 		get_sleep_sprite(),
 		get_rest_sprite(),
 		get_idle_sprite()
 	]
+	
+	if has_jetpack and get_player_injured_sprite() == "":
+		if animation != "jetpack":
+			play("jetpack")
+		handle_sprite_flip()
+		return
 
 	for next_sprite in possible_next_sprites:
 		if next_sprite != "":

@@ -1,11 +1,13 @@
-[gd_scene load_steps=3 format=3 uid="uid://frs4em5ffbab"]
+[gd_scene load_steps=4 format=3 uid="uid://frs4em5ffbab"]
 
 [ext_resource type="Texture2D" uid="uid://b281ntpbdihii" path="res://assets/enemies/goose/goose3.png" id="1_jl3g6"]
+[ext_resource type="Script" path="res://scenes/composable/bonus_goose.gd" id="1_w7x8k"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_4wxfo"]
 size = Vector2(930, 631)
 
 [node name="BonusGoose" type="Area2D"]
+script = ExtResource("1_w7x8k")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 z_index = 4
