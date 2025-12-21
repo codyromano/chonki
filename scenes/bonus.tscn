@@ -148,19 +148,49 @@ shape = SubResource("RectangleShape2D_c440y")
 [node name="Ground" type="StaticBody2D" parent="Environment"]
 position = Vector2(15339.7, 0)
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Ground"]
-position = Vector2(0, 957)
-shape = SubResource("WorldBoundaryShape2D_3no7k")
-
-[node name="GroundSprite" type="Polygon2D" parent="Environment"]
+[node name="GroundSprite" type="Polygon2D" parent="Environment/Ground"]
 z_index = 4
 texture_repeat = 2
 use_parent_material = true
-position = Vector2(1520.72, 1330)
+position = Vector2(-13819, 1330)
 scale = Vector2(1.46235, 1.60449)
 texture = ExtResource("8_monau")
 texture_offset = Vector2(0, 400)
 polygon = PackedVector2Array(-7785.22, -373.951, 21291.3, -241.821, 21338.4, 602.06, -7730.51, 576.507)
+
+[node name="Ocean" type="Polygon2D" parent="Environment/Ground"]
+z_index = 4
+texture_repeat = 2
+use_parent_material = true
+position = Vector2(-13819, 1992)
+scale = Vector2(1.46235, 1.60449)
+texture = ExtResource("8_monau")
+texture_offset = Vector2(0, 400)
+polygon = PackedVector2Array(-7835.14, 150.827, 21367.2, 120.287, 21338.4, 602.06, -7840.61, 612.032)
+
+[node name="Ocean2" type="Polygon2D" parent="Environment/Ground"]
+z_index = 4
+texture_repeat = 2
+use_parent_material = true
+position = Vector2(-13819, 2723)
+scale = Vector2(1.46235, 1.60449)
+texture = ExtResource("8_monau")
+texture_offset = Vector2(0, 400)
+polygon = PackedVector2Array(-7835.14, 150.827, 21367.2, 120.287, 21338.4, 602.06, -7840.61, 612.032)
+
+[node name="Ocean3" type="Polygon2D" parent="Environment/Ground"]
+z_index = 4
+texture_repeat = 2
+use_parent_material = true
+position = Vector2(-13819, 3394)
+scale = Vector2(1.46235, 1.60449)
+texture = ExtResource("8_monau")
+texture_offset = Vector2(0, 400)
+polygon = PackedVector2Array(-7835.14, 150.827, 21367.2, 120.287, 21338.4, 602.06, -7840.61, 612.032)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Environment/Ground"]
+position = Vector2(0, 957)
+shape = SubResource("WorldBoundaryShape2D_3no7k")
 
 [node name="LeftWorldBoundary" type="StaticBody2D" parent="Environment"]
 position = Vector2(6851, 0)
