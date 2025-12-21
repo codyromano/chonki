@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://frs4em5ffbab"]
+
+[ext_resource type="Texture2D" uid="uid://b281ntpbdihii" path="res://assets/enemies/goose/goose3.png" id="1_jl3g6"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_4wxfo"]
+size = Vector2(930, 631)
+
+[node name="BonusGoose" type="Area2D"]
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+z_index = 4
+scale = Vector2(1.36, 1.36)
+texture = ExtResource("1_jl3g6")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(-48, 59.5)
+shape = SubResource("RectangleShape2D_4wxfo")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://clf1h56slh0fv"]
+[gd_scene load_steps=26 format=3 uid="uid://clf1h56slh0fv"]
 
 [ext_resource type="Texture2D" uid="uid://byuemfc5v4oe5" path="res://assets/joycie/joycie.png" id="2_4p7jk"]
 [ext_resource type="Texture2D" uid="uid://3tbiiq22wvjd" path="res://assets/dave/standing.png" id="2_y4odb"]
@@ -16,6 +16,9 @@
 [ext_resource type="Script" uid="uid://c0i6kbwmms5vg" path="res://scenes/score_ticker.gd" id="12_score"]
 [ext_resource type="Texture2D" uid="uid://bb1vtwo26agug" path="res://assets/environment/cloud_spawn_02.png" id="12_v8jj2"]
 [ext_resource type="FontFile" uid="uid://dlfbvpauldaco" path="res://fonts/Sniglet-Regular.ttf" id="13_font"]
+[ext_resource type="Script" uid="uid://03ucyaq8uw0s" path="res://scenes/cloud_spawner.gd" id="14_cloud_spawner"]
+[ext_resource type="Script" uid="uid://bjvbktoe3g4i7" path="res://scenes/goose_spawner.gd" id="15_goose_spawner"]
+[ext_resource type="PackedScene" uid="uid://frs4em5ffbab" path="res://scenes/composable/bonus_goose.tscn" id="18_4wxfo"]
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_k1xfh"]
 animations = [{
@@ -148,6 +151,14 @@ texture = ExtResource("7_wjlw7")
 position = Vector2(9.5, -103.5)
 shape = SubResource("RectangleShape2D_c440y")
 
+[node name="CloudSpawner" type="Node2D" parent="." node_paths=PackedStringArray("chonki")]
+script = ExtResource("14_cloud_spawner")
+chonki = NodePath("../Characters/BonusChonki/ChonkiCharacter")
+
+[node name="GooseSpawner" type="Node2D" parent="." node_paths=PackedStringArray("chonki")]
+script = ExtResource("15_goose_spawner")
+chonki = NodePath("../Characters/BonusChonki/ChonkiCharacter")
+
 [node name="Environment" type="Node" parent="."]
 
 [node name="Ground" type="StaticBody2D" parent="Environment"]
@@ -216,7 +227,6 @@ shape = SubResource("WorldBoundaryShape2D_4p7jk")
 
 [node name="Cloud1" parent="Environment/Clouds" instance=ExtResource("10_v8jj2")]
 position = Vector2(8501, -11420)
-scale = Vector2(11.64, 11.64)
 
 [node name="Cloud2" type="Sprite2D" parent="Environment/Clouds"]
 z_index = 4
@@ -297,6 +307,11 @@ text = "0"
 horizontal_alignment = 2
 script = ExtResource("12_score")
 chonki = NodePath("../../../../../Characters/BonusChonki")
+
+[node name="Obstacles" type="Node" parent="."]
+
+[node name="BonusGoose" parent="Obstacles" instance=ExtResource("18_4wxfo")]
+position = Vector2(12705, 6989)
 
 [connection signal="body_entered" from="Items/Jetpack" to="Characters/BonusChonki" method="_on_jetpack_body_entered"]
 [connection signal="body_entered" from="Items/Jetpack" to="Items/Jetpack" method="_on_body_entered"]
