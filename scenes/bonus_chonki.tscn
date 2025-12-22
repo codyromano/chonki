@@ -1,4 +1,4 @@
-[gd_scene load_steps=146 format=3 uid="uid://bgshjng2ky6hg"]
+[gd_scene load_steps=153 format=3 uid="uid://bgshjng2ky6hg"]
 
 [ext_resource type="Script" uid="uid://ddxti58p7tpj6" path="res://scenes/bonus_chonki.gd" id="1_f1fj4"]
 [ext_resource type="Script" uid="uid://ghyqnuev2ipa" path="res://scenes/ChonkiBody.gd" id="2_0fwn6"]
@@ -9,6 +9,7 @@
 [ext_resource type="AudioStream" uid="uid://culiqfeaauxt7" path="res://assets/sound/push.mp3" id="7_2p7s6"]
 [ext_resource type="AudioStream" uid="uid://bxokgwf35y540" path="res://assets/sound/jump.mp3" id="8_wbv3x"]
 [ext_resource type="AudioStream" uid="uid://7bqkx5ddtnqv" path="res://assets/sound/midair-jump.mp3" id="9_1oxux"]
+[ext_resource type="Script" uid="uid://ss083ok2cnu0" path="res://scenes/jetpack_flames.gd" id="9_flames"]
 [ext_resource type="Texture2D" uid="uid://batkaluf3jygl" path="res://assets/corgi/01_idle/skeleton-0b_idle_00.png" id="10_nhmmd"]
 [ext_resource type="Texture2D" uid="uid://dyi1618ew4mac" path="res://assets/corgi/01_idle/skeleton-0b_idle_01.png" id="11_r08rl"]
 [ext_resource type="Texture2D" uid="uid://cn4gyafnt00v5" path="res://assets/corgi/01_idle/skeleton-0b_idle_02.png" id="12_cangh"]
@@ -582,6 +583,36 @@ animations = [{
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jwat3"]
 size = Vector2(835, 823)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_particle"]
+atlas = ExtResource("10_nhmmd")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="Gradient" id="Gradient_flames"]
+offsets = PackedFloat32Array(0, 0.5, 1)
+colors = PackedColorArray(1, 0.4, 0, 1, 1, 0.6, 0, 0.8, 1, 0.2, 0, 0)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_flames"]
+gradient = SubResource("Gradient_flames")
+
+[sub_resource type="Curve" id="Curve_particle_size"]
+_data = [Vector2(0, 1), 0.0, 0.0, 0, 0, Vector2(1, 0), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="CurveTexture" id="CurveTexture_particle_size"]
+curve = SubResource("Curve_particle_size")
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_flames"]
+particle_flag_disable_z = true
+direction = Vector3(0, 1, 0)
+spread = 20.0
+initial_velocity_min = 100.0
+initial_velocity_max = 200.0
+gravity = Vector3(0, 200, 0)
+scale_min = 2.0
+scale_max = 4.0
+scale_curve = SubResource("CurveTexture_particle_size")
+color_ramp = SubResource("GradientTexture1D_flames")
+
 [node name="BonusChonki" type="Node2D"]
 script = ExtResource("1_f1fj4")
 
@@ -650,5 +681,16 @@ script = ExtResource("143_m5nrs")
 
 [node name="CarriedEntityMarker" type="Marker2D" parent="ChonkiCharacter"]
 position = Vector2(-245, -34)
+
+[node name="JetpackFlames" type="GPUParticles2D" parent="ChonkiCharacter"]
+z_index = 5
+position = Vector2(-214, 785)
+amount = 32
+texture = SubResource("AtlasTexture_particle")
+lifetime = 0.8
+explosiveness = 0.1
+randomness = 0.2
+process_material = SubResource("ParticleProcessMaterial_flames")
+script = ExtResource("9_flames")
 
 [connection signal="animation_finished" from="ChonkiCharacter/AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]

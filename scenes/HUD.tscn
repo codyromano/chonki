@@ -2,13 +2,14 @@
 
 [ext_resource type="Script" uid="uid://cmji548mt4n3g" path="res://scenes/PrimaryGameplayHUD.gd" id="1_pehsw"]
 [ext_resource type="Texture2D" uid="uid://qx1ubqqi74hv" path="res://assets/collectibles/menu-icons/heart.png" id="2"]
-[ext_resource type="PackedScene" uid="uid://d3v7x8c0jn2k8" path="res://scenes/DebugMenu.tscn" id="3_debug"]
+[ext_resource type="PackedScene" path="res://scenes/DebugMenu.tscn" id="3_debug"]
 
 [node name="PrimaryGameplayHUD" type="CanvasLayer"]
 script = ExtResource("1_pehsw")
 is_timer_visible = true
 
 [node name="HUDControl" type="Control" parent="."]
+z_index = 7
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

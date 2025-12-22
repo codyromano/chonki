@@ -93,7 +93,7 @@ jump_multiplier = 1.5
 midair_jumps = 100
 speed_multiplier = 2.0
 jetpack_thrust_speed = -10000.0
-initial_camera_zoom = Vector2(0.1, 0.1)
+initial_camera_zoom = Vector2(0.08, 0.08)
 
 [node name="Items" type="Node" parent="."]
 
