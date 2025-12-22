@@ -1,4 +1,4 @@
-[gd_scene load_steps=63 format=3 uid="uid://0jybnryjbe51"]
+[gd_scene load_steps=65 format=3 uid="uid://0jybnryjbe51"]
 
 [ext_resource type="Texture2D" uid="uid://cue46gcr7x6qj" path="res://assets/environment/barn/barn_wall.jpg" id="1_553eq"]
 [ext_resource type="Script" uid="uid://c03hlmhkiab4v" path="res://scenes/intro.gd" id="1_gdkj6"]
@@ -8,7 +8,9 @@
 [ext_resource type="Texture2D" uid="uid://hdkwei4rbv1p" path="res://assets/environment/barn/barn_wall_upper.jpg" id="3_y37m7"]
 [ext_resource type="Texture2D" uid="uid://qx1ubqqi74hv" path="res://assets/collectibles/menu-icons/heart.png" id="4_ee0bn"]
 [ext_resource type="PackedScene" uid="uid://da1xtclqphxbr" path="res://scenes/characters/npc_dog.tscn" id="5_c0o7x"]
+[ext_resource type="Texture2D" uid="uid://246pkkg171sf" path="res://assets/environment/wood_without_windows.png" id="5_r6v8l"]
 [ext_resource type="PackedScene" uid="uid://ft24k8s13tpc" path="res://scenes/composable/instructional_text.tscn" id="7_2gl52"]
+[ext_resource type="Texture2D" uid="uid://d3h1ykpkcsifp" path="res://assets/environment/barn/sky.jpg" id="7_roafj"]
 [ext_resource type="Script" uid="uid://bohb45sc7o600" path="res://scenes/MoveLeftOrRightText.gd" id="7_y0mp2"]
 [ext_resource type="PackedScene" uid="uid://bffjk8vm2vkp5" path="res://scenes/characters/dave.tscn" id="8_uteif"]
 [ext_resource type="Script" uid="uid://4mx2cyi0i3oy" path="res://scenes/composable/jump_text.gd" id="9_72lhp"]
@@ -183,7 +185,7 @@ debug_color = Color(0.307035, 0.494072, 1, 0.42)
 [node name="FloatWoods" type="Node2D" parent="Environment/PhysicsBarriers"]
 
 [node name="FloatWood" type="StaticBody2D" parent="Environment/PhysicsBarriers/FloatWoods"]
-position = Vector2(4064, -31209)
+position = Vector2(-9553, -19128)
 
 [node name="Sprite2D" type="Polygon2D" parent="Environment/PhysicsBarriers/FloatWoods/FloatWood"]
 modulate = Color(0.988235, 0.729412, 0.188235, 1)
@@ -192,8 +194,8 @@ z_index = 1
 texture_repeat = 2
 material = SubResource("CanvasItemMaterial_ggcgc")
 use_parent_material = true
-position = Vector2(-2013, -1558)
-scale = Vector2(5.26667, 1.435)
+position = Vector2(-4328.99, 3765)
+scale = Vector2(321.096, 5.26961)
 texture = ExtResource("1_553eq")
 texture_offset = Vector2(500, 0)
 polygon = PackedVector2Array(7.33307, -1547.73, 7.33307, -1388.15, 243.535, -1390.94, 243.149, -1551.92)
@@ -355,7 +357,7 @@ z_index = 1
 texture_repeat = 2
 material = SubResource("CanvasItemMaterial_ggcgc")
 use_parent_material = true
-position = Vector2(-3949.54, -7243.79)
+position = Vector2(-3969.92, -2425.35)
 scale = Vector2(7.06718, 6.1298)
 texture = ExtResource("1_553eq")
 texture_offset = Vector2(500, 0)
@@ -501,27 +503,24 @@ polygon = PackedVector2Array(-49.2891, -201.494, 13634.4, -209.514, 13609.4, 95.
 [node name="HaySquares" type="Node2D" parent="Environment/PhysicsBarriers"]
 
 [node name="HayBox" parent="Environment/PhysicsBarriers/HaySquares" instance=ExtResource("3_7kkmp")]
-position = Vector2(17656, -15757)
+position = Vector2(17656, -14409)
 
 [node name="HayBox2" parent="Environment/PhysicsBarriers/HaySquares" instance=ExtResource("3_7kkmp")]
-position = Vector2(2246, -15766)
+position = Vector2(2246, -14418)
 
 [node name="HayBox3" parent="Environment/PhysicsBarriers/HaySquares" instance=ExtResource("3_7kkmp")]
-position = Vector2(2246, -15766)
+position = Vector2(2246, -14418)
 
 [node name="HayBox4" parent="Environment/PhysicsBarriers/HaySquares" instance=ExtResource("3_7kkmp")]
-position = Vector2(3675, -15770)
+position = Vector2(3675, -14422)
 has_rope = false
 
 [node name="HayBox5" parent="Environment/PhysicsBarriers/HaySquares" instance=ExtResource("3_7kkmp")]
-position = Vector2(5046, -15770)
+position = Vector2(5046, -14422)
 has_rope = false
 
 [node name="HayBox6" parent="Environment/PhysicsBarriers/HaySquares" instance=ExtResource("3_7kkmp")]
-position = Vector2(6480, -15770)
-
-[node name="HayBox7" parent="Environment/PhysicsBarriers/HaySquares" instance=ExtResource("3_7kkmp")]
-position = Vector2(4423, -16907)
+position = Vector2(6480, -14422)
 
 [node name="Sprites" type="Node2D" parent="Environment"]
 
@@ -532,7 +531,7 @@ scale = Vector2(1.10874, 1.11339)
 texture = ExtResource("1_553eq")
 texture_offset = Vector2(0, 3750)
 texture_scale = Vector2(0.25, 0.25)
-polygon = PackedVector2Array(-10928.6, 213.761, 87985.5, 353.874, 88205.5, -12471.8, -11462.6, -12570.6)
+polygon = PackedVector2Array(-10928.6, 213.761, 57849.5, 112.27, 57596, -12567.9, -11462.6, -12570.6)
 
 [node name="Wall Upper" type="Polygon2D" parent="Environment/Sprites"]
 texture_repeat = 2
@@ -541,7 +540,16 @@ scale = Vector2(1.10874, 1.11339)
 texture = ExtResource("3_y37m7")
 texture_offset = Vector2(0, 3750)
 texture_scale = Vector2(0.25, 0.25)
-polygon = PackedVector2Array(-10928.6, 213.761, 87693.2, 211.067, 87768.1, -18153.6, -11737.6, -18016.2)
+polygon = PackedVector2Array(-10928.6, 213.761, 57535.6, 35.9263, 57647.4, -8301.67, -11894.6, -8592.68)
+
+[node name="Wall Upper Upper" type="Polygon2D" parent="Environment/Sprites"]
+texture_repeat = 2
+position = Vector2(1218, -8662)
+scale = Vector2(1.10874, 1.11339)
+texture = ExtResource("5_r6v8l")
+texture_offset = Vector2(0, 3750)
+texture_scale = Vector2(0.25, 0.25)
+polygon = PackedVector2Array(-11243.4, -4242.9, 57739.4, -4105.48, 57204.6, -12670.3, -12147.1, -12585)
 
 [node name="Floor" type="Polygon2D" parent="Environment/Sprites"]
 texture_repeat = 2
@@ -552,10 +560,18 @@ texture_offset = Vector2(0, 3750)
 texture_scale = Vector2(0.25, 0.25)
 polygon = PackedVector2Array(-10844.7, 336.809, 88755.7, 445.486, 88537.4, -2763.63, -10918.7, -2722.32)
 
-[node name="Chonki" parent="." instance=ExtResource("3_meeps")]
+[node name="Sky" type="Polygon2D" parent="Environment/Sprites"]
+texture_repeat = 2
+position = Vector2(-21965, -23981)
+texture = ExtResource("7_roafj")
+texture_scale = Vector2(0.1, 0.1)
+polygon = PackedVector2Array(-132, 913, 87762, 1165, 88569, -12718, -762, -12231)
+
+[node name="Chonki" parent="." node_paths=PackedStringArray("debug_start_marker") instance=ExtResource("3_meeps")]
 z_index = 5
-position = Vector2(-2845, -3086)
+position = Vector2(4407, -18692)
 scale = Vector2(1.76, 1.76)
+debug_start_marker = NodePath("../DebugPlayerStartMarker")
 heart_texture = ExtResource("4_ee0bn")
 jump_multiplier = 1.25
 
@@ -809,7 +825,7 @@ id = "little_free_library_intro"
 dialogue = "Visit little free libraries to learn more about Gus's story"
 
 [node name="DebugPlayerStartMarker" type="Marker2D" parent="."]
-position = Vector2(39154, -4171)
+position = Vector2(1754, -18486)
 
 [node name="ScriptedAnimationScenarios" type="Node2D" parent="."]
 
