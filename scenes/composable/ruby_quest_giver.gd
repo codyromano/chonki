@@ -88,8 +88,9 @@ func _on_body_entered_override(body: Node2D) -> void:
 		var tween = create_tween()
 		tween.tween_property(body, "modulate:a", 0.0, 1.0)
 		await tween.finished
-		# Queue free deferred after fade completes
-		body.queue_free()
+		
+		if is_instance_valid(body):
+			body.queue_free()
 		
 		sprite.play('happy')
 		
