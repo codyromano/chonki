@@ -30,4 +30,4 @@ scale = Vector2(4.1126, 4.1126)
 texture = ExtResource("2_dj823")
 texture_offset = Vector2(500, 0)
 texture_rotation = 1.5708
-polygon = PackedVector2Array(2344.26, 426.972, 4268.3, 444.835, 4275.26, 503.418, 2358.12, 512.319)
+polygon = PackedVector2Array(-6054.56, 428.705, 4276.62, 431.342, 4275.26, 503.418, -6053.1, 503.839)

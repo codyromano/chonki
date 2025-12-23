@@ -185,6 +185,7 @@ debug_color = Color(0.307035, 0.494072, 1, 0.42)
 [node name="FloatWoods" type="Node2D" parent="Environment/PhysicsBarriers"]
 
 [node name="FloatWood" type="StaticBody2D" parent="Environment/PhysicsBarriers/FloatWoods"]
+z_index = 3
 position = Vector2(-9553, -19128)
 
 [node name="Sprite2D" type="Polygon2D" parent="Environment/PhysicsBarriers/FloatWoods/FloatWood"]
@@ -506,21 +507,10 @@ polygon = PackedVector2Array(-49.2891, -201.494, 13634.4, -209.514, 13609.4, 95.
 position = Vector2(17656, -14409)
 
 [node name="HayBox2" parent="Environment/PhysicsBarriers/HaySquares" instance=ExtResource("3_7kkmp")]
-position = Vector2(2246, -14418)
-
-[node name="HayBox3" parent="Environment/PhysicsBarriers/HaySquares" instance=ExtResource("3_7kkmp")]
-position = Vector2(2246, -14418)
+position = Vector2(648, -14418)
 
 [node name="HayBox4" parent="Environment/PhysicsBarriers/HaySquares" instance=ExtResource("3_7kkmp")]
-position = Vector2(3675, -14422)
-has_rope = false
-
-[node name="HayBox5" parent="Environment/PhysicsBarriers/HaySquares" instance=ExtResource("3_7kkmp")]
-position = Vector2(5046, -14422)
-has_rope = false
-
-[node name="HayBox6" parent="Environment/PhysicsBarriers/HaySquares" instance=ExtResource("3_7kkmp")]
-position = Vector2(6480, -14422)
+position = Vector2(7619, -14422)
 
 [node name="Sprites" type="Node2D" parent="Environment"]
 
@@ -561,6 +551,7 @@ texture_scale = Vector2(0.25, 0.25)
 polygon = PackedVector2Array(-10844.7, 336.809, 88755.7, 445.486, 88537.4, -2763.63, -10918.7, -2722.32)
 
 [node name="Sky" type="Polygon2D" parent="Environment/Sprites"]
+z_index = 3
 texture_repeat = 2
 position = Vector2(-21965, -23981)
 texture = ExtResource("7_roafj")
@@ -872,7 +863,7 @@ scale = Vector2(4.1126, 4.1126)
 texture = ExtResource("19_cde4w")
 texture_offset = Vector2(500, 0)
 texture_rotation = 1.5708
-polygon = PackedVector2Array(86.217, 428.46, 4268.3, 444.835, 4275.26, 503.418, 91.5259, 506.5)
+polygon = PackedVector2Array(86.217, 428.46, 4264.28, 434.047, 4264.91, 501.641, 91.5259, 506.5)
 
 [node name="DogChaseHayBall" type="NavigationRegion2D" parent="ScriptedAnimationScenarios"]
 position = Vector2(1075, -3084)
