@@ -2076,7 +2076,7 @@ script = ExtResource("57_4yyev")
 [node name="Debug" type="Node" parent="."]
 
 [node name="GusDebugStartMarker" type="Marker2D" parent="Debug"]
-position = Vector2(65440, -1432)
+position = Vector2(94323, -934)
 
 [node name="JumpRuler" type="ColorRect" parent="Debug"]
 visible = false

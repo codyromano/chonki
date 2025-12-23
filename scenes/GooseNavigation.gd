@@ -47,9 +47,9 @@ func _physics_process(_delta: float) -> void:
 		
 		direction.y = 0
 		enemy.velocity.x = direction.x * speed
-		enemy.move_and_slide()
-	else:
-		enemy.velocity.x = 0
-		enemy.velocity.y = 2000
+		# enemy.move_and_slide()
+	# else:
+		# enemy.velocity.x = 0
+		# enemy.velocity.y = 2000
 
 	enemy.move_and_slide()

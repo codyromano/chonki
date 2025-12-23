@@ -48,7 +48,10 @@ var goose_last_injured_time: int
 
 func _ready():
 	sprite.play()
-	hop_timer.wait_time = 4.0
+	
+	# Random delay so geese don't all jump at once
+	# await get_tree().create_timer(randf_range(0, 5.0)).timeout
+	hop_timer.wait_time = 3.0
 	hop_timer.start()
 
 func trigger_defeat() -> void:
