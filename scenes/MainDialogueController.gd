@@ -181,24 +181,13 @@ func _on_enter_warning_sign(sign_name: String) -> void:
 				"gus"
 			)
 		"otter_danger":
-			var letter_count = 0
-			if PlayerInventory.has_item(PlayerInventory.Item.SECRET_LETTER_F):
-				letter_count += 1
-			if PlayerInventory.has_item(PlayerInventory.Item.SECRET_LETTER_R):
-				letter_count += 1
-			if PlayerInventory.has_item(PlayerInventory.Item.SECRET_LETTER_E):
-				letter_count += 1
-			if PlayerInventory.has_item(PlayerInventory.Item.SECRET_LETTER_S):
-				letter_count += 1
-			if PlayerInventory.has_item(PlayerInventory.Item.SECRET_LETTER_H):
-				letter_count += 1
+			var dialogue_text = "WARNING: Cloud maze up ahead. Gus needs a triple jump to reach the sky."
 			
-			var dialogue_text: String
-			if letter_count >= 2:
-				dialogue_text = "I should be able to use my 2x double jump to clear this lake!"
-			else:
-				dialogue_text = "This looks like a long jump! I should collect at least two letters to increase my strength."
-			
+			GlobalSignals.queue_main_dialogue.emit(
+				dialogue_text,
+				"",
+				"gus"
+			)
 			GlobalSignals.queue_main_dialogue.emit(
 				dialogue_text,
 				"",
