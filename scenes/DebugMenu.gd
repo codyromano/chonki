@@ -73,7 +73,7 @@ func _on_dismiss_button_pressed() -> void:
 func _on_set_zoom_button_pressed() -> void:
 	var camera = get_viewport().get_camera_2d()
 	if camera:
-		camera.zoom = Vector2(0.1, 0.1)
+		camera.zoom = Vector2(0.08, 0.08)
 
 func _on_add_all_letters_button_pressed() -> void:
 	if GameState.current_level == 1:
