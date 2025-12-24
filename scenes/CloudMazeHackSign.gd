@@ -7,8 +7,8 @@ extends Node
 
 var words_added: Array[String] = []
 var lever_words: Dictionary = {
-	"CloudLeverPower": "goose!",
-	"CloudLeverLeftOrRight": "large",
+	"CloudLeverPower": "bird!",
+	"CloudLeverLeftOrRight": "big",
 	"CloudLeverUpOrDown": "move"
 }
 var lever_states: Dictionary = {}
@@ -75,7 +75,7 @@ func _update_display() -> void:
 func _check_solution() -> void:
 	var phrase = " ".join(words_added)
 	
-	if phrase == "move large goose!":
+	if phrase == "move big bird!":
 		win_audio.play()
 		
 		if goose_boss and goose_boss.has_method("trigger_defeat"):
