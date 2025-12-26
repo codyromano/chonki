@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=3 uid="uid://b41x2t8numn7a"]
+[gd_scene load_steps=6 format=3 uid="uid://b41x2t8numn7a"]
 
 [ext_resource type="Script" uid="uid://cmji548mt4n3g" path="res://scenes/PrimaryGameplayHUD.gd" id="1_pehsw"]
 [ext_resource type="Texture2D" uid="uid://qx1ubqqi74hv" path="res://assets/collectibles/menu-icons/heart.png" id="2"]
 [ext_resource type="Texture2D" uid="uid://cu1to44y53vl4" path="res://assets/collectibles/menu-icons/jump_icon.png" id="3_7hsmw"]
 [ext_resource type="PackedScene" path="res://scenes/DebugMenu.tscn" id="3_debug"]
+[ext_resource type="Script" uid="uid://6n2eydhco084" path="res://scenes/JumpIconsController.gd" id="3_nysna"]
 
 [node name="PrimaryGameplayHUD" type="CanvasLayer"]
 script = ExtResource("1_pehsw")
@@ -89,12 +90,13 @@ size_flags_horizontal = 0
 size_flags_vertical = 4
 theme_override_constants/separation = 5
 
-[node name="HBoxContainer" type="HBoxContainer" parent="HUDControl/MarginContainer/VBoxContainer/TopMenuHBoxContainer"]
+[node name="JumpIconsContainer" type="HBoxContainer" parent="HUDControl/MarginContainer/VBoxContainer/TopMenuHBoxContainer"]
 custom_minimum_size = Vector2(300, 0)
 layout_mode = 2
 size_flags_horizontal = 10
+script = ExtResource("3_nysna")
 
-[node name="Jump1" type="TextureRect" parent="HUDControl/MarginContainer/VBoxContainer/TopMenuHBoxContainer/HBoxContainer"]
+[node name="Jump1" type="TextureRect" parent="HUDControl/MarginContainer/VBoxContainer/TopMenuHBoxContainer/JumpIconsContainer"]
 layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 0
@@ -102,7 +104,7 @@ texture = ExtResource("3_7hsmw")
 expand_mode = 3
 stretch_mode = 2
 
-[node name="Jump2" type="TextureRect" parent="HUDControl/MarginContainer/VBoxContainer/TopMenuHBoxContainer/HBoxContainer"]
+[node name="Jump2" type="TextureRect" parent="HUDControl/MarginContainer/VBoxContainer/TopMenuHBoxContainer/JumpIconsContainer"]
 layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 0
@@ -110,7 +112,7 @@ texture = ExtResource("3_7hsmw")
 expand_mode = 3
 stretch_mode = 2
 
-[node name="Jump3" type="TextureRect" parent="HUDControl/MarginContainer/VBoxContainer/TopMenuHBoxContainer/HBoxContainer"]
+[node name="Jump3" type="TextureRect" parent="HUDControl/MarginContainer/VBoxContainer/TopMenuHBoxContainer/JumpIconsContainer"]
 layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 0
@@ -118,7 +120,7 @@ texture = ExtResource("3_7hsmw")
 expand_mode = 3
 stretch_mode = 2
 
-[node name="Jump4" type="TextureRect" parent="HUDControl/MarginContainer/VBoxContainer/TopMenuHBoxContainer/HBoxContainer"]
+[node name="Jump4" type="TextureRect" parent="HUDControl/MarginContainer/VBoxContainer/TopMenuHBoxContainer/JumpIconsContainer"]
 layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 0
@@ -126,7 +128,7 @@ texture = ExtResource("3_7hsmw")
 expand_mode = 3
 stretch_mode = 2
 
-[node name="Jump5" type="TextureRect" parent="HUDControl/MarginContainer/VBoxContainer/TopMenuHBoxContainer/HBoxContainer"]
+[node name="Jump5" type="TextureRect" parent="HUDControl/MarginContainer/VBoxContainer/TopMenuHBoxContainer/JumpIconsContainer"]
 layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 0

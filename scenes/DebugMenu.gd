@@ -30,7 +30,6 @@ func _log_player_position() -> void:
 		return
 	
 	var current_position: Vector2 = character_body.global_position
-	print("Player position: ", current_position)
 	last_logged_position = current_position
 
 func _input(event: InputEvent) -> void:

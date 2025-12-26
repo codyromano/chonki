@@ -38,7 +38,6 @@ func update_rodrigo_position() -> void:
 func _process(_delta) -> void:
 	# Check if we're waiting for key release and the key is now released
 	if waiting_for_key_release and !Input.is_action_pressed("ui_accept"):
-		print("[QuestGiver] Key released, allowing dialogue trigger")
 		waiting_for_key_release = false
 		can_trigger_dialogue = true
 	
@@ -52,12 +51,6 @@ func _unhandled_input(event: InputEvent) -> void:
 	
 	# Only allow initiating dialogue when we can trigger and not waiting for key release
 	if event.is_action_pressed("ui_accept"):
-		print("[QuestGiver] Enter pressed in _unhandled_input")
-		print("[QuestGiver]   is_player_nearby: ", is_player_nearby)
-		print("[QuestGiver]   can_trigger_dialogue: ", can_trigger_dialogue)
-		print("[QuestGiver]   waiting_for_key_release: ", waiting_for_key_release)
-		print("[QuestGiver]   is_in_dialogue: ", is_in_dialogue)
-		
 		if is_player_nearby && can_trigger_dialogue && !waiting_for_key_release:
 			print("[QuestGiver] All conditions met! Initiating dialogue")
 			can_trigger_dialogue = false

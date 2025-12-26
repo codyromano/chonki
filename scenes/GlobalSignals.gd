@@ -98,3 +98,7 @@ signal hide_quest_prompt
 signal on_unload_scene(scene_path: String)
 @warning_ignore("unused_signal")
 signal collected_jetpack
+@warning_ignore("unused_signal")
+signal midair_jump_consumed(remaining: int)
+@warning_ignore("unused_signal")
+signal midair_jumps_restored()

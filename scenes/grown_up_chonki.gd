@@ -220,8 +220,8 @@ func on_player_hit(_damage_source: String) -> void:
 func _physics_process(delta: float) -> void:
 	if body.is_on_floor() and not was_on_floor_last_frame:
 		remaining_midair_jumps = midair_jumps
-		print("setting remaining_midair_jumps to ", midair_jumps)
 		is_midair_jumping = false
+		GlobalSignals.midair_jumps_restored.emit()
 	
 	was_on_floor_last_frame = body.is_on_floor()
 	
@@ -445,6 +445,7 @@ func _on_player_jump(intensity: float, entity_applying_force: String):
 		can_jump = true
 		is_midair_jump = true
 		remaining_midair_jumps -= 1
+		GlobalSignals.midair_jump_consumed.emit(remaining_midair_jumps)
 	
 	if not is_game_win and can_jump:
 		velocity.y = PhysicsConstants.JUMP_FORCE * jump_multiplier * intensity
