@@ -78,12 +78,12 @@ overlay_text = "...hope."
 [node name="AnimationImage8" parent="VBoxContainer/AnimationContainer" instance=ExtResource("2_animation_image")]
 layout_mode = 2
 texture = ExtResource("8_yiugc")
-overlay_text = "Dave and Gus head out"
+overlay_text = "Dave and Gus go outside"
 
 [node name="AnimationImage9" parent="VBoxContainer/AnimationContainer" instance=ExtResource("2_animation_image")]
 layout_mode = 2
 texture = ExtResource("9_jri8u")
-overlay_text = "for their first adventure to a park"
+overlay_text = "for their first park adventure"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("10_tmxdy")

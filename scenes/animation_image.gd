@@ -9,6 +9,8 @@ extends Control
 @onready var label: Label = $VBoxContainer/CenterContainer/Label
 
 func _ready() -> void:
+	_adjust_texture_size()
+	
 	if texture_rect and texture:
 		texture_rect.texture = texture
 	
@@ -17,3 +19,15 @@ func _ready() -> void:
 			center_container.visible = false
 		else:
 			label.text = overlay_text
+
+func _adjust_texture_size() -> void:
+	if not texture_rect:
+		return
+	
+	var viewport_height = get_viewport_rect().size.y
+	var max_height = viewport_height * 0.75
+	
+	var desired_size = 1000.0
+	var final_size = min(desired_size, max_height)
+	
+	texture_rect.custom_minimum_size = Vector2(final_size, final_size)
