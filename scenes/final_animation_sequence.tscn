@@ -66,13 +66,13 @@ display_duration = 5.0
 [node name="AnimationImage4" parent="VBoxContainer/AnimationContainer" instance=ExtResource("2_animation_image")]
 layout_mode = 2
 texture = ExtResource("5_eguaf")
-overlay_text = "Where Dave had felt alone, he suddenly felt connected to all the world"
+overlay_text = "Where Dave had felt alone, he suddenly felt connected"
 display_duration = 5.0
 
 [node name="AnimationImage5" parent="VBoxContainer/AnimationContainer" instance=ExtResource("2_animation_image")]
 layout_mode = 2
 texture = ExtResource("6_3gx8p")
-overlay_text = "Gus had a family. He even had a handmade dog bowl…"
+overlay_text = "Gus had a family, and a handmade dog bowl…"
 display_duration = 5.0
 
 [node name="AnimationImage6" parent="VBoxContainer/AnimationContainer" instance=ExtResource("2_animation_image")]
