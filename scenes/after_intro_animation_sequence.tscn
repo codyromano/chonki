@@ -40,40 +40,50 @@ script = ExtResource("1_0pilm")
 
 [node name="AnimationImage1" parent="VBoxContainer/AnimationContainer" instance=ExtResource("2_animation_image")]
 layout_mode = 2
+size_flags_horizontal = 6
 texture = ExtResource("2_0pilm")
+overlay_text = "Soon after Dave brought Gus home..."
 display_duration = 5.0
 
 [node name="AnimationImage2" parent="VBoxContainer/AnimationContainer" instance=ExtResource("2_animation_image")]
 layout_mode = 2
 texture = ExtResource("3_clv75")
+overlay_text = "...the world began to change."
 
 [node name="AnimationImage3" parent="VBoxContainer/AnimationContainer" instance=ExtResource("2_animation_image")]
 layout_mode = 2
 texture = ExtResource("4_sxdvy")
+overlay_text = "Everyone wore masks"
 
 [node name="AnimationImage4" parent="VBoxContainer/AnimationContainer" instance=ExtResource("2_animation_image")]
 layout_mode = 2
 texture = ExtResource("5_clv75")
+overlay_text = "The streets were lonely"
 
 [node name="AnimationImage5" parent="VBoxContainer/AnimationContainer" instance=ExtResource("2_animation_image")]
 layout_mode = 2
 texture = ExtResource("5_tmxdy")
+overlay_text = "Even the memes got old"
 
 [node name="AnimationImage6" parent="VBoxContainer/AnimationContainer" instance=ExtResource("2_animation_image")]
 layout_mode = 2
 texture = ExtResource("6_dgu18")
+overlay_text = "But then..."
 
 [node name="AnimationImage7" parent="VBoxContainer/AnimationContainer" instance=ExtResource("2_animation_image")]
 layout_mode = 2
 texture = ExtResource("7_xk76i")
+overlay_text = "...hope."
 
 [node name="AnimationImage8" parent="VBoxContainer/AnimationContainer" instance=ExtResource("2_animation_image")]
 layout_mode = 2
 texture = ExtResource("8_yiugc")
+overlay_text = "Dave and Gus head out"
 
 [node name="AnimationImage9" parent="VBoxContainer/AnimationContainer" instance=ExtResource("2_animation_image")]
 layout_mode = 2
 texture = ExtResource("9_jri8u")
+overlay_text = "for their first adventure to a park"
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("10_tmxdy")
