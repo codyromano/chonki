@@ -46,48 +46,30 @@ func _process(_delta) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	# Don't process input if main dialogue is already showing (not from us)
 	if MainDialogueController.rendered_dialogue and not is_in_dialogue:
-		print("[QuestGiver] Input blocked: Another dialogue is showing")
 		return
 	
 	# Only allow initiating dialogue when we can trigger and not waiting for key release
 	if event.is_action_pressed("ui_accept"):
 		if is_player_nearby && can_trigger_dialogue && !waiting_for_key_release:
-			print("[QuestGiver] All conditions met! Initiating dialogue")
 			can_trigger_dialogue = false
 			_initiate_dialogue()
 			get_viewport().set_input_as_handled()
-		else:
-			print("[QuestGiver] Conditions NOT met, dialogue will not trigger")
 
 func _on_dialogue_dismissed(_instruction_trigger_id: String) -> void:
-	print("[QuestGiver] _on_dialogue_dismissed called")
-	print("[QuestGiver] is_in_dialogue: ", is_in_dialogue)
-	print("[QuestGiver] is_transitioning_dialogue: ", is_transitioning_dialogue)
-	print("[QuestGiver] current_dialogue_node: ", current_dialogue_node)
-	if current_dialogue_node:
-		print("[QuestGiver] current_dialogue_node.choices.size(): ", current_dialogue_node.choices.size())
-	
 	# If we're transitioning between dialogue nodes, don't end the dialogue
 	if is_transitioning_dialogue:
-		print("[QuestGiver] Transitioning, not ending dialogue")
 		is_transitioning_dialogue = false
 		return
 	
 	# If we're in dialogue, always clean up state when dismissed
 	if is_in_dialogue:
-		print("[QuestGiver] Ending dialogue, resetting state")
 		is_in_dialogue = false
 		waiting_for_key_release = true
 		
 		# Only call on_dialogue_finished and reset if we're at a leaf node (no more choices)
 		if current_dialogue_node and current_dialogue_node.choices.size() == 0:
-			print("[QuestGiver] At leaf node, calling on_dialogue_finished")
 			on_dialogue_finished()
 			current_dialogue_node = null
-		else:
-			print("[QuestGiver] Not at leaf node, keeping current_dialogue_node for next interaction")
-	else:
-		print("[QuestGiver] Not in dialogue, ignoring dismiss")
 
 func _on_dialogue_option_selected(option_id: String, _option_text: String) -> void:
 	# Only handle this if we're currently in dialogue with this quest giver
@@ -112,13 +94,11 @@ func _on_dialogue_option_selected(option_id: String, _option_text: String) -> vo
 	# Warnings are already handled in get_next_dialogue_node()
 
 func _initiate_dialogue() -> void:
-	print("[QuestGiver] _initiate_dialogue called")
 	# Hide instructions when dialogue starts
 	GlobalSignals.hide_quest_prompt.emit()
 	
 	# If we don't have a current node, start from the root
 	if !current_dialogue_node:
-		print("[QuestGiver] No current node, getting dialogue tree root")
 		var dialogue_tree = _get_dialogue_tree()
 		if dialogue_tree and dialogue_tree.root_node:
 			current_dialogue_node = dialogue_tree.root_node
@@ -127,7 +107,6 @@ func _initiate_dialogue() -> void:
 			return
 	
 	# Display the current node (either root on first interaction, or last leaf node on subsequent interactions)
-	print("[QuestGiver] Setting is_in_dialogue = true")
 	is_in_dialogue = true
 	_display_current_node()
 

@@ -7,8 +7,6 @@ var icons_revealed: int = 0
 var icons_currently_visible: int = 0
 
 func _ready() -> void:
-	print("[JUMP ICON CONTROLLER] _ready() called - Instance: ", get_instance_id())
-	print("[JUMP ICON CONTROLLER] Parent hierarchy: ", get_path())
 	_initialize_jump_icons()
 	_setup_signals()
 	_restore_earned_icons()
@@ -29,57 +27,42 @@ func _setup_signals() -> void:
 
 func _restore_earned_icons() -> void:
 	var earned_jumps = PlayerInventory.get_earned_midair_jumps()
-	for i in range(earned_jumps):
-		if i < jump_icons.size():
+	for i in range(jump_icons.size()):
+		if i < earned_jumps:
 			jump_icons[i].modulate.a = 1.0
 			jump_icons[i].scale = Vector2(1.0, 1.0)
+		else:
+			jump_icons[i].modulate.a = 0.0
 	icons_revealed = earned_jumps
 	icons_currently_visible = earned_jumps
 	if earned_jumps > 0:
 		first_icon_animated = true
 
 func _on_secret_letter_collected(_letter_item: PlayerInventory.Item) -> void:
-	print("[JUMP ICON CONTROLLER] Signal received - Instance: ", get_instance_id())
 	if icons_revealed >= jump_icons.size():
-		print("[JUMP ICON CONTROLLER] Ignoring - all icons already revealed")
 		return
 	
 	if not is_visible_in_tree():
-		print("[JUMP ICON CONTROLLER] Ignoring - not visible in tree")
 		return
 	
 	var icon = jump_icons[icons_revealed]
-	var is_first_icon = icons_revealed == 0
+	icon.modulate.a = 0.0
+	
+	await get_tree().create_timer(6.0).timeout
+	
+	await _animate_icon_entrance(icon)
+	_play_blink_animation(icon)
+	
 	icons_revealed += 1
 	icons_currently_visible += 1
-	
-	if is_first_icon:
-		await _animate_first_icon(icon)
-		_play_blink_animation(icon)
-	else:
-		icon.modulate.a = 1.0
-		icon.scale = Vector2(3.0, 3.0)
-		
-		var scale_tween = create_tween()
-		scale_tween.tween_property(icon, "scale", Vector2(1.0, 1.0), 1.0)
-		scale_tween.set_ease(Tween.EASE_OUT)
-		scale_tween.set_trans(Tween.TRANS_BACK)
 
-func _animate_first_icon(icon: TextureRect) -> void:
-	first_icon_animated = true
-	
-	print("[JUMP ICON] Starting first icon animation")
-	print("[JUMP ICON] Icon initial position: ", icon.position)
-	print("[JUMP ICON] Icon initial global_position: ", icon.global_position)
-	
+func _animate_icon_entrance(icon: TextureRect) -> void:
 	await get_tree().process_frame
 	
 	var texture_size = Vector2.ZERO
 	if icon.texture:
 		texture_size = icon.texture.get_size()
-		print("[JUMP ICON] Texture size: ", texture_size)
 	else:
-		print("[JUMP ICON] WARNING: No texture found on icon")
 		return
 	
 	var original_size_flags = icon.size_flags_horizontal
@@ -91,36 +74,22 @@ func _animate_first_icon(icon: TextureRect) -> void:
 	
 	var final_global_position = icon.global_position
 	
+	icon.visible = true
+	icon.modulate.a = 1.0
 	icon.top_level = true
 	icon.size_flags_horizontal = Control.SIZE_SHRINK_CENTER
 	icon.set_anchors_preset(Control.PRESET_CENTER)
 	
 	var viewport_size = get_viewport_rect().size
-	print("[JUMP ICON] Viewport size: ", viewport_size)
 	
 	var scaled_texture_size = texture_size * 4.0
 	var center_position = (viewport_size / 2.0) - (scaled_texture_size / 2.0)
 	
-	print("[JUMP ICON] Calculated center position: ", center_position)
-	print("[JUMP ICON] Scaled texture size: ", scaled_texture_size)
-	
 	icon.global_position = center_position
 	icon.scale = Vector2(4.0, 4.0)
-	icon.modulate.a = 0.0
 	icon.z_index = 101
 	
-	print("[JUMP ICON] Icon after setup - position: ", icon.position)
-	print("[JUMP ICON] Icon after setup - global_position: ", icon.global_position)
-	print("[JUMP ICON] Icon after setup - scale: ", icon.scale)
-	
-	var fade_in_tween = create_tween()
-	fade_in_tween.tween_property(icon, "modulate:a", 1.0, 0.25)
-	await fade_in_tween.finished
-	
-	print("[JUMP ICON] Fade in complete, waiting 1.5 seconds")
 	await get_tree().create_timer(1.5).timeout
-	
-	print("[JUMP ICON] Starting move to final position: ", final_global_position)
 	
 	var move_tween = create_tween()
 	move_tween.set_parallel(true)
@@ -130,7 +99,6 @@ func _animate_first_icon(icon: TextureRect) -> void:
 	move_tween.set_trans(Tween.TRANS_SINE)
 	await move_tween.finished
 	
-	print("[JUMP ICON] Animation complete, restoring layout")
 	icon.top_level = false
 	icon.size_flags_horizontal = original_size_flags
 	icon.anchor_left = original_anchor_left
@@ -150,15 +118,17 @@ func _play_blink_animation(icon: TextureRect) -> void:
 		if not is_inside_tree() or icon == null or not active_blink_task:
 			active_blink_task = false
 			return
-		icon.modulate.a = 0.0
+		icon.visible = false
 		await get_tree().create_timer(blink_interval).timeout
 		if not is_inside_tree() or icon == null or not active_blink_task:
 			active_blink_task = false
 			return
-		icon.modulate.a = 1.0
+		icon.visible = true
 		await get_tree().create_timer(blink_interval).timeout
 		elapsed_time += blink_interval * 2
 	
+	icon.visible = true
+	icon.modulate.a = 1.0
 	active_blink_task = false
 
 func _on_midair_jump_consumed(_remaining: int) -> void:
@@ -179,9 +149,10 @@ func _on_midair_jumps_restored() -> void:
 		await get_tree().process_frame
 	
 	icons_currently_visible = icons_revealed
-	for i in range(icons_revealed):
+	for i in range(icons_currently_visible):
 		if i < jump_icons.size():
 			var icon = jump_icons[i]
-			if icon.get_tree():
+			if icon.get_tree() and icon.modulate.a < 1.0:
+				icon.visible = true
 				var fade_tween = create_tween()
-				fade_tween.tween_property(icon, "modulate:a", 1.0, 1.5)
+				fade_tween.tween_property(icon, "modulate:a", 1.0, 0.3)

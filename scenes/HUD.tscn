@@ -97,6 +97,7 @@ size_flags_horizontal = 10
 script = ExtResource("3_nysna")
 
 [node name="Jump1" type="TextureRect" parent="HUDControl/MarginContainer/VBoxContainer/TopMenuHBoxContainer/JumpIconsContainer"]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 0
@@ -105,6 +106,7 @@ expand_mode = 3
 stretch_mode = 2
 
 [node name="Jump2" type="TextureRect" parent="HUDControl/MarginContainer/VBoxContainer/TopMenuHBoxContainer/JumpIconsContainer"]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 0
@@ -113,6 +115,7 @@ expand_mode = 3
 stretch_mode = 2
 
 [node name="Jump3" type="TextureRect" parent="HUDControl/MarginContainer/VBoxContainer/TopMenuHBoxContainer/JumpIconsContainer"]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 0
@@ -121,6 +124,7 @@ expand_mode = 3
 stretch_mode = 2
 
 [node name="Jump4" type="TextureRect" parent="HUDControl/MarginContainer/VBoxContainer/TopMenuHBoxContainer/JumpIconsContainer"]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 0
@@ -129,6 +133,7 @@ expand_mode = 3
 stretch_mode = 2
 
 [node name="Jump5" type="TextureRect" parent="HUDControl/MarginContainer/VBoxContainer/TopMenuHBoxContainer/JumpIconsContainer"]
+modulate = Color(1, 1, 1, 0)
 layout_mode = 2
 size_flags_horizontal = 2
 size_flags_vertical = 0
