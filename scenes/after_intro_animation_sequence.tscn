@@ -31,12 +31,21 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="VBoxContainer"]
+stream = ExtResource("10_tmxdy")
+
 [node name="AnimationContainer" type="HBoxContainer" parent="VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 6
 alignment = 1
 script = ExtResource("1_0pilm")
+
+[node name="ChapterTitle" parent="VBoxContainer/AnimationContainer" instance=ExtResource("2_animation_image")]
+layout_mode = 2
+display_duration = 4.5
+is_chapter_title = true
+chapter_number = 2
 
 [node name="AnimationImage1" parent="VBoxContainer/AnimationContainer" instance=ExtResource("2_animation_image")]
 layout_mode = 2

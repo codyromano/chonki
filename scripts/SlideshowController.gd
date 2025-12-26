@@ -50,23 +50,15 @@ func _process(_delta: float) -> void:
 		_skip_to_end()
 
 func _skip_to_end() -> void:
-	# Kill all active tweens immediately
 	for tween in active_tweens:
 		if tween and tween.is_valid():
 			tween.kill()
 	active_tweens.clear()
 	
 	var audio_players = _find_all_audio_players(get_tree().current_scene)
-	
-	var fade_tween = get_tree().create_tween()
-	fade_tween.set_pause_mode(Tween.TWEEN_PAUSE_PROCESS)
-	fade_tween.set_parallel(true)
-	
 	for audio_player in audio_players:
 		if audio_player.playing:
-			fade_tween.tween_property(audio_player, "volume_db", -80.0, 1.0)
-	
-	await fade_controller.fade_to_black(1.0)
+			audio_player.stop()
 	
 	for slide in slides:
 		slide.visible = false
@@ -74,21 +66,24 @@ func _skip_to_end() -> void:
 	_transition_to_next_scene()
 
 func _start_slideshow() -> void:
+	var audio_players = _find_all_audio_players(get_tree().current_scene)
+	
 	for i in range(slides.size()):
 		if is_skipping:
 			return
 			
 		var slide = slides[i]
 		
-		# Get display duration from the animation_image component
 		var display_time: float = slide.display_duration if "display_duration" in slide else 3.0
 		
-		# Show slide
 		slide.visible = true
 		slide.modulate.a = 1.0
 		
-		# First slide: fade in from black
 		if i == 0:
+			for audio_player in audio_players:
+				if not audio_player.playing:
+					audio_player.play()
+			
 			await fade_controller.fade_to_clear(0.5)
 		else:
 			# Cross-fade with previous slide
@@ -126,7 +121,6 @@ func _start_slideshow() -> void:
 	if is_skipping:
 		return
 	
-	var audio_players = _find_all_audio_players(get_tree().current_scene)
 	await fade_controller.fade_to_black_with_audio(2.0, 3.0, audio_players)
 	
 	# Hide all slides after fade to black

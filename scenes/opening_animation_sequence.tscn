@@ -24,7 +24,6 @@ position = Vector2(2902, 504)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="AnimationSequence"]
 stream = ExtResource("1_olsx0")
-autoplay = true
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
@@ -52,6 +51,11 @@ layout_mode = 2
 size_flags_vertical = 3
 alignment = 1
 script = ExtResource("1_0thiv")
+
+[node name="ChapterTitle" parent="CanvasLayer/Control/VBoxContainer/AnimationContainer" instance=ExtResource("2_animation_image")]
+layout_mode = 2
+display_duration = 4.5
+is_chapter_title = true
 
 [node name="AnimationImage1" parent="CanvasLayer/Control/VBoxContainer/AnimationContainer" instance=ExtResource("2_animation_image")]
 layout_mode = 2
