@@ -8,8 +8,15 @@ var icons_currently_visible: int = 0
 
 func _ready() -> void:
 	_initialize_jump_icons()
-	_setup_signals()
-	_restore_earned_icons()
+	_setup_visibility.call_deferred()
+
+func _setup_visibility() -> void:
+	if GameState.current_level == 2:
+		visible = true
+		_setup_signals()
+		_restore_earned_icons()
+	else:
+		visible = false
 
 func _initialize_jump_icons() -> void:
 	for i in range(1, 6):
@@ -17,6 +24,8 @@ func _initialize_jump_icons() -> void:
 		if icon:
 			jump_icons.append(icon)
 			icon.modulate.a = 0.0
+			icon.custom_minimum_size = Vector2(60, 60)
+			icon.visible = true
 		else:
 			push_error("Jump icon not found: Jump" + str(i))
 
@@ -118,16 +127,15 @@ func _play_blink_animation(icon: TextureRect) -> void:
 		if not is_inside_tree() or icon == null or not active_blink_task:
 			active_blink_task = false
 			return
-		icon.visible = false
+		icon.modulate.a = 0.0
 		await get_tree().create_timer(blink_interval).timeout
 		if not is_inside_tree() or icon == null or not active_blink_task:
 			active_blink_task = false
 			return
-		icon.visible = true
+		icon.modulate.a = 1.0
 		await get_tree().create_timer(blink_interval).timeout
 		elapsed_time += blink_interval * 2
 	
-	icon.visible = true
 	icon.modulate.a = 1.0
 	active_blink_task = false
 
@@ -153,6 +161,5 @@ func _on_midair_jumps_restored() -> void:
 		if i < jump_icons.size():
 			var icon = jump_icons[i]
 			if icon.get_tree() and icon.modulate.a < 1.0:
-				icon.visible = true
 				var fade_tween = create_tween()
 				fade_tween.tween_property(icon, "modulate:a", 1.0, 0.3)
