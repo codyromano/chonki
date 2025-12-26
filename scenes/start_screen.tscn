@@ -1,8 +1,9 @@
-[gd_scene load_steps=4 format=3 uid="uid://brk4ut33h3yen"]
+[gd_scene load_steps=5 format=3 uid="uid://brk4ut33h3yen"]
 
 [ext_resource type="Script" uid="uid://dpl2ud1bahhxo" path="res://scenes/start_screen.gd" id="1_start_screen"]
-[ext_resource type="Texture2D" uid="uid://dyk1puvhux186" path="res://assets/animations/intro_08_gus_title2.png" id="2_title_image"]
+[ext_resource type="Texture2D" uid="uid://ulu45ygrmil" path="res://assets/cover.jpeg" id="2_he1sj"]
 [ext_resource type="Theme" uid="uid://dte5an7k6hog1" path="res://themes/base.tres" id="3_theme"]
+[ext_resource type="AudioStream" uid="uid://s5mdbb0h0ea4" path="res://assets/sound/fireplace.mp3" id="4_r2jwc"]
 
 [node name="StartScreen" type="Control"]
 layout_mode = 3
@@ -13,40 +14,45 @@ grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_start_screen")
 
-[node name="WhiteBackground" type="ColorRect" parent="."]
+[node name="BackgroundImage" type="TextureRect" parent="."]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = -218.0
+offset_top = -50.0
+offset_right = 219.0
 grow_horizontal = 2
 grow_vertical = 2
-
-[node name="CenterContainer" type="CenterContainer" parent="."]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
-layout_mode = 2
-theme_override_constants/separation = 40
-
-[node name="TitleImage" type="TextureRect" parent="CenterContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 600)
-layout_mode = 2
-size_flags_vertical = 6
-texture = ExtResource("2_title_image")
-expand_mode = 1
+texture = ExtResource("2_he1sj")
 stretch_mode = 5
 
-[node name="PressEnterLabel" type="Label" parent="CenterContainer/VBoxContainer"]
+[node name="CenterContainer2" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_right = -2.0
+offset_bottom = 109.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer2"]
+custom_minimum_size = Vector2(0, 800)
+layout_mode = 2
+theme_override_constants/separation = 300
+alignment = 2
+
+[node name="PressEnterLabel" type="Label" parent="CenterContainer2/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("3_theme")
-theme_override_colors/font_color = Color(0.5, 0.5, 0.5, 1)
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 15
+theme_override_constants/shadow_outline_size = 18
 theme_override_font_sizes/font_size = 40
-text = "Press 'Enter' to start"
+text = "Press 'Enter'"
 horizontal_alignment = 1
 
 [node name="FadeOverlay" type="ColorRect" parent="."]
@@ -58,3 +64,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 color = Color(0, 0, 0, 1)
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_r2jwc")
+autoplay = true

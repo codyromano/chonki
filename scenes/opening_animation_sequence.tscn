@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://dgfp3mnafwk1g"]
+[gd_scene load_steps=11 format=3 uid="uid://dgfp3mnafwk1g"]
 
 [ext_resource type="Script" uid="uid://x8w1g2c80t4e" path="res://scripts/SlideshowController.gd" id="1_0thiv"]
 [ext_resource type="AudioStream" uid="uid://gdlkomr1wbfu" path="res://assets/sound/coast.mp3" id="1_olsx0"]
@@ -10,7 +10,6 @@
 [ext_resource type="Texture2D" uid="uid://tqsvbyetih4m" path="res://assets/animations/intro_home_reading.jpeg" id="6_h380q"]
 [ext_resource type="Texture2D" uid="uid://4q2gv02541o6" path="res://assets/animations/intro_07_barn_close_up2.jpeg" id="6_tmmyj"]
 [ext_resource type="Texture2D" uid="uid://cmw1eurua1m8i" path="res://assets/animations/intro_06_barn_leaving_car2.jpeg" id="7_2dau1"]
-[ext_resource type="Texture2D" uid="uid://dyk1puvhux186" path="res://assets/animations/intro_08_gus_title2.png" id="7_eafvx"]
 
 [node name="OpeningAnimationSequence" type="Control"]
 layout_mode = 3
@@ -93,8 +92,3 @@ overlay_text = "    "
 layout_mode = 2
 texture = ExtResource("6_tmmyj")
 overlay_text = "\"The story begins with our dog...\""
-
-[node name="AnimationImage8" parent="CanvasLayer/Control/VBoxContainer/AnimationContainer" instance=ExtResource("2_animation_image")]
-layout_mode = 2
-texture = ExtResource("7_eafvx")
-overlay_text = "   "
