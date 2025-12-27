@@ -176,7 +176,6 @@ chonki = NodePath("../Characters/BonusChonki/ChonkiCharacter")
 [node name="GooseSpawner" type="Node2D" parent="." node_paths=PackedStringArray("chonki")]
 script = ExtResource("15_goose_spawner")
 chonki = NodePath("../Characters/BonusChonki/ChonkiCharacter")
-spawn_interval = 2.5
 
 [node name="Environment" type="Node" parent="."]
 
@@ -217,8 +216,8 @@ polygon = PackedVector2Array(-7835.14, 150.827, 21367.2, 120.287, 21338.4, 602.0
 z_index = 4
 texture_repeat = 2
 use_parent_material = true
-position = Vector2(-13819, 3394)
-scale = Vector2(1.46235, 1.60449)
+position = Vector2(-13819, 2683)
+scale = Vector2(1.46235, 6.09869)
 texture = ExtResource("8_monau")
 texture_offset = Vector2(0, 400)
 polygon = PackedVector2Array(-7835.14, 150.827, 21367.2, 120.287, 21338.4, 602.06, -7840.61, 612.032)

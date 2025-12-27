@@ -1,23 +1,25 @@
 extends Node2D
 
 @export var chonki: CharacterBody2D
-@export var spawn_interval: float = 5.0
+@export var spawn_interval: float = 1.0
 @export var goose_speed: float = 300.0
-@export var interval_decrease_rate: float = 0.25
-@export var interval_decrease_every: float = 5.0
-@export var min_spawn_interval: float = 0.5
+@export var initial_geese_per_spawn: int = 3
+@export var geese_increase_amount: int = 3
+@export var geese_increase_every: float = 5.0
+@export var left_boundary: float = 6851.0
+@export var right_boundary: float = 22525.0
 
 var goose_scene: PackedScene = preload("res://scenes/composable/bonus_goose.tscn")
 
 var spawn_timer: float = 0.0
 var camera: Camera2D
-var current_spawn_interval: float
+var current_geese_per_spawn: int
 var difficulty_timer: float = 0.0
 
 func _ready() -> void:
 	if chonki:
 		camera = chonki.find_child("Camera2D", true, false)
-	current_spawn_interval = spawn_interval
+	current_geese_per_spawn = initial_geese_per_spawn
 
 func _process(delta: float) -> void:
 	if not chonki or not camera:
@@ -28,17 +30,17 @@ func _process(delta: float) -> void:
 	
 	difficulty_timer += delta
 	
-	if difficulty_timer >= interval_decrease_every:
+	if difficulty_timer >= geese_increase_every:
 		difficulty_timer = 0.0
-		current_spawn_interval = max(current_spawn_interval - interval_decrease_rate, min_spawn_interval)
+		current_geese_per_spawn += geese_increase_amount
 	
 	spawn_timer += delta
 	
-	if spawn_timer >= current_spawn_interval:
+	if spawn_timer >= spawn_interval:
 		spawn_timer = 0.0
-		_spawn_goose()
+		_spawn_geese()
 
-func _spawn_goose() -> void:
+func _spawn_geese() -> void:
 	if not camera:
 		return
 		
@@ -49,18 +51,20 @@ func _spawn_goose() -> void:
 	var screen_width = viewport_size.x / zoom
 	var screen_height = viewport_size.y / zoom
 	
-	var spawn_x = camera_pos.x + randf_range(-screen_width * 0.5, screen_width * 0.5)
-	var spawn_y = camera_pos.y - (screen_height * 0.6)
-	
-	var goose = goose_scene.instantiate()
-	goose.global_position = Vector2(spawn_x, spawn_y)
-	goose.z_index = 10
-	
-	get_tree().current_scene.add_child(goose)
-	
-	var travel_distance = screen_width * 1.5
-	var duration = travel_distance / goose_speed
-	
-	var tween = create_tween()
-	tween.tween_property(goose, "global_position:x", spawn_x - travel_distance, duration)
-	tween.tween_callback(goose.queue_free)
+	for i in range(current_geese_per_spawn):
+		var spawn_x = camera_pos.x + randf_range(-screen_width * 0.5, screen_width * 0.5)
+		spawn_x = clamp(spawn_x, left_boundary, right_boundary)
+		var spawn_y = camera_pos.y - (screen_height * 0.6)
+		
+		var goose = goose_scene.instantiate()
+		goose.global_position = Vector2(spawn_x, spawn_y)
+		goose.z_index = 10
+		
+		get_tree().current_scene.add_child(goose)
+		
+		var travel_distance = screen_width * 1.5
+		var duration = travel_distance / goose_speed
+		
+		var tween = create_tween()
+		tween.tween_property(goose, "global_position:x", spawn_x - travel_distance, duration)
+		tween.tween_callback(goose.queue_free)
