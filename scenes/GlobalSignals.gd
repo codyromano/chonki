@@ -10,8 +10,6 @@ signal heart_lost
 @warning_ignore("unused_signal")
 signal win_game(zoom_intensity: float)
 @warning_ignore("unused_signal")
-signal time_up
-@warning_ignore("unused_signal")
 signal player_out_of_hearts
 @warning_ignore("unused_signal")
 signal animate_camera_zoom_level

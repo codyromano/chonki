@@ -38,7 +38,7 @@
 [ext_resource type="Script" uid="uid://djn0u7mqiiuj" path="res://scripts/scene_transition_controller.gd" id="26_3mjik"]
 [ext_resource type="Texture2D" uid="uid://jxoalg47qfnm" path="res://assets/collectibles/bone.png" id="27_bone1"]
 [ext_resource type="Script" uid="uid://ce5deqd5bd18p" path="res://scenes/composable/little_free_library_instruction_trigger.gd" id="28_127wd"]
-[ext_resource type="PackedScene" uid="uid://b41x2t8numn7a" path="res://scenes/HUD.tscn" id="31_i8bqy"]
+[ext_resource type="PackedScene" uid="uid://b8qtbhyvx0cfy" path="res://scenes/IntroHUD.tscn" id="31_i8bqy"]
 [ext_resource type="Theme" uid="uid://dte5an7k6hog1" path="res://themes/base.tres" id="36_7ukfb"]
 [ext_resource type="PackedScene" uid="uid://divvcbosmeqxn" path="res://scenes/SecretLetter.tscn" id="37_7ukfb"]
 
@@ -909,7 +909,6 @@ script = ExtResource("26_3mjik")
 [node name="HUD" parent="TitleLayers" instance=ExtResource("31_i8bqy")]
 debug_mode = true
 debug_letters = Array[String](["A", "D", "O", "P", "T"])
-is_health_visible = false
 
 [node name="TitleCanvasLayer" type="CanvasLayer" parent="TitleLayers"]
 layer = 10

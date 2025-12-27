@@ -3,10 +3,6 @@ extends CanvasLayer
 @export var debug_mode: bool = false
 @export var debug_letters: Array[String] = ["F", "R", "E", "S", "H"]
 
-# Hide/show menu functionality
-@export var is_health_visible: bool = true
-@export var is_timer_visible: bool = false
-
 # Configure available resources in level
 @export var hearts_available: int = 3
 @export var total_books_in_level: int = 5
@@ -15,8 +11,6 @@ extends CanvasLayer
 var sniglet_font: FontFile = preload("res://fonts/Sniglet-Regular.ttf")
 
 # Preload UI resources
-@onready var timer_label: Label = find_child('TimerText')
-@onready var timer_icon: TextureRect = find_child('ClockIcon')
 @onready var star_label: Label = find_child('StarLabel')
 @onready var letters_container: HBoxContainer = find_child('LettersHBoxContainer')
 
@@ -36,12 +30,6 @@ func _ready():
 	
 	if debug_mode:
 		_initialize_debug_menu()
-	
-	if !is_health_visible:
-		_hide_health()
-	
-	if !is_timer_visible:
-		_hide_timer()
 
 func _initialize_letter_display() -> void:
 	if letters_container:
@@ -174,13 +162,3 @@ func _on_heart_lost() -> void:
 func _on_secret_letter_collected(letter_item: PlayerInventory.Item) -> void:
 	var letter = GameState.get_letter_string_from_item(letter_item)
 	_display_letter(letter)
-
-func _hide_health() -> void:
-	# Find all nodes that start with "Heart" using glob pattern
-	var heart_nodes = find_children("Heart*")
-	for heart_node in heart_nodes:
-		heart_node.queue_free.call_deferred()
-
-func _hide_timer() -> void:
-	timer_label.queue_free.call_deferred()
-	timer_icon.queue_free.call_deferred()
