@@ -91,11 +91,12 @@ func _animate_icon_entrance(icon: TextureRect) -> void:
 	
 	var viewport_size = get_viewport_rect().size
 	
-	var scaled_texture_size = texture_size * 4.0
+	var scaled_texture_size = texture_size * 3.0
 	var center_position = (viewport_size / 2.0) - (scaled_texture_size / 2.0)
+	center_position.y -= viewport_size.y * 0.1
 	
 	icon.global_position = center_position
-	icon.scale = Vector2(4.0, 4.0)
+	icon.scale = Vector2(3.0, 3.0)
 	icon.z_index = 101
 	
 	await get_tree().create_timer(1.5).timeout
