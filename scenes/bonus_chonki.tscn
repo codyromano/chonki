@@ -654,7 +654,7 @@ position = Vector2(-32.5, 54.5)
 shape = SubResource("RectangleShape2D_jwat3")
 
 [node name="Camera2D" type="Camera2D" parent="ChonkiCharacter" node_paths=PackedStringArray("target")]
-position = Vector2(-9, -518)
+position = Vector2(-9, -2005)
 scale = Vector2(486.93, -118.765)
 offset = Vector2(0, -250)
 zoom = Vector2(0.2, 0.2)
