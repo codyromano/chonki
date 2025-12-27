@@ -82,6 +82,8 @@ func _animate_icon_entrance(icon: TextureRect) -> void:
 	var original_position = icon.position
 	
 	var final_global_position = icon.global_position
+	print("[JUMP ICON] Captured final_global_position: ", final_global_position)
+	print("[JUMP ICON] Icon parent: ", icon.get_parent().name if icon.get_parent() else "no parent")
 	
 	icon.visible = true
 	icon.modulate.a = 1.0
@@ -90,17 +92,21 @@ func _animate_icon_entrance(icon: TextureRect) -> void:
 	icon.set_anchors_preset(Control.PRESET_CENTER)
 	
 	var viewport_size = get_viewport_rect().size
+	print("[JUMP ICON] Viewport size: ", viewport_size)
 	
 	var scaled_texture_size = texture_size * 3.0
 	var center_position = (viewport_size / 2.0) - (scaled_texture_size / 2.0)
 	center_position.y -= viewport_size.y * 0.1
 	
+	print("[JUMP ICON] Calculated center_position: ", center_position)
 	icon.global_position = center_position
+	print("[JUMP ICON] Icon global_position after centering: ", icon.global_position)
 	icon.scale = Vector2(3.0, 3.0)
 	icon.z_index = 101
 	
 	await get_tree().create_timer(1.5).timeout
 	
+	print("[JUMP ICON] Starting tween from ", icon.global_position, " to ", final_global_position)
 	var move_tween = create_tween()
 	move_tween.set_parallel(true)
 	move_tween.tween_property(icon, "global_position", final_global_position, 2.5)
@@ -108,6 +114,7 @@ func _animate_icon_entrance(icon: TextureRect) -> void:
 	move_tween.set_ease(Tween.EASE_IN_OUT)
 	move_tween.set_trans(Tween.TRANS_SINE)
 	await move_tween.finished
+	print("[JUMP ICON] Tween finished, icon at: ", icon.global_position)
 	
 	icon.top_level = false
 	icon.size_flags_horizontal = original_size_flags

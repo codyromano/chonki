@@ -15,7 +15,6 @@ var last_input_time: float = 0.0
 
 func _ready():
 	GameState.current_level = 2
-	PlayerInventory.earned_midair_jumps = 0
 	GlobalSignals.secret_letter_collected.connect(_on_secret_letter_collected)
 	
 	GameState.restore_letters_from_persistent_state(2)
