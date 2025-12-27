@@ -626,18 +626,15 @@ stream = ExtResource("3_2x3ch")
 
 [node name="AudioOuch" type="AudioStreamPlayer2D" parent="ChonkiCharacter"]
 stream = ExtResource("4_ovsjw")
-volume_db = 5.0
 
 [node name="RestRun" type="AudioStreamPlayer2D" parent="ChonkiCharacter"]
 stream = ExtResource("5_1qleh")
 
 [node name="AudioRam" type="AudioStreamPlayer2D" parent="ChonkiCharacter"]
 stream = ExtResource("6_kv6rf")
-volume_db = -10.0
 
 [node name="AudioPush" type="AudioStreamPlayer2D" parent="ChonkiCharacter"]
 stream = ExtResource("7_2p7s6")
-volume_db = -10.0
 
 [node name="AudioJump" type="AudioStreamPlayer2D" parent="ChonkiCharacter"]
 stream = ExtResource("8_wbv3x")

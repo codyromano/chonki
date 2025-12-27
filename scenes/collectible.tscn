@@ -50,7 +50,6 @@ shape = SubResource("RectangleShape2D_ge1oa")
 [node name="ChillBark" type="AudioStreamPlayer2D" parent="."]
 position = Vector2(6792, -534)
 stream = ExtResource("9_towvv")
-volume_db = 4.657
 
 [node name="Label" type="Label" parent="."]
 offset_left = -93.0

@@ -77,11 +77,9 @@ autostart = true
 
 [node name="FlapAudio" type="AudioStreamPlayer2D" parent="Goose4"]
 stream = ExtResource("7_rvhl3")
-volume_db = 10.0
 
 [node name="GooseDefeated" type="AudioStreamPlayer2D" parent="Goose4"]
 stream = ExtResource("8_1inld")
-volume_db = 10.0
 
 [node name="Goose5" type="CharacterBody2D" parent="."]
 position = Vector2(13391, -661)
@@ -108,11 +106,9 @@ autostart = true
 
 [node name="FlapAudio" type="AudioStreamPlayer2D" parent="Goose5"]
 stream = ExtResource("7_rvhl3")
-volume_db = 10.0
 
 [node name="GooseDefeated" type="AudioStreamPlayer2D" parent="Goose5"]
 stream = ExtResource("8_1inld")
-volume_db = 10.0
 
 [connection signal="timeout" from="Goose4/Timer" to="Goose4" method="_on_hop_timer_timeout"]
 [connection signal="timeout" from="Goose5/Timer" to="Goose5" method="_on_hop_timer_timeout"]

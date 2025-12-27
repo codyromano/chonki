@@ -156,7 +156,6 @@ script = ExtResource("9_uxspa")
 
 [node name="PopAudio" type="AudioStreamPlayer" parent="AnagramMarginContainer/AnagramResultDisplay"]
 stream = ExtResource("11_k2dw8")
-volume_db = -18.255
 
 [node name="TitleCanvasLayer" type="CanvasLayer" parent="."]
 layer = 10

@@ -43,7 +43,7 @@ func _ready() -> void:
 	
 	skip_sound = AudioStreamPlayer.new()
 	skip_sound.stream = load("res://assets/sound/book1.mp3")
-	skip_sound.volume_db = -10.0
+	skip_sound.volume_db = 0.0
 	add_child(skip_sound)
 
 func set_instruction_trigger_id(trigger_id: String) -> void:

@@ -74,11 +74,11 @@ autostart = true
 
 [node name="FlapAudio" type="AudioStreamPlayer2D" parent="Goose"]
 stream = ExtResource("8_08odw")
-volume_db = 10.0
+volume_db = 0.0
 
 [node name="GooseDefeated" type="AudioStreamPlayer2D" parent="Goose"]
 stream = ExtResource("9_vb7o8")
-volume_db = 10.0
+volume_db = 0.0
 
 [node name="HeartsContainer" type="Node2D" parent="."]
 

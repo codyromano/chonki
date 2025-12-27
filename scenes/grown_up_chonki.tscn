@@ -587,18 +587,15 @@ stream = ExtResource("3_bjoor")
 
 [node name="AudioOuch" type="AudioStreamPlayer2D" parent="ChonkiCharacter"]
 stream = ExtResource("4_sopwg")
-volume_db = 5.0
 
 [node name="RestRun" type="AudioStreamPlayer2D" parent="ChonkiCharacter"]
 stream = ExtResource("5_3aijx")
 
 [node name="AudioRam" type="AudioStreamPlayer2D" parent="ChonkiCharacter"]
 stream = ExtResource("6_pa67x")
-volume_db = -10.0
 
 [node name="AudioPush" type="AudioStreamPlayer2D" parent="ChonkiCharacter"]
 stream = ExtResource("7_t3k4e")
-volume_db = -10.0
 
 [node name="AudioJump" type="AudioStreamPlayer2D" parent="ChonkiCharacter"]
 stream = ExtResource("8_j1fkq")
@@ -630,12 +627,10 @@ stream = ExtResource("139_t2k6g")
 
 [node name="BackgroundAudio" type="AudioStreamPlayer2D" parent="ChonkiCharacter"]
 stream = ExtResource("140_h7loo")
-volume_db = -10.0
 autoplay = true
 
 [node name="AudioWon" type="AudioStreamPlayer2D" parent="ChonkiCharacter"]
 stream = ExtResource("141_luj0f")
-volume_db = 5.0
 
 [node name="AudioController" type="Node2D" parent="ChonkiCharacter"]
 script = ExtResource("142_uym33")

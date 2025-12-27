@@ -1009,7 +1009,7 @@ shape = SubResource("CapsuleShape2D_nwbuc")
 
 [node name="GooseDefeated" type="AudioStreamPlayer2D" parent="World2D/NPCs/Enemies/GooseBossCloudMaze"]
 stream = ExtResource("20_f7bbt")
-volume_db = 10.0
+volume_db = 0.0
 
 [node name="GooseRegion2D2" type="NavigationRegion2D" parent="World2D/NPCs/Enemies"]
 position = Vector2(85841, -4)
@@ -1041,11 +1041,11 @@ autostart = true
 
 [node name="FlapAudio" type="AudioStreamPlayer2D" parent="World2D/NPCs/Enemies/GooseRegion2D2/Goose"]
 stream = ExtResource("18_60djy")
-volume_db = 10.0
+volume_db = 0.0
 
 [node name="GooseDefeated" type="AudioStreamPlayer2D" parent="World2D/NPCs/Enemies/GooseRegion2D2/Goose"]
 stream = ExtResource("20_f7bbt")
-volume_db = 10.0
+volume_db = 0.0
 
 [node name="GooseRegion2D4" type="NavigationRegion2D" parent="World2D/NPCs/Enemies"]
 position = Vector2(92006, -12197)
@@ -1077,11 +1077,11 @@ autostart = true
 
 [node name="FlapAudio" type="AudioStreamPlayer2D" parent="World2D/NPCs/Enemies/GooseRegion2D4/GooseBoss"]
 stream = ExtResource("18_60djy")
-volume_db = 10.0
+volume_db = 0.0
 
 [node name="GooseDefeated" type="AudioStreamPlayer2D" parent="World2D/NPCs/Enemies/GooseRegion2D4/GooseBoss"]
 stream = ExtResource("20_f7bbt")
-volume_db = 10.0
+volume_db = 0.0
 
 [node name="GooseRegion2D3" type="NavigationRegion2D" parent="World2D/NPCs/Enemies"]
 z_index = 7
@@ -1114,11 +1114,11 @@ autostart = true
 
 [node name="FlapAudio" type="AudioStreamPlayer2D" parent="World2D/NPCs/Enemies/GooseRegion2D3/Goose2"]
 stream = ExtResource("18_60djy")
-volume_db = 10.0
+volume_db = 0.0
 
 [node name="GooseDefeated" type="AudioStreamPlayer2D" parent="World2D/NPCs/Enemies/GooseRegion2D3/Goose2"]
 stream = ExtResource("20_f7bbt")
-volume_db = 10.0
+volume_db = 0.0
 
 [node name="Goose3" type="CharacterBody2D" parent="World2D/NPCs/Enemies/GooseRegion2D3"]
 position = Vector2(8848, -691)
@@ -1146,11 +1146,11 @@ autostart = true
 
 [node name="FlapAudio" type="AudioStreamPlayer2D" parent="World2D/NPCs/Enemies/GooseRegion2D3/Goose3"]
 stream = ExtResource("18_60djy")
-volume_db = 10.0
+volume_db = 0.0
 
 [node name="GooseDefeated" type="AudioStreamPlayer2D" parent="World2D/NPCs/Enemies/GooseRegion2D3/Goose3"]
 stream = ExtResource("20_f7bbt")
-volume_db = 10.0
+volume_db = 0.0
 
 [node name="Goose4" type="CharacterBody2D" parent="World2D/NPCs/Enemies/GooseRegion2D3"]
 position = Vector2(15694, -691)
@@ -1178,11 +1178,11 @@ autostart = true
 
 [node name="FlapAudio" type="AudioStreamPlayer2D" parent="World2D/NPCs/Enemies/GooseRegion2D3/Goose4"]
 stream = ExtResource("18_60djy")
-volume_db = 10.0
+volume_db = 0.0
 
 [node name="GooseDefeated" type="AudioStreamPlayer2D" parent="World2D/NPCs/Enemies/GooseRegion2D3/Goose4"]
 stream = ExtResource("20_f7bbt")
-volume_db = 10.0
+volume_db = 0.0
 
 [node name="GooseRegionCloudL" parent="World2D/NPCs/Enemies" instance=ExtResource("38_6b8u6")]
 position = Vector2(126802, -12097)
@@ -2164,7 +2164,7 @@ polygon = PackedVector2Array(62, -63, 81, -774, -771, -1289, -1745, -692, -1604,
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="LittleFreeLibrary"]
 stream = ExtResource("82_ix5rl")
-volume_db = -21.83
+volume_db = 0.0
 
 [node name="SpawnAfterLibraryWin" type="Marker2D" parent="LittleFreeLibrary"]
 position = Vector2(31352.5, 1302.71)

@@ -558,10 +558,11 @@ texture = ExtResource("7_roafj")
 texture_scale = Vector2(0.1, 0.1)
 polygon = PackedVector2Array(-132, 913, 87762, 1165, 88569, -12718, -762, -12231)
 
-[node name="Chonki" parent="." instance=ExtResource("3_meeps")]
+[node name="Chonki" parent="." node_paths=PackedStringArray("debug_start_marker") instance=ExtResource("3_meeps")]
 z_index = 5
 position = Vector2(-7576, -5182)
 scale = Vector2(1.76, 1.76)
+debug_start_marker = NodePath("../DebugPlayerStartMarker")
 heart_texture = ExtResource("4_ee0bn")
 jump_multiplier = 1.25
 
@@ -748,7 +749,6 @@ polygon = PackedVector2Array(62, -63, 81, -774, -771, -1289, -1745, -692, -1604,
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="Items/LittleFreeLibrary"]
 stream = ExtResource("21_rb10m")
-volume_db = -21.83
 
 [node name="Cable" type="Node2D" parent="Items"]
 position = Vector2(8654, 0)

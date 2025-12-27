@@ -35,10 +35,10 @@ shape = SubResource("RectangleShape2D_ioeo6")
 
 [node name="WindBackgroundSFX" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("3_1pqtc")
-volume_db = 15.0
+volume_db = 0.0
 
 [node name="WindWhooshSFX" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("4_v176e")
-volume_db = 10.0
+volume_db = 0.0
 
 [connection signal="body_exited" from="." to="." method="_on_body_exited"]
