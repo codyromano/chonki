@@ -96,7 +96,8 @@ func _add_letter(letter_item: PlayerInventory.Item) -> void:
 			var letter_string = GameState.get_letter_string_from_item(letter_item)
 			GameState.add_collected_letter(letter_string)
 			GlobalSignals.secret_letter_collected.emit(letter_item)
-			PlayerInventory.increment_midair_jumps()
+			if level == 2:
+				PlayerInventory.increment_midair_jumps()
 	update_debug_info()
 
 func _on_teleport_to_library_win_button_pressed() -> void:

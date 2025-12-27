@@ -512,3 +512,4 @@ func _on_secret_letter_collected(_letter_item: PlayerInventory.Item):
 
 func _exit_tree() -> void:
 	GlobalSignals.player_unregistered.emit()
+	GlobalSignals.secret_letter_collected.disconnect(_on_secret_letter_collected)
