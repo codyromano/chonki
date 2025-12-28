@@ -91,6 +91,21 @@ func _ready() -> void:
 
 func _on_chonki_frozen(frozen: bool) -> void:
 	is_frozen = frozen
+
+func format_number(num: int) -> String:
+	var abbreviated_num = round(num / 10)
+	var str_num = str(abbreviated_num)
+	var formatted = ""
+	var count = 0
+	
+	for i in range(str_num.length() - 1, -1, -1):
+		if count == 3:
+			formatted = "," + formatted
+			count = 0
+		formatted = str_num[i] + formatted
+		count += 1
+	
+	return formatted
 	
 func position_carried_entity_on_back() -> void:
 	if carried_entity:
@@ -135,14 +150,71 @@ func wait_for_chonki_to_land() -> void:
 	while not body.is_on_floor():
 		await get_tree().process_frame
 
+func show_high_score_notification(score: int) -> void:
+	var sniglet_font: Font = preload("res://fonts/Sniglet-Regular.ttf")
+	
+	var canvas_layer = CanvasLayer.new()
+	canvas_layer.layer = 10
+	add_child(canvas_layer)
+	
+	var notification_control = Control.new()
+	notification_control.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	notification_control.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	notification_control.modulate.a = 0.0
+	canvas_layer.add_child(notification_control)
+	
+	var center_container = CenterContainer.new()
+	center_container.set_anchors_and_offsets_preset(Control.PRESET_FULL_RECT)
+	center_container.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	notification_control.add_child(center_container)
+	
+	var vbox = VBoxContainer.new()
+	vbox.alignment = BoxContainer.ALIGNMENT_CENTER
+	vbox.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	center_container.add_child(vbox)
+	
+	var title_label = Label.new()
+	title_label.text = "New High Score!"
+	title_label.add_theme_font_override("font", sniglet_font)
+	title_label.add_theme_font_size_override("font_size", 125)
+	title_label.add_theme_color_override("font_color", Color(1, 1, 0.529412, 1))
+	title_label.add_theme_constant_override("outline_size", 20)
+	title_label.add_theme_color_override("font_outline_color", Color.BLACK)
+	title_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	title_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	vbox.add_child(title_label)
+	
+	var score_label = Label.new()
+	score_label.text = format_number(score)
+	score_label.add_theme_font_override("font", sniglet_font)
+	score_label.add_theme_font_size_override("font_size", 150)
+	score_label.add_theme_color_override("font_color", Color(1, 1, 0.529412, 1))
+	score_label.add_theme_constant_override("outline_size", 20)
+	score_label.add_theme_color_override("font_outline_color", Color.BLACK)
+	score_label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
+	score_label.mouse_filter = Control.MOUSE_FILTER_IGNORE
+	vbox.add_child(score_label)
+	
+	var tween = create_tween()
+	tween.tween_property(notification_control, "modulate:a", 1.0, 0.5)
+	tween.tween_interval(2.5)
+	tween.tween_property(notification_control, "modulate:a", 0.0, 0.5)
+
 func on_player_hit(damage_source: String) -> void:
 	$ChonkiCharacter/AudioOuch.play()
 	hit_time = Time.get_unix_time_from_system()
 	
 	if damage_source == "bonus_goose":
 		var current_score = int(abs(body.global_position.y))
+		var old_high_score = GameState.bonus_high_score
 		GameState.update_bonus_high_score(current_score)
-		await get_tree().create_timer(1.0, false).timeout
+		
+		if current_score > old_high_score:
+			show_high_score_notification(current_score)
+			await get_tree().create_timer(3.5, false).timeout
+		else:
+			await get_tree().create_timer(1.0, false).timeout
+		
 		FadeTransition.fade_out_and_change_scene(get_tree().current_scene.scene_file_path, 0.0, 0.5)
 	
 	
