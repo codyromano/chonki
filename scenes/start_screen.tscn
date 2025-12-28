@@ -1,7 +1,7 @@
 [gd_scene load_steps=5 format=3 uid="uid://brk4ut33h3yen"]
 
 [ext_resource type="Script" uid="uid://dpl2ud1bahhxo" path="res://scenes/start_screen.gd" id="1_start_screen"]
-[ext_resource type="Texture2D" uid="uid://ulu45ygrmil" path="res://assets/cover.jpeg" id="2_he1sj"]
+[ext_resource type="Texture2D" uid="uid://cnmiv4urorkax" path="res://assets/cover2.jpeg" id="2_r2jwc"]
 [ext_resource type="Theme" uid="uid://dte5an7k6hog1" path="res://themes/base.tres" id="3_theme"]
 [ext_resource type="AudioStream" uid="uid://s5mdbb0h0ea4" path="res://assets/sound/fireplace.mp3" id="4_r2jwc"]
 
@@ -24,7 +24,7 @@ offset_top = -50.0
 offset_right = 219.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_he1sj")
+texture = ExtResource("2_r2jwc")
 stretch_mode = 5
 
 [node name="CenterContainer2" type="CenterContainer" parent="."]

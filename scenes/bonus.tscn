@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://dkkcuts87y084" path="res://assets/interactables/dog_bowl.png" id="4_hfuap"]
 [ext_resource type="PackedScene" uid="uid://6q16boewrg0o" path="res://scenes/composable/trampoline.tscn" id="5_k1xfh"]
 [ext_resource type="PackedScene" uid="uid://divvcbosmeqxn" path="res://scenes/SecretLetter.tscn" id="6_h0d21"]
-[ext_resource type="PackedScene" path="res://scenes/HeartsOnlyHUD.tscn" id="6_hearts_hud"]
+[ext_resource type="PackedScene" uid="uid://cqv7m8k4n5h2p" path="res://scenes/HeartsOnlyHUD.tscn" id="6_hearts_hud"]
 [ext_resource type="Script" uid="uid://ch2buyoohf8tx" path="res://scenes/jetpack.gd" id="7_c440y"]
 [ext_resource type="Theme" uid="uid://dte5an7k6hog1" path="res://themes/base.tres" id="7_ik1mb"]
 [ext_resource type="Texture2D" uid="uid://c2cq23vygq0pm" path="res://assets/corgi/jetpack.png" id="7_wjlw7"]
