@@ -10,8 +10,8 @@ extends Node2D
 @export var heart_texture: Texture2D
 @export var jump_multiplier: float = 1.0
 @export var midair_jumps: int = 0
-@export var speed_multiplier: float = 0.375
-@export var jetpack_thrust_speed: float = -800.0
+@export var speed_multiplier: float = 0.425
+@export var jetpack_thrust_speed: float = -1020.0
 
 # An item or character carried on Gus's back
 @export var carried_entity: Node2D
@@ -216,7 +216,7 @@ func on_player_hit(_damage_source: String) -> void:
 	hit_time = Time.get_unix_time_from_system()
 
 func _on_player_out_of_hearts() -> void:
-	sprite.play("ouch")
+	# sprite.play("ouch")
 	set_physics_process(false)
 	body.set_physics_process(false)
 	
@@ -404,6 +404,9 @@ func player_die():
 
 # TODO: String param should be an enum here
 func _on_player_jump(intensity: float, entity_applying_force: String):
+	if has_jetpack:
+		return
+		
 	# Allow objects such as trampolines to apply jump force to the player even
 	# when the player is not on the ground.
 	var can_jump = false

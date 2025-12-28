@@ -3,6 +3,21 @@ extends Label
 func _ready() -> void:
 	add_theme_font_override("font", ThemeDB.fallback_font)
 	update_high_score()
+	hide_high_score_hud()
+	GlobalSignals.collected_jetpack.connect(_on_jetpack_collected)
+
+func _on_jetpack_collected() -> void:
+	show_high_score_hud()
+
+func hide_high_score_hud() -> void:
+	var hud = get_tree().current_scene.get_node_or_null("HighScoreHUD")
+	if hud:
+		hud.visible = false
+
+func show_high_score_hud() -> void:
+	var hud = get_tree().current_scene.get_node_or_null("HighScoreHUD")
+	if hud:
+		hud.visible = true
 
 func _process(_delta: float) -> void:
 	update_high_score()

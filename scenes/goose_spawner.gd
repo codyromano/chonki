@@ -1,11 +1,11 @@
 extends Node2D
 
 @export var chonki: CharacterBody2D
-@export var spawn_interval: float = 1.0
-@export var goose_speed: float = 300.0
-@export var initial_geese_per_spawn: int = 3
-@export var geese_increase_amount: int = 3
-@export var geese_increase_every: float = 5.0
+@export var spawn_interval: float = 0.85
+@export var goose_speed: float = 460.0
+@export var initial_geese_per_spawn: int = 2
+@export var geese_increase_amount: int = 1
+@export var geese_increase_every: float = 10.0
 @export var left_boundary: float = 6851.0
 @export var right_boundary: float = 22525.0
 
@@ -51,9 +51,19 @@ func _spawn_geese() -> void:
 	var screen_width = viewport_size.x / zoom
 	var screen_height = viewport_size.y / zoom
 	
+	var goose_half_width = 465.0
+	
+	var viewport_left = camera_pos.x - (screen_width * 0.5)
+	var viewport_right = camera_pos.x + (screen_width * 0.5)
+	
+	var spawn_left = max(viewport_left, left_boundary + goose_half_width)
+	var spawn_right = min(viewport_right, right_boundary - goose_half_width)
+	
+	if spawn_right <= spawn_left:
+		return
+	
 	for i in range(current_geese_per_spawn):
-		var spawn_x = camera_pos.x + randf_range(-screen_width * 0.5, screen_width * 0.5)
-		spawn_x = clamp(spawn_x, left_boundary, right_boundary)
+		var spawn_x = randf_range(spawn_left, spawn_right)
 		var spawn_y = camera_pos.y - (screen_height * 0.6)
 		
 		var goose = goose_scene.instantiate()

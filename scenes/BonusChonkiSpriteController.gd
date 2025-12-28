@@ -114,15 +114,19 @@ func handle_sprite_flip() -> void:
 	elif Input.is_action_just_pressed("ui_right"):
 		flip_h = false
 
+func get_jetpack_sprite() -> String:
+	if has_jetpack:
+		return "jetpack"
+	return ""
+	
 func update_sprite() -> void:
-	if chonki_state == 3:
+	if !has_jetpack && chonki_state == 3:
 		play("idle")
 		frame = 0
 		return
 
 	var possible_next_sprites = [
-		get_win_sprite(),
-		get_player_injured_sprite(),
+		get_jetpack_sprite(),
 		get_jump_sprite(),
 		get_run_sprite(),
 		get_sleep_sprite(),

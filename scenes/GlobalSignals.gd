@@ -100,3 +100,5 @@ signal collected_jetpack
 signal midair_jump_consumed(remaining: int)
 @warning_ignore("unused_signal")
 signal midair_jumps_restored()
+@warning_ignore("unused_signal")
+signal camera_position_changed(camera_global_position: Vector2)

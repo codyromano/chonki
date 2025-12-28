@@ -24,6 +24,7 @@ func _ready():
 
 func _process(_delta) -> void:
 	initial_zoom = initial_zoom_setting
+	GlobalSignals.camera_position_changed.emit(global_position)
 	
 func _on_game_zoom_level(zoom_level: float, zoom_duration: float = 2.0):
 	make_current()
