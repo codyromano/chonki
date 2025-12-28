@@ -57,14 +57,13 @@ func _ready() -> void:
 	if debug_start_marker:
 		global_position = debug_start_marker.global_position
 		
-	#sprite.play("sleep")
 	GlobalSignals.connect("player_hit", on_player_hit)
 	GlobalSignals.connect("win_game", on_win_game)
 	GlobalSignals.connect("player_jump", _on_player_jump)
 	GlobalSignals.connect("backflip_triggered", _on_backflip_triggered)
-	# Always reset GameState at the start of the level
+	GlobalSignals.connect("player_out_of_hearts", _on_player_out_of_hearts)
+	
 	GameState.reset()
-	# Reset player hearts when scene loads/reloads
 	PlayerInventory.reset_hearts()
 	# Restore earned midair jumps from persistent inventory
 	midair_jumps = PlayerInventory.get_earned_midair_jumps()
@@ -78,16 +77,28 @@ func _ready() -> void:
 		GameState.total_stars = total_stars
 	# Set initial camera zoom
 	camera2d.zoom = initial_camera_zoom
-	# Create a fullscreen ColorRect for fade effect
+	# Create a fullscreen ColorRect for fade effect in a CanvasLayer
+	var canvas_layer = CanvasLayer.new()
+	canvas_layer.layer = 100
+	add_child(canvas_layer)
+	
 	fade_rect = ColorRect.new()
 	fade_rect.color = Color(0, 0, 0, 0)
-	fade_rect.size = get_viewport_rect().size
+	fade_rect.set_anchors_preset(Control.PRESET_FULL_RECT)
 	fade_rect.mouse_filter = Control.MOUSE_FILTER_IGNORE
 	fade_rect.z_index = 1000
-	add_child(fade_rect)
+	canvas_layer.add_child(fade_rect)
 	fade_rect.visible = false
 	
 	position_carried_entity_on_back()
+	
+	var root = get_tree().current_scene
+	var high_score_hud = root.get_node_or_null("HighScoreHUD")
+	if high_score_hud:
+		var control = high_score_hud.get_node_or_null("Control")
+		if control:
+			var tween = create_tween()
+			tween.tween_property(control, "modulate:a", 1.0, 0.5)
 
 func _on_chonki_frozen(frozen: bool) -> void:
 	is_frozen = frozen
@@ -200,23 +211,38 @@ func show_high_score_notification(score: int) -> void:
 	tween.tween_interval(2.5)
 	tween.tween_property(notification_control, "modulate:a", 0.0, 0.5)
 
-func on_player_hit(damage_source: String) -> void:
+func on_player_hit(_damage_source: String) -> void:
 	$ChonkiCharacter/AudioOuch.play()
 	hit_time = Time.get_unix_time_from_system()
+
+func _on_player_out_of_hearts() -> void:
+	sprite.play("ouch")
+	set_physics_process(false)
+	body.set_physics_process(false)
 	
-	if damage_source == "bonus_goose":
-		var current_score = int(abs(body.global_position.y))
-		var old_high_score = GameState.bonus_high_score
-		GameState.update_bonus_high_score(current_score)
-		
-		if current_score > old_high_score:
-			show_high_score_notification(current_score)
-			await get_tree().create_timer(3.5, false).timeout
-		else:
-			await get_tree().create_timer(1.0, false).timeout
-		
-		FadeTransition.fade_out_and_change_scene(get_tree().current_scene.scene_file_path, 0.0, 0.5)
+	var root = get_tree().current_scene
+	var score_hud = root.get_node_or_null("ScoreHUD")
+	var current_score = 0
+	var is_new_high_score = false
 	
+	if score_hud:
+		var score_value_label = score_hud.find_child("ScoreValue", true, false)
+		if score_value_label:
+			current_score = score_value_label.score
+			if current_score > GameState.bonus_high_score:
+				is_new_high_score = true
+				GameState.update_bonus_high_score(current_score)
+	
+	if is_new_high_score:
+		show_high_score_notification(current_score)
+		await get_tree().create_timer(4.0).timeout
+	
+	var tween = create_tween()
+	tween.tween_property(fade_rect, "color:a", 1.0, 2.0)
+	fade_rect.visible = true
+	await tween.finished
+	
+	get_tree().reload_current_scene()
 	
 func _physics_process(delta: float) -> void:
 	handle_movement(delta)
@@ -343,16 +369,6 @@ func handle_movement(delta: float) -> void:
 		if not is_chonki_sliding:
 			velocity.x = move_toward(velocity.x, 0, PhysicsConstants.DECELERATION_NON_SLIDING * speed_multiplier * delta)
 
-	var current_time = Time.get_unix_time_from_system()
-
-	if hit_time != null && current_time - hit_time <= PhysicsConstants.HIT_RECOVERY_TIME:
-		velocity.x = (2000 * speed_multiplier) if sprite.flip_h else (-2000 * speed_multiplier)
-		velocity.y = 1000
-		body.velocity = velocity
-		return
-	elif hit_time != null && current_time - hit_time >= PhysicsConstants.HIT_RECOVERY_TIME && original_collision_mask > 0:
-		pass
-
 	# Apply jetpack thrust if collected, otherwise apply gravity
 	if has_jetpack:
 		velocity.y = jetpack_thrust_speed
@@ -371,7 +387,7 @@ func handle_movement(delta: float) -> void:
 
 func player_die():
 	# Play sleep animation
-	sprite.play("sleep")
+	# sprite.play("sleep")
 	# Prevent player movement and input
 	set_process(false)
 	set_physics_process(false)
@@ -481,3 +497,9 @@ func _on_jetpack_body_entered(_jetpack_body: Node2D) -> void:
 
 func _on_collected_jetpack() -> void:
 	has_jetpack = true
+	var huds = get_tree().get_nodes_in_group("HUDControl")
+	for hud in huds:
+		var control = hud.get_node_or_null("Control")
+		if control:
+			var tween = create_tween()
+			tween.tween_property(control, "modulate:a", 1.0, 0.5)

@@ -1,7 +1,7 @@
 [gd_scene load_steps=153 format=3 uid="uid://bgshjng2ky6hg"]
 
 [ext_resource type="Script" uid="uid://ddxti58p7tpj6" path="res://scenes/bonus_chonki.gd" id="1_f1fj4"]
-[ext_resource type="Script" uid="uid://ghyqnuev2ipa" path="res://scenes/ChonkiBody.gd" id="2_0fwn6"]
+[ext_resource type="Script" uid="uid://cop0kqj5exksr" path="res://scenes/BonusChonkiBody.gd" id="2_0fwn6"]
 [ext_resource type="AudioStream" uid="uid://bjtjafg1tdccb" path="res://assets/sound/run.mp3" id="3_2x3ch"]
 [ext_resource type="AudioStream" uid="uid://c3pbjptmy75xk" path="res://assets/sound/ouch.mp3" id="4_ovsjw"]
 [ext_resource type="AudioStream" uid="uid://c5rsx4s5iv7nr" path="res://assets/sound/rest.mp3" id="5_1qleh"]
@@ -139,7 +139,7 @@
 [ext_resource type="Texture2D" uid="uid://coqro4vbhguju" path="res://assets/corgi/09_sleep/skeleton-0i_sleep_28.png" id="135_7ebbh"]
 [ext_resource type="Texture2D" uid="uid://p42daahm30w5" path="res://assets/corgi/09_sleep/skeleton-0i_sleep_29.png" id="136_ptmji"]
 [ext_resource type="Texture2D" uid="uid://btd5sk1aar6rx" path="res://assets/corgi/09_sleep/skeleton-0i_sleep_30.png" id="137_kl5p8"]
-[ext_resource type="Script" uid="uid://cpmrk8cy0fi0w" path="res://scenes/ChonkiSpriteController.gd" id="138_bmntv"]
+[ext_resource type="Script" uid="uid://cdognn3cqjpuh" path="res://scenes/BonusChonkiSpriteController.gd" id="138_bmntv"]
 [ext_resource type="Script" uid="uid://dhsaw4wf2lbak" path="res://scenes/Camera2D.gd" id="139_ffila"]
 [ext_resource type="AudioStream" uid="uid://3u0hk83prun5" path="res://assets/sound/chill-bark.mp3" id="140_vpvu3"]
 [ext_resource type="Texture2D" uid="uid://bytsxlqncfgi8" path="res://assets/environment/sky.png" id="141_l7t58"]
