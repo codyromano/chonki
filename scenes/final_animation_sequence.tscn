@@ -3,9 +3,9 @@
 [ext_resource type="Script" uid="uid://x8w1g2c80t4e" path="res://scripts/SlideshowController.gd" id="1_0pilm"]
 [ext_resource type="PackedScene" uid="uid://r7l3ce6ckn33" path="res://scenes/animation_image.tscn" id="2_animation_image"]
 [ext_resource type="Texture2D" uid="uid://ctggbs5t4ffym" path="res://assets/animations/final_scene/final_01.png" id="2_npc3b"]
-[ext_resource type="Texture2D" uid="uid://bo4ax4pu1uh6" path="res://scenes/final_02.png" id="3_lfhsi"]
 [ext_resource type="Texture2D" uid="uid://drsdofflhe63o" path="res://assets/animations/final_scene/final_03.png" id="4_kebro"]
 [ext_resource type="Texture2D" uid="uid://ccs31h25bum7a" path="res://assets/animations/final_scene/final_04.png" id="5_eguaf"]
+[ext_resource type="Texture2D" uid="uid://1hhgkmc35hxq" path="res://assets/animations/final_scene/final_final_02.png" id="5_npc3b"]
 [ext_resource type="Texture2D" uid="uid://55welxf4oxq2" path="res://assets/animations/final_scene/final_05.png" id="6_3gx8p"]
 [ext_resource type="Texture2D" uid="uid://crh2q4ftnw78v" path="res://assets/animations/final_scene/final_06.png" id="7_y1kg5"]
 [ext_resource type="AudioStream" uid="uid://oawbbgam1iw3" path="res://assets/sound/piano-trimmed.mp3" id="10_tmxdy"]
@@ -53,7 +53,7 @@ display_duration = 5.0
 
 [node name="AnimationImage2" parent="VBoxContainer/AnimationContainer" instance=ExtResource("2_animation_image")]
 layout_mode = 2
-texture = ExtResource("3_lfhsi")
+texture = ExtResource("5_npc3b")
 overlay_text = "It was a long walk, but the air without a mask felt refreshing"
 display_duration = 5.0
 

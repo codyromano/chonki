@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=3 uid="uid://0jybnryjbe51"]
+[gd_scene load_steps=66 format=3 uid="uid://0jybnryjbe51"]
 
 [ext_resource type="Texture2D" uid="uid://cue46gcr7x6qj" path="res://assets/environment/barn/barn_wall.jpg" id="1_553eq"]
 [ext_resource type="Script" uid="uid://c03hlmhkiab4v" path="res://scenes/intro.gd" id="1_gdkj6"]
@@ -41,6 +41,7 @@
 [ext_resource type="PackedScene" uid="uid://b8qtbhyvx0cfy" path="res://scenes/IntroHUD.tscn" id="31_i8bqy"]
 [ext_resource type="Theme" uid="uid://dte5an7k6hog1" path="res://themes/base.tres" id="36_7ukfb"]
 [ext_resource type="PackedScene" uid="uid://divvcbosmeqxn" path="res://scenes/SecretLetter.tscn" id="37_7ukfb"]
+[ext_resource type="Script" uid="uid://cu4vjqiwo65ic" path="res://scenes/arrow_key_move_label.gd" id="38_arrow"]
 
 [sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_ed647"]
 distance = -500.0
@@ -998,6 +999,18 @@ text = "Mystery letters discovered"
 
 [node name="SkipLevelDebug" type="Marker2D" parent="."]
 position = Vector2(34009, -16081)
+
+[node name="ArrowKeyMoveLabel" type="Label" parent="."]
+offset_left = -9412.0
+offset_top = -5034.0
+offset_right = -4171.0
+offset_bottom = -4411.0
+theme = ExtResource("36_7ukfb")
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 500
+text = "Use arrow keys to 
+move and jump"
+script = ExtResource("38_arrow")
 
 [connection signal="body_entered" from="Items/Trampoline2" to="Items/Trampoline2" method="_on_body_entered"]
 [connection signal="body_entered" from="Items/LittleFreeLibrary" to="Items/LittleFreeLibrary" method="_on_body_entered"]

@@ -1741,7 +1741,7 @@ scale = Vector2(1.13735, 1.05943)
 texture = ExtResource("55_x80p0")
 
 [node name="Sprite2D3" type="Sprite2D" parent="World2D/Platforms & Barriers/CloudMaze/CloudBarrierForQuestGiver"]
-z_index = 1
+z_index = 6
 position = Vector2(76.6297, -942.711)
 scale = Vector2(1.13735, 1.05943)
 texture = ExtResource("55_x80p0")
