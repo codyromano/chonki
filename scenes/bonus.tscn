@@ -90,7 +90,7 @@ flip_h = true
 
 [node name="BonusChonki" parent="Characters" instance=ExtResource("3_k1xfh")]
 z_index = 3
-position = Vector2(11976.6, 313.808)
+position = Vector2(13666, 313.808)
 scale = Vector2(1.6, 1.6)
 jump_multiplier = 1.5
 midair_jumps = 100
@@ -102,7 +102,7 @@ initial_camera_zoom = Vector2(0.08, 0.08)
 
 [node name="MagicTrampoline" parent="Items" instance=ExtResource("5_k1xfh")]
 z_index = 5
-position = Vector2(13243.3, 346.808)
+position = Vector2(14669, 346.808)
 scale = Vector2(0.23999, 0.23999)
 jump_intensity = 2.0
 trampoline_id = "magic_bowl"
@@ -110,7 +110,7 @@ custom_texture = ExtResource("4_hfuap")
 
 [node name="Jetpack" type="Area2D" parent="Items"]
 z_index = 3
-position = Vector2(14709, -3205)
+position = Vector2(16145, -3205)
 scale = Vector2(0.675334, 0.675334)
 script = ExtResource("7_c440y")
 float_intensity = 100.0
