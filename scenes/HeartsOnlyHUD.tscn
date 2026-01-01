@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://cqv7m8k4n5h2p"]
 
-[ext_resource type="Script" path="res://scenes/HeartsOnlyHUD.gd" id="1_hearts_script"]
+[ext_resource type="Script" uid="uid://bcfsatw6kk83s" path="res://scenes/HeartsOnlyHUD.gd" id="1_hearts_script"]
 [ext_resource type="Texture2D" uid="uid://qx1ubqqi74hv" path="res://assets/collectibles/menu-icons/heart.png" id="2_heart_icon"]
 
 [node name="HeartsOnlyHUD" type="CanvasLayer" groups=["HUDControl"]]

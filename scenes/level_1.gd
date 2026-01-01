@@ -143,10 +143,24 @@ func _show_debug_menu() -> void:
 	var hud = $HUD
 	print("[DEBUG] HUD found: ", hud != null)
 	if hud:
-		var menu = hud.find_child("DebugMenu", true, false)
-		print("[DEBUG] DebugMenu found: ", menu != null)
-		if menu and menu.has_method("show_menu"):
-			print("[DEBUG] Calling show_menu()")
-			menu.show_menu()
+		var existing_menu = hud.find_child("DebugMenu", true, false)
+		if existing_menu:
+			print("[DEBUG] Found existing menu")
+			if existing_menu.has_method("show_menu"):
+				print("[DEBUG] Calling show_menu()")
+				existing_menu.show_menu()
+			return
+		
+		print("[DEBUG] Instantiating DebugMenu.tscn")
+		var debug_menu = load("res://scenes/DebugMenu.tscn").instantiate()
+		var hud_control = hud.find_child("HUDControl", true, false)
+		if hud_control:
+			print("[DEBUG] Adding to HUDControl")
+			hud_control.add_child(debug_menu)
 		else:
-			print("[DEBUG] Menu not found or doesn't have show_menu method")
+			print("[DEBUG] Adding to HUD directly")
+			hud.add_child(debug_menu)
+		
+		if debug_menu.has_method("show_menu"):
+			print("[DEBUG] Calling show_menu() on new menu")
+			debug_menu.show_menu()

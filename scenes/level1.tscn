@@ -1991,7 +1991,6 @@ initial_camera_zoom = Vector2(0.22, 0.22)
 win_zoom_intensity = 0.1
 
 [node name="HUD" parent="." instance=ExtResource("20_g3dfk")]
-debug_mode = true
 
 [node name="TitleLayers" type="Node2D" parent="."]
 

@@ -108,11 +108,35 @@ func _check_debug_sequence(action: String) -> void:
 		input_sequence.clear()
 
 func _show_debug_menu() -> void:
+	print("[DEBUG] _show_debug_menu called")
 	var hud = $TitleLayers/HUD
+	print("[DEBUG] HUD found: ", hud != null)
 	if hud:
-		var menu = hud.find_child("DebugMenu", true, false)
-		if menu and menu.has_method("show_menu"):
-			menu.show_menu()
+		var existing_menu = hud.find_child("DebugMenu", true, false)
+		print("[DEBUG] Existing menu found: ", existing_menu != null)
+		if existing_menu and existing_menu.has_method("show_menu"):
+			print("[DEBUG] Calling show_menu on existing menu")
+			existing_menu.show_menu()
+			return
+		
+		print("[DEBUG] Instantiating DebugMenu.tscn")
+		var debug_menu = load("res://scenes/DebugMenu.tscn").instantiate()
+		print("[DEBUG] Debug menu instantiated: ", debug_menu != null)
+		var hud_control = hud.find_child("HUDControl", true, false)
+		print("[DEBUG] HUDControl found: ", hud_control != null)
+		if hud_control:
+			print("[DEBUG] Adding debug menu to HUDControl")
+			hud_control.add_child(debug_menu)
+		else:
+			print("[DEBUG] Adding debug menu to HUD directly")
+			hud.add_child(debug_menu)
+		
+		print("[DEBUG] Debug menu has show_menu: ", debug_menu.has_method("show_menu"))
+		if debug_menu.has_method("show_menu"):
+			print("[DEBUG] Calling show_menu on new menu")
+			debug_menu.show_menu()
+	else:
+		print("[DEBUG] HUD not found!")
 
 func _on_unload_scene(_scene_path: String) -> void:
 	pass

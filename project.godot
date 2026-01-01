@@ -12,9 +12,12 @@ config_version=5
 
 config/name="Chonki"
 config/description="A dog and his owner adjust to post-pandemic life"
+config/version="1.0.2"
 run/main_scene="uid://brk4ut33h3yen"
 config/features=PackedStringArray("4.4", "GL Compatibility")
+boot_splash/image="uid://dxmveegp8mi1b"
 config/icon="res://icon.svg"
+boot_splash/minimum_display_time=2000
 
 [autoload]
 
@@ -33,11 +36,8 @@ PlayerInventory="*res://scripts/PlayerInventory.gd"
 
 window/size/viewport_width=2560
 window/size/viewport_height=1440
-window/size/mode=0
-window/size/resizable=true
 window/stretch/mode="canvas_items"
 window/stretch/aspect="expand"
-window/stretch/scale=1.0
 
 [editor_plugins]
 
